@@ -22,6 +22,28 @@ export default {
         en: 'The reactivity mental model (proxies)'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Reaktywne proxy', en: 'Reactive proxy' },
+          def: { pl: 'Obiekt zwrócony przez <code>reactive()</code> - opakowanie <code>Proxy</code>, którego pułapki <em>get</em> i <em>set</em> uruchamiają śledzenie i powiadamianie. Nie jest tym samym obiektem co źródło: <code>reactive(obj) !== obj</code>.', en: 'The object returned by <code>reactive()</code> - a <code>Proxy</code> wrapper whose <em>get</em> and <em>set</em> traps drive tracking and notification. It is not the same object as the source: <code>reactive(obj) !== obj</code>.' }
+        },
+        {
+          term: { pl: 'track i trigger', en: 'track and trigger' },
+          def: { pl: 'Dwie połowy reaktywności: <code>track</code> zapisuje, że aktywny efekt przeczytał dany klucz, a <code>trigger</code> po zapisie unieważnia wszystkich subskrybentów tego klucza.', en: 'The two halves of reactivity: <code>track</code> records that the active effect read a key, and <code>trigger</code> invalidates every subscriber of that key after a write.' }
+        },
+        {
+          term: { pl: 'targetMap', en: 'targetMap' },
+          def: { pl: 'Globalna <code>WeakMap</code> obiekt → (klucz → zbiór zależności), czyli cały graf subskrypcji. <code>WeakMap</code> sprawia, że usunięty obiekt nie trzyma efektów przy życiu.', en: 'The global <code>WeakMap</code> of object → (key → dep set) that holds the whole subscription graph. Being a <code>WeakMap</code> means a dropped object does not keep effects alive.' }
+        },
+        {
+          term: { pl: 'effectScope', en: 'effectScope' },
+          def: { pl: 'Kontener właścicielski dla efektów: <code>scope.stop()</code> zatrzymuje wszystkie utworzone w nim <code>watch</code> i <code>computed</code>. Każdy komponent ma własny scope, a Pinia tworzy jeden na store.', en: 'An ownership container for effects: <code>scope.stop()</code> stops every <code>watch</code> and <code>computed</code> created inside it. Every component has one, and Pinia creates one per store.' }
+        },
+        {
+          term: { pl: 'markRaw / toRaw', en: 'markRaw / toRaw' },
+          def: { pl: 'Furtki wyjścia z reaktywności: <code>markRaw</code> trwale wyklucza obiekt z opakowywania w proxy, <code>toRaw</code> zwraca oryginał spod proxy. Potrzebne przy klasach z prywatnymi polami i wielkich payloadach.', en: 'The escape hatches: <code>markRaw</code> permanently opts an object out of proxying, <code>toRaw</code> returns the original behind a proxy. Needed for classes with private fields and for huge payloads.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="vm1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker>' +
@@ -328,6 +350,28 @@ export default {
         en: 'ref versus reactive'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'ref', en: 'ref' },
+          def: { pl: 'Pudełko z jedną zależnością, czytane i zapisywane przez <code>.value</code>. Można podmienić całą zawartość naraz, więc jest domyślnym wyborem dla prymitywów i dla wszystkiego, co zwraca composable.', en: 'A single-dep box read and written through <code>.value</code>. The whole content can be replaced at once, which makes it the default for primitives and for anything a composable returns.' }
+        },
+        {
+          term: { pl: 'reactive', en: 'reactive' },
+          def: { pl: 'Głęboki proxy obiektu z zależnością <strong>na klucz</strong>. Nie da się podmienić całego obiektu, a destrukturyzacja zrywa reaktywność - stąd <code>toRefs()</code>.', en: 'A deep object proxy with a dep <strong>per key</strong>. You cannot replace the whole object and destructuring breaks reactivity - hence <code>toRefs()</code>.' }
+        },
+        {
+          term: { pl: 'shallowRef', en: 'shallowRef' },
+          def: { pl: 'Ref, który śledzi wyłącznie podmianę <code>.value</code>, nie opakowując zawartości w proxy. Właściwy wybór dla dużych payloadów API i instancji bibliotek (wykresy, mapy, edytory).', en: 'A ref that tracks only <code>.value</code> replacement and never proxies the content. The right choice for large API payloads and library instances (charts, maps, editors).' }
+        },
+        {
+          term: { pl: 'toRefs', en: 'toRefs' },
+          def: { pl: 'Zamienia obiekt <code>reactive</code> na zwykły obiekt refów, dzięki czemu destrukturyzacja zachowuje reaktywność. Standard przy propsach i przy zwracaniu stanu z composable.', en: 'Converts a <code>reactive</code> object into a plain object of refs so destructuring keeps reactivity. Standard for props and for returning state from a composable.' }
+        },
+        {
+          term: { pl: 'toValue / MaybeRefOrGetter', en: 'toValue / MaybeRefOrGetter' },
+          def: { pl: 'Kontrakt wejściowy composable: przyjmij ref, getter albo zwykłą wartość, a w środku rozpakuj przez <code>toValue()</code>. Dzięki temu jedna funkcja obsługuje wszystkie trzy formy.', en: 'The standard composable input contract: accept a ref, a getter or a plain value and unwrap it with <code>toValue()</code>, so one function handles all three shapes.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="vm2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -515,6 +559,28 @@ export default {
         en: 'computed in depth'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'computed', en: 'computed' },
+          def: { pl: 'Leniwy, cache-owany ref wyliczany z innych zależności. Getter uruchamia się dopiero przy odczycie i tylko wtedy, gdy któreś ze źródeł faktycznie się zmieniło.', en: 'A lazy, cached ref derived from other dependencies. The getter runs on read and only when a source has actually changed.' }
+        },
+        {
+          term: { pl: 'Leniwa weryfikacja (dirty levels)', en: 'Lazy verification (dirty levels)' },
+          def: { pl: 'Od Vue 3.4 zamiast jednej flagi <code>_dirty</code> są poziomy: <em>na pewno brudny</em> i <em>może brudny</em>. Przed przeliczeniem Vue porównuje wersje źródeł i potrafi zostawić cache nietknięty.', en: 'Since Vue 3.4 a single <code>_dirty</code> flag was replaced by levels: <em>definitely dirty</em> and <em>maybe dirty</em>. Before recomputing, Vue compares source versions and may keep the cache.' }
+        },
+        {
+          term: { pl: 'Zapisywalny computed', en: 'Writable computed' },
+          def: { pl: '<code>computed({ get, set })</code> - adapter, który czyta z jednego źródła i zapisuje do innego. Klasyczne opakowanie propa pod <code>v-model</code>, dziś zwykle zastąpione przez <code>defineModel()</code>.', en: '<code>computed({ get, set })</code> - an adapter reading from one source and writing to another. The classic prop wrapper for <code>v-model</code>, today usually replaced by <code>defineModel()</code>.' }
+        },
+        {
+          term: { pl: 'Skrót przy tej samej wartości', en: 'Same-value short-circuit' },
+          def: { pl: 'Vue porównuje wynik przez <code>Object.is</code> i nie powiadamia dalej, gdy się nie zmienił. Getter zwracający za każdym razem nowy obiekt lub tablicę nigdy w to nie trafi.', en: 'Vue compares the result with <code>Object.is</code> and stops propagating when it did not change. A getter returning a fresh object or array every time can never hit it.' }
+        },
+        {
+          term: { pl: 'onTrack / onTrigger', en: 'onTrack / onTrigger' },
+          def: { pl: 'Haki debugujące (tylko w trybie dev) w drugim argumencie <code>computed</code> i <code>watch</code>: pokazują, która zależność została zebrana i co unieważniło wynik.', en: 'Dev-only debug hooks in the second argument of <code>computed</code> and <code>watch</code>: they show which dependency was collected and what invalidated the result.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="vm3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker>' +
@@ -890,6 +956,28 @@ export default {
         en: 'watch versus watchEffect'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'watch kontra watchEffect', en: 'watch versus watchEffect' },
+          def: { pl: '<code>watch</code> ma jawne źródło, dostaje starą i nową wartość i domyślnie jest leniwy. <code>watchEffect</code> zbiera zależności sam przy pierwszym uruchomieniu i startuje natychmiast.', en: '<code>watch</code> takes an explicit source, receives old and new values and is lazy by default. <code>watchEffect</code> collects its deps on the first run and fires immediately.' }
+        },
+        {
+          term: { pl: 'flush: pre / post / sync', en: 'flush: pre / post / sync' },
+          def: { pl: 'Moment wywołania callbacku względem renderu: <em>pre</em> przed renderem rodzica (domyślnie), <em>post</em> po załataniu DOM, <em>sync</em> natychmiast przy zapisie i bez batchowania.', en: 'When the callback runs relative to render: <em>pre</em> before the parent render (default), <em>post</em> after the DOM patch, <em>sync</em> immediately on write with no batching.' }
+        },
+        {
+          term: { pl: 'deep', en: 'deep' },
+          def: { pl: 'Opcja wymuszająca przejście całej struktury przy każdym triggerze. <code>watch(obj, cb)</code> na obiekcie <code>reactive</code> jest głęboki niejawnie, a <code>watch(() =&gt; obj, cb)</code> wcale.', en: 'The option that traverses the whole structure on every trigger. <code>watch(obj, cb)</code> on a <code>reactive</code> object is implicitly deep, while <code>watch(() =&gt; obj, cb)</code> is not.' }
+        },
+        {
+          term: { pl: 'onWatcherCleanup', en: 'onWatcherCleanup' },
+          def: { pl: 'Rejestruje sprzątanie uruchamiane przed kolejnym wywołaniem callbacku i przy zatrzymaniu watchera. Miejsce na <code>clearTimeout</code> i <code>AbortController.abort()</code>, czyli na zabicie wyścigu żądań.', en: 'Registers cleanup that runs before the next callback and when the watcher stops. The place for <code>clearTimeout</code> and <code>AbortController.abort()</code> - how you kill request races.' }
+        },
+        {
+          term: { pl: 'Uchwyt stop', en: 'Stop handle' },
+          def: { pl: 'Wartość zwracana przez <code>watch</code>: wywołanie jej zatrzymuje watchera. Konieczna dla watcherów tworzonych po <code>await</code> lub w callbacku, bo te nie należą do scope komponentu.', en: 'The value returned by <code>watch</code>: calling it stops the watcher. Required for watchers created after an <code>await</code> or inside a callback, since those do not belong to the component scope.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="vm4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -1067,6 +1155,28 @@ export default {
         en: 'Templates and directives, decoded'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Patch flags i block tree', en: 'Patch flags and block tree' },
+          def: { pl: 'Kompilator oznacza każdy węzeł tym, co w nim jest dynamiczne, i spina te węzły w płaską listę bloku. Runtime pomija statyczne poddrzewa zamiast robić pełny diff.', en: 'The compiler marks each node with what is dynamic in it and collects those nodes into a flat block list, so the runtime skips static subtrees instead of doing a full diff.' }
+        },
+        {
+          term: { pl: 'FULL_PROPS', en: 'FULL_PROPS' },
+          def: { pl: 'Flaga nadawana m.in. przy <code>v-bind="attrs"</code> bez jawnych kluczy - runtime musi porównać cały obiekt propsów. W komponentach-wrapperach bywa konieczna, ale powinna być świadomą decyzją.', en: 'The flag applied to things like <code>v-bind="attrs"</code> without explicit keys - the runtime must diff the whole props object. Sometimes unavoidable in wrappers, but it should be a deliberate decision.' }
+        },
+        {
+          term: { pl: 'v-memo', en: 'v-memo' },
+          def: { pl: 'Pomija łatanie całego poddrzewa, dopóki tablica zależności się nie zmieni. Opłaca się dopiero na dużych listach; gdzie indziej to koszt i łatwe źródło nieodświeżonego UI.', en: 'Skips patching an entire subtree while its dependency array is unchanged. It only pays off on big lists; elsewhere it is pure cost and an easy source of stale UI.' }
+        },
+        {
+          term: { pl: 'Modyfikatory zdarzeń', en: 'Event modifiers' },
+          def: { pl: '<code>.stop</code>, <code>.prevent</code>, <code>.self</code>, <code>.capture</code>, <code>.passive</code> kompilują się do opakowań lub opcji listenera - <code>.passive</code> naprawdę trafia do <code>addEventListener</code>.', en: '<code>.stop</code>, <code>.prevent</code>, <code>.self</code>, <code>.capture</code> and <code>.passive</code> compile to wrappers or listener options - <code>.passive</code> genuinely reaches <code>addEventListener</code>.' }
+        },
+        {
+          term: { pl: 'Scalanie class i style', en: 'class and style merging' },
+          def: { pl: 'Obiekty i tablice z rodzica i z komponentu są łączone, ale przy konflikcie wygrywa wpis późniejszy. Numer jeden wśród przyczyn <em>moja klasa się nie nakłada</em> przy nadpisywaniu motywu.', en: 'Objects and arrays from the parent and the component are merged, but on conflict the later entry wins. The number one cause of <em>my class does not apply</em> when overriding a theme.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="vm5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -1256,6 +1366,28 @@ export default {
         en: 'SFC and script setup under the hood'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'script setup', en: 'script setup' },
+          def: { pl: 'Tryb kompilacji SFC, w którym całe <code>&lt;script&gt;</code> staje się ciałem <code>setup()</code>, a szablon kompiluje się do inline render function w tym samym zakresie - bez proxy <code>this</code>.', en: 'The SFC compilation mode where the whole <code>&lt;script&gt;</code> becomes the <code>setup()</code> body and the template compiles to an inline render function in the same scope - no <code>this</code> proxy.' }
+        },
+        {
+          term: { pl: 'Deklaracja propsów przez typ', en: 'Type-based props declaration' },
+          def: { pl: '<code>defineProps&lt;{ ... }&gt;()</code> - kompilator generuje opcje runtime z tego, co potrafi rozwiązać statycznie. Złożone typy degradują się do <code>null</code>, więc walidacja runtime jest słabsza niż sugeruje TypeScript.', en: '<code>defineProps&lt;{ ... }&gt;()</code> - the compiler generates runtime options from what it can statically resolve. Complex types degrade to <code>null</code>, so runtime validation is weaker than TypeScript suggests.' }
+        },
+        {
+          term: { pl: 'defineExpose', en: 'defineExpose' },
+          def: { pl: 'Instancja <code>&lt;script setup&gt;</code> jest domyślnie zamknięta, więc <code>ref</code> rodzica nic nie widzi. <code>defineExpose</code> to jawne publiczne API komponentu dla template refs i testów.', en: 'A <code>&lt;script setup&gt;</code> instance is closed by default, so a parent template ref sees nothing. <code>defineExpose</code> is the component explicit public API for template refs and tests.' }
+        },
+        {
+          term: { pl: 'Nazwa komponentu', en: 'Component name' },
+          def: { pl: 'Wnioskowana z nazwy pliku; wpływa na rekurencję, DevTools i <code>KeepAlive</code> z <code>include</code>. W plikach generowanych ustaw ją jawnie przez <code>defineOptions({ name })</code>.', en: 'Inferred from the filename; it affects recursion, DevTools and <code>KeepAlive</code> with <code>include</code>. In generated files set it explicitly via <code>defineOptions({ name })</code>.' }
+        },
+        {
+          term: { pl: 'Top-level await', en: 'Top-level await' },
+          def: { pl: '<code>await</code> na najwyższym poziomie <code>&lt;script setup&gt;</code> zamienia komponent w asynchroniczny i wymaga granicy <code>&lt;Suspense&gt;</code> wyżej w drzewie.', en: 'An <code>await</code> at the top level of <code>&lt;script setup&gt;</code> turns the component async and requires a <code>&lt;Suspense&gt;</code> boundary above it.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="vm6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +

@@ -23,6 +23,43 @@ export default {
         en: 'State taxonomy: server, client, URL, form'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Stan serwerowy', en: 'Server state' },
+          def: {
+            pl: 'Dane, których właścicielem jest backend, a przeglądarka trzyma tylko ich kopię. To cache, nie stan: potrzebuje świeżości i unieważniania, a nie reducerów.',
+            en: 'Data owned by the backend, of which the browser only holds a copy. It is a cache, not state: it needs freshness and invalidation, not reducers.'
+          }
+        },
+        {
+          term: { pl: 'Stan klienta', en: 'Client state' },
+          def: {
+            pl: 'Stan istniejący wyłącznie w przeglądarce: otwarty modal, wybrana zakładka, tryb ciemny. Zwykle mały i lokalny - globalny store rzadko jest tu do czegokolwiek potrzebny.',
+            en: 'State that exists only in the browser: an open modal, the selected tab, dark mode. Usually small and local - a global store is rarely needed for any of it.'
+          }
+        },
+        {
+          term: { pl: 'Stan w URL', en: 'URL state' },
+          def: {
+            pl: 'Filtry, sortowanie, paginacja i identyfikator wybranego elementu trzymane w adresie. Dzięki temu widok da się wysłać koledze, odświeżyć i cofnąć przyciskiem wstecz.',
+            en: 'Filters, sorting, pagination and the selected id kept in the address. That makes a view shareable, refreshable and undoable with the back button.'
+          }
+        },
+        {
+          term: { pl: 'Stan formularza', en: 'Form state' },
+          def: {
+            pl: 'Wartości pól, znaczniki dotknięcia i błędy walidacji w trakcie edycji. Ma własny cykl życia i nie należy ani do globalnego store, ani do cache serwerowego.',
+            en: 'Field values, touched flags and validation errors while editing. It has its own lifecycle and belongs neither in the global store nor in the server cache.'
+          }
+        },
+        {
+          term: { pl: 'Presentational i connected', en: 'Presentational and connected' },
+          def: {
+            pl: 'Komponent presentational dostaje wszystko przez propsy i może trafić do design systemu; connected sam pobiera dane i zostaje w aplikacji. Mieszanie ich zabija reużywalność.',
+            en: 'A presentational component receives everything through props and can live in the design system; a connected one fetches its own data and stays in the app. Mixing them kills reuse.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="320" y="28" text-anchor="middle" font-size="16" fill="var(--text)">Four kinds of state, four owners</text>' +
@@ -220,6 +257,43 @@ export default {
         en: 'The data-fetching layer'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Query key', en: 'Query key' },
+          def: {
+            pl: 'Ustrukturyzowany klucz identyfikujący wpis w cache, budowany fabryką kluczy. Hierarchia w rodzaju <code>["invoices","list",id]</code> pozwala unieważnić całą domenę jedną linią.',
+            en: 'A structured key identifying a cache entry, built by a key factory. A hierarchy such as <code>["invoices","list",id]</code> lets you invalidate a whole domain in one line.'
+          }
+        },
+        {
+          term: { pl: 'staleTime i gcTime', en: 'staleTime and gcTime' },
+          def: {
+            pl: '<code>staleTime</code> mówi, jak długo dane uchodzą za świeże i nie są pobierane ponownie; <code>gcTime</code> mówi, jak długo nieużywany wpis zostaje w pamięci. To dwie różne osie.',
+            en: '<code>staleTime</code> says how long data counts as fresh and is not refetched; <code>gcTime</code> says how long an unused entry stays in memory. Two different axes.'
+          }
+        },
+        {
+          term: { pl: 'Unieważnienie cache', en: 'Cache invalidation' },
+          def: {
+            pl: 'Oznaczenie wpisów cache jako nieaktualnych po mutacji, żeby zostały pobrane ponownie. Reguła: mutacja nie aktualizuje ekranów ręcznie, tylko unieważnia klucze.',
+            en: 'Marking cache entries out of date after a mutation so they refetch. The rule: a mutation does not hand-update screens, it invalidates keys.'
+          }
+        },
+        {
+          term: { pl: 'Hook domenowy', en: 'Domain hook' },
+          def: {
+            pl: 'Jedyny sposób, w jaki aplikacja sięga po dane: <code>useInvoices()</code> zamiast gołego <code>fetch</code> w komponencie. Ukrywa klucze, retry, timeouty i normalizację błędów.',
+            en: 'The single way the app reaches data: <code>useInvoices()</code> instead of a raw <code>fetch</code> inside a component. It hides keys, retries, timeouts and error normalisation.'
+          }
+        },
+        {
+          term: { pl: 'Normalizacja błędów', en: 'Error normalisation' },
+          def: {
+            pl: 'Zamiana błędów transportu na jeden własny kształt: kod, komunikat dla użytkownika i informacja, czy da się ponowić. Dzięki temu UI nie musi znać <code>AxiosError</code>.',
+            en: 'Mapping transport errors into one shape of your own: a code, a user-facing message and whether it is retryable. The UI then never has to know about <code>AxiosError</code>.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="fa3b1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker>' +
@@ -546,6 +620,43 @@ export default {
         en: 'Realtime and optimistic UI'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Optymistyczna aktualizacja', en: 'Optimistic update' },
+          def: {
+            pl: 'Pokazanie wyniku operacji, zanim serwer odpowie. Opłaca się tylko tam, gdzie porażka jest rzadka i tania w cofnięciu - nigdy przy płatnościach.',
+            en: 'Showing the result of an operation before the server answers. Worth it only where failure is rare and cheap to undo - never for payments.'
+          }
+        },
+        {
+          term: { pl: 'Snapshot i rollback', en: 'Snapshot and rollback' },
+          def: {
+            pl: 'Obowiązkowy szkielet optymistycznej mutacji: zatrzymaj trwające zapytania, zrób kopię cache, podmień dane, przy błędzie przywróć kopię, a na końcu unieważnij klucz.',
+            en: 'The mandatory skeleton of an optimistic mutation: cancel in-flight queries, snapshot the cache, apply the guess, restore the snapshot on error, and invalidate the key at the end.'
+          }
+        },
+        {
+          term: { pl: 'Rewizja encji', en: 'Entity revision' },
+          def: {
+            pl: 'Numer wersji (<code>rev</code>) niesiony przez zdarzenia i zapisy. Bez niego nie odróżnisz spóźnionego zdarzenia od nowego i nadpiszesz świeże dane starymi.',
+            en: 'A version number (<code>rev</code>) carried by events and writes. Without it you cannot tell a late event from a new one, and you overwrite fresh data with stale data.'
+          }
+        },
+        {
+          term: { pl: 'SSE i Last-Event-ID', en: 'SSE and Last-Event-ID' },
+          def: {
+            pl: 'Server-Sent Events to jednokierunkowy strumień po HTTP, z automatycznym reconnectem; nagłówek <code>Last-Event-ID</code> pozwala odebrać zaległe zdarzenia zamiast zgubić je po cichu.',
+            en: 'Server-Sent Events is a one-way stream over HTTP with automatic reconnect; the <code>Last-Event-ID</code> header lets you pick up missed events instead of losing them silently.'
+          }
+        },
+        {
+          term: { pl: 'Last write wins', en: 'Last write wins' },
+          def: {
+            pl: 'Najprostsza polityka konfliktu: wygrywa zapis, który dotarł ostatni. Akceptowalna dla statusów, katastrofalna dla pól edytowanych równolegle przez kilka osób.',
+            en: 'The simplest conflict policy: the write that arrives last wins. Acceptable for statuses, disastrous for fields several people edit at once.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="fa3c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker>' +
@@ -836,6 +947,43 @@ export default {
         en: 'Offline-first and PWA'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Outbox', en: 'Outbox' },
+          def: {
+            pl: 'Trwała kolejka operacji zapisanych lokalnie i wysyłanych, gdy wróci sieć. Kolejkujesz intencję ("zamknij zgłoszenie"), a nie gotowe żądanie HTTP.',
+            en: 'A durable queue of operations stored locally and sent when the network returns. You queue the intent (close this ticket), not a prebuilt HTTP request.'
+          }
+        },
+        {
+          term: { pl: 'Klucz idempotencji', en: 'Idempotency key' },
+          def: {
+            pl: 'Identyfikator nadany operacji raz, przy jej utworzeniu, i wysyłany w nagłówku <code>Idempotency-Key</code> przy każdej próbie. Pięć ponowień daje jeden skutek na serwerze.',
+            en: 'An id assigned to an operation once, at creation, and sent in the <code>Idempotency-Key</code> header on every attempt. Five retries produce one effect on the server.'
+          }
+        },
+        {
+          term: { pl: 'Odrzucenie z rewizją', en: 'Reject with a revision' },
+          def: {
+            pl: 'Polityka konfliktu, w której serwer odrzuca zapis oparty na starej rewizji i oddaje aktualną wersję, a klient pokazuje użytkownikowi różnicę zamiast po cichu nadpisywać.',
+            en: 'A conflict policy where the server rejects a write based on an old revision and returns the current one, so the client shows the user a diff instead of silently overwriting.'
+          }
+        },
+        {
+          term: { pl: 'CRDT', en: 'CRDT' },
+          def: {
+            pl: 'Struktura danych zbieżna bez centralnego rozjemcy (Yjs, Automerge). Rozwiązuje edycję współbieżną, ale kosztuje rozmiarem bundle i przebudową modelu danych.',
+            en: 'A data structure that converges with no central referee (Yjs, Automerge). It solves concurrent editing but costs bundle size and a rework of the data model.'
+          }
+        },
+        {
+          term: { pl: 'Powłoka aplikacji', en: 'App shell' },
+          def: {
+            pl: 'Minimalny HTML, CSS i JS precache-owany przez service workera, żeby aplikacja wystartowała bez sieci. Dane dochodzą osobno, z lokalnej bazy albo z cache.',
+            en: 'The minimal HTML, CSS and JS precached by the service worker so the app boots with no network. Data arrives separately, from a local database or the cache.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 430" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="fa3d1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -1023,6 +1171,43 @@ export default {
         en: 'API contracts and the BFF'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'BFF (backend for frontend)', en: 'BFF (backend for frontend)' },
+          def: {
+            pl: 'Cienka warstwa serwerowa dopasowująca dane do jednego klienta lub ekranu: agreguje, przycina i nazywa pola po ludzku. Nie jest miejscem na logikę biznesową.',
+            en: 'A thin server layer shaping data for one client or one screen: it aggregates, trims and renames fields to something human. It is not a place for business logic.'
+          }
+        },
+        {
+          term: { pl: 'Kontrakt API', en: 'API contract' },
+          def: {
+            pl: 'Specyfikacja (OpenAPI, GraphQL SDL, Protobuf) traktowana jako artefakt weryfikowalny maszynowo, a nie opis na Confluence. Kontraktem jest plik w repozytorium, nie rozmowa.',
+            en: 'A specification (OpenAPI, GraphQL SDL, Protobuf) treated as a machine-verifiable artifact, not a Confluence page. The contract is a file in the repo, not a conversation.'
+          }
+        },
+        {
+          term: { pl: 'Generowanie typów z kontraktu', en: 'Contract-driven type generation' },
+          def: {
+            pl: 'Typy TypeScriptu tworzone ze specyfikacji w CI (<code>openapi-typescript</code>). Różnica w wygenerowanych plikach oznacza zmianę kontraktu i wywala build, zanim trafi ona na produkcję.',
+            en: 'TypeScript types produced from the spec in CI (<code>openapi-typescript</code>). A diff in the generated files means the contract moved, and it fails the build before it reaches production.'
+          }
+        },
+        {
+          term: { pl: 'Test kontraktowy sterowany konsumentem', en: 'Consumer-driven contract test' },
+          def: {
+            pl: 'Konsument publikuje swoje oczekiwania (Pact), a dostawca weryfikuje je w swoim CI. Złamanie kontraktu psuje build dostawcy, a nie twój ekran w piątek wieczorem.',
+            en: 'The consumer publishes its expectations (Pact) and the provider verifies them in its own CI. Breaking the contract fails the provider build, not your screen on a Friday evening.'
+          }
+        },
+        {
+          term: { pl: 'Nagłówek Sunset', en: 'Sunset header' },
+          def: {
+            pl: 'Nagłówek HTTP ogłaszający datę wyłączenia endpointu. Razem z zadeklarowanym oknem deprecjacji zamienia wygaszanie wersji API w plan zamiast w incydent.',
+            en: 'An HTTP header announcing the date an endpoint goes away. With a declared deprecation window it turns an API version shutdown into a plan rather than an incident.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="fa3e1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker>' +

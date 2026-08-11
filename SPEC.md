@@ -618,6 +618,82 @@ Entry points and scope selection stay as in v5 (home card, module-page button,
 - Empty states: nothing completed -> point to courses; everything reviewed and
   no due cards -> "Wszystko powtórzone na dziś" + offer endless mode anyway.
 
+## v6 - Learning-effectiveness pack
+
+Six features. Storage additions inside `learnai:v1` (migration-safe, validated
+in stateFromRaw like existing keys): `notes: { '<t>/<m>/<l>': { text: string (cap 5000), at: ISO } }`.
+
+### 1. Flashcards (fiszki) wired into SRS
+
+- CONTENT: every lesson in all 26 module files gets a new field
+  `terms: [ { term: {pl,en}, def: {pl,en} } ]` - 3-5 key terms per lesson.
+  `term` is short (1-4 words); `def` is 1-2 sentences, may use inline
+  `<code>/<em>/<strong>`. Terms = what a learner should be able to define cold
+  (e.g. "reranking", "TTFT", "hydration"). Bilingual, Polish natural.
+- APP: a term card = SRS card with key `<t>/<m>/<l>/term/<i>` (srs validation
+  must accept both question and term keys). Term cards of COMPLETED lessons
+  enter the same scheduling as question cards. Review sessions interleave both
+  kinds. Term card UX (Anki classic): front = the term + "?" prompt ->
+  "Pokaż odpowiedź" -> definition -> self-grade buttons "Umiałem" (correct) /
+  "Nie umiałem" (wrong, requeues like a failed question card).
+
+### 2. Pre-question (Zgadnij, zanim przeczytasz)
+
+- Lesson view, only when the lesson is NOT completed: a collapsed card at the
+  top (under the breadcrumb, above tabs): "Zgadnij, zanim przeczytasz" - one
+  quiz question of this lesson (pick deterministically: index = day-of-year %
+  quiz.length so it is stable within a day). Answering gives instant feedback +
+  explanation + "Teraz przeczytaj i sprawdź się" note. Does NOT touch SRS,
+  quiz score or activity. Collapsible via <details> or equivalent; collapsed
+  state is default-open on first visit of a lesson, remember nothing.
+
+### 3. Weak areas + activity heatmap - route `#/stats` + home chip
+
+- Per-module weakness score from srs cards of that module (only modules with
+  >= 3 scheduled cards): weighted avg box (lower = weaker) + lapse ratio.
+  `#/stats` shows: top-3 weakest modules with bars + per-module card counts,
+  a button per row "Powtórz ten moduł" -> endless review scoped there; below,
+  a GitHub-style heatmap of the last 16 weeks of `activity` (CSS grid, 5
+  intensity buckets, weekday rows, month labels, today outlined).
+- Home: compact chip under the streak card when a weakest module exists:
+  "Najsłabszy obszar: <module> -> Powtórz" linking to that scoped review.
+  Header: no new icons; stats reachable from a small link on the streak card
+  ("Statystyki ->").
+
+### 4. Feynman - explain in your own words
+
+- Lesson view, between content and quiz: card "Wyjaśnij własnymi słowami" -
+  textarea (autosaves to `notes` on input, debounced), placeholder telling the
+  user to explain it like to a colleague (voice typing on mobile works via the
+  keyboard). Button "Porównaj z wersją prostą" reveals the eli5 content of the
+  current language inline for self-comparison + note "Czego zabrakło?".
+  Saved note persists and pre-fills on revisit; small "saved" indicator.
+
+### 5. Micro-session (Mam 5 minut)
+
+- Home, near the continue card: button "⚡ Mam 5 minut". Logic (route
+  `#/quick`): if due SRS cards >= 3 -> review round of FIVE cards (same
+  session UI, round size 5, counts toward reviewDay/activity when finished);
+  else -> navigate straight to the shortest unfinished lesson (by minutes,
+  ties: first in curriculum order).
+
+### 6. Ask Claude deep link
+
+- Lesson view footer (under quiz, above prev/next): link
+  "💬 Zapytaj Claude o tę lekcję" -> https://claude.ai/new?q=<encoded>
+  where the prompt (in the current UI language) is roughly: "Uczę się tematu
+  '<lesson title>' (kurs <track title>, moduł <module title>). Wyjaśnij mi to
+  inaczej niż standardowo, sprawdź moje zrozumienie 2-3 pytaniami i podaj
+  jeden praktyczny przykład z frontendu." `target="_blank" rel="noopener"`.
+  Pure link - no API, no key.
+
+### Wiring
+
+- No new content files (terms live inside existing module files), so sw.js
+  precache does not change; do not touch it.
+- i18n for every new string in both languages; README gets a short
+  "Learning effectiveness" note in both languages.
+
 ## Definition of done
 
 - Every JS file passes `node --check`.

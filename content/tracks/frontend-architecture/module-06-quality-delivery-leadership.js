@@ -13,6 +13,43 @@ export default {
       id: 'testing-strategy',
       title: { pl: 'Strategia testow', en: 'Test strategy' },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Test trophy', en: 'Test trophy' },
+          def: {
+            pl: 'Nastepca piramidy testow: najwiecej wartosci daja testy komponentow renderujace prawdziwy DOM, obok cienkiej warstwy testow jednostkowych i garstki E2E.',
+            en: 'The successor to the test pyramid: component tests rendering a real DOM carry most of the value, next to a thin unit layer and a handful of E2E tests.'
+          }
+        },
+        {
+          term: { pl: 'Test zachowania, nie struktury', en: 'Behaviour over structure' },
+          def: {
+            pl: 'Test sprawdza kontrakt widoczny dla uzytkownika (<em>Escape zamyka modal</em>), a nie szczegol implementacji (<code>klasa chi-modal__header</code>). Tylko pierwszy przezyje refaktor.',
+            en: 'A test asserts the user-visible contract (<em>Escape closes the modal</em>), not an implementation detail (<code>a chi-modal__header class</code>). Only the first one survives a refactor.'
+          }
+        },
+        {
+          term: { pl: 'Visual regression', en: 'Visual regression' },
+          def: {
+            pl: 'Porownanie zrzutow ekranu kazdej historii ze Storybooka miedzy wersjami. W design systemie priorytet: padding zmieniony o 4 piksele rozjezdza layout u czterdziestu konsumentow przy zielonych testach.',
+            en: 'Screenshot diffing of every Storybook story between versions. A priority in a design system: a 4 pixel padding change breaks layout for forty consumers while every test stays green.'
+          }
+        },
+        {
+          term: { pl: 'Test flaky i kwarantanna', en: 'Flaky test and quarantine' },
+          def: {
+            pl: 'Test, ktory raz przechodzi, raz nie, bez zmiany kodu. Przy 3 procentach flaky i 600 testach szansa na zielony przebieg spada niemal do zera - dlatego taki test idzie do kwarantanny z wlascicielem i terminem.',
+            en: 'A test that passes or fails without any code change. At 3 percent flaky over 600 tests the odds of a green run drop to almost zero, so it goes to quarantine with an owner and a deadline.'
+          }
+        },
+        {
+          term: { pl: 'Escape rate', en: 'Escape rate' },
+          def: {
+            pl: 'Odsetek bledow znalezionych na produkcji, ktore istniejaca warstwa testow miala szanse zlapac. Znacznie uczciwszy wskaznik jakosci niz pokrycie kodu powyzej 80 procent.',
+            en: 'The share of production bugs that the existing test layer had a chance to catch. A far more honest quality signal than pushing code coverage past 80 percent.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit"><text x="20" y="26" font-size="14" fill="var(--muted)">fewer, slower, more confidence per test</text><rect x="200" y="40" width="240" height="52" rx="10" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/><text x="320" y="63" font-size="14" fill="var(--text)" text-anchor="middle">E2E - Playwright</text><text x="320" y="82" font-size="13" fill="var(--muted)" text-anchor="middle">40 flows, 12 min, flaky</text><rect x="140" y="104" width="360" height="52" rx="10" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/><text x="320" y="127" font-size="14" fill="var(--text)" text-anchor="middle">Component + integration</text><text x="320" y="146" font-size="13" fill="var(--muted)" text-anchor="middle">600 tests, 4 min, Testing Library</text><rect x="90" y="168" width="460" height="52" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="320" y="191" font-size="14" fill="var(--text)" text-anchor="middle">Unit + contract</text><text x="320" y="210" font-size="13" fill="var(--muted)" text-anchor="middle">3000 tests, 40 s, pure logic and tokens</text><rect x="40" y="232" width="560" height="52" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/><text x="320" y="255" font-size="14" fill="var(--text)" text-anchor="middle">Static: TypeScript, ESLint, a11y lint</text><text x="320" y="274" font-size="13" fill="var(--muted)" text-anchor="middle">instant, runs while you type</text><text x="20" y="316" font-size="13" fill="var(--muted)">A design system adds a fifth lane next to this stack:</text><rect x="20" y="330" width="600" height="48" rx="10" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/><text x="320" y="360" font-size="14" fill="var(--accent2)" text-anchor="middle">Visual regression on every story - the contract with 40 consumer apps</text></svg>',
         caption: {
@@ -110,6 +147,43 @@ export default {
       id: 'frontend-ci-cd',
       title: { pl: 'CI/CD dla frontendu', en: 'Frontend CI/CD' },
       minutes: 13,
+      terms: [
+        {
+          term: { pl: 'Changeset', en: 'Changeset' },
+          def: {
+            pl: 'Maly plik dolaczany do PR-a, ktory deklaruje, czy zmiana jest patch, minor czy major, i skad bierze sie changelog. Wersjonowanie wynika z intencji autora, a nie z odgadywania przy release.',
+            en: 'A small file added to a PR declaring whether the change is patch, minor or major, and feeding the changelog. Versioning comes from author intent instead of guesswork at release time.'
+          }
+        },
+        {
+          term: { pl: 'Canary', en: 'Canary' },
+          def: {
+            pl: 'Nowa wersja trafia najpierw do kilku procent ruchu i przez pol godziny porownujesz metryki bledow z baseline. Ograniczasz zasieg awarii, zanim zobaczy ja caly ruch.',
+            en: 'A new version goes to a few percent of traffic first and you compare error metrics against the baseline for half an hour. It caps the blast radius before all traffic sees the failure.'
+          }
+        },
+        {
+          term: { pl: 'Rollback jako podmiana wskaznika', en: 'Rollback as a pointer swap' },
+          def: {
+            pl: 'Stary build zostaje na CDN, wiec cofniecie to zmiana adresu, a nie nowy build. Dlatego rollback trwa sekundy, a normalny deploy minuty - i dlatego MTTR mozna miec ponizej pieciu minut.',
+            en: 'The previous build stays on the CDN, so reverting is an address change, not a rebuild. That is why rollback takes seconds while a deploy takes minutes, and why MTTR under five minutes is realistic.'
+          }
+        },
+        {
+          term: { pl: 'Required check (bramka blokujaca)', en: 'Required check' },
+          def: {
+            pl: 'Kontrola oznaczona w ustawieniach brancha jako wymagana. Bramka, ktora nie blokuje mergea, nie jest bramka tylko powiadomieniem - ostrzezenia sa ignorowane po dwoch tygodniach.',
+            en: 'A check marked as required in the branch settings. A gate that cannot block a merge is not a gate but a notification, and warnings get ignored within two weeks.'
+          }
+        },
+        {
+          term: { pl: 'Metryki DORA', en: 'DORA metrics' },
+          def: {
+            pl: 'Cztery liczby przetlumaczone na frontend: czestotliwosc wydan, lead time od mergea do produkcji, change failure rate i MTTR. To jezyk, w ktorym dyrektor rozumie prosbe o etat na platforme.',
+            en: 'Four numbers translated to frontend: deployment frequency, lead time from merge to production, change failure rate and MTTR. The language in which a director understands a platform headcount request.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit"><defs><marker id="fa6cd-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs><rect x="20" y="40" width="170" height="64" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="105" y="68" font-size="14" fill="var(--text)" text-anchor="middle">Pull request</text><text x="105" y="88" font-size="13" fill="var(--muted)" text-anchor="middle">changeset required</text><line x1="192" y1="72" x2="228" y2="72" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6cd-arr)"/><rect x="232" y="40" width="170" height="64" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="317" y="68" font-size="14" fill="var(--text)" text-anchor="middle">Gates - 6 min</text><text x="317" y="88" font-size="13" fill="var(--muted)" text-anchor="middle">types, tests, budget</text><line x1="404" y1="72" x2="440" y2="72" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6cd-arr)"/><rect x="444" y="40" width="176" height="64" rx="10" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/><text x="532" y="68" font-size="14" fill="var(--text)" text-anchor="middle">Preview URL</text><text x="532" y="88" font-size="13" fill="var(--muted)" text-anchor="middle">per branch, disposable</text><line x1="532" y1="106" x2="532" y2="150" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6cd-arr)"/><rect x="444" y="154" width="176" height="64" rx="10" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/><text x="532" y="182" font-size="14" fill="var(--text)" text-anchor="middle">Canary 5 percent</text><text x="532" y="202" font-size="13" fill="var(--muted)" text-anchor="middle">30 min soak</text><line x1="442" y1="186" x2="406" y2="186" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6cd-arr)"/><rect x="232" y="154" width="170" height="64" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/><text x="317" y="182" font-size="14" fill="var(--ok)" text-anchor="middle">Prod 100 percent</text><text x="317" y="202" font-size="13" fill="var(--muted)" text-anchor="middle">immutable assets</text><path d="M232 200 L120 200 L120 130" fill="none" stroke="var(--err)" stroke-width="2" marker-end="url(#fa6cd-arr)"/><text x="30" y="248" font-size="13" fill="var(--err)">rollback = repoint index.html to the previous build, 60 s</text><line x1="20" y1="272" x2="620" y2="272" stroke="var(--border)" stroke-width="2"/><text x="20" y="300" font-size="14" fill="var(--text)">Gate that actually blocks merges:</text><rect x="20" y="314" width="600" height="64" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/><text x="40" y="340" font-size="13" fill="var(--muted)">main bundle 168 kB gz / budget 170 kB - pass</text><text x="40" y="364" font-size="13" fill="var(--err)">new dependency adds 22 kB - fail, needs an explicit budget bump</text></svg>',
         caption: {
@@ -264,6 +338,43 @@ export default {
       id: 'error-observability',
       title: { pl: 'Obserwowalnosc bledow', en: 'Error observability' },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Source mapy', en: 'Source maps' },
+          def: {
+            pl: 'Pliki mapujace zminifikowany stack (<code>main.9f2a.js:1:48211</code>) na <code>Dropdown.tsx:82</code>. Wysylasz je z CI do narzedzia bledow i nie publikujesz na produkcji.',
+            en: 'Files mapping a minified stack (<code>main.9f2a.js:1:48211</code>) back to <code>Dropdown.tsx:82</code>. You upload them from CI to the error tool and never publish them in production.'
+          }
+        },
+        {
+          term: { pl: 'Breadcrumbs', en: 'Breadcrumbs' },
+          def: {
+            pl: 'Slad ostatnich akcji uzytkownika i zdarzen aplikacji dolaczany do raportu bledu. Bez niego masz komunikat bez historii i nie odtworzysz sciezki, ktora doprowadzila do awarii.',
+            en: 'The trail of recent user actions and app events attached to an error report. Without it you have a message with no history and cannot reconstruct the path to the failure.'
+          }
+        },
+        {
+          term: { pl: 'Sampling', en: 'Sampling' },
+          def: {
+            pl: 'Bledy zbierasz w stu procentach, tracing przy 5-10 procentach, session replay przy 1 procencie sesji plus wszystkie sesje z bledem. Przy 20 mln odslon nieprzemyslany sampling to kilkanascie tysiecy dolarow miesiecznie.',
+            en: 'Errors at 100 percent, tracing at 5-10 percent, session replay at 1 percent of sessions plus every session with an error. At 20M page views careless sampling costs tens of thousands of dollars a month.'
+          }
+        },
+        {
+          term: { pl: 'beforeSend i scrubbing PII', en: 'beforeSend and PII scrubbing' },
+          def: {
+            pl: 'Hook czyszczacy zdarzenie przed wyslaniem: numer telefonu w URL, adres w formularzu, identyfikator abonenta w breadcrumb. W zasiegu RODO logi frontendu sa danymi osobowymi i czysci sie je u siebie, nie u dostawcy.',
+            en: 'A hook that scrubs the event before it leaves: a phone number in the URL, an address in a form, a subscriber id in a breadcrumb. Under GDPR frontend logs are personal data and you scrub them locally, not at the vendor.'
+          }
+        },
+        {
+          term: { pl: 'Budzet bledow i SLO', en: 'Error budget and SLO' },
+          def: {
+            pl: 'Cel typu 99,5 procent sesji bez nieobsluzonego wyjatku w skali tygodnia. Gdy budzet sie wyczerpie, priorytetem tygodnia staje sie stabilnosc - to zamienia opinie o jakosci w regule dzialajaca pod presja deadline.',
+            en: 'A target such as 99.5 percent of weekly sessions without an unhandled exception. When the budget is spent, stability becomes the week priority, turning quality opinions into a rule that holds under deadline pressure.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit"><defs><marker id="fa6ob-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs><rect x="20" y="46" width="170" height="70" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/><text x="105" y="74" font-size="14" fill="var(--text)" text-anchor="middle">Browser</text><text x="105" y="96" font-size="13" fill="var(--muted)" text-anchor="middle">minified stack, no names</text><line x1="192" y1="81" x2="228" y2="81" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6ob-arr)"/><rect x="232" y="46" width="170" height="70" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="317" y="74" font-size="14" fill="var(--text)" text-anchor="middle">SDK</text><text x="317" y="96" font-size="13" fill="var(--muted)" text-anchor="middle">release, user, breadcrumbs</text><line x1="404" y1="81" x2="440" y2="81" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6ob-arr)"/><rect x="444" y="46" width="176" height="70" rx="10" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/><text x="532" y="74" font-size="14" fill="var(--text)" text-anchor="middle">Sentry issue</text><text x="532" y="96" font-size="13" fill="var(--muted)" text-anchor="middle">grouped by fingerprint</text><line x1="532" y1="118" x2="532" y2="158" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6ob-arr)"/><rect x="444" y="162" width="176" height="70" rx="10" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/><text x="532" y="190" font-size="14" fill="var(--text)" text-anchor="middle">Alert rule</text><text x="532" y="212" font-size="13" fill="var(--muted)" text-anchor="middle">new in latest release</text><line x1="442" y1="197" x2="406" y2="197" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6ob-arr)"/><rect x="232" y="162" width="170" height="70" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/><text x="317" y="190" font-size="14" fill="var(--ok)" text-anchor="middle">Owning team</text><text x="317" y="212" font-size="13" fill="var(--muted)" text-anchor="middle">routed by component</text><rect x="20" y="266" width="600" height="112" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/><text x="40" y="294" font-size="14" fill="var(--text)">Without a source map upload this whole chain is useless:</text><text x="40" y="320" font-size="13" fill="var(--err)">TypeError: n is not a function - at t (main.9f2a.js:1:48211)</text><text x="40" y="346" font-size="13" fill="var(--ok)">TypeError: onSelect is not a function - Dropdown.tsx:82</text><text x="40" y="370" font-size="13" fill="var(--muted)">same event, one has a name and a line you can act on</text></svg>',
         caption: {
@@ -410,6 +521,43 @@ export default {
       id: 'frontend-security',
       title: { pl: 'Bezpieczenstwo frontendu', en: 'Frontend security' },
       minutes: 13,
+      terms: [
+        {
+          term: { pl: 'XSS (Cross-Site Scripting)', en: 'XSS (Cross-Site Scripting)' },
+          def: {
+            pl: 'Wykonanie cudzego skryptu na Twojej stronie przez dane wstrzykniete do HTML. W bibliotece komponentow klasyczny wektor to prop renderowany przez <code>v-html</code> albo <code>dangerouslySetInnerHTML</code>.',
+            en: 'Someone else script running on your page through data injected into HTML. In a component library the classic vector is a prop rendered through <code>v-html</code> or <code>dangerouslySetInnerHTML</code>.'
+          }
+        },
+        {
+          term: { pl: 'Bezpieczne domyslne API', en: 'Safe-by-default API' },
+          def: {
+            pl: 'Niebezpieczne musi byc trudne i widoczne: tekst domyslnie, a HTML tylko przez jawnie nazwany prop <code>dangerouslySetHtml</code> z ostrzezeniem w typach i regula ESLint wymuszajaca przeglad.',
+            en: 'Unsafe must be hard and visible: text by default, HTML only through an explicitly named <code>dangerouslySetHtml</code> prop with a warning in the types and an ESLint rule forcing review.'
+          }
+        },
+        {
+          term: { pl: 'CSP (Content Security Policy)', en: 'CSP (Content Security Policy)' },
+          def: {
+            pl: 'Naglowek mowiacy przegladarce, skad wolno ladowac i wykonywac skrypty. Jesli polityka zawiera <code>unsafe-inline</code>, praktycznie jej nie ma - to wlasnie inline jest wektorem XSS.',
+            en: 'A header telling the browser where scripts may be loaded and executed from. A policy containing <code>unsafe-inline</code> is effectively no policy, since inline is the XSS vector.'
+          }
+        },
+        {
+          term: { pl: 'Nonce i strict-dynamic', en: 'Nonce and strict-dynamic' },
+          def: {
+            pl: 'Jednorazowy token generowany per zadanie, ktory autoryzuje konkretny skrypt inline; <code>strict-dynamic</code> rozciaga zaufanie na skrypty przez niego ladowane. Dla SPA na CDN alternatywa sa hashe liczone w buildzie.',
+            en: 'A per-request one-time token that authorises a specific inline script; <code>strict-dynamic</code> extends that trust to scripts it loads. For a CDN-hosted SPA the alternative is build-time hashes.'
+          }
+        },
+        {
+          term: { pl: 'Kwarantanna zaleznosci', en: 'Dependency quarantine' },
+          def: {
+            pl: 'Proxy rejestru (Artifactory, Verdaccio) wstrzymujace nowe wersje na 48-72 godziny, plus <code>ignore-scripts</code>, wymog provenance i dwa zatwierdzenia do publikacji. Tansze niz jakikolwiek skaner przy przejeciu konta maintainera.',
+            en: 'A registry proxy (Artifactory, Verdaccio) holding new versions for 48-72 hours, plus <code>ignore-scripts</code>, a provenance requirement and two approvals to publish. Cheaper than any scanner when a maintainer account is hijacked.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit"><defs><marker id="fa6sec-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--err)"/></marker></defs><text x="20" y="28" font-size="14" fill="var(--muted)">attack path</text><text x="380" y="28" font-size="14" fill="var(--muted)">control that stops it</text><rect x="20" y="42" width="320" height="66" rx="10" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/><text x="40" y="68" font-size="14" fill="var(--text)">User content into innerHTML</text><text x="40" y="90" font-size="13" fill="var(--muted)">a tooltip that renders raw HTML</text><line x1="344" y1="75" x2="376" y2="75" stroke="var(--err)" stroke-width="2" marker-end="url(#fa6sec-arr)"/><rect x="380" y="42" width="240" height="66" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/><text x="400" y="68" font-size="14" fill="var(--ok)">Text nodes by default</text><text x="400" y="90" font-size="13" fill="var(--muted)">opt-in HTML plus sanitizer</text><rect x="20" y="124" width="320" height="66" rx="10" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/><text x="40" y="150" font-size="14" fill="var(--text)">Third-party tag manager script</text><text x="40" y="172" font-size="13" fill="var(--muted)">marketing adds it without review</text><line x1="344" y1="157" x2="376" y2="157" stroke="var(--err)" stroke-width="2" marker-end="url(#fa6sec-arr)"/><rect x="380" y="124" width="240" height="66" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/><text x="400" y="150" font-size="14" fill="var(--ok)">CSP with nonces</text><text x="400" y="172" font-size="13" fill="var(--muted)">strict-dynamic, no unsafe-inline</text><rect x="20" y="206" width="320" height="66" rx="10" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/><text x="40" y="232" font-size="14" fill="var(--text)">Compromised npm dependency</text><text x="40" y="254" font-size="13" fill="var(--muted)">postinstall script, minor bump</text><line x1="344" y1="239" x2="376" y2="239" stroke="var(--err)" stroke-width="2" marker-end="url(#fa6sec-arr)"/><rect x="380" y="206" width="240" height="66" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/><text x="400" y="232" font-size="14" fill="var(--ok)">Lockfile, provenance</text><text x="400" y="254" font-size="13" fill="var(--muted)">ignore-scripts, internal registry</text><rect x="20" y="288" width="320" height="66" rx="10" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/><text x="40" y="314" font-size="14" fill="var(--text)">Token in localStorage</text><text x="40" y="336" font-size="13" fill="var(--muted)">readable by any injected script</text><line x1="344" y1="321" x2="376" y2="321" stroke="var(--err)" stroke-width="2" marker-end="url(#fa6sec-arr)"/><rect x="380" y="288" width="240" height="66" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/><text x="400" y="314" font-size="14" fill="var(--ok)">HttpOnly SameSite cookie</text><text x="400" y="336" font-size="13" fill="var(--muted)">JS cannot read it at all</text><text x="20" y="390" font-size="13" fill="var(--muted)">Every control above is cheap to add before launch and expensive to retrofit after.</text></svg>',
         caption: {
@@ -507,6 +655,43 @@ export default {
       id: 'code-review-culture',
       title: { pl: 'Kultura code review', en: 'Code review culture' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Rozmiar PR-a', en: 'PR size' },
+          def: {
+            pl: 'Najwazniejszy parametr recenzji: skutecznosc recenzenta spada po okolo 400 liniach i po godzinie czytania. PR na 1200 linii nie dostaje recenzji, tylko akceptacje. Cel: mediana ponizej 250 linii.',
+            en: 'The most important review parameter: reviewer effectiveness falls off past roughly 400 lines and one hour of reading. A 1200 line PR gets an approval, not a review. Target: median under 250 lines.'
+          }
+        },
+        {
+          term: { pl: 'Etykiety blocking, suggestion, nit', en: 'blocking, suggestion, nit labels' },
+          def: {
+            pl: 'Prefiks komentarza mowiacy wprost, jaka ma wage: <code>blocking</code> to poprawnosc, publiczne API, bezpieczenstwo i dostepnosc; <code>suggestion</code> zostawia decyzje autorowi; <code>nit</code> nigdy nie blokuje mergea.',
+            en: 'A comment prefix stating its weight up front: <code>blocking</code> for correctness, public API, security and accessibility; <code>suggestion</code> leaves the call to the author; <code>nit</code> never blocks a merge.'
+          }
+        },
+        {
+          term: { pl: 'CODEOWNERS', en: 'CODEOWNERS' },
+          def: {
+            pl: 'Plik mapujacy sciezki na wlascicieli, ktorych zgoda jest wymagana. Kontrakty maja wlascicieli (<code>packages/*/src/index.ts</code>), reszta nie musi - autor nie zgaduje, kogo poprosic.',
+            en: 'A file mapping paths to owners whose approval is required. Contracts get owners (<code>packages/*/src/index.ts</code>), the rest does not - the author never guesses whom to ask.'
+          }
+        },
+        {
+          term: { pl: 'Wspolczynnik reworku', en: 'Rework rate' },
+          def: {
+            pl: 'Odsetek PR-ow wymagajacych wiecej niz dwoch rund recenzji. Jego wzrost prawie zawsze oznacza, ze rozmowa o projekcie rozwiazania odbywa sie za pozno: w PR-ze zamiast w RFC.',
+            en: 'The share of PRs needing more than two review rounds. A rise almost always means the design conversation happens too late: in the PR instead of in an RFC.'
+          }
+        },
+        {
+          term: { pl: 'Progi wkladu do design systemu', en: 'Contribution thresholds' },
+          def: {
+            pl: 'Poprawka buga idzie zwykla sciezka, nowy wariant wymaga opisu przypadku uzycia, a nowy komponent wymaga RFC z minimum dwoma niezaleznymi konsumentami. Ostatni prog chroni przed biblioteka komponentow uzywanych w jednym miejscu.',
+            en: 'A bug fix takes the normal path, a new variant needs a use case write-up, and a new component needs an RFC with at least two independent consumers. The last threshold prevents a library of single-use components.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit"><text x="20" y="28" font-size="14" fill="var(--text)">Time to first review, by PR size</text><rect x="20" y="44" width="120" height="34" rx="8" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/><text x="80" y="66" font-size="13" fill="var(--ok)" text-anchor="middle">under 100 LOC</text><rect x="150" y="44" width="120" height="34" rx="8" fill="var(--ok)" opacity="0.25"/><text x="286" y="66" font-size="13" fill="var(--muted)">about 1 h</text><rect x="20" y="90" width="120" height="34" rx="8" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/><text x="80" y="112" font-size="13" fill="var(--accent2)" text-anchor="middle">100-300 LOC</text><rect x="150" y="90" width="220" height="34" rx="8" fill="var(--accent2)" opacity="0.25"/><text x="386" y="112" font-size="13" fill="var(--muted)">about 4 h</text><rect x="20" y="136" width="120" height="34" rx="8" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/><text x="80" y="158" font-size="13" fill="var(--warn)" text-anchor="middle">300-800 LOC</text><rect x="150" y="136" width="330" height="34" rx="8" fill="var(--warn)" opacity="0.25"/><text x="496" y="158" font-size="13" fill="var(--muted)">about 1 day</text><rect x="20" y="182" width="120" height="34" rx="8" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/><text x="80" y="204" font-size="13" fill="var(--err)" text-anchor="middle">over 800 LOC</text><rect x="150" y="182" width="400" height="34" rx="8" fill="var(--err)" opacity="0.25"/><text x="556" y="204" font-size="13" fill="var(--muted)">2 days +</text><line x1="20" y1="240" x2="620" y2="240" stroke="var(--border)" stroke-width="2"/><text x="20" y="268" font-size="14" fill="var(--text)">Label every comment so intent is never guessed:</text><rect x="20" y="284" width="190" height="92" rx="10" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/><text x="40" y="312" font-size="14" fill="var(--err)">blocking</text><text x="40" y="336" font-size="13" fill="var(--muted)">correctness, API,</text><text x="40" y="356" font-size="13" fill="var(--muted)">security, a11y</text><rect x="225" y="284" width="190" height="92" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="245" y="312" font-size="14" fill="var(--accent)">suggestion</text><text x="245" y="336" font-size="13" fill="var(--muted)">worth doing, author</text><text x="245" y="356" font-size="13" fill="var(--muted)">decides now or later</text><rect x="430" y="284" width="190" height="92" rx="10" fill="var(--surface)" stroke="var(--muted)" stroke-width="2"/><text x="450" y="312" font-size="14" fill="var(--muted)">nit</text><text x="450" y="336" font-size="13" fill="var(--muted)">taste only, never</text><text x="450" y="356" font-size="13" fill="var(--muted)">blocks a merge</text></svg>',
         caption: {
@@ -604,6 +789,43 @@ export default {
       id: 'principal-track-case-studies',
       title: { pl: 'Sciezka principala - studia przypadkow', en: 'The principal track - case studies' },
       minutes: 14,
+      terms: [
+        {
+          term: { pl: 'Wplyw bez wladzy', en: 'Influence without authority' },
+          def: {
+            pl: 'Nie mozesz kazac czterdziestu zespolom niczego zrobic, ale mozesz zmieniac koszty: gotowe PR-y, codemod, domyslne ustawienia i widoczny licznik postepu dzialaja tam, gdzie mail z nakazem daje 5 procent adopcji.',
+            en: 'You cannot order forty teams to do anything, but you can change costs: ready-made PRs, a codemod, defaults and a visible progress counter work where a mandate email gets 5 percent adoption.'
+          }
+        },
+        {
+          term: { pl: 'Codemod', en: 'Codemod' },
+          def: {
+            pl: 'Skrypt przepisujacy kod (jscodeshift) na poziomie AST. W migracji 1240 uzyc Buttona pokryl 920 przypadkow i scial koszt dla zespolu z dwoch dni pracy do piecu minut przegladu PR-a.',
+            en: 'A code rewriting script (jscodeshift) working at AST level. In a 1240-usage Button migration it covered 920 cases and cut the per-team cost from two days of work to five minutes of PR review.'
+          }
+        },
+        {
+          term: { pl: 'Zamkniecie drogi powrotnej', en: 'Closing the back door (ratchet)' },
+          def: {
+            pl: 'Regula lintera w firmowym presecie blokujaca nowe uzycia od pierwszego dnia migracji. Bez niej naprawiasz szybciej niz inni psuja, ale tylko przez chwile.',
+            en: 'A lint rule in the company preset blocking new usages from day one of a migration. Without it you fix faster than others break things - but only for a while.'
+          }
+        },
+        {
+          term: { pl: 'ADR (Architecture Decision Record)', en: 'ADR (Architecture Decision Record)' },
+          def: {
+            pl: 'Krotki dokument zapisujacy decyzje, kontekst i odrzucone opcje. To artefakt poziomu staff: dziala takze wtedy, gdy nie ma Cie w pokoju, i zostaje w firmie po Twoim odejsciu.',
+            en: 'A short document recording a decision, its context and the rejected options. A staff-level artifact: it works when you are not in the room and stays in the company after you leave.'
+          }
+        },
+        {
+          term: { pl: 'Zamiana konfliktu wartosci na liczby', en: 'Turning a values conflict into numbers' },
+          def: {
+            pl: 'Zamiast bronic budzetu wydajnosci pokazujesz z RUM wzrost LCP p75 z 2,3 do 3,6 s i spadek konwersji o 4-7 procent, po czym proponujesz wariant. Odpowiedz <em>nie, bo budzet</em> przegrywa z przychodem.',
+            en: 'Instead of defending a performance budget you show RUM data: LCP p75 rising from 2.3 to 3.6 s and conversion dropping 4-7 percent, then offer an alternative. <em>No, because budget</em> always loses to revenue.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit"><defs><marker id="fa6pr-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs><text x="20" y="28" font-size="14" fill="var(--muted)">what changes between levels is scope and artifact, not skill</text><rect x="20" y="46" width="180" height="86" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/><text x="110" y="74" font-size="14" fill="var(--text)" text-anchor="middle">Senior</text><text x="110" y="98" font-size="13" fill="var(--muted)" text-anchor="middle">scope: one team</text><text x="110" y="118" font-size="13" fill="var(--muted)" text-anchor="middle">artifact: the code</text><line x1="204" y1="89" x2="236" y2="89" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6pr-arr)"/><rect x="240" y="46" width="180" height="86" rx="10" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/><text x="330" y="74" font-size="14" fill="var(--text)" text-anchor="middle">Staff</text><text x="330" y="98" font-size="13" fill="var(--muted)" text-anchor="middle">scope: a few teams</text><text x="330" y="118" font-size="13" fill="var(--muted)" text-anchor="middle">artifact: the ADR</text><line x1="424" y1="89" x2="456" y2="89" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6pr-arr)"/><rect x="460" y="46" width="160" height="86" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="540" y="74" font-size="14" fill="var(--text)" text-anchor="middle">Principal</text><text x="540" y="98" font-size="13" fill="var(--muted)" text-anchor="middle">scope: the org</text><text x="540" y="118" font-size="13" fill="var(--muted)" text-anchor="middle">artifact: the platform</text><line x1="20" y1="160" x2="620" y2="160" stroke="var(--border)" stroke-width="2"/><text x="20" y="190" font-size="14" fill="var(--text)">Case study: retiring the legacy Button across 40 apps</text><rect x="20" y="206" width="140" height="70" rx="10" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/><text x="90" y="234" font-size="14" fill="var(--err)" text-anchor="middle">1240 usages</text><text x="90" y="256" font-size="13" fill="var(--muted)" text-anchor="middle">week 0</text><line x1="164" y1="241" x2="192" y2="241" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6pr-arr)"/><rect x="196" y="206" width="140" height="70" rx="10" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/><text x="266" y="234" font-size="14" fill="var(--warn)" text-anchor="middle">codemod PRs</text><text x="266" y="256" font-size="13" fill="var(--muted)" text-anchor="middle">920 auto-fixed</text><line x1="340" y1="241" x2="368" y2="241" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6pr-arr)"/><rect x="372" y="206" width="140" height="70" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/><text x="442" y="234" font-size="14" fill="var(--accent)" text-anchor="middle">lint gate on</text><text x="442" y="256" font-size="13" fill="var(--muted)" text-anchor="middle">no new usages</text><line x1="516" y1="241" x2="544" y2="241" stroke="var(--muted)" stroke-width="2" marker-end="url(#fa6pr-arr)"/><rect x="548" y="206" width="72" height="70" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/><text x="584" y="234" font-size="14" fill="var(--ok)" text-anchor="middle">31</text><text x="584" y="256" font-size="13" fill="var(--muted)" text-anchor="middle">week 12</text><rect x="20" y="298" width="600" height="94" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/><text x="40" y="326" font-size="13" fill="var(--muted)">The migration worked because the default path was cheaper than doing nothing:</text><text x="40" y="350" font-size="13" fill="var(--muted)">a codemod PR that teams only had to approve, plus a gate stopping new usage,</text><text x="40" y="374" font-size="13" fill="var(--muted)">plus one dashboard everyone could see. No mandate email was ever sent.</text></svg>',
         caption: {

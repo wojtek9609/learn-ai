@@ -19,6 +19,36 @@ export default {
         en: 'Pinia fundamentals - done properly'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'defineStore', en: 'defineStore' },
+          def: {
+            pl: 'Fabryka store zwracająca hook <code>useStore()</code>. Pierwsze wywołanie tworzy instancję we własnym <code>effectScope</code>, każde kolejne oddaje ten sam singleton z cache instancji Pinii.',
+            en: 'A store factory returning a <code>useStore()</code> hook. The first call builds the instance inside its own <code>effectScope</code>; every later call hands back the same singleton from the Pinia cache.'
+          }
+        },
+        {
+          term: { pl: 'storeToRefs', en: 'storeToRefs' },
+          def: {
+            pl: 'Zamienia stan i gettery store na <code>ref</code>, dzięki czemu destrukturyzacja nie zrywa reaktywności. Akcje bierze się wprost ze store, bo są zwykłymi funkcjami.',
+            en: 'Turns store state and getters into <code>ref</code>s so destructuring keeps reactivity. Actions are taken straight off the store, because they are plain functions.'
+          }
+        },
+        {
+          term: { pl: 'setup store i options store', en: 'setup store versus options store' },
+          def: {
+            pl: 'Dwa style definicji. Options (<code>state</code>, <code>getters</code>, <code>actions</code>) daje darmowe <code>$reset()</code>; setup daje pełną swobodę composables, ale <code>$reset()</code> trzeba napisać samemu.',
+            en: 'The two definition styles. Options (<code>state</code>, <code>getters</code>, <code>actions</code>) gives you <code>$reset()</code> for free; setup gives full composable freedom but you write <code>$reset()</code> yourself.'
+          }
+        },
+        {
+          term: { pl: '$subscribe i $onAction', en: '$subscribe and $onAction' },
+          def: {
+            pl: 'Haki obserwacyjne store: <code>$subscribe</code> łapie każdą mutację stanu, <code>$onAction</code> opakowuje wywołania akcji. Domyślnie są związane z komponentem - logika globalna potrzebuje <code>{ detached: true }</code>.',
+            en: 'The store observation hooks: <code>$subscribe</code> catches every state mutation, <code>$onAction</code> wraps action calls. Both bind to the calling component by default - global logic needs <code>{ detached: true }</code>.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">One Pinia instance, many stores, many components</text>' +
@@ -146,6 +176,43 @@ export default {
         en: 'Advanced Pinia: plugins, SSR, testing'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'plugin Pinii', en: 'Pinia plugin' },
+          def: {
+            pl: 'Funkcja rejestrowana przez <code>pinia.use()</code>, wołana przy tworzeniu każdego store. Może dokładać właściwości, stan i subskrypcje, ale nie zobaczy store utworzonych przed jej rejestracją.',
+            en: 'A function registered with <code>pinia.use()</code> and called as each store is created. It can add properties, state and subscriptions, but it never sees stores created before it was registered.'
+          }
+        },
+        {
+          term: { pl: 'nowa Pinia na każde żądanie', en: 'fresh Pinia per request' },
+          def: {
+            pl: 'Na serwerze <code>createPinia()</code> musi powstawać dla każdego żądania. Instancja modułowa byłaby współdzielona między użytkownikami i przeciekłyby dane jednego do odpowiedzi drugiego.',
+            en: 'On the server <code>createPinia()</code> must be created per request. A module-level instance would be shared across users and leak one user data into another response.'
+          }
+        },
+        {
+          term: { pl: 'devalue', en: 'devalue' },
+          def: {
+            pl: 'Serializator payloadu SSR używany przez Nuxt i Pinię. W przeciwieństwie do <code>JSON.stringify</code> obsługuje <code>Map</code>, <code>Set</code>, <code>Date</code>, cykle i bezpiecznie escapuje znacznik zamykający skrypt.',
+            en: 'The SSR payload serializer used by Nuxt and Pinia. Unlike <code>JSON.stringify</code> it handles <code>Map</code>, <code>Set</code>, <code>Date</code>, cycles, and safely escapes a closing script tag.'
+          }
+        },
+        {
+          term: { pl: 'hydracja stanu', en: 'state hydration' },
+          def: {
+            pl: 'Klient nie liczy stanu od nowa - podnosi go z payloadu do tych samych store. Stan odtworzony z <code>localStorage</code> to co innego i musi poczekać na moment po hydracji.',
+            en: 'The client does not recompute state - it lifts it from the payload into the same stores. State restored from <code>localStorage</code> is a different thing and must wait until after hydration.'
+          }
+        },
+        {
+          term: { pl: '$dispose', en: '$dispose' },
+          def: {
+            pl: 'Niszczy store i jego <code>effectScope</code>, zwalniając watchery. Potrzebne dla store tworzonych dynamicznie z identyfikatorem, na przykład jeden na otwarty wizard albo zakładkę.',
+            en: 'Destroys a store and its <code>effectScope</code>, releasing the watchers. Needed for stores created dynamically with an id, for instance one per open wizard or tab.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">A plugin runs once per store, at creation time</text>' +
@@ -273,6 +340,43 @@ export default {
         en: 'Vue Router: matcher, nesting, reuse'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'route.matched', en: 'route.matched' },
+          def: {
+            pl: 'Tablica wszystkich rekordów tras dopasowanych do adresu, od rodzica po najgłębsze dziecko. Na niej buduje się breadcrumby i czyta <code>meta</code> odziedziczone z rodzica.',
+            en: 'The array of every route record matched by the URL, from the parent down to the deepest child. Breadcrumbs are built from it, and <code>meta</code> inherited from parents is read there.'
+          }
+        },
+        {
+          term: { pl: 'createWebHistory i createWebHashHistory', en: 'createWebHistory versus createWebHashHistory' },
+          def: {
+            pl: 'Tryb historii: <code>createWebHistory</code> daje czyste ścieżki, ale wymaga fallbacku serwera na <code>index.html</code>; wersja z hashem działa bez konfiguracji serwera kosztem <code>#</code> w adresie.',
+            en: 'The history mode: <code>createWebHistory</code> gives clean paths but needs a server fallback to <code>index.html</code>; the hash version works with no server config, at the price of a <code>#</code> in the URL.'
+          }
+        },
+        {
+          term: { pl: 'reużycie komponentu trasy', en: 'route component reuse' },
+          def: {
+            pl: 'Przy zmianie samego parametru Vue Router zostawia tę samą instancję komponentu, więc <code>onMounted</code> nie odpala się ponownie. Dane odświeża się watcherem na <code>route.params</code>.',
+            en: 'When only a param changes, Vue Router keeps the same component instance, so <code>onMounted</code> does not fire again. Data is refreshed with a watcher on <code>route.params</code>.'
+          }
+        },
+        {
+          term: { pl: 'named views', en: 'named views' },
+          def: {
+            pl: 'Kilka <code>RouterView</code> na jednym poziomie, każdy z atrybutem <code>name</code>, wypełnianych z pola <code>components</code> trasy - typowy layout z panelem bocznym.',
+            en: 'Several <code>RouterView</code> outlets at one level, each with a <code>name</code>, filled from the <code>components</code> field of the route - the usual layout with a side panel.'
+          }
+        },
+        {
+          term: { pl: 'alias i redirect', en: 'alias versus redirect' },
+          def: {
+            pl: 'Alias serwuje ten sam widok pod dodatkowym adresem i zostawia URL bez zmian; redirect podmienia adres w pasku. Duplikaty pod aliasem wymagają canonicala dla SEO.',
+            en: 'An alias serves the same view at an extra path and leaves the URL alone; a redirect rewrites the address bar. Duplicate URLs behind an alias need a canonical tag for SEO.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">/orders/42/items?page=2 - from URL to nested views</text>' +
@@ -393,6 +497,43 @@ export default {
         en: 'Navigation guards and data fetching'
       },
       minutes: 13,
+      terms: [
+        {
+          term: { pl: 'beforeEach, beforeResolve, afterEach', en: 'beforeEach, beforeResolve, afterEach' },
+          def: {
+            pl: 'Guardy globalne w kolejności: <code>beforeEach</code> na wejściu nawigacji, <code>beforeResolve</code> po rozwiązaniu komponentów async, <code>afterEach</code> już po zatwierdzeniu - miejsce na analitykę i tytuł strony.',
+            en: 'The global guards in order: <code>beforeEach</code> when navigation starts, <code>beforeResolve</code> after async components resolve, <code>afterEach</code> once it is confirmed - the place for analytics and page titles.'
+          }
+        },
+        {
+          term: { pl: 'beforeRouteEnter', en: 'beforeRouteEnter' },
+          def: {
+            pl: 'Jedyny guard bez dostępu do <code>this</code>, bo komponent jeszcze nie istnieje. Do instancji dostaniesz się dopiero w callbacku <code>next(vm =&gt; ...)</code>.',
+            en: 'The only guard with no access to <code>this</code>, because the component does not exist yet. You reach the instance in the <code>next(vm =&gt; ...)</code> callback.'
+          }
+        },
+        {
+          term: { pl: 'onBeforeRouteUpdate i onBeforeRouteLeave', en: 'onBeforeRouteUpdate and onBeforeRouteLeave' },
+          def: {
+            pl: 'Guardy dostępne w <code>script setup</code>: pierwszy łapie zmianę parametrów w reużytym komponencie, drugi blokuje wyjście z niezapisanym formularzem.',
+            en: 'The guards available in <code>script setup</code>: the first catches param changes on a reused component, the second blocks leaving with an unsaved form.'
+          }
+        },
+        {
+          term: { pl: 'NavigationFailure', en: 'NavigationFailure' },
+          def: {
+            pl: 'Obiekt, którym kończy się odrzucona nawigacja (przerwanie, duplikat, guard). To normalny wynik <code>router.push</code>, nie wyjątek - odfiltruj go, zanim zaleje Sentry.',
+            en: 'The object a rejected navigation resolves with (aborted, duplicated, cancelled by a guard). It is a normal <code>router.push</code> outcome, not an exception - filter it before it floods Sentry.'
+          }
+        },
+        {
+          term: { pl: 'scrollBehavior', en: 'scrollBehavior' },
+          def: {
+            pl: 'Funkcja routera decydująca o pozycji scrolla po nawigacji: <code>savedPosition</code> dla przycisku wstecz, kotwica dla hasha, góra strony dla nowej trasy.',
+            en: 'The router function deciding scroll position after navigation: <code>savedPosition</code> for the back button, the anchor for a hash, the top of the page for a new route.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 460" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Navigation resolution - every step may cancel or redirect</text>' +
@@ -665,6 +806,43 @@ export default {
         en: 'Nuxt 3: Nitro, payload and hydration'
       },
       minutes: 14,
+      terms: [
+        {
+          term: { pl: 'Nitro', en: 'Nitro' },
+          def: {
+            pl: 'Serwerowy runtime Nuxt 3: obsługuje SSR, endpointy z katalogu <code>server/</code> i pozwala wdrożyć ten sam kod na Node, Vercela czy Cloudflare Workers.',
+            en: 'The Nuxt 3 server runtime: it handles SSR, the endpoints in <code>server/</code>, and lets the same code deploy to Node, Vercel or Cloudflare Workers.'
+          }
+        },
+        {
+          term: { pl: 'routeRules', en: 'routeRules' },
+          def: {
+            pl: 'Konfiguracja per ścieżka decydująca, czy strona jest prerenderowana, ISR, SSR czy czystym SPA - jedna aplikacja może mieszać wszystkie tryby renderowania.',
+            en: 'Per-path configuration deciding whether a page is prerendered, ISR, SSR or pure SPA - one app can mix every rendering mode.'
+          }
+        },
+        {
+          term: { pl: 'payload i klucz useAsyncData', en: 'payload and the useAsyncData key' },
+          def: {
+            pl: 'Klucz, pod którym wynik pobrania trafia do payloadu SSR i jest odczytywany przy hydracji zamiast ponownego requestu. Bez stabilnego klucza dane pobierają się dwa razy albo mieszają.',
+            en: 'The key under which a fetch result lands in the SSR payload and is read back on hydration instead of refetching. Without a stable key data is fetched twice or mixed up.'
+          }
+        },
+        {
+          term: { pl: 'hydration mismatch', en: 'hydration mismatch' },
+          def: {
+            pl: 'Rozjazd między HTML z serwera a pierwszym renderem klienta (czas względny, <code>window</code>, losowość). Leczy się <code>ClientOnly</code>, renderem po <code>onMounted</code> albo stabilnym wejściem.',
+            en: 'A divergence between server HTML and the first client render (relative time, <code>window</code>, randomness). Cured with <code>ClientOnly</code>, rendering after <code>onMounted</code>, or stable input.'
+          }
+        },
+        {
+          term: { pl: 'runtimeConfig', en: 'runtimeConfig' },
+          def: {
+            pl: 'Konfiguracja czytana w czasie działania: to, co siedzi pod <code>public</code>, ląduje w bundlu klienta, reszta zostaje na serwerze. Sekret w <code>public</code> to wyciek widoczny w źródle strony.',
+            en: 'Configuration read at runtime: everything under <code>public</code> ships in the client bundle, the rest stays on the server. A secret placed in <code>public</code> is a leak visible in page source.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">One request through a universal Nuxt app</text>' +

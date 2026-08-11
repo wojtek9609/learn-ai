@@ -22,6 +22,28 @@ export default {
         en: 'Profiling re-renders'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Faza render kontra commit', en: 'Render phase vs commit phase' },
+          def: { pl: 'Render wykonuje funkcje komponentow i buduje elementy - jest tani. Commit mutuje DOM i uruchamia efekty layoutowe - jest drogi. Problemem sa dopiero fazy dluzsze niz jedna klatka (16 ms).', en: 'The render phase runs component functions and builds elements - it is cheap. The commit mutates the DOM and runs layout effects - it is expensive. Only phases longer than one frame (16 ms) are a real problem.' }
+        },
+        {
+          term: { pl: 'React DevTools Profiler', en: 'React DevTools Profiler' },
+          def: { pl: 'Flamegraph, wykres rankingowy i powody renderow dla kazdego commitu. Nie widzi kosztu stylowania i layoutu - do tego sluzy panel Performance w Chrome.', en: 'Flamegraph, ranked chart and render reasons for every commit. It cannot see style and layout cost - the Chrome Performance panel is for that.' }
+        },
+        {
+          term: { pl: 'Highlight updates', en: 'Highlight updates' },
+          def: { pl: 'Opcja DevTools obrysowujaca rerenderowane komponenty. Ramka wokol calej strony przy wpisywaniu jednego znaku to klasyczny objaw stanu trzymanego za wysoko.', en: 'The DevTools option that outlines re-rendered components. A border around the whole page while you type one character is the classic symptom of state held too high.' }
+        },
+        {
+          term: { pl: 'INP', en: 'INP' },
+          def: { pl: 'Interaction to Next Paint - metryka Core Web Vitals mierzaca opoznienie od interakcji do odmalowania. To ona ocenia wydajnosc w Lighthouse, a nie liczba renderow.', en: 'Interaction to Next Paint - the Core Web Vitals metric measuring the delay from interaction to paint. It is what judges you in Lighthouse, not a render count.' }
+        },
+        {
+          term: { pl: 'Komponent Profiler', en: 'The Profiler component' },
+          def: { pl: 'Programowy pomiar wybranego poddrzewa: callback <code>onRender</code> dostaje faze i czas trwania, wiec mozna raportowac je do telemetrii jak web vitals.', en: 'Programmatic measurement of a chosen subtree: the <code>onRender</code> callback receives the phase and duration, so you can report them to telemetry like web vitals.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="p1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -321,6 +343,28 @@ export default {
         en: 'Memoization and the React Compiler'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'React.memo', en: 'React.memo' },
+          def: { pl: 'HOC porownujacy propsy <strong>plytko</strong> i pomijajacy render, gdy sie nie zmienily. Jeden literal obiektu w JSX wystarczy, zeby kontrakt przestal dzialac.', en: 'A HOC that compares props <strong>shallowly</strong> and skips the render when nothing changed. One object literal in JSX is enough to break the contract.' }
+        },
+        {
+          term: { pl: 'useMemo i useCallback', en: 'useMemo and useCallback' },
+          def: { pl: 'Utrwalanie wartosci i funkcji miedzy renderami. <code>useCallback(fn, deps)</code> to dokladnie <code>useMemo(() =&gt; fn, deps)</code>, a React ma prawo cache odrzucic - to nie jest gwarancja.', en: 'Preserving values and functions across renders. <code>useCallback(fn, deps)</code> is precisely <code>useMemo(() =&gt; fn, deps)</code>, and React may drop the cache - it is not a guarantee.' }
+        },
+        {
+          term: { pl: 'Stabilna tozsamosc propsow', en: 'Stable prop identity' },
+          def: { pl: 'Warunek dzialania memoizacji: producent propsow musi oddawac te same referencje. Bez tego <code>memo</code> nigdy nie wygra i dokladasz tylko koszt porownania.', en: 'The precondition for memoization: the props producer must hand back the same references. Without it <code>memo</code> can never win and you only pay for the comparison.' }
+        },
+        {
+          term: { pl: 'Forma updater', en: 'Updater form' },
+          def: { pl: '<code>setZoom(z =&gt; z + 1)</code> zamiast <code>setZoom(zoom + 1)</code>. Pozwala trzymac pusta tablice zaleznosci i eliminuje stale closures - odpowiednik <code>count.value++</code> z Vue.', en: '<code>setZoom(z =&gt; z + 1)</code> instead of <code>setZoom(zoom + 1)</code>. It keeps the dependency array empty and removes stale closures - the equivalent of <code>count.value++</code> in Vue.' }
+        },
+        {
+          term: { pl: 'React Compiler', en: 'React Compiler' },
+          def: { pl: 'Plugin Babela wstawiajacy memoizacje automatycznie, z dokladnoscia do pojedynczych wyrazen. Dziala tylko na kodzie zgodnym z reguami hookow; zlej architektury stanu nie naprawi.', en: 'A Babel plugin that inserts memoization automatically, at the granularity of single expressions. It only applies to code that follows the rules of hooks; it will not fix bad state architecture.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="p2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -487,6 +531,28 @@ export default {
         en: 'Lists and virtualization'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Wirtualizacja listy', en: 'List virtualization' },
+          def: { pl: 'Renderowanie wylacznie wierszy widocznych w oknie przewijania, wyliczonych z wysokosci kontenera, offsetu scrolla i szacowanej wysokosci wiersza.', en: 'Rendering only the rows visible in the scroll window, derived from container height, scroll offset and estimated row height.' }
+        },
+        {
+          term: { pl: 'overscan', en: 'overscan' },
+          def: { pl: 'Bufor wierszy renderowanych poza widocznym obszarem, zeby przy szybkim scrollu nie migaly puste pasy. Zwykle 3-10; wiecej to marnowana praca.', en: 'A buffer of rows rendered outside the viewport so fast scrolling does not show blank bands. Usually 3-10; more is wasted work.' }
+        },
+        {
+          term: { pl: 'measureElement', en: 'measureElement' },
+          def: { pl: 'Mechanizm TanStack Virtual oparty na <code>ResizeObserver</code>, ktory po zamontowaniu koryguje szacowana wysokosc wiersza i przelicza offsety. Bez niego scrollbar skacze.', en: 'The TanStack Virtual mechanism backed by <code>ResizeObserver</code> that corrects the estimated row height after mount and recomputes offsets. Without it the scrollbar jumps.' }
+        },
+        {
+          term: { pl: 'content-visibility: auto', en: 'content-visibility: auto' },
+          def: { pl: 'Wlasciwosc CSS pomijajaca layout tresci poza ekranem. Tansza alternatywa dla wirtualizacji, warta sprawdzenia zanim dolozysz biblioteke.', en: 'A CSS property that skips layout for off-screen content. A cheaper alternative to virtualization, worth trying before you add a library.' }
+        },
+        {
+          term: { pl: 'Stabilny key', en: 'Stable key' },
+          def: { pl: 'Klucz oparty na identyfikatorze rekordu, nie na indeksie. Przy wirtualizacji indeks zmienia sie razem z oknem, co daje efektowne bledy fokusu i stanu wiersza.', en: 'A key based on the record id, not the index. With virtualization the index shifts along with the window, producing spectacular focus and row-state bugs.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="28" font-size="15" fill="var(--muted)">10 000 rows in the data, 12 rows in the DOM</text>' +
@@ -657,6 +723,28 @@ export default {
         en: 'Code splitting and lazy loading'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Code splitting', en: 'Code splitting' },
+          def: { pl: 'Podzial bundla na chunki ladowane na zadanie - zwykle po trasach. Optymalizuje metryki startu: LCP i TBT, bo 300 kB gzip to okolo 1,5-2 s parsowania na sredniej klasy Androidzie.', en: 'Splitting the bundle into on-demand chunks, usually along routes. It optimizes startup metrics, LCP and TBT, because 300 kB gzipped is roughly 1.5-2 s of parse time on a mid-range Android.' }
+        },
+        {
+          term: { pl: 'Prefetch na hover', en: 'Prefetch on hover' },
+          def: { pl: 'Start importu na <code>onMouseEnter</code> i <code>onFocus</code>, dzieki czemu klikniecie jest natychmiastowe. Next robi to automatycznie dla <code>next/link</code> w viewporcie.', en: 'Kicking off the import on <code>onMouseEnter</code> and <code>onFocus</code> so the click feels instant. Next does it automatically for a <code>next/link</code> in the viewport.' }
+        },
+        {
+          term: { pl: 'Kaskada chunkow', en: 'Chunk waterfall' },
+          def: { pl: 'Leniwy komponent, ktory dopiero po zamontowaniu zaczyna pobierac dane - dwie rundy czekania zamiast jednej. Lekarstwo: start zapytania rownolegle z importem.', en: 'A lazy component that only starts fetching data after it mounts - two rounds of waiting instead of one. The cure: start the request in parallel with the import.' }
+        },
+        {
+          term: { pl: 'Stale chunk po deployu', en: 'Stale chunk after deploy' },
+          def: { pl: 'Otwarta karta prosi o plik z poprzedniego builda i dostaje 404. Trzeba obsluzyc blad importu i zaproponowac przeladowanie strony.', en: 'An open tab requests a file from the previous build and gets a 404. You must handle the import failure and offer a reload.' }
+        },
+        {
+          term: { pl: 'Budzet bundla', en: 'Bundle budget' },
+          def: { pl: 'Ustalony limit rozmiaru shella, zwykle 150-200 kB gzip, pilnowany w CI. Bez niego kazdy sprint doklada kilka kilobajtow i nikt tego nie zauwaza.', en: 'An agreed size limit for the shell, usually 150-200 kB gzipped, enforced in CI. Without it every sprint adds a few kilobytes and nobody notices.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="p4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -934,6 +1022,28 @@ export default {
         en: 'Testing Library versus Vue Test Utils'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Hierarchia zapytan', en: 'Query hierarchy' },
+          def: { pl: 'Kolejnosc wyboru selektora: <code>getByRole</code> z dostepna nazwa, potem <code>getByLabelText</code>, potem <code>getByText</code>, a <code>getByTestId</code> na koncu. Test, ktorego nie da sie napisac po roli, zwykle wskazuje realny problem z dostepnoscia.', en: 'The selector order: <code>getByRole</code> with an accessible name, then <code>getByLabelText</code>, then <code>getByText</code>, with <code>getByTestId</code> last. A test you cannot write by role usually points at a genuine accessibility problem.' }
+        },
+        {
+          term: { pl: 'userEvent', en: 'userEvent' },
+          def: { pl: 'Symulacja pelnej sekwencji interakcji (pointerdown, focus, keydown, input) zamiast pojedynczego syntetycznego zdarzenia z <code>fireEvent</code>. Lapie bledy, ktorych klikniecie nie dotyka.', en: 'Replays the whole interaction sequence (pointerdown, focus, keydown, input) instead of the single synthetic event <code>fireEvent</code> dispatches. It catches bugs a plain click never touches.' }
+        },
+        {
+          term: { pl: 'findBy* i waitFor', en: 'findBy* and waitFor' },
+          def: { pl: 'Asynchroniczne oczekiwanie na wynik. React nie ma jednego deterministycznego ticka jak <code>nextTick()</code> - czekasz na efekt, nie na cykl.', en: 'Asynchronous waiting for a result. React has no single deterministic tick like <code>nextTick()</code> - you wait for an outcome, not for a cycle.' }
+        },
+        {
+          term: { pl: 'act()', en: 'act()' },
+          def: { pl: 'Opakowanie gwarantujace, ze aktualizacje stanu zostana przetworzone przed asercja. Ostrzezenie "not wrapped in act" prawie zawsze oznacza brakujacy <code>await</code> albo niewyczyszczony timer.', en: 'A wrapper guaranteeing state updates are flushed before your assertion. The "not wrapped in act" warning almost always means a missing <code>await</code> or an uncleaned timer.' }
+        },
+        {
+          term: { pl: 'MSW', en: 'MSW' },
+          def: { pl: 'Mock Service Worker - mockowanie na poziomie sieci, nie modulu. Te same handlery dzialaja w projekcie Vue i Reactowym oraz w Playwrighcie.', en: 'Mock Service Worker - mocking at the network level rather than the module level. The same handlers work in a Vue project, a React one and in Playwright.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="p5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -1101,6 +1211,28 @@ export default {
         en: 'The Vue-to-React migration cheatsheet'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Strangler fig', en: 'Strangler fig' },
+          def: { pl: 'Migracja przez wspolistnienie: reverse proxy kieruje wybrane sciezki do nowej aplikacji, a stara dziala dalej. Najbezpieczniejsza strategia, kosztem podwojonego bundla na granicy.', en: 'Migration by coexistence: a reverse proxy routes selected paths to the new app while the old one keeps running. The safest strategy, at the cost of a doubled bundle at the boundary.' }
+        },
+        {
+          term: { pl: 'Web components jako most', en: 'Web components as a bridge' },
+          def: { pl: 'Komponenty design systemu opakowane w custom elements dzialaja w obu swiatach. Uwaga na propsy obiektowe i zdarzenia - atrybuty przenosza wylacznie stringi.', en: 'Design system components wrapped as custom elements work in both worlds. Watch out for object props and events - attributes carry strings only.' }
+        },
+        {
+          term: { pl: 'Warstwa domenowa', en: 'Framework-agnostic domain layer' },
+          def: { pl: 'Walidacja zod, klienci API i formatowanie wyciagniete do pakietu niezaleznego od frameworka. Zwykle 30-40 procent kodu, ktory przenosi sie bez zmian.', en: 'Zod validation, API clients and formatting extracted into a framework-agnostic package. Typically 30-40 percent of the code, and it moves unchanged.' }
+        },
+        {
+          term: { pl: 'Kontrakt value/onChange', en: 'The value/onChange contract' },
+          def: { pl: 'Reactowy odpowiednik <code>v-model</code>: zamiast dwukierunkowego wiazania przekazujesz jawnie <code>value</code> i <code>onChange</code>.', en: 'The React equivalent of <code>v-model</code>: instead of two-way binding you pass <code>value</code> and <code>onChange</code> explicitly.' }
+        },
+        {
+          term: { pl: 'Stale closure', en: 'Stale closure' },
+          def: { pl: 'Funkcja pamieta wartosci z renderu, ktory ja stworzyl. W Vue problem nie istnial, bo czytales przez proxy. Lekarstwo: forma updater, <code>useRef</code> i uczciwe tablice zaleznosci.', en: 'A function remembers the values from the render that created it. In Vue this did not exist, because you read through a proxy. The cure: the updater form, <code>useRef</code> and honest dependency arrays.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="p6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent2)"/></marker></defs>' +

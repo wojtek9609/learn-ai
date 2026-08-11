@@ -22,6 +22,28 @@ export default {
         en: 'State colocation and lifting'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Kolokacja stanu', en: 'State colocation' },
+          def: { pl: 'Zasada trzymania stanu w komponencie, który faktycznie go używa, zamiast wysoko w drzewie. W Reactcie to decyzja wydajnościowa, bo właściciel stanu wyznacza zasięg rerenderu.', en: 'Keeping state inside the component that actually uses it instead of high in the tree. In React this is a performance decision, because the state owner defines the re-render scope.' }
+        },
+        {
+          term: { pl: 'Podnoszenie stanu (lifting state up)', en: 'Lifting state up' },
+          def: { pl: 'Przeniesienie stanu do najbliższego wspólnego rodzica, gdy dwa komponenty rodzeństwa potrzebują tej samej wartości. W dół idzie <code>value</code>, w górę <code>onChange</code> - odpowiednik pary props i emit z Vue.', en: 'Moving state into the nearest common parent once two siblings need the same value. <code>value</code> flows down and <code>onChange</code> flows up - the equivalent of the Vue props and emit pair.' }
+        },
+        {
+          term: { pl: 'Zasięg rerenderu', en: 'Re-render scope' },
+          def: { pl: 'Poddrzewo, które React wykonuje ponownie po <code>setState</code>: komponent-właściciel i <strong>wszystko pod nim</strong>, niezależnie od tego, kto wartość przeczytał.', en: 'The subtree React re-runs after <code>setState</code>: the owner component and <strong>everything beneath it</strong>, regardless of who actually read the value.' }
+        },
+        {
+          term: { pl: 'Kompozycja przez children', en: 'Composition via children' },
+          def: { pl: 'Ciężkie poddrzewo przekazane jako <code>props.children</code> jest tworzone przez rodzica właściciela, więc zachowuje tożsamość elementu i React je pomija przy rerenderze. Darmowa memoizacja, najbliższy odpowiednik slotów.', en: 'A heavy subtree passed as <code>props.children</code> is created by the owner parent, so the element keeps its identity and React skips it on re-render. Free memoization, the closest analogue to slots.' }
+        },
+        {
+          term: { pl: 'Reset przez key', en: 'Reset via key' },
+          def: { pl: 'Idiomatyczny sposób na wyczyszczenie stanu komponentu przy zmianie rekordu: zmiana propa <code>key</code> montuje go od nowa. Zastępuje <code>watch</code> kopiujący props do lokalnego stanu.', en: 'The idiomatic way to clear component state when the record changes: changing the <code>key</code> prop remounts it. It replaces the <code>watch</code> that copied props into local state.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--warn)" font-size="14">State too high</text>' +
@@ -295,6 +317,28 @@ export default {
         en: 'Zustand vs Pinia'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Selektor (selector)', en: 'Selector' },
+          def: { pl: 'Funkcja <code>s =&gt; s.pole</code> przekazana do hooka Zustanda, która deklaruje subskrybowany wycinek store. Bez selektora subskrybujesz cały obiekt stanu i rerenderujesz się przy każdej zmianie.', en: 'The <code>s =&gt; s.field</code> function passed to a Zustand hook that declares which slice you subscribe to. Without a selector you subscribe to the whole state object and re-render on every change.' }
+        },
+        {
+          term: { pl: 'Porównanie przez Object.is', en: 'Object.is comparison' },
+          def: { pl: 'Zustand po każdej aktualizacji uruchamia selektor i porównuje wynik przez <code>Object.is</code>. Dlatego mutacja stanu nie zadziała, a <code>set</code> musi zwracać nowe referencje.', en: 'After every update Zustand runs your selector and compares the result with <code>Object.is</code>. That is why mutating state does nothing and <code>set</code> must return new references.' }
+        },
+        {
+          term: { pl: 'useShallow', en: 'useShallow' },
+          def: { pl: 'Komparator pozwalający pobrać kilka pól jednym selektorem bez pętli rerenderów. Bez niego selektor zwracający nowy obiekt daje za każdym razem nową referencję.', en: 'A comparator that lets one selector return several fields without a re-render loop. Without it, a selector returning a fresh object produces a new reference every time.' }
+        },
+        {
+          term: { pl: 'Middleware', en: 'Middleware' },
+          def: { pl: 'Warstwy owijające store: <code>persist</code> (odpowiednik pinia-plugin-persistedstate), <code>immer</code> (składnia z mutacją), <code>devtools</code>, <code>subscribeWithSelector</code>.', en: 'Layers wrapping the store: <code>persist</code> (the pinia-plugin-persistedstate equivalent), <code>immer</code> (mutation-style syntax), <code>devtools</code>, <code>subscribeWithSelector</code>.' }
+        },
+        {
+          term: { pl: 'Store per request (SSR)', en: 'Per-request store (SSR)' },
+          def: { pl: 'Zustand nie ma rejestru store, więc na serwerze instancję trzeba tworzyć w kontekście na każde żądanie. Moduł-singleton oznacza współdzielenie pamięci między użytkownikami.', en: 'Zustand has no store registry, so on the server you must create the instance inside a context per request. A module singleton means sharing memory between users.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r4m2arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -423,6 +467,28 @@ export default {
         en: 'TanStack Query and server state'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'queryKey', en: 'queryKey' },
+          def: { pl: 'Hierarchiczna tablica identyfikująca wpis w cache. Musi zawierać <strong>każdą</strong> zmienną wejściową (filtry, strona, id użytkownika), bo inaczej po przelogowaniu zobaczysz cudze dane.', en: 'The hierarchical array identifying a cache entry. It must contain <strong>every</strong> input variable (filters, page, user id), otherwise you show another account data after re-login.' }
+        },
+        {
+          term: { pl: 'staleTime', en: 'staleTime' },
+          def: { pl: 'Czas, przez który dane liczone są jako świeże i nie są dociągane ponownie. Domyślne <code>0</code> potrafi podwoić ruch do API w aplikacji z częstym przełączaniem zakładek.', en: 'How long data counts as fresh and is not refetched. The default <code>0</code> can double API traffic in an app with heavy tab switching.' }
+        },
+        {
+          term: { pl: 'gcTime', en: 'gcTime' },
+          def: { pl: 'Czas życia wpisu bez subskrybentów, zanim trafi do garbage collectora (domyślnie 5 minut). Dawniej <code>cacheTime</code>; nie mylić ze <code>staleTime</code>.', en: 'How long an entry with no subscribers stays in memory before garbage collection (5 minutes by default). Formerly <code>cacheTime</code>; not to be confused with <code>staleTime</code>.' }
+        },
+        {
+          term: { pl: 'invalidateQueries', en: 'invalidateQueries' },
+          def: { pl: 'Oznacza wpisy pasujące do prefiksu klucza jako nieświeże i dociąga te, które ktoś ogląda. Odpowiednik ręcznego <code>refresh()</code> z Nuxta, tylko działający po prefiksie.', en: 'Marks entries matching a key prefix as stale and refetches the ones being watched. The equivalent of a manual Nuxt <code>refresh()</code>, but working by prefix.' }
+        },
+        {
+          term: { pl: 'Aktualizacja optymistyczna', en: 'Optimistic update' },
+          def: { pl: 'Wzorzec <code>onMutate</code> - <code>onError</code> - <code>onSettled</code>: anulujesz zapytania, zapisujesz poprzedni snapshot, wstawiasz nową wartość i cofasz ją przy błędzie.', en: 'The <code>onMutate</code> - <code>onError</code> - <code>onSettled</code> pattern: cancel queries, snapshot the previous value, write the new one, and roll back on failure.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r4m3arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -671,6 +737,28 @@ export default {
         en: 'Forms: React Hook Form vs vee-validate'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Pole niekontrolowane', en: 'Uncontrolled input' },
+          def: { pl: 'Input trzymający wartość w DOM i w refie zamiast w stanie Reacta. Dzięki temu wpisywanie nie rerenderuje całego formularza - stąd szybkość React Hook Form.', en: 'An input holding its value in the DOM and a ref instead of React state. Typing therefore does not re-render the whole form - that is where React Hook Form speed comes from.' }
+        },
+        {
+          term: { pl: 'register', en: 'register' },
+          def: { pl: 'Funkcja podpinająca pole do formularza (<code>{...register("email")}</code>). Odpowiednik <code>useField</code> plus <code>v-model</code> z vee-validate.', en: 'The function that wires a field into the form (<code>{...register("email")}</code>). The vee-validate <code>useField</code> plus <code>v-model</code> equivalent.' }
+        },
+        {
+          term: { pl: 'resolver', en: 'resolver' },
+          def: { pl: 'Adapter walidacji schematem, najczęściej <code>zodResolver(schema)</code>. Ten sam schemat uruchamiasz na serwerze - klient odpowiada za wygodę, nie za bezpieczeństwo.', en: 'The schema validation adapter, usually <code>zodResolver(schema)</code>. You run the same schema on the server - the client is responsible for comfort, not security.' }
+        },
+        {
+          term: { pl: 'formState', en: 'formState' },
+          def: { pl: 'Proxy z <code>errors</code>, <code>isDirty</code>, <code>isSubmitting</code>: odczyt pola tworzy subskrypcję, więc komponent budzi się tylko dla tego, co faktycznie czyta.', en: 'A Proxy holding <code>errors</code>, <code>isDirty</code>, <code>isSubmitting</code>: reading a field creates a subscription, so the component only wakes for what it actually reads.' }
+        },
+        {
+          term: { pl: 'useFieldArray', en: 'useFieldArray' },
+          def: { pl: 'Hook do dynamicznych list pól (<code>fields</code>, <code>append</code>, <code>remove</code>) - odpowiednik <code>useFieldArray</code> z vee-validate.', en: 'The hook for dynamic field lists (<code>fields</code>, <code>append</code>, <code>remove</code>) - the vee-validate <code>useFieldArray</code> equivalent.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r4m4arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -797,6 +885,28 @@ export default {
         en: 'The URL as application state'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Stan w URL', en: 'URL state' },
+          def: { pl: 'Stan, który da się udostępnić linkiem, odświeżyć i cofnąć: filtry, paginacja, otwarta zakładka. Adres jest wtedy jedynym źródłem prawdy, a nie kopią stanu ze store.', en: 'State that survives a link, a refresh and the back button: filters, pagination, the open tab. The address is then the single source of truth, not a copy of store state.' }
+        },
+        {
+          term: { pl: 'useSearchParams', en: 'useSearchParams' },
+          def: { pl: 'Hook czytający i zapisujący query string. Każda zmiana rerenderuje wszystkich konsumentów w poddrzewie, więc czytaj go jak najbliżej miejsca użycia.', en: 'The hook that reads and writes the query string. Every change re-renders all consumers in the subtree, so read it as close to its use as possible.' }
+        },
+        {
+          term: { pl: 'Koercja parametrów', en: 'Parameter coercion' },
+          def: { pl: 'Wartości z URL są zawsze stringami, więc parsujesz je schematem (<code>z.coerce.number().catch(1)</code>), zamiast ufać <code>Number(params.get("page"))</code>.', en: 'URL values are always strings, so you parse them with a schema (<code>z.coerce.number().catch(1)</code>) instead of trusting <code>Number(params.get("page"))</code>.' }
+        },
+        {
+          term: { pl: 'replace kontra push', en: 'replace vs push' },
+          def: { pl: '<code>replace</code> nadpisuje wpis w historii (debounce w wyszukiwarce), <code>push</code> dodaje nowy (przełączenie zakładki, wejście w szczegół). Zły wybór psuje przycisk wstecz.', en: '<code>replace</code> overwrites the history entry (a debounced search box), <code>push</code> adds a new one (switching tabs, opening a detail). The wrong choice breaks the back button.' }
+        },
+        {
+          term: { pl: 'Reset zależnych parametrów', en: 'Resetting dependent params' },
+          def: { pl: 'Zmiana filtra musi wyczyścić <code>page</code>, inaczej użytkownik ląduje na pustej stronie trzeciej. Klasyczny błąd zgłaszany przez QA.', en: 'Changing a filter must clear <code>page</code>, otherwise the user lands on an empty page three. A classic QA ticket.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r4m5arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +

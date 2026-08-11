@@ -17,6 +17,28 @@ export default {
       id: 'react-router-vs-vue-router',
       title: { pl: 'React Router kontra Vue Router', en: 'React Router vs Vue Router' },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'loader', en: 'loader' },
+          def: { pl: 'Funkcja przypisana do trasy, ktora pobiera dane <strong>zanim</strong> komponent sie wyrenderuje. Zastepuje pobieranie w <code>onMounted</code> i domyslnie blokuje nawigacje do czasu rozwiazania.', en: 'A function attached to a route that fetches data <strong>before</strong> the component renders. It replaces fetching in <code>onMounted</code> and blocks navigation until it resolves.' }
+        },
+        {
+          term: { pl: 'action', en: 'action' },
+          def: { pl: 'Odpowiednik loadera dla mutacji: obsluguje wyslany <code>&lt;Form method="post"&gt;</code>, a po zakonczeniu router sam rewaliduje aktywne loadery.', en: 'The mutation counterpart of a loader: it handles a submitted <code>&lt;Form method="post"&gt;</code>, and afterwards the router revalidates every active loader on its own.' }
+        },
+        {
+          term: { pl: 'Rownolegle loadery', en: 'Parallel loaders' },
+          def: { pl: 'Przy zagniezdzonych trasach wszystkie loadery startuja jednoczesnie, zamiast kaskady mount-fetch-mount znanej z Vue Routera. Jedno okno czekania zamiast trzech.', en: 'With nested routes every loader starts at once instead of the mount-fetch-mount cascade familiar from Vue Router. One waiting window instead of three.' }
+        },
+        {
+          term: { pl: 'Rewalidacja po akcji', en: 'Post-action revalidation' },
+          def: { pl: 'Po udanej akcji router odswieza dane wszystkich aktywnych tras. To <code>queryClient.invalidateQueries()</code> wbudowane w routing.', en: 'After a successful action the router refreshes the data of every active route. It is <code>queryClient.invalidateQueries()</code> baked into routing.' }
+        },
+        {
+          term: { pl: 'useNavigation', en: 'useNavigation' },
+          def: { pl: 'Hook zwracajacy stan nawigacji (<code>idle</code>, <code>loading</code>, <code>submitting</code>) - gotowy odpowiednik recznie pisanego <code>isSubmitting</code>.', en: 'The hook returning navigation state (<code>idle</code>, <code>loading</code>, <code>submitting</code>) - a ready-made replacement for the hand-rolled <code>isSubmitting</code>.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">'
           + '<text x="20" y="28" font-family="inherit" font-size="15" fill="var(--accent2)">Vue Router</text>'
@@ -139,6 +161,28 @@ export default {
       id: 'nextjs-vs-nuxt',
       title: { pl: 'Next.js kontra Nuxt', en: 'Next.js vs Nuxt' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'App Router', en: 'App Router' },
+          def: { pl: 'Katalog <code>app/</code> z konwencjami <code>layout.tsx</code>, <code>page.tsx</code> i <code>route.ts</code>, w ktorym komponenty sa domyslnie serwerowe. Odpowiednik <code>pages/</code> plus <code>layouts/</code> z Nuxta, ale z innym modelem wykonania.', en: 'The <code>app/</code> directory with its <code>layout.tsx</code>, <code>page.tsx</code> and <code>route.ts</code> conventions, where components are server-side by default. The Nuxt <code>pages/</code> plus <code>layouts/</code> equivalent, with a different execution model.' }
+        },
+        {
+          term: { pl: 'revalidate (ISR)', en: 'revalidate (ISR)' },
+          def: { pl: 'Eksport segmentu trasy okreslajacy, co ile sekund odswiezyc prerenderowana strone. Odpowiednik <code>routeRules</code> z Nuxta w wariancie ISR.', en: 'A route segment export saying how often, in seconds, to refresh the prerendered page. The ISR flavour of Nuxt <code>routeRules</code>.' }
+        },
+        {
+          term: { pl: 'cache: "no-store"', en: 'cache: "no-store"' },
+          def: { pl: 'Wypisanie pojedynczego <code>fetch()</code> z cache danych Next. Jego brak to najczestszy bug produkcyjny: strona pokazuje dane sprzed dwoch godzin.', en: 'Opting a single <code>fetch()</code> out of the Next data cache. Forgetting it is the most common production bug: the page shows data from two hours ago.' }
+        },
+        {
+          term: { pl: 'dynamic = "force-dynamic"', en: 'dynamic = "force-dynamic"' },
+          def: { pl: 'Wymuszenie renderowania segmentu na kazde zadanie. Ten sam efekt daje niejawnie <code>cookies()</code> albo <code>headers()</code> wywolane w layoucie.', en: 'Forcing a segment to render on every request. Calling <code>cookies()</code> or <code>headers()</code> in a layout has the same effect implicitly.' }
+        },
+        {
+          term: { pl: 'Brak auto-importow i modulow', en: 'No auto-imports, no module system' },
+          def: { pl: 'Next nie ma odpowiednika <code>@nuxtjs/*</code> ani auto-importow: kazdy <code>Link</code>, hook czy integracje podpinasz recznie przez providery i config. Mniej magii, wiecej boilerplate.', en: 'Next has no <code>@nuxtjs/*</code> equivalent and no auto-imports: every <code>Link</code>, hook and integration is wired by hand through providers and config. Less magic, more boilerplate.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">'
           + '<defs><marker id="nx-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>'
@@ -263,6 +307,28 @@ export default {
       id: 'server-components-rsc',
       title: { pl: 'React Server Components', en: 'React Server Components' },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'RSC payload', en: 'RSC payload' },
+          def: { pl: 'Strumieniowy format opisujacy drzewo Reacta, w ktorym komponenty klienckie sa jedynie referencjami do chunkow. Nie jest ani HTML-em, ani JSON-em.', en: 'A streaming format describing a React tree in which client components are only references to chunks. It is neither HTML nor JSON.' }
+        },
+        {
+          term: { pl: '"use client" jako granica', en: '"use client" as a boundary' },
+          def: { pl: 'Dyrektywa nie oznacza pliku, tylko wyznacza <strong>granice</strong>: wszystko, co ten plik importuje, staje sie kodem klienckim. Wstawiona w <code>app/layout.tsx</code> kasuje RSC w calej aplikacji.', en: 'The directive does not label a file, it marks a <strong>boundary</strong>: everything that file imports becomes client code. Put it in <code>app/layout.tsx</code> and RSC is gone from the whole app.' }
+        },
+        {
+          term: { pl: 'Serializowalne propsy', en: 'Serializable props' },
+          def: { pl: 'Przez granice serwer-klient przechodza tylko dane dajace sie zserializowac. Funkcje, klasy czy <code>Map</code> z kluczami obiektowymi nie przejda - wyjatkiem sa Server Actions, przekazywane jako referencja.', en: 'Only serializable data crosses the server-client boundary. Functions, classes or a <code>Map</code> with object keys do not pass - Server Actions are the exception, passed as a reference.' }
+        },
+        {
+          term: { pl: 'Wzorzec children przez granice', en: 'Children across the boundary' },
+          def: { pl: 'Komponent kliencki nie moze wyrenderowac serwerowego, ale moze go dostac jako <code>children</code>: <code>&lt;ClientProvider&gt;{serverTree}&lt;/ClientProvider&gt;</code>.', en: 'A client component cannot render a server one, but it can receive it as <code>children</code>: <code>&lt;ClientProvider&gt;{serverTree}&lt;/ClientProvider&gt;</code>.' }
+        },
+        {
+          term: { pl: 'Server Action', en: 'Server Action' },
+          def: { pl: 'Funkcja serwerowa oznaczona <code>"use server"</code>, wolana z klienta jak zwykla funkcja. Pod spodem to POST na wygenerowany endpoint, wiec traktuj ja jak publiczne API: waliduj wejscie i sprawdzaj autoryzacje.', en: 'A server function marked <code>"use server"</code> and called from the client like a normal function. Under the hood it is a POST to a generated endpoint, so treat it as a public API: validate input and check authorization.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">'
           + '<defs><marker id="rsc-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>'
@@ -505,6 +571,28 @@ export default {
       id: 'data-fetching-patterns-next',
       title: { pl: 'Wzorce pobierania danych w Next', en: 'Data fetching patterns in Next' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Deduplikacja w renderze', en: 'Per-render deduplication' },
+          def: { pl: 'Ten sam <code>fetch()</code> w jednym przebiegu renderowania wykona sie raz; funkcje spoza fetch owijasz w <code>cache()</code>. Dzieki temu wolasz <code>getCurrentUser()</code> w layoucie i na stronie zamiast przekazywac propsy.', en: 'The same <code>fetch()</code> in one render pass runs once; non-fetch functions get wrapped in <code>cache()</code>. That lets you call <code>getCurrentUser()</code> in the layout and the page instead of drilling props.' }
+        },
+        {
+          term: { pl: 'Data Cache i revalidateTag', en: 'Data Cache and revalidateTag' },
+          def: { pl: 'Trwaly cache miedzy zadaniami, sterowany przez <code>revalidate</code> i tagi. <code>revalidateTag("orders")</code> uniewaznia wszystkie wpisy z danym tagiem.', en: 'A persistent cache across requests, driven by <code>revalidate</code> and tags. <code>revalidateTag("orders")</code> invalidates every entry carrying that tag.' }
+        },
+        {
+          term: { pl: 'Full Route Cache', en: 'Full Route Cache' },
+          def: { pl: 'Prerenderowany HTML wraz z RSC payloadem dla tras statycznych. Jedno wywolanie <code>cookies()</code> przelacza segment w tryb dynamiczny i cache znika.', en: 'Prerendered HTML plus the RSC payload for static routes. A single <code>cookies()</code> call flips the segment to dynamic and the cache is gone.' }
+        },
+        {
+          term: { pl: 'Wzorzec preload', en: 'The preload pattern' },
+          def: { pl: 'Wystartowanie zapytania bez <code>await</code> na poczatku komponentu rodzica, zeby dane dziecka ladowaly sie rownolegle. Rozwiazuje kaskade, ktorej <code>Promise.all</code> nie siega.', en: 'Kicking off a query without <code>await</code> at the top of the parent so the child data loads in parallel. It solves the waterfall <code>Promise.all</code> cannot reach.' }
+        },
+        {
+          term: { pl: 'Kaskada zapytan (waterfall)', en: 'Request waterfall' },
+          def: { pl: 'Sekwencyjne pobieranie danych, gdzie kazdy krok czeka na poprzedni. Najczestsze zrodlo: <code>useEffect</code> plus <code>fetch</code> w komponencie klienckim tam, gdzie wystarczylo serwerowe <code>await</code>.', en: 'Sequential fetching where each step waits for the previous one. The most common source: <code>useEffect</code> plus <code>fetch</code> in a client component where a server <code>await</code> would do.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">'
           + '<text x="20" y="30" font-family="inherit" font-size="15" fill="var(--err)">Waterfall: await one after another</text>'
@@ -720,6 +808,24 @@ export default {
       id: 'choosing-spa-vs-meta',
       title: { pl: 'SPA czy meta-framework: jak wybrac', en: 'SPA or meta-framework: how to choose' },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'SPA', en: 'SPA' },
+          def: { pl: 'Aplikacja jako statyczne pliki na CDN albo za Nginksem: brak runtime, brak zimnych startow, brak dyzuru o trzeciej w nocy. Jedno zrodlo prawdy po stronie klienta.', en: 'The app as static files on a CDN or behind Nginx: no runtime, no cold starts, no 3 a.m. pager. One client-side source of truth.' }
+        },
+        {
+          term: { pl: 'Meta-framework', en: 'Meta-framework' },
+          def: { pl: 'Framework dokladajacy do Reacta routing, renderowanie serwerowe i warstwe danych (Next, React Router w trybie framework, TanStack Start). Kosztem jest kontener Node i wieksza zlozonosc operacyjna.', en: 'A framework adding routing, server rendering and a data layer on top of React (Next, React Router framework mode, TanStack Start). The price is a Node container and more operational complexity.' }
+        },
+        {
+          term: { pl: 'Tryb framework (React Router 7)', en: 'Framework mode (React Router 7)' },
+          def: { pl: 'Sciezka posrednia: SSR, loadery i akcje bez RSC. Dla zespolu po Nukcie najlagodniejsze przejscie, bo model "trasa posiada swoje dane" jest juz znany.', en: 'The middle path: SSR, loaders and actions without RSC. For a team arriving from Nuxt it is the gentlest transition, because the "a route owns its data" model is already familiar.' }
+        },
+        {
+          term: { pl: 'Vendor lock-in', en: 'Vendor lock-in' },
+          def: { pl: 'Uzaleznienie od dostawcy: ISR, obrazy, middleware i Server Actions dzialaja najlepiej na Vercelu, a <code>next start</code> na wlasnym klastrze wymaga dolozenia cache w Redisie i CDN rozumiejacego tagi.', en: 'Dependence on a provider: ISR, images, middleware and Server Actions work best on Vercel, while <code>next start</code> on your own cluster needs a Redis-backed cache and a tag-aware CDN.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg">'
           + '<defs><marker id="ch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>'

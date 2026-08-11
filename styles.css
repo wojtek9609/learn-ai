@@ -1281,6 +1281,68 @@ pre code {
   font-weight: 600;
 }
 
+/* ------------------------------------------- v6: flashcards + 5 minutes --- */
+
+/* term card: front (the term) stays, the back appears on "show answer" */
+
+.q-term .term-front {
+  margin: 0 0 6px;
+  font-size: 1.18rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+.q-term .term-prompt {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+.term-back {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  animation: slide-in 0.24s var(--ease) both;
+}
+.term-back > :first-child { margin-top: 0; }
+.term-back > :last-child { margin-bottom: 0; }
+.term-back code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+}
+.btn-term-miss { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+
+/* micro-session entry point on home */
+
+.quick-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--tap);
+  padding: 12px 14px;
+  margin: 12px 0 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  transition: transform 0.16s var(--ease), border-color 0.22s var(--ease),
+              box-shadow 0.22s var(--ease);
+}
+.quick-card:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+.quick-card:active { transform: translateY(0) scale(0.995); }
+.quick-icon { flex: 0 0 auto; font-size: 1.2rem; }
+.quick-body { display: grid; gap: 2px; min-width: 0; flex: 1; }
+.quick-title { font-weight: 700; font-size: 0.96rem; }
+.quick-desc { color: var(--muted); font-size: 0.82rem; }
+
 /* scope pickers (review modules, interview tracks) */
 
 .scope-group { margin-bottom: 18px; }
@@ -1406,6 +1468,146 @@ pre code {
   letter-spacing: 0.04em;
 }
 
+/* ------------------------ v6: pre-question, Feynman, ask Claude ---------- */
+
+/* pre-question: one guess before reading, on unfinished lessons only */
+
+.preguess {
+  margin: 0 0 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent2);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.preguess-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--tap);
+  padding: 10px 14px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+}
+.preguess-head::-webkit-details-marker { display: none; }
+.preguess-head::after {
+  content: '▾';
+  margin-left: auto;
+  color: var(--muted);
+  transition: transform 0.2s var(--ease);
+}
+.preguess[open] .preguess-head::after { transform: rotate(180deg); }
+.preguess-icon { font-size: 1.1rem; }
+.preguess-title { font-size: 0.95rem; }
+.preguess-body {
+  padding: 0 14px 14px;
+  animation: slide-in 0.24s var(--ease) both;
+}
+.preguess-hint {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.preguess-after {
+  margin: 10px 0 0;
+  color: var(--accent2);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+/* Feynman: explain it in your own words */
+
+.feynman {
+  margin-top: 24px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.feynman-title { margin: 0 0 6px; font-size: 1.05rem; }
+.feynman-desc {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.feynman-input {
+  display: block;
+  width: 100%;
+  min-height: 140px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  resize: vertical;
+  transition: border-color 0.2s var(--ease);
+}
+.feynman-input:focus { border-color: var(--accent); outline: none; }
+.feynman-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.feynman-status {
+  color: var(--ok);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.feynman-compare {
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  animation: slide-in 0.24s var(--ease) both;
+}
+.feynman-sub {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.feynman-compare .prose > :first-child { margin-top: 0; }
+.feynman-compare .prose > :last-child { margin-bottom: 0; }
+.feynman-gap {
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.feynman-gap strong { color: var(--text); }
+
+/* ask Claude deep link */
+
+.ask-claude {
+  display: flex;
+  margin: 16px 0 0;
+}
+.ask-claude-link {
+  flex: 1;
+  border-style: dashed;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.ask-claude-link:hover {
+  background: var(--accent-soft);
+  border-style: solid;
+}
+
 /* -------------------------------------------------------- v5: UX pack ---- */
 
 /* continue card */
@@ -1498,6 +1700,15 @@ pre code {
 .streak-goal-text { font-size: 0.88rem; font-weight: 600; }
 .streak-card.is-reached .streak-goal-text { color: var(--ok); }
 .streak-hint { color: var(--muted); font-size: 0.76rem; }
+.streak-stats {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.streak-stats:hover { text-decoration: underline; }
 
 /* search */
 
@@ -1626,6 +1837,154 @@ pre code {
 .data-preview { margin: 0 0 4px; font-weight: 700; font-size: 0.9rem; }
 .data-question { margin: 0 0 12px; color: var(--muted); font-size: 0.86rem; }
 .data-confirm .data-row { margin-bottom: 0; }
+
+/* ------------------------------- v6: weak areas + activity heatmap ------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* home chip */
+
+.weak-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  margin: -12px 0 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--warn);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  color: inherit;
+  text-decoration: none;
+  min-height: var(--tap);
+  transition: transform 0.18s var(--ease), box-shadow 0.18s var(--ease);
+}
+.weak-chip:active { transform: scale(0.99); }
+.weak-chip:hover { box-shadow: var(--shadow-md); }
+.weak-chip-icon { flex: 0 0 auto; font-size: 1rem; }
+.weak-chip-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.weak-chip-cta { flex: 0 0 auto; color: var(--accent); font-size: 0.82rem; font-weight: 800; }
+
+/* stats page */
+
+.stats-hint { margin: 10px 0 22px; color: var(--muted); font-size: 0.8rem; line-height: 1.55; }
+
+.weak-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.weak-row {
+  display: grid;
+  gap: 10px;
+  padding: 14px 15px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.weak-head { display: flex; align-items: center; gap: 10px; }
+.weak-icon { flex: 0 0 auto; font-size: 1.1rem; }
+.weak-main { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.weak-name { font-weight: 700; font-size: 0.96rem; }
+.weak-meta {
+  color: var(--muted);
+  font-size: 0.76rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.weak-score { flex: 0 0 auto; color: var(--warn); font-size: 0.78rem; font-weight: 800; }
+.weak-bar i { background: linear-gradient(90deg, var(--warn), var(--err)); }
+.weak-cta { margin-top: 2px; }
+
+/* heatmap */
+
+.heat {
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.heat-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.heat-inner { min-width: 320px; }
+.heat-months-row, .heat-body { display: flex; gap: 6px; }
+.heat-gutter { flex: 0 0 26px; }
+.heat-months,
+.heat-grid {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: 3px;
+}
+.heat-months { margin-bottom: 4px; }
+.heat-month {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.heat-grid {
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  grid-auto-flow: column;
+}
+.heat-days {
+  flex: 0 0 26px;
+  display: grid;
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  gap: 3px;
+}
+.heat-day {
+  font-size: 0.6rem;
+  color: var(--muted);
+  line-height: 1;
+  align-self: center;
+}
+.heat-cell {
+  aspect-ratio: 1 / 1;
+  min-height: 9px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.heat-cell[data-level="1"] { background: var(--accent-soft); border-color: transparent; }
+.heat-cell[data-level="2"] { background: color-mix(in srgb, var(--accent) 38%, transparent); border-color: transparent; }
+.heat-cell[data-level="3"] { background: color-mix(in srgb, var(--accent) 66%, transparent); border-color: transparent; }
+.heat-cell[data-level="4"] { background: var(--accent); border-color: transparent; }
+.heat-cell.is-blank { background: transparent; border-color: transparent; }
+.heat-cell.is-today { outline: 2px solid var(--text); outline-offset: 1px; }
+
+.heat-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+}
+.heat-summary { color: var(--muted); font-size: 0.78rem; }
+.heat-legend { display: flex; align-items: center; gap: 3px; }
+.heat-legend .heat-cell { width: 10px; height: 10px; min-height: 0; }
+.heat-legend-label { color: var(--muted); font-size: 0.7rem; margin: 0 3px; }
 
 /* ------------------------------------------------------------ desktop ---- */
 

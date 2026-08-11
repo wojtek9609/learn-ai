@@ -138,6 +138,46 @@ follows the UI language (pl-PL / en-US, falling back to the default voice).
 Speech stops on navigation, on a level switch and on a language switch. If the
 browser has no `speechSynthesis` support, the toolbar is not rendered at all.
 
+### Learning effectiveness
+
+Six features built around how memory actually works: retrieval practice,
+spacing, self-explanation and honest feedback about what you are worst at.
+
+**🃏 Flashcards** - every lesson carries 3-5 key terms (`terms`), the things you
+should be able to define cold. Once a lesson is completed its term cards join
+the same spaced-repetition schedule as its quiz questions, and review sessions
+interleave both kinds. A term card is Anki classic: the term on the front, tap
+"Show answer" for the definition, then grade yourself "I knew it" / "I didn't".
+A miss re-queues the card in the current round, exactly like a failed question.
+
+**🤔 Guess before you read** - on a lesson you have not completed yet, a card
+above the level tabs asks one of that lesson's quiz questions before you read
+anything. The pick is stable for the whole day. Answering gives instant
+feedback plus the explanation, and touches nothing: no score, no scheduling,
+no activity. Guessing wrong first makes the reading stick better.
+
+**📊 Weak areas and heatmap (`#/stats`)** - reachable from the "Statistics" link
+on the streak card. It ranks your three weakest modules from their scheduled
+cards (average box, weighted by how often you lapsed on them), each with a
+"Review this module" button that opens an endless session scoped there. Below
+it, a GitHub-style heatmap of the last 16 weeks of activity. When a weakest
+module exists, the home screen shows a compact chip linking straight to it.
+
+**✍️ Feynman: explain it in your own words** - between the lesson content and
+the quiz, a textarea that autosaves as you type (debounced, capped at 5000
+characters, one note per lesson, pre-filled when you come back). "Compare with
+the simple version" reveals the ELI5 text inline so you can see what you left
+out. Voice typing works through the phone keyboard.
+
+**⚡ I have 5 minutes (`#/quick`)** - a button on the home screen. With at least
+three cards due it runs a five-card review round that counts toward the day;
+otherwise it drops you straight into the shortest unfinished lesson.
+
+**💬 Ask Claude** - under the quiz, a link that opens claude.ai pre-filled with
+a prompt about this exact lesson: explain it differently, check my
+understanding with a few questions, give one practical frontend example. Pure
+link, no API key, no data leaves the app.
+
 ### Run locally
 
 ```bash
@@ -353,6 +393,50 @@ akapitu, zeby Chrome nie ucinal dlugich wypowiedzi. Glos idzie za jezykiem
 interfejsu (pl-PL / en-US, w razie braku glos domyslny). Mowa zatrzymuje sie
 przy zmianie strony, poziomu i jezyka. Jesli przegladarka nie ma
 `speechSynthesis`, pasek w ogole sie nie pojawia.
+
+### Skutecznosc nauki
+
+Szesc funkcji zbudowanych wokol tego, jak naprawde dziala pamiec: przypominanie
+sobie zamiast czytania, rozlozenie w czasie, tlumaczenie wlasnymi slowami i
+uczciwa informacja o tym, co idzie najgorzej.
+
+**🃏 Fiszki** - kazda lekcja ma 3-5 kluczowych pojec (`terms`), czyli to, co
+powinienes umiec zdefiniowac z glowy. Gdy lekcja jest zaliczona, jej fiszki
+wchodza do tego samego harmonogramu powtorek co pytania quizowe, a sesje
+przeplataja oba rodzaje kart. Fiszka dziala jak w Anki: z przodu pojecie,
+"Pokaz odpowiedz" odslania definicje, potem oceniasz sie sam "Umialem" /
+"Nie umialem". Nieudana karta wraca na koniec biezacej rundy, tak samo jak
+zle odpowiedziane pytanie.
+
+**🤔 Zgadnij, zanim przeczytasz** - w lekcji, ktorej jeszcze nie zaliczyles, nad
+zakladkami poziomu pojawia sie karta z jednym pytaniem quizowym z tej lekcji,
+jeszcze przed czytaniem. Wybor pytania jest staly przez caly dzien. Odpowiedz
+daje natychmiastowa informacje zwrotna i wyjasnienie, ale nie rusza niczego:
+ani wyniku, ani harmonogramu powtorek, ani aktywnosci. Nietrafiona proba
+sprawia, ze pozniejsze czytanie zostaje w glowie duzo lepiej.
+
+**📊 Slabe obszary i mapa aktywnosci (`#/stats`)** - wejscie z linku
+"Statystyki" na kaflu serii. Ekran ustawia w kolejnosci trzy najslabsze moduly
+na podstawie ich zaplanowanych kart (srednie pudelko wazone liczba wpadek),
+kazdy z przyciskiem "Powtorz ten modul", ktory otwiera sesje bez limitu w tym
+zakresie. Nizej mapa aktywnosci z ostatnich 16 tygodni w stylu GitHuba. Gdy
+jakis modul kwalifikuje sie jako najslabszy, na stronie glownej pojawia sie
+maly chip prowadzacy prosto do jego powtorki.
+
+**✍️ Feynman: wyjasnij wlasnymi slowami** - miedzy trescia lekcji a quizem pole
+tekstowe, ktore zapisuje sie samo w trakcie pisania (z opoznieniem, limit 5000
+znakow, jedna notatka na lekcje, wypelniona przy powrocie). "Porownaj z wersja
+prosta" pokazuje obok tekst ELI5, zebys zobaczyl, czego zabraklo. Dyktowanie
+glosem dziala przez klawiature telefonu.
+
+**⚡ Mam 5 minut (`#/quick`)** - przycisk na stronie glownej. Jesli czeka co
+najmniej trzy karty, uruchamia pieciokartowa runde powtorki liczona do dnia;
+jesli nie, przenosi cie prosto do najkrotszej nieukonczonej lekcji.
+
+**💬 Zapytaj Claude** - pod quizem link, ktory otwiera claude.ai z gotowym
+promptem o tej konkretnej lekcji: wyjasnij inaczej, sprawdz moje zrozumienie
+kilkoma pytaniami, podaj jeden praktyczny przyklad z frontendu. Czysty link,
+bez klucza API, zadne dane nie wychodza z aplikacji.
 
 ### Uruchomienie lokalnie
 

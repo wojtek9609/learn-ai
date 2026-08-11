@@ -19,6 +19,28 @@ export default {
         en: 'From Options API to Composition API'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Options API jako warstwa', en: 'Options API as a layer' },
+          def: { pl: 'Options API działa dziś <strong>na</strong> Composition API: Vue najpierw woła <code>setup()</code>, a dopiero potem <code>applyOptions()</code> rozwiązuje <code>data</code>, <code>computed</code> i <code>methods</code> na tej samej instancji.', en: 'The Options API today runs <strong>on top of</strong> the Composition API: Vue calls <code>setup()</code> first and only then <code>applyOptions()</code> resolves <code>data</code>, <code>computed</code> and <code>methods</code> on the same instance.' }
+        },
+        {
+          term: { pl: 'setupState i proxyRefs', en: 'setupState and proxyRefs' },
+          def: { pl: 'To, co zwróci <code>setup()</code>, ląduje w <code>setupState</code> owiniętym w <code>proxyRefs</code> - dlatego w szablonie refy rozpakowują się same i nie piszesz <code>.value</code>.', en: 'Whatever <code>setup()</code> returns lands in <code>setupState</code> wrapped in <code>proxyRefs</code> - which is why refs unwrap themselves in the template and you skip <code>.value</code>.' }
+        },
+        {
+          term: { pl: 'Kolejność rozwiązywania nazw', en: 'Name resolution order' },
+          def: { pl: 'Proxy instancji szuka po kolei w <code>setupState</code>, <code>data</code>, <code>props</code>, <code>ctx</code>. Mixiny wrzucają nazwy do tej wspólnej przestrzeni, a konflikty rozstrzygają się po cichu.', en: 'The instance proxy looks up <code>setupState</code>, then <code>data</code>, <code>props</code>, <code>ctx</code>. Mixins dump names into that shared space and conflicts resolve silently.' }
+        },
+        {
+          term: { pl: 'Composable zamiast mixina', en: 'Composable instead of mixin' },
+          def: { pl: 'Funkcja z jawnym wejściem i wyjściem, której wynik nazywasz sam: <code>const { data: user } = useUser()</code>. Zero magii w przestrzeni nazw i typy płynące z sygnatury.', en: 'A function with explicit input and output whose result you name yourself: <code>const { data: user } = useUser()</code>. No namespace magic and types flow from the signature.' }
+        },
+        {
+          term: { pl: 'defineOptions', en: 'defineOptions' },
+          def: { pl: 'Makro dla opcji, które nie mają odpowiednika w <code>&lt;script setup&gt;</code>: <code>name</code>, <code>inheritAttrs</code>, opcje niestandardowe. Zastępuje drugi blok <code>&lt;script&gt;</code> w większości przypadków.', en: 'The macro for options that have no <code>&lt;script setup&gt;</code> equivalent: <code>name</code>, <code>inheritAttrs</code>, custom options. It replaces the second <code>&lt;script&gt;</code> block in most cases.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Same component, two ways of slicing it</text>' +
@@ -281,6 +303,28 @@ export default {
         en: 'Designing composables'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Composable', en: 'Composable' },
+          def: { pl: 'Funkcja wykorzystująca reaktywność Vue, wołana synchronicznie w <code>setup</code>, zwracająca stan i akcje. Konwencja <code>useX</code>, wejście przez <code>MaybeRefOrGetter</code>, sprzątanie po sobie.', en: 'A function that uses Vue reactivity, called synchronously in <code>setup</code>, returning state and actions. The <code>useX</code> convention, <code>MaybeRefOrGetter</code> input, and cleanup of its own effects.' }
+        },
+        {
+          term: { pl: 'onScopeDispose', en: 'onScopeDispose' },
+          def: { pl: 'Rejestruje sprzątanie w bieżącym <code>effectScope</code>, także poza komponentem. Właściwe miejsce na <code>clearInterval</code>, odpięcie observera czy zamknięcie socketu w composable.', en: 'Registers cleanup on the current <code>effectScope</code>, also outside a component. The right place for <code>clearInterval</code>, detaching an observer or closing a socket inside a composable.' }
+        },
+        {
+          term: { pl: 'createSharedComposable', en: 'createSharedComposable' },
+          def: { pl: 'Wzorzec współdzielenia jednej instancji stanu z licznikiem referencji: pierwszy konsument tworzy odczepiony <code>effectScope(true)</code>, ostatni go zatrzymuje.', en: 'The pattern for sharing one state instance with reference counting: the first consumer creates a detached <code>effectScope(true)</code>, the last one stops it.' }
+        },
+        {
+          term: { pl: 'Stan na poziomie modułu i SSR', en: 'Module-level state and SSR' },
+          def: { pl: '<code>const state = ref(0)</code> poza funkcją to singleton na proces. Na kliencie bywa wygodny, na serwerze oznacza wyciek danych między requestami różnych użytkowników.', en: '<code>const state = ref(0)</code> outside a function is a per-process singleton. Convenient on the client, but on the server it leaks data between different users requests.' }
+        },
+        {
+          term: { pl: 'Composable synchroniczny, nie async', en: 'Sync composable, not async' },
+          def: { pl: 'Po pierwszym <code>await</code> nie ma aktywnej instancji, więc <code>onMounted</code>, <code>inject</code> i rejestracja w scope przestają działać. Zwracaj <code>{ data, error, isLoading, execute }</code> i czekaj w środku efektu.', en: 'After the first <code>await</code> there is no active instance, so <code>onMounted</code>, <code>inject</code> and scope registration stop working. Return <code>{ data, error, isLoading, execute }</code> and await inside the effect instead.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Anatomy of a well-behaved composable</text>' +
@@ -414,6 +458,28 @@ export default {
         en: 'Lifecycle in the Composition API'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'currentInstance', en: 'currentInstance' },
+          def: { pl: 'Zmienna modułowa ustawiona tylko na czas synchronicznego wykonania <code>setup</code>. Dlatego <code>onMounted</code> czy <code>inject</code> po <code>await</code> trafiają w <code>null</code>.', en: 'A module variable set only for the synchronous execution of <code>setup</code>. That is why <code>onMounted</code> or <code>inject</code> after an <code>await</code> hit <code>null</code>.' }
+        },
+        {
+          term: { pl: 'nextTick', en: 'nextTick' },
+          def: { pl: 'Obietnica rozwiązywana po opróżnieniu kolejki zadań, czyli po załataniu DOM. <code>await nextTick()</code> przed pomiarem elementu to standard zamiast zgadywania w <code>setTimeout</code>.', en: 'A promise resolved after the job queue flushes, that is after the DOM patch. <code>await nextTick()</code> before measuring an element is the standard instead of guessing with <code>setTimeout</code>.' }
+        },
+        {
+          term: { pl: 'Suspense i async setup', en: 'Suspense and async setup' },
+          def: { pl: 'Komponent z top-level <code>await</code> wymaga granicy <code>&lt;Suspense&gt;</code>, która trzyma fallback i wstrzymuje montowanie rodzeństwa. Nadal eksperymentalne - jawny stan ładowania w composable zwykle wygrywa.', en: 'A component with a top-level <code>await</code> needs a <code>&lt;Suspense&gt;</code> boundary, which owns the fallback and holds back sibling mounting. Still experimental - an explicit loading state in a composable usually wins.' }
+        },
+        {
+          term: { pl: 'onDeactivated', en: 'onDeactivated' },
+          def: { pl: 'Wewnątrz <code>&lt;KeepAlive&gt;</code> komponent jest dezaktywowany, a nie odmontowany. Ciężkie integracje (timery, sockety, wykresy) zwalniaj tutaj, nie w <code>onUnmounted</code>.', en: 'Inside <code>&lt;KeepAlive&gt;</code> a component is deactivated, not unmounted. Release heavy integrations (timers, sockets, charts) here, not in <code>onUnmounted</code>.' }
+        },
+        {
+          term: { pl: 'onErrorCaptured', en: 'onErrorCaptured' },
+          def: { pl: 'Hak łapiący błędy z poddrzewa; zwrócenie <code>false</code> zatrzymuje propagację do <code>app.config.errorHandler</code>. Baza error boundary wokół slotów konsumenta w design systemie.', en: 'A hook catching errors from the subtree; returning <code>false</code> stops propagation to <code>app.config.errorHandler</code>. The basis of an error boundary around consumer slots in a design system.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Hook order for a parent and its child</text>' +
@@ -662,6 +728,28 @@ export default {
         en: 'Provide and inject patterns'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'provide / inject', en: 'provide / inject' },
+          def: { pl: 'Przekazanie wartości w dół poddrzewa bez prop drillingu. Każda instancja ma obiekt <code>provides</code>, którego prototypem jest <code>provides</code> rodzica, więc <code>inject</code> to odczyt po łańcuchu prototypów.', en: 'Passing a value down a subtree without prop drilling. Every instance has a <code>provides</code> object whose prototype is the parent one, so <code>inject</code> is a prototype-chain read.' }
+        },
+        {
+          term: { pl: 'InjectionKey', en: 'InjectionKey' },
+          def: { pl: 'Typowany symbol wiążący typ wartości z kluczem: <code>const FieldKey: InjectionKey&lt;FieldApi&gt; = Symbol()</code>. Eliminuje literały string i daje <code>inject</code> pełne wnioskowanie typu.', en: 'A typed symbol binding a value type to a key: <code>const FieldKey: InjectionKey&lt;FieldApi&gt; = Symbol()</code>. It removes string literals and gives <code>inject</code> full type inference.' }
+        },
+        {
+          term: { pl: 'Fabryka domyślnej wartości', en: 'Default value factory' },
+          def: { pl: '<code>inject(Key, factory, true)</code> - trzeci argument mówi, że drugi to fabryka. Jedyny sposób, żeby przypadkiem nie współdzielić jednego obiektu domyślnego między wszystkimi konsumentami.', en: '<code>inject(Key, factory, true)</code> - the third argument says the second one is a factory. The only way to avoid accidentally sharing one default object across every consumer.' }
+        },
+        {
+          term: { pl: 'hasInjectionContext()', en: 'hasInjectionContext()' },
+          def: { pl: 'Sprawdza, czy kod działa wewnątrz <code>setup</code>. Pozwala composable z biblioteki użyć wstrzykniętej konfiguracji, a poza komponentem spaść na argument przekazany jawnie - zamiast ostrzeżenia w konsoli.', en: 'Checks whether code runs inside <code>setup</code>. It lets a library composable use injected configuration when available and fall back to an explicit argument outside - instead of a console warning.' }
+        },
+        {
+          term: { pl: 'Rejestracja potomków', en: 'Child registration' },
+          def: { pl: 'Komponenty złożone (Tabs, Accordion, RadioGroup) wstrzykują <code>register</code> i <code>unregister</code>, a kolejność ustalają przez <code>compareDocumentPosition</code>, bo kolejność montowania to nie kolejność wizualna.', en: 'Compound components (Tabs, Accordion, RadioGroup) inject <code>register</code> and <code>unregister</code> and order children with <code>compareDocumentPosition</code>, because mount order is not visual order.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Injection walks up the component tree</text>' +
@@ -787,6 +875,28 @@ export default {
         en: 'Compiler macros: defineProps, defineModel and friends'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Makro kompilatora', en: 'Compiler macro' },
+          def: { pl: '<code>defineProps</code>, <code>defineEmits</code>, <code>defineModel</code> to instrukcje dla <code>@vue/compiler-sfc</code>, nie funkcje. Wywołanie znika z outputu, więc wszystko musi dać się przeanalizować statycznie.', en: '<code>defineProps</code>, <code>defineEmits</code> and <code>defineModel</code> are instructions to <code>@vue/compiler-sfc</code>, not functions. The call disappears from the output, so everything must be statically analyzable.' }
+        },
+        {
+          term: { pl: 'defineModel', en: 'defineModel' },
+          def: { pl: 'Generuje prop <code>modelValue</code>, emit <code>update:modelValue</code> i lokalny bufor w jednym refie. Nazwany wariant <code>defineModel(\'firstName\')</code> daje wiele niezależnych v-modeli.', en: 'Generates the <code>modelValue</code> prop, the <code>update:modelValue</code> emit and a local buffer in one ref. The named form <code>defineModel(\'firstName\')</code> gives several independent v-models.' }
+        },
+        {
+          term: { pl: 'modelModifiers', en: 'modelModifiers' },
+          def: { pl: 'Obiekt z modyfikatorami użytymi przez rodzica (<code>v-model.trim</code>). Odbierasz go z <code>defineModel</code> i stosujesz własną transformację w opcji <code>set</code>.', en: 'The object of modifiers the parent used (<code>v-model.trim</code>). You receive it from <code>defineModel</code> and apply your own transform in the <code>set</code> option.' }
+        },
+        {
+          term: { pl: 'Props destructure (3.5)', en: 'Props destructure (3.5)' },
+          def: { pl: '<code>const { dense = false } = defineProps...</code> - kompilator zamienia odczyt na dostęp do propa, więc reaktywność zostaje. Ale przekazany dalej binding to już wartość: użyj <code>() =&gt; size</code> lub <code>toRef</code>.', en: '<code>const { dense = false } = defineProps...</code> - the compiler rewrites reads as prop access, so reactivity survives. Passing the binding onward passes a value though: use <code>() =&gt; size</code> or <code>toRef</code>.' }
+        },
+        {
+          term: { pl: 'Typ kontra deklaracja runtime', en: 'Type versus runtime declaration' },
+          def: { pl: 'Z typu kompilator emituje uproszczone opcje runtime, a złożone typy degradują się do braku sprawdzania. Dla biblioteki konsumowanej bez TS deklaracja runtime z <code>validator</code> bywa uczciwsza.', en: 'From a type the compiler emits simplified runtime options, and complex types degrade to no checking. For a library consumed without TS, a runtime declaration with a <code>validator</code> is often more honest.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Macros are compiled away, never called at runtime</text>' +

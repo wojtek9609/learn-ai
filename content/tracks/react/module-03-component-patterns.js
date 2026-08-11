@@ -22,6 +22,36 @@ export default {
         en: 'children vs slots'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'children', en: 'children' },
+          def: {
+            pl: 'Props, do ktorego kompiluje sie JSX zapisany miedzy tagami komponentu. To wartosc policzona przez rodzica, a nie funkcja wolana przez dziecko jak slot we Vue.',
+            en: 'The prop that JSX written between a component tags compiles into. It is a value computed by the parent, not a function called by the child like a Vue slot.'
+          }
+        },
+        {
+          term: { pl: 'Props typu element', en: 'Element prop' },
+          def: {
+            pl: 'Zamiennik slotow nazwanych: zwykly props przyjmujacy JSX, np. <code>header</code> albo <code>footer</code>. W TypeScripcie widac w podpowiedziach, jakie dziury ma komponent.',
+            en: 'The replacement for named slots: a plain prop that accepts JSX, such as <code>header</code> or <code>footer</code>. TypeScript then shows in autocomplete what holes the component has.'
+          }
+        },
+        {
+          term: { pl: 'ReactNode', en: 'ReactNode' },
+          def: {
+            pl: 'Typ dla dowolnej tresci renderowalnej. <code>ReactElement</code> bierz tylko wtedy, gdy naprawde potrzebujesz dokladnie jednego elementu.',
+            en: 'The type for any renderable content. Reach for <code>ReactElement</code> only when you genuinely need exactly one element.'
+          }
+        },
+        {
+          term: { pl: 'cloneElement', en: 'cloneElement' },
+          def: {
+            pl: 'Reactowy odpowiednik grzebania w VNode-ach dziecka, razem z <code>React.Children.map</code>. Kruchy i odradzany w dokumentacji Reacta 19 - uzyj Contextu.',
+            en: 'The React way of rummaging in a child VNode, together with <code>React.Children.map</code>. Fragile and discouraged in the React 19 docs - use Context instead.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l1arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -150,6 +180,43 @@ export default {
         en: 'Context vs provide/inject'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Context', en: 'Context' },
+          def: {
+            pl: 'Mechanizm dystrybucji wartosci w dol drzewa, odpowiednik <code>provide</code> i <code>inject</code>. Nie jest store: nie ma selektorow, wiec zmiana wartosci budzi wszystkich konsumentow.',
+            en: 'A mechanism for distributing a value down the tree, the counterpart of <code>provide</code> and <code>inject</code>. It is not a store: no selectors, so a value change wakes every consumer.'
+          }
+        },
+        {
+          term: { pl: 'Stabilna wartosc providera', en: 'Stable provider value' },
+          def: {
+            pl: 'Nowy obiekt literalny w propsie <code>value</code> renderuje wszystkich konsumentow na kazdy render providera. Ratunkiem jest <code>useMemo</code> na wartosci.',
+            en: 'A fresh object literal in the <code>value</code> prop re-renders every consumer on each provider render. The fix is a <code>useMemo</code> around the value.'
+          }
+        },
+        {
+          term: { pl: 'Podzial contextu', en: 'Context splitting' },
+          def: {
+            pl: 'Rozbicie jednego duzego contextu na rzadko zmienne <em>akcje</em> i czesto zmienny <em>stan</em>. Komponent wolajacy tylko <code>logout</code> przestaje sie wtedy renderowac przy kazdej zmianie danych.',
+            en: 'Splitting one large context into rarely changing <em>actions</em> and frequently changing <em>state</em>. A component that only calls <code>logout</code> then stops re-rendering on every data change.'
+          }
+        },
+        {
+          term: { pl: 'Domyslna wartosc contextu', en: 'Context default value' },
+          def: {
+            pl: 'Cicha pulapka: komponent uzyty poza providerem dostaje ja bez ostrzezenia. Przekaz <code>null</code> i opakuj odczyt w hooka, ktory rzuca bledem.',
+            en: 'A silent trap: a component used outside the provider gets it with no warning. Pass <code>null</code> and wrap the read in a hook that throws.'
+          }
+        },
+        {
+          term: { pl: 'Pozycja renderu, nie DOM', en: 'Render position, not DOM' },
+          def: {
+            pl: 'Context czyta sie w gore od miejsca, w ktorym element powstal. Gdy komponent przyszedl przez <code>children</code>, providerem jest ten, kto ten element stworzyl.',
+            en: 'Context is read upward from where the element was created. When a component arrived via <code>children</code>, its provider is whoever created that element.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l2arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -274,6 +341,43 @@ export default {
         en: 'Controlled inputs vs v-model'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Controlled input', en: 'Controlled input' },
+          def: {
+            pl: 'Pole, dla ktorego jedynym zrodlem prawdy jest stan Reacta, a DOM jest tylko widokiem. Wlacza je props <code>value</code> plus <code>onChange</code>.',
+            en: 'A field whose single source of truth is React state, with the DOM as a view only. The <code>value</code> prop plus <code>onChange</code> turns it on.'
+          }
+        },
+        {
+          term: { pl: 'Uncontrolled input', en: 'Uncontrolled input' },
+          def: {
+            pl: 'Pole, w ktorym prawda zyje w DOM, a wartosc czytasz refem albo z <code>FormData</code>. Wlacza je <code>defaultValue</code> i kosztuje zero renderow na znak.',
+            en: 'A field whose truth lives in the DOM, read through a ref or from <code>FormData</code>. Turned on with <code>defaultValue</code>, it costs zero renders per character.'
+          }
+        },
+        {
+          term: { pl: 'Przelaczenie controlled na uncontrolled', en: 'Controlled to uncontrolled switch' },
+          def: {
+            pl: 'Zmiana <code>value</code> z <code>undefined</code> na string w trakcie zycia pola daje ostrzezenie Reacta i realny blad. Pisz <code>value={data?.name ?? ""}</code>.',
+            en: 'Flipping <code>value</code> from <code>undefined</code> to a string mid-life produces a React warning and a real bug. Write <code>value={data?.name ?? ""}</code>.'
+          }
+        },
+        {
+          term: { pl: 'onChange to natywny input', en: 'onChange is really input' },
+          def: {
+            pl: 'W Reactie <code>onChange</code> odpala sie przy kazdym znaku, a nie na blur jak natywne <code>change</code>. Odpowiednikiem <code>v-model.lazy</code> jest <code>onBlur</code>.',
+            en: 'In React <code>onChange</code> fires on every character, not on blur like the native <code>change</code> event. The <code>v-model.lazy</code> equivalent is <code>onBlur</code>.'
+          }
+        },
+        {
+          term: { pl: 'react-hook-form', en: 'react-hook-form' },
+          def: {
+            pl: 'Produkcyjna odpowiedz na koszt kontrolowanych formularzy: pola zostaja niekontrolowane, a subskrypcja idzie per pole. Odkupuje granularnosc, ktora Vue daje z automatu.',
+            en: 'The production answer to the cost of controlled forms: fields stay uncontrolled and subscriptions are per field. It buys back the granularity Vue gives you by default.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l3arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -544,6 +648,43 @@ export default {
         en: 'Compound components and render props'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Compound components', en: 'Compound components' },
+          def: {
+            pl: 'Rodzina powiazanych komponentow dzielaca stan przez wewnetrzny Context, np. <code>Tabs</code>, <code>Tabs.Trigger</code>, <code>Tabs.Panel</code>. Odpowiednik <code>provide</code> z <code>InjectionKey</code> we Vue.',
+            en: 'A family of related components sharing state through an internal Context, e.g. <code>Tabs</code>, <code>Tabs.Trigger</code>, <code>Tabs.Panel</code>. The Vue counterpart is <code>provide</code> with an <code>InjectionKey</code>.'
+          }
+        },
+        {
+          term: { pl: 'Render prop', en: 'Render prop' },
+          def: {
+            pl: 'Props bedacy funkcja, ktora rodzic wola z danymi i ktora zwraca JSX. Odpowiednik scoped slota - dzieli logike razem z kontrola nad kawalkiem drzewa.',
+            en: 'A prop that is a function the parent calls with data and which returns JSX. The scoped-slot equivalent - it shares logic together with control over a slice of the tree.'
+          }
+        },
+        {
+          term: { pl: 'Function as children', en: 'Function as children' },
+          def: {
+            pl: 'Wariant render propa, w ktorym funkcja idzie przez <code>children</code>: <code>&lt;List&gt;{(item) =&gt; ...}&lt;/List&gt;</code>. Kosztuje nowa funkcje na kazdy render, wiec psuje <code>React.memo</code>.',
+            en: 'The render-prop variant where the function travels through <code>children</code>: <code>&lt;List&gt;{(item) =&gt; ...}&lt;/List&gt;</code>. It allocates a new function per render, so it defeats <code>React.memo</code>.'
+          }
+        },
+        {
+          term: { pl: 'Headless UI', en: 'Headless UI' },
+          def: {
+            pl: 'Biblioteka dajaca zachowanie, stan i dostepnosc bez wlasnych stylow ani sztywnej struktury DOM. Dzis domyslnie budowana wlasnie na compound components.',
+            en: 'A library that provides behaviour, state and accessibility with no styles of its own and no rigid DOM structure. Today it is built on compound components by default.'
+          }
+        },
+        {
+          term: { pl: 'Hook straznik', en: 'Guard hook' },
+          def: {
+            pl: 'Hook typu <code>useTabs()</code>, ktory rzuca bledem, gdy czesc rodziny zostala uzyta poza rodzicem. Zastepuje kruche sprawdzanie typow dzieci przez <code>Children.map</code>.',
+            en: 'A hook such as <code>useTabs()</code> that throws when part of the family is used outside its parent. It replaces fragile child-type checks via <code>Children.map</code>.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l4arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -672,6 +813,43 @@ export default {
         en: 'Error boundaries and Suspense'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Error boundary', en: 'Error boundary' },
+          def: {
+            pl: 'Komponent klasowy lapiacy bledy renderu swojego poddrzewa i pokazujacy fallback. Odpowiednik <code>onErrorCaptured</code>, tyle ze musi byc osobnym komponentem.',
+            en: 'A class component that catches render errors from its subtree and shows a fallback. The <code>onErrorCaptured</code> equivalent, except it must be a separate component.'
+          }
+        },
+        {
+          term: { pl: 'getDerivedStateFromError', en: 'getDerivedStateFromError' },
+          def: {
+            pl: 'Statyczna metoda wolana w czasie renderu, ktora zamienia zlapany blad w stan granicy. Powod, dla ktorego error boundary nadal musi byc klasa.',
+            en: 'A static method called during render that turns a caught error into boundary state. The reason an error boundary still has to be a class.'
+          }
+        },
+        {
+          term: { pl: 'Suspense', en: 'Suspense' },
+          def: {
+            pl: 'Granica pokazujaca fallback, gdy komponent w srodku zawiesil render w oczekiwaniu na dane. W Next.js kazda granica to osobny kawalek strumienia HTML.',
+            en: 'A boundary that shows a fallback while a component inside has suspended waiting for data. In Next.js each boundary is a separate chunk of the HTML stream.'
+          }
+        },
+        {
+          term: { pl: 'use()', en: 'use()' },
+          def: {
+            pl: 'Hook Reacta 19 czytajacy promise albo context; zawiesza render do rozwiazania promisy. Promisa musi byc cache-owana, bo <code>use(fetch(...))</code> w ciele komponentu petli sie w nieskonczonosc.',
+            en: 'The React 19 hook that reads a promise or a context; it suspends the render until the promise settles. The promise must be cached, because <code>use(fetch(...))</code> in the component body loops forever.'
+          }
+        },
+        {
+          term: { pl: 'resetKeys', en: 'resetKeys' },
+          def: {
+            pl: 'Mechanizm z <code>react-error-boundary</code> pozwalajacy wyjsc z fallbacku - typowo przy zmianie trasy plus wyczyszczeniu cache zapytan. Sam fallback bez drogi powrotnej to za malo.',
+            en: 'The <code>react-error-boundary</code> mechanism for getting out of a fallback - typically on a route change plus clearing the query cache. A fallback with no way back is not enough.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l5arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +

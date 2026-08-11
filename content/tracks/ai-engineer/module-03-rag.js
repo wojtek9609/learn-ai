@@ -12,6 +12,43 @@ export default {
       id: 'what-is-rag',
       title: { pl: 'Czym jest RAG', en: 'What is RAG' },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'RAG', en: 'RAG (retrieval-augmented generation)' },
+          def: {
+            pl: 'Wzorzec: najpierw wyszukaj fragmenty dokumentów pasujące do pytania, potem wklej je do promptu i każ modelowi odpowiedzieć wyłącznie na ich podstawie. Wiedza żyje w bazie, nie w wagach.',
+            en: 'The pattern: retrieve the document chunks that match the question, paste them into the prompt and have the model answer only from them. Knowledge lives in a datastore, not in the weights.'
+          }
+        },
+        {
+          term: { pl: 'retrieval', en: 'retrieval' },
+          def: {
+            pl: 'Etap wyszukiwania kontekstu - i jedyne miejsce, gdzie decyduje się jakość całego systemu. Jeśli właściwy fragment nie trafi do promptu, żaden model go nie wymyśli.',
+            en: 'The context-fetching stage, and the single place where overall quality is decided. If the right chunk never reaches the prompt, no model can invent it.'
+          }
+        },
+        {
+          term: { pl: 'grounding', en: 'grounding' },
+          def: {
+            pl: 'Wymuszenie, by odpowiedź opierała się wyłącznie na dostarczonym kontekście, łącznie z instrukcją <em>nie wiem</em>, gdy kontekst nie wystarcza. Główna broń przeciw halucynacjom.',
+            en: 'Forcing the answer to rest only on the supplied context, including an explicit <em>I do not know</em> when the context is insufficient. The main defence against hallucination.'
+          }
+        },
+        {
+          term: { pl: 'cytowanie źródeł', en: 'citations' },
+          def: {
+            pl: 'Zwracanie razem z odpowiedzią id fragmentów, na których się opiera. Daje weryfikowalność użytkownikowi i jest jedynym tanim sposobem audytu odpowiedzi w produkcji.',
+            en: 'Returning, alongside the answer, the ids of the chunks it rests on. It gives the user verifiability and is the only cheap way to audit answers in production.'
+          }
+        },
+        {
+          term: { pl: 'RAG vs fine-tuning', en: 'RAG vs fine-tuning' },
+          def: {
+            pl: 'RAG dodaje wiedzę zmienną i cytowalną; fine-tuning uczy stylu, formatu i zachowania. Fakty, które zmieniają się co tydzień, nigdy nie powinny iść do wag.',
+            en: 'RAG supplies changing, citable knowledge; fine-tuning teaches style, format and behaviour. Facts that change weekly must never go into the weights.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="rag1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +
@@ -291,6 +328,43 @@ export default {
       id: 'chunking',
       title: { pl: 'Chunking', en: 'Chunking' },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'chunking', en: 'chunking' },
+          def: {
+            pl: 'Cięcie dokumentów na fragmenty indeksowane osobno. Chunk to jednostka retrievalu - jego rozmiar i granice decydują o tym, czy odpowiedź w ogóle da się znaleźć.',
+            en: 'Splitting documents into separately indexed fragments. The chunk is the unit of retrieval - its size and boundaries decide whether an answer can be found at all.'
+          }
+        },
+        {
+          term: { pl: 'overlap', en: 'overlap (nakładka)' },
+          def: {
+            pl: 'Powtórzenie kilkunastu procent tekstu na styku sąsiednich chunków, żeby zdanie przecięte na granicy nie zniknęło z indeksu. Typowo 10-15 procent przy chunkach około 500 tokenów.',
+            en: 'Repeating some ten-odd percent of text across chunk boundaries so a sentence cut in half does not vanish from the index. Typically 10-15 percent for chunks of about 500 tokens.'
+          }
+        },
+        {
+          term: { pl: 'chunking strukturalny', en: 'structural chunking' },
+          def: {
+            pl: 'Cięcie po strukturze dokumentu (nagłówki, sekcje, komórki tabeli) zamiast po stałej liczbie znaków. Prawie zawsze wygrywa na dokumentacji, bo granice pokrywają się z granicami sensu.',
+            en: 'Splitting along document structure (headings, sections, table rows) rather than a fixed character count. It almost always wins on documentation because boundaries match units of meaning.'
+          }
+        },
+        {
+          term: { pl: 'metadane chunku', en: 'chunk metadata' },
+          def: {
+            pl: 'Pola przypięte do fragmentu: źródło, tytuł, sekcja, data, uprawnienia. Służą do filtrowania przed wyszukiwaniem i do cytatów - bez nich nie zrobisz ani ACL, ani świeżości.',
+            en: 'Fields attached to a chunk: source, title, section, date, ACL. They drive pre-filtering and citations - without them you get neither access control nor freshness.'
+          }
+        },
+        {
+          term: { pl: 'deterministyczne id chunku', en: 'deterministic chunk id' },
+          def: {
+            pl: 'Id liczone ze źródła i pozycji (np. hash), dzięki czemu reindeks aktualizuje wpisy zamiast tworzyć duplikaty. Brak takiego id to najczęstsza przyczyna podwójnych wyników.',
+            en: 'An id derived from source and position (a hash, for example) so reindexing updates rows instead of duplicating them. Missing it is the most common cause of duplicate results.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="34" font-size="15" fill="var(--text)">One document, three chunking strategies</text>' +
@@ -395,6 +469,43 @@ export default {
       id: 'vector-databases',
       title: { pl: 'Bazy wektorowe', en: 'Vector databases' },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'baza wektorowa', en: 'vector database' },
+          def: {
+            pl: 'Magazyn embeddingów z indeksem do szybkiego szukania najbliższych sąsiadów i z filtrowaniem po metadanych. Może być osobnym systemem (Qdrant) albo rozszerzeniem istniejącej bazy (pgvector).',
+            en: 'A store for embeddings with a nearest-neighbour index and metadata filtering. It can be a separate system (Qdrant) or an extension of the database you already run (pgvector).'
+          }
+        },
+        {
+          term: { pl: 'ANN', en: 'ANN (approximate nearest neighbour)' },
+          def: {
+            pl: 'Przybliżone szukanie najbliższych wektorów: świadomie oddajesz kilka procent trafności za wyszukiwanie w milisekundach zamiast skanu całego zbioru.',
+            en: 'Approximate nearest-neighbour search: you trade a few percent of recall for millisecond lookups instead of a full scan of the collection.'
+          }
+        },
+        {
+          term: { pl: 'HNSW', en: 'HNSW' },
+          def: {
+            pl: 'Dominujący indeks ANN - wielopoziomowy graf, po którym schodzi się od skoków zgrubnych do lokalnych. Parametry <code>m</code> i <code>ef_search</code> stroją trafność kontra latencję i pamięć.',
+            en: 'The dominant ANN index - a multi-layer graph traversed from coarse hops down to local ones. Its <code>m</code> and <code>ef_search</code> parameters trade recall against latency and memory.'
+          }
+        },
+        {
+          term: { pl: 'pgvector', en: 'pgvector' },
+          def: {
+            pl: 'Rozszerzenie Postgresa dodające typ wektorowy i indeksy HNSW/IVFFlat. Do kilku milionów chunków zwykle wystarcza, a daje transakcje i JOIN-y z danymi domenowymi w jednym miejscu.',
+            en: 'The Postgres extension adding a vector type plus HNSW/IVFFlat indexes. Up to a few million chunks it is usually enough, and it keeps transactions and joins with domain data in one place.'
+          }
+        },
+        {
+          term: { pl: 'filtrowanie po metadanych', en: 'metadata filtering' },
+          def: {
+            pl: 'Zawężanie wyszukiwania warunkami (tenant, język, data, uprawnienia). Kluczowa jest kolejność: filtr nałożony <em>po</em> wyszukiwaniu potrafi zwrócić pustą listę i wycieka dane między najemcami.',
+            en: 'Narrowing the search by predicates (tenant, language, date, ACL). Order matters: a filter applied <em>after</em> the search can return nothing and leaks data across tenants.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="30" font-size="15" fill="var(--text)">Brute force scan vs HNSW graph hops</text>' +
@@ -497,6 +608,43 @@ export default {
       id: 'hybrid-search-reranking',
       title: { pl: 'Hybryda i reranking', en: 'Hybrid search and reranking' },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'BM25', en: 'BM25' },
+          def: {
+            pl: 'Klasyczny ranking leksykalny oparty na częstości słów - to, co robi Elasticsearch czy <code>tsvector</code>. Bezkonkurencyjny na kodach błędów, numerach części i nazwach własnych.',
+            en: 'The classic lexical ranking based on term frequency - what Elasticsearch or <code>tsvector</code> do. Unbeatable on error codes, part numbers and proper nouns.'
+          }
+        },
+        {
+          term: { pl: 'hybrid search', en: 'hybrid search' },
+          def: {
+            pl: 'Uruchomienie wyszukiwania wektorowego i leksykalnego równolegle i połączenie wyników. Wygrywa, bo obie metody psują się na innych zapytaniach - to redundancja, nie średnia.',
+            en: 'Running vector and lexical search in parallel and merging the results. It wins because the two fail on different queries - this is redundancy, not averaging.'
+          }
+        },
+        {
+          term: { pl: 'RRF', en: 'RRF (reciprocal rank fusion)' },
+          def: {
+            pl: 'Sposób łączenia list wyników po <em>pozycjach</em>, nie po wynikach punktowych: <code>sum(1 / (k + rank))</code>. Nie wymaga kalibracji skal, dlatego jest domyślnym wyborem.',
+            en: 'A way to merge result lists by <em>rank</em> rather than score: <code>sum(1 / (k + rank))</code>. It needs no score calibration, which makes it the default choice.'
+          }
+        },
+        {
+          term: { pl: 'reranker', en: 'reranker (cross-encoder)' },
+          def: {
+            pl: 'Drugi przebieg: model ocenia parę pytanie-dokument razem i przestawia kolejność 30-50 kandydatów. Dużo trafniejszy niż cosine, ale zbyt wolny, by przejrzeć cały indeks.',
+            en: 'A second pass where a model scores the question and document together and reorders 30-50 candidates. Far more accurate than cosine but too slow to run over the whole index.'
+          }
+        },
+        {
+          term: { pl: 'recall wtedy, precyzja potem', en: 'recall first, precision later' },
+          def: {
+            pl: 'Zasada projektowania pipeline retrievalu: pierwszy etap ma szeroko złapać właściwy dokument, drugi ma go wypchnąć na górę. Czego nie złapie etap pierwszy, tego reranker nie naprawi.',
+            en: 'The design rule for a retrieval pipeline: stage one must catch the right document broadly, stage two must push it to the top. Whatever stage one misses, no reranker can recover.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="rag4-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +
@@ -799,6 +947,43 @@ export default {
       id: 'retrieval-evaluation',
       title: { pl: 'Ewaluacja retrievalu', en: 'Retrieval evaluation' },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'zbiór złoty', en: 'golden set' },
+          def: {
+            pl: 'Zestaw realnych pytań z ręcznie oznaczonymi poprawnymi fragmentami. 30-50 przypadków wystarczy, żeby przestać zgadywać - i musi żyć w repo, razem z korpusem.',
+            en: 'A set of real questions with hand-labelled correct chunks. Thirty to fifty cases are enough to stop guessing - and it must live in the repo and age with the corpus.'
+          }
+        },
+        {
+          term: { pl: 'recall@k', en: 'recall@k' },
+          def: {
+            pl: 'Odsetek pytań, dla których poprawny fragment znalazł się w pierwszych k wynikach. Najważniejsza metryka retrievalu: to sufit jakości całego RAG-a.',
+            en: 'The share of questions whose correct chunk appears in the top k results. The most important retrieval metric: it is the ceiling on the quality of the whole RAG system.'
+          }
+        },
+        {
+          term: { pl: 'precision@k', en: 'precision@k' },
+          def: {
+            pl: 'Odsetek trafnych fragmentów wśród k zwróconych. Niska precyzja to nie tylko koszt tokenów - to szum, który realnie rozprasza model przy generacji.',
+            en: 'The share of returned chunks in the top k that are relevant. Low precision is not only token cost - it is noise that measurably distracts the model during generation.'
+          }
+        },
+        {
+          term: { pl: 'MRR', en: 'MRR (mean reciprocal rank)' },
+          def: {
+            pl: 'Średnia z <code>1 / pozycja pierwszego trafienia</code>. Mówi, jak wysoko ląduje właściwy fragment - istotne, bo model najlepiej wykorzystuje początek kontekstu.',
+            en: 'The mean of <code>1 / rank of the first hit</code>. It says how high the right chunk lands, which matters because models use the start of the context best.'
+          }
+        },
+        {
+          term: { pl: 'ocena retrievalu osobno', en: 'evaluating retrieval separately' },
+          def: {
+            pl: 'Metryki wyszukiwania liczysz niezależnie od jakości odpowiedzi. Inaczej nie wiesz, czy zły wynik to wina retrievalu, czy promptu - a to dwie zupełnie różne naprawy.',
+            en: 'Score search independently of answer quality. Otherwise you cannot tell whether a bad result came from retrieval or from the prompt - two completely different fixes.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="30" font-size="15" fill="var(--text)">Golden set: question with known correct chunks</text>' +
@@ -905,6 +1090,43 @@ export default {
       id: 'rag-failure-modes',
       title: { pl: 'Tryby awarii RAG', en: 'RAG failure modes' },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'ciche pudło retrievalu', en: 'silent retrieval miss' },
+          def: {
+            pl: 'Wyszukiwanie zwraca wyniki, tylko nie te właściwe - a model i tak pewnie odpowiada. Najgroźniejszy tryb awarii, bo nie generuje żadnego błędu w logach.',
+            en: 'Search returns results, just not the right ones, and the model answers confidently anyway. The most dangerous failure mode because it raises no error anywhere.'
+          }
+        },
+        {
+          term: { pl: 'nieaktualny indeks', en: 'stale index' },
+          def: {
+            pl: 'Dokumenty zmieniły się, embeddingi nie. System odpowiada poprawnie według stanu sprzed miesięcy - dlatego chunk potrzebuje daty, a pipeline monitoringu świeżości.',
+            en: 'The documents changed, the embeddings did not. The system answers correctly for a state from months ago - hence per-chunk timestamps and freshness monitoring.'
+          }
+        },
+        {
+          term: { pl: 'ACL po fakcie', en: 'ACL applied late' },
+          def: {
+            pl: 'Uprawnienia sprawdzane dopiero po wyszukaniu albo dopiero w UI. Treść zdążyła już trafić do promptu i do logów - filtr musi być częścią zapytania do indeksu.',
+            en: 'Permissions checked after search, or only in the UI. The content already reached the prompt and the logs - the filter has to be part of the index query.'
+          }
+        },
+        {
+          term: { pl: 'konflikt źródeł', en: 'source conflict' },
+          def: {
+            pl: 'Retrieval zwraca dwie wersje prawdy (stara i nowa polityka), a model wybiera jedną bez zaznaczenia sprzeczności. Rozwiązuje to priorytet źródeł i jawna instrukcja zgłaszania konfliktu.',
+            en: 'Retrieval returns two versions of the truth (old and new policy) and the model silently picks one. Fix it with source precedence and an explicit instruction to surface conflicts.'
+          }
+        },
+        {
+          term: { pl: 'brak cytatów', en: 'missing citations' },
+          def: {
+            pl: 'Bez id fragmentów w odpowiedzi nikt - ani użytkownik, ani ty w traces - nie zweryfikuje, skąd wzięło się zdanie. To najtańszy mechanizm wykrywania wszystkich pozostałych trybów awarii.',
+            en: 'Without chunk ids in the answer nobody - neither the user nor you in traces - can check where a sentence came from. It is the cheapest detector for every other failure mode.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="rag6-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +

@@ -97,6 +97,36 @@ export default {
         en: 'Why structured output'
       },
       minutes: 8,
+      terms: [
+        {
+          term: { pl: 'structured output', en: 'structured output' },
+          def: {
+            pl: 'Odpowiedź modelu zwracana jako dane zgodne ze schematem (zwykle JSON), a nie jako proza. Zamienia LLM w wywołanie funkcji o znanym typie, które da się bezpiecznie podać dalej do kodu.',
+            en: 'A model response returned as schema-conforming data (usually JSON) instead of prose. It turns the LLM into a function call with a known return type that code can consume safely.'
+          }
+        },
+        {
+          term: { pl: 'JSON mode', en: 'JSON mode' },
+          def: {
+            pl: 'Flaga API gwarantująca, że wyjście będzie <em>parsowalnym</em> JSON-em - ale nie że będzie miało wymagane pola ani poprawne typy. Walidacja po stronie klienta nadal jest obowiązkowa.',
+            en: 'An API flag guaranteeing the output is <em>parsable</em> JSON - but not that it has the required fields or correct types. Client-side validation is still mandatory.'
+          }
+        },
+        {
+          term: { pl: 'wymuszony schemat', en: 'enforced schema' },
+          def: {
+            pl: 'Najmocniejszy poziom: dostawca ogranicza dekodowanie do tokenów zgodnych ze schematem (constrained decoding), więc struktura jest gwarantowana. Zostają błędy semantyczne, nie składniowe.',
+            en: 'The strongest level: the provider constrains decoding to tokens allowed by the schema, so the structure is guaranteed. What remains are semantic errors, not syntax errors.'
+          }
+        },
+        {
+          term: { pl: 'stringly-typed', en: 'stringly-typed' },
+          def: {
+            pl: 'Antywzorzec z klasycznego backendu, tu wraca w pełnej krasie: parsowanie odpowiedzi regexpami zamiast kontraktu. Każda zmiana stylu modelu psuje wtedy produkcję po cichu.',
+            en: 'The classic backend anti-pattern, back in full force here: parsing answers with regexes instead of a contract. Any shift in model style then breaks production silently.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m2l1arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -221,6 +251,43 @@ export default {
         en: 'JSON Schema and zod'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'JSON Schema', en: 'JSON Schema' },
+          def: {
+            pl: 'Standard opisu kształtu danych JSON: typy, <code>required</code>, <code>enum</code>, <code>additionalProperties</code>. To format, który rozumieją API modeli - zarówno dla structured output, jak i dla narzędzi.',
+            en: 'The standard for describing the shape of JSON data: types, <code>required</code>, <code>enum</code>, <code>additionalProperties</code>. It is the format model APIs speak, both for structured output and for tools.'
+          }
+        },
+        {
+          term: { pl: 'zod', en: 'zod' },
+          def: {
+            pl: 'TypeScriptowa biblioteka do schematów: jedna definicja daje walidację w runtime i typ statyczny. Konwertowana do JSON Schema jest najwygodniejszym źródłem prawdy w projekcie TS.',
+            en: 'The TypeScript schema library: one definition yields both runtime validation and a static type. Converted to JSON Schema it is the most convenient single source of truth in a TS project.'
+          }
+        },
+        {
+          term: { pl: '.describe()', en: '.describe()' },
+          def: {
+            pl: 'Opis pola w schemacie trafia do modelu i działa jak fragment promptu. Dobre opisy pól są tańsze i skuteczniejsze niż dopisywanie kolejnych zdań do instrukcji systemowej.',
+            en: 'A field description in the schema is sent to the model and behaves like part of the prompt. Good field descriptions are cheaper and more effective than more sentences in the system prompt.'
+          }
+        },
+        {
+          term: { pl: 'enum zamiast stringa', en: 'enum over string' },
+          def: {
+            pl: 'Każde pole o skończonej liczbie wartości powinno być enumem, nie wolnym tekstem. To eliminuje całą klasę literówek i wariantów typu <code>pending</code> / <code>PENDING</code> / <code>w toku</code>.',
+            en: 'Any field with a finite value set should be an enum, not free text. That removes an entire class of typos and variants like <code>pending</code> / <code>PENDING</code> / <code>in progress</code>.'
+          }
+        },
+        {
+          term: { pl: 'schemat transportowy vs domenowy', en: 'wire schema vs domain schema' },
+          def: {
+            pl: 'Modelowi dajesz płaski, wąski schemat transportowy (mało zagnieżdżeń, jawne jednostki), a dopiero w kodzie mapujesz go na bogaty model domenowy. Głębokie zagnieżdżenie psuje trafność.',
+            en: 'Give the model a flat, narrow wire schema (little nesting, explicit units) and map it to your rich domain model in code. Deep nesting measurably hurts accuracy.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m2l2arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -343,6 +410,43 @@ export default {
         en: 'Validation, repair and retries'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'pętla parse-validate-retry', en: 'parse-validate-retry loop' },
+          def: {
+            pl: 'Standardowa pętla obsługi wyjścia modelu: sparsuj, zwaliduj schematem, spróbuj naprawić lokalnie, a dopiero na końcu poproś model ponownie. Każdy etap ma własne logi i metryki.',
+            en: 'The standard pipeline for model output: parse, validate against the schema, try a local repair, and only then ask the model again. Each stage gets its own logs and metrics.'
+          }
+        },
+        {
+          term: { pl: 'repair turn', en: 'repair turn' },
+          def: {
+            pl: 'Ponowne wywołanie, w którym oddajesz modelowi jego własne błędne wyjście plus konkretne błędy walidacji. Retry bez tej informacji to zwykły reroll i zwykle powtarza ten sam błąd.',
+            en: 'A follow-up call that hands the model its own invalid output plus the concrete validation errors. A retry without that information is a plain reroll and usually reproduces the same mistake.'
+          }
+        },
+        {
+          term: { pl: 'naprawa lokalna', en: 'local repair' },
+          def: {
+            pl: 'Deterministyczne poprawki w kodzie, bez modelu: zdjęcie ogrodzenia <code>json</code> z bloku markdown, domknięcie nawiasu, koercja <code>&quot;12&quot;</code> na liczbę. Najtańszy i najszybszy stopień naprawy.',
+            en: 'Deterministic fixes in code, no model involved: stripping a markdown <code>json</code> fence, closing a bracket, coercing <code>&quot;12&quot;</code> to a number. The cheapest and fastest repair tier.'
+          }
+        },
+        {
+          term: { pl: 'limit prób', en: 'retry cap' },
+          def: {
+            pl: 'Twardy limit (zwykle 2-3) na liczbę ponowień jednego zadania, razem ze ścieżką degradacji. Pętla naprawcza bez limitu to nie bug, tylko incydent kosztowy.',
+            en: 'A hard cap (typically 2-3) on retries for one task, together with a degradation path. An uncapped repair loop is not a bug, it is a cost incident.'
+          }
+        },
+        {
+          term: { pl: 'partial credit', en: 'partial credit' },
+          def: {
+            pl: 'Zamiast odrzucać całą odpowiedź, przyjmij poprawne pola i oznacz brakujące jako niepewne. Schemat z jawnym polem na niepewność bije wymuszanie zgadywania.',
+            en: 'Instead of rejecting the whole answer, accept the valid fields and flag the missing ones as uncertain. A schema with an explicit uncertainty field beats forcing the model to guess.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m2l3arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -611,6 +715,43 @@ export default {
         en: 'Tool calling: the loop'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'tool calling', en: 'tool calling' },
+          def: {
+            pl: 'Mechanizm, w którym model zamiast tekstu zwraca ustrukturyzowaną prośbę o wywołanie narzędzia z argumentami. Sam niczego nie uruchamia - wykonanie należy do twojego kodu.',
+            en: 'The mechanism where the model returns a structured request to call a tool with arguments instead of prose. It executes nothing itself - running the tool is your code.'
+          }
+        },
+        {
+          term: { pl: 'pętla narzędziowa', en: 'the tool loop' },
+          def: {
+            pl: 'Cykl: model prosi o narzędzie -> ty je wykonujesz -> wynik wraca do rozmowy -> model kontynuuje. Powtarza się aż model odpowie tekstem albo wyczerpiesz limit iteracji.',
+            en: 'The cycle: the model requests a tool -> you execute it -> the result goes back into the conversation -> the model continues. It repeats until the model answers in text or you hit the iteration cap.'
+          }
+        },
+        {
+          term: { pl: 'tool_result', en: 'tool_result' },
+          def: {
+            pl: 'Wiadomość z wynikiem narzędzia dopięta do historii, powiązana id z prośbą modelu. Musi wrócić dla <em>każdej</em> prośby, także tej, która się nie udała - inaczej API odrzuci konwersację.',
+            en: 'The message carrying the tool output back into the history, tied by id to the request. One must come back for <em>every</em> request, including failed ones, or the API rejects the conversation.'
+          }
+        },
+        {
+          term: { pl: 'schemat wejścia narzędzia', en: 'tool input schema' },
+          def: {
+            pl: 'JSON Schema argumentów narzędzia razem z opisem - dla modelu to jednocześnie dokumentacja i kontrakt. Zła nazwa albo mętny opis psują trafność wyboru narzędzia bardziej niż cokolwiek w system prompcie.',
+            en: 'The JSON Schema of the tool arguments plus its description - for the model it is documentation and contract in one. A bad name or vague description hurts tool selection more than anything in the system prompt.'
+          }
+        },
+        {
+          term: { pl: 'błędy jako dane', en: 'errors as data' },
+          def: {
+            pl: 'Nieudane wywołanie oddajesz modelowi jako normalny wynik z czytelnym komunikatem, zamiast rzucać wyjątek. Model potrafi wtedy poprawić argumenty i spróbować ponownie.',
+            en: 'Return a failed call to the model as an ordinary result with a readable message instead of throwing. The model can then fix its arguments and try again.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m2l4arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -857,6 +998,43 @@ export default {
         en: 'MCP: Model Context Protocol'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'MCP', en: 'MCP (Model Context Protocol)' },
+          def: {
+            pl: 'Otwarty protokół opisujący, jak aplikacja hosta odkrywa i wywołuje narzędzia, zasoby i prompty wystawione przez zewnętrzny serwer. Standaryzuje transport i discovery, nie samo tool calling.',
+            en: 'An open protocol for how a host application discovers and calls tools, resources and prompts exposed by an external server. It standardises discovery and transport, not tool calling itself.'
+          }
+        },
+        {
+          term: { pl: 'serwer MCP', en: 'MCP server' },
+          def: {
+            pl: 'Proces wystawiający zdolności (np. dostęp do Jiry albo do bazy) zgodnie z protokołem. Napisany raz, działa w każdym hoście MCP - to jest cała wartość standardu.',
+            en: 'A process exposing capabilities (Jira access, a database, a filesystem) according to the protocol. Written once, it works in every MCP host - that is the whole value of the standard.'
+          }
+        },
+        {
+          term: { pl: 'host i klient', en: 'host and client' },
+          def: {
+            pl: 'Host to aplikacja z modelem (Claude Desktop, IDE, twój agent); klient to warstwa w hoście, która trzyma połączenie z jednym serwerem. Host decyduje o uprawnieniach i o tym, co trafi do promptu.',
+            en: 'The host is the application with the model (Claude Desktop, an IDE, your agent); the client is the layer inside it holding one connection to one server. The host owns permissions and decides what reaches the prompt.'
+          }
+        },
+        {
+          term: { pl: 'resources', en: 'resources' },
+          def: {
+            pl: 'Dane tylko do odczytu adresowane URI, które host może wciągnąć do kontekstu - w odróżnieniu od <strong>tools</strong>, które wykonują akcje, i <strong>prompts</strong>, czyli gotowych szablonów.',
+            en: 'Read-only, URI-addressed data the host can pull into context - as opposed to <strong>tools</strong>, which perform actions, and <strong>prompts</strong>, which are reusable templates.'
+          }
+        },
+        {
+          term: { pl: 'stdio vs streamable HTTP', en: 'stdio vs streamable HTTP' },
+          def: {
+            pl: 'Dwa transporty MCP: stdio dla serwerów lokalnych uruchamianych jako proces potomny, streamable HTTP dla zdalnych - z autoryzacją i wieloma klientami. Wybór transportu to decyzja o granicy zaufania.',
+            en: 'The two MCP transports: stdio for local servers spawned as a child process, streamable HTTP for remote ones with auth and multiple clients. Picking the transport is a trust-boundary decision.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m2l5arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +

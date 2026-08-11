@@ -141,6 +141,36 @@ export default {
         en: 'What frontend architecture is'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Złota ścieżka', en: 'Golden path' },
+          def: {
+            pl: 'Domyślna, najwygodniejsza droga zrobienia czegoś w organizacji, która jednocześnie jest drogą zgodną ze standardem - generatory, szablony i domyślne konfiguracje zamiast zakazów.',
+            en: 'The default, most convenient way to do something in the organisation, which is also the compliant one - generators, templates and defaults instead of prohibitions.'
+          }
+        },
+        {
+          term: { pl: 'Drzwi jednokierunkowe i dwukierunkowe', en: 'One-way and two-way doors' },
+          def: {
+            pl: 'Podział decyzji według odwracalności. Dwukierunkowe, tanie do cofnięcia, delegujesz i przyspieszasz; jednokierunkowe robisz wolno, z ADR-em i pilotem na jednej aplikacji.',
+            en: 'Splitting decisions by reversibility. Two-way doors, cheap to undo, get delegated and sped up; one-way doors go slowly, with an ADR and a pilot on one real app.'
+          }
+        },
+        {
+          term: { pl: 'Zasięg zmiany (blast radius)', en: 'Blast radius' },
+          def: {
+            pl: 'Liczba konsumentów, których dotknie jedna zmiana, i czas do pełnej adopcji. To pierwsza liczba w każdej propozycji architektonicznej, bo tempo wyznacza najwolniejszy zespół.',
+            en: 'How many consumers a single change touches and how long full adoption takes. It is the first number in any architecture proposal, because the slowest team sets the pace.'
+          }
+        },
+        {
+          term: { pl: 'Decyzja wykonywalna', en: 'Executable decision' },
+          def: {
+            pl: 'Ustalenie, które ma swój odpowiednik w CI - regułę <code>dependency-cruiser</code>, budżet <code>size-limit</code> albo raport publicznego API - zamiast żyć wyłącznie na stronie wiki.',
+            en: 'An agreement that has a counterpart in CI - a <code>dependency-cruiser</code> rule, a <code>size-limit</code> budget or a public API report - instead of living only on a wiki page.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="320" y="30" text-anchor="middle" font-size="15" fill="var(--text)">Architecture = the decisions that are expensive to reverse</text>' +
@@ -325,6 +355,43 @@ export default {
         en: 'Boundaries, coupling and cohesion'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Sprzężenie (coupling)', en: 'Coupling' },
+          def: {
+            pl: 'Miara tego, jak bardzo moduły zależą od siebie nawzajem. Wysokie sprzężenie sprawia, że jedna drobna zmiana wymaga sprawdzenia wielu niepowiązanych miejsc.',
+            en: 'How much modules depend on each other. High coupling means one tiny change forces you to check many unrelated places.'
+          }
+        },
+        {
+          term: { pl: 'Spójność (cohesion)', en: 'Cohesion' },
+          def: {
+            pl: 'Miara tego, jak bardzo elementy wewnątrz jednego modułu należą do siebie. Test: jeśli nie opiszesz modułu jednym zdaniem bez słowa "i", to prawdopodobnie są dwa moduły.',
+            en: 'How much the parts inside one module belong together. The test: if you cannot describe it in one sentence without the word "and", it is probably two modules.'
+          }
+        },
+        {
+          term: { pl: 'Fan-in i fan-out', en: 'Fan-in and fan-out' },
+          def: {
+            pl: 'Fan-in to liczba konsumentów paczki, fan-out to liczba paczek, od których ona zależy. Wysokie oba naraz oznaczają, że paczka jest jednocześnie droga w zmianie i krucha na cudze zmiany.',
+            en: 'Fan-in is how many consumers a package has; fan-out is how many packages it depends on. High in both means the package is expensive to change and fragile to other people changes.'
+          }
+        },
+        {
+          term: { pl: 'Exports map', en: 'Exports map' },
+          def: {
+            pl: 'Pole <code>exports</code> w <code>package.json</code> definiujące jedyne dozwolone punkty wejścia do paczki. Egzekwuje je Node w runtime i TypeScript - najtwardsza granica dostępna za darmo.',
+            en: 'The <code>exports</code> field in <code>package.json</code> that defines the only allowed entry points into a package. Enforced by Node at runtime and by TypeScript - the hardest boundary you get for free.'
+          }
+        },
+        {
+          term: { pl: 'Ukryte sprzężenie', en: 'Hidden coupling' },
+          def: {
+            pl: 'Zależności niewidoczne w grafie importów: klasy CSS, kolejność arkuszy, globalne z-index, klucze w localStorage, nazwy zdarzeń analitycznych i selektory w testach e2e.',
+            en: 'Dependencies that never show up in the import graph: CSS classes, stylesheet order, global z-index values, localStorage keys, analytics event names and e2e selectors.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="160" y="28" text-anchor="middle" font-size="15" fill="var(--err)">High coupling</text>' +
@@ -565,6 +632,36 @@ export default {
         en: 'ADRs and RFCs: decisions in writing'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'ADR (Architecture Decision Record)', en: 'ADR (Architecture Decision Record)' },
+          def: {
+            pl: 'Krótki dokument wersjonowany razem z kodem, opisujący jedną decyzję. Zapisuje <em>dlaczego</em>, a nie jak - dzięki temu za dwa lata nikt nie cofa go z przypadku.',
+            en: 'A short document versioned alongside the code that records one decision. It captures the <em>why</em>, not the how, so nobody reverses it by accident two years later.'
+          }
+        },
+        {
+          term: { pl: 'RFC', en: 'RFC' },
+          def: {
+            pl: 'Propozycja krążąca przed decyzją, otwarta na komentarze przez ustalone okno czasowe. RFC zbiera opinie, ADR zamyka temat i zostaje w repozytorium jako ślad.',
+            en: 'A proposal circulated before the decision, open for comments for a fixed window. An RFC gathers opinions; an ADR closes the topic and stays in the repo as the record.'
+          }
+        },
+        {
+          term: { pl: 'Kontekst - Decyzja - Konsekwencje', en: 'Context - Decision - Consequences' },
+          def: {
+            pl: 'Trzy obowiązkowe sekcje ADR-a. Sekcja konsekwencji, także tych negatywnych, jest najważniejsza: bez niej dokument jest ogłoszeniem, a nie decyzją.',
+            en: 'The three mandatory ADR sections. The consequences section, including the negative ones, matters most: without it the document is an announcement, not a decision.'
+          }
+        },
+        {
+          term: { pl: 'Status ADR-a', en: 'ADR status' },
+          def: {
+            pl: 'Cykl życia dokumentu: <strong>Proposed</strong>, <strong>Accepted</strong>, <strong>Superseded</strong>. ADR-ów się nie kasuje ani nie przepisuje po fakcie - zastępuje się je nowymi.',
+            en: 'The document lifecycle: <strong>Proposed</strong>, <strong>Accepted</strong>, <strong>Superseded</strong>. You never delete or rewrite an ADR after the fact - you supersede it with a new one.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="adr1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">' +
@@ -757,6 +854,43 @@ export default {
         en: 'Conway law and team topologies'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Prawo Conwaya', en: 'Conway law' },
+          def: {
+            pl: 'Organizacja produkuje systemy odzwierciedlające jej własną strukturę komunikacji. Trzy zespoły bez wspólnego właściciela wyprodukują trzy komponenty Button.',
+            en: 'Organisations produce systems that mirror their own communication structure. Three teams with no shared owner will produce three Button components.'
+          }
+        },
+        {
+          term: { pl: 'Manewr odwrotnego Conwaya', en: 'Inverse Conway maneuver' },
+          def: {
+            pl: 'Świadoma zmiana struktury zespołów po to, żeby wymusić pożądaną architekturę - na przykład powołanie zespołu platformowego, aby w ogóle mógł powstać jeden design system.',
+            en: 'Deliberately reshaping teams to force the architecture you want - for example creating a platform team so that a single design system can exist at all.'
+          }
+        },
+        {
+          term: { pl: 'Zespół stream-aligned', en: 'Stream-aligned team' },
+          def: {
+            pl: 'Zespół dowożący wartość dla jednego strumienia produktu od początku do końca. To domyślny typ zespołu; pozostałe topologie istnieją po to, żeby go nie blokować.',
+            en: 'A team delivering end-to-end value for one product stream. It is the default team type; the other topologies exist to keep it unblocked.'
+          }
+        },
+        {
+          term: { pl: 'Zespół platformowy', en: 'Platform team' },
+          def: {
+            pl: 'Zespół dostarczający innym gotową usługę - design system, CI, szablony - w modelu X-as-a-service, czyli z wersjonowaniem, dokumentacją i wsparciem zamiast doraźnej pomocy.',
+            en: 'A team providing others with a ready service - design system, CI, templates - in X-as-a-service mode: versioned, documented and supported instead of ad hoc help.'
+          }
+        },
+        {
+          term: { pl: 'Tryby interakcji', en: 'Interaction modes' },
+          def: {
+            pl: 'Trzy sposoby współpracy zespołów: <strong>collaboration</strong> (wspólna praca, droga, na krótko), <strong>X-as-a-service</strong> (tryb domyślny) i <strong>facilitating</strong> (zespół enabling uczy innych i się wycofuje).',
+            en: 'Three ways teams work together: <strong>collaboration</strong> (joint work, expensive, time-boxed), <strong>X-as-a-service</strong> (the default) and <strong>facilitating</strong> (an enabling team coaches others, then leaves).'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="cn1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">' +
@@ -982,6 +1116,36 @@ export default {
         en: 'Build vs buy: when to write it yourself'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'TCO (total cost of ownership)', en: 'TCO (total cost of ownership)' },
+          def: {
+            pl: 'Pełny koszt posiadania rozłożony na kilka lat: nie tylko licencja albo czas budowy, ale też utrzymanie, aktualizacje, dostępność, szkolenia i koszt wyjścia.',
+            en: 'The full cost of ownership spread over several years: not just the licence or the build time, but maintenance, upgrades, accessibility, training and the exit cost.'
+          }
+        },
+        {
+          term: { pl: 'Wzorzec adaptera', en: 'Adapter pattern' },
+          def: {
+            pl: 'Owinięcie biblioteki zewnętrznej własnym, wąskim API, tak aby produkt zależał od twojego interfejsu, a nie od dostawcy. Wymiana dostawcy staje się wtedy pracą w jednym miejscu.',
+            en: 'Wrapping a third-party library in your own narrow API so the product depends on your interface, not on the vendor. Swapping vendors then becomes work in one place.'
+          }
+        },
+        {
+          term: { pl: 'Vendor lock-in', en: 'Vendor lock-in' },
+          def: {
+            pl: 'Uzależnienie od dostawcy, w którym koszt zmiany rośnie szybciej niż korzyść z jego produktu - przez API, formaty danych albo obecność biblioteki w setkach plików.',
+            en: 'Dependence on a vendor where the cost of switching grows faster than the benefit - through APIs, data formats, or the library appearing in hundreds of files.'
+          }
+        },
+        {
+          term: { pl: 'Koszt wyjścia', en: 'Exit cost' },
+          def: {
+            pl: 'Oszacowana praca potrzebna do usunięcia rozwiązania z systemu. Podaje się ją razem z decyzją o zakupie, bo tylko wtedy jest jeszcze uczciwa.',
+            en: 'The estimated work needed to remove a solution from the system. You state it together with the buy decision, because that is the only moment it is still honest.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="320" y="26" text-anchor="middle" font-size="15" fill="var(--text)">Two questions, four answers</text>' +

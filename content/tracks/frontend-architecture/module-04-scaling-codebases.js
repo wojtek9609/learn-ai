@@ -12,6 +12,43 @@ export default {
       id: 'monorepos-tooling',
       title: { pl: 'Monorepo i narzędzia: pnpm, Turborepo, Nx', en: 'Monorepos and tooling: pnpm, Turborepo, Nx' },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Monorepo', en: 'Monorepo' },
+          def: {
+            pl: 'Jedno repozytorium z wieloma aplikacjami i bibliotekami wersjonowanymi razem. To nie monolit: kod dalej dzieli się na paczki, tylko leżą obok siebie i zmieniają się w jednym commicie.',
+            en: 'One repository holding many applications and libraries versioned together. Not a monolith: the code is still split into packages, they just sit side by side and change in one commit.'
+          }
+        },
+        {
+          term: { pl: 'Zmiana atomowa (atomic change)', en: 'Atomic change' },
+          def: {
+            pl: 'Nowe API komponentu i wszystkie miejsca jego użycia poprawione w jednym pull requeście. Likwiduje okno, w którym połowa firmy siedzi jeszcze na starej wersji.',
+            en: 'A new component API and every call site fixed in one pull request. It removes the window in which half the company still sits on the old version.'
+          }
+        },
+        {
+          term: { pl: 'Graf affected', en: 'Affected graph' },
+          def: {
+            pl: 'Zbiór projektów dotkniętych zmianą, wyliczony z diffa do gałęzi bazowej i przejścia grafu zależności w górę. <code>nx affected</code> uruchamia zadania wyłącznie dla tego zbioru.',
+            en: 'The set of projects touched by a change, computed from the diff against the base branch and a walk up the dependency graph. <code>nx affected</code> runs tasks only for that set.'
+          }
+        },
+        {
+          term: { pl: 'Hash wejść zadania', en: 'Task input hash' },
+          def: {
+            pl: 'Odcisk plików wejściowych, zależności, konfiguracji zadania i zadeklarowanych zmiennych środowiskowych. Ten sam hash musi oznaczać ten sam wynik, inaczej cache kłamie.',
+            en: 'A fingerprint of the input files, dependencies, task configuration and declared environment variables. The same hash must mean the same result, otherwise the cache lies.'
+          }
+        },
+        {
+          term: { pl: 'Zdalny cache (remote cache)', en: 'Remote cache' },
+          def: {
+            pl: 'Współdzielone składowisko wyników zadań (S3, Nx Cloud), z którego CI i laptopy kopiują gotowe artefakty zamiast liczyć je ponownie. Zdrowy wskaźnik trafień to <strong>60-80 procent</strong>.',
+            en: 'A shared store of task results (S3, Nx Cloud) from which CI and laptops copy finished artifacts instead of recomputing them. A healthy hit rate is <strong>60-80 percent</strong>.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="mono1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +
@@ -260,6 +297,43 @@ export default {
       id: 'micro-frontends-tradeoffs',
       title: { pl: 'Micro-frontendy: kiedy warto, a kiedy to koszt bez zysku', en: 'Micro-frontends: when they pay off and when they are pure cost' },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Micro-frontend (MFE)', en: 'Micro-frontend (MFE)' },
+          def: {
+            pl: 'Kawałek interfejsu budowany, testowany i wdrażany niezależnie, składany w całość dopiero u użytkownika albo na krawędzi. Kupuje jedno: niezależny cykl wydawniczy zespołu.',
+            en: 'A slice of UI built, tested and deployed independently, composed into a whole only in the browser or at the edge. It buys exactly one thing: an independent release cadence per team.'
+          }
+        },
+        {
+          term: { pl: 'Shell (aplikacja gospodarz)', en: 'Shell (host app)' },
+          def: {
+            pl: 'Aplikacja platformowa, która trzyma routing, sesję i layout, a następnie montuje w wyznaczonych miejscach zdalne moduły. Właściciel shella jest właścicielem kontraktu.',
+            en: 'The platform application that owns routing, session and layout and mounts remote modules into designated slots. Whoever owns the shell owns the contract.'
+          }
+        },
+        {
+          term: { pl: 'Module Federation', en: 'Module Federation' },
+          def: {
+            pl: 'Mechanizm bundlera (webpack 5, Rspack, wtyczka Vite) pozwalający pobrać moduł z innego builda po URL w czasie działania aplikacji, przez plik <code>remoteEntry</code>.',
+            en: 'A bundler mechanism (webpack 5, Rspack, a Vite plugin) that fetches a module from another build by URL at runtime, through a <code>remoteEntry</code> file.'
+          }
+        },
+        {
+          term: { pl: 'Shared singleton', en: 'Shared singleton' },
+          def: {
+            pl: 'Zależność (React, design system, klient sesji) ładowana raz dla wszystkich MFE. Usuwa duplikację kodu, ale wymusza wspólną, kompatybilną wersję - czyli przywraca sprzężenie.',
+            en: 'A dependency (React, the design system, the session client) loaded once for all MFEs. It removes duplication but forces one compatible version, which brings the coupling back.'
+          }
+        },
+        {
+          term: { pl: 'Kontrakt montowania', en: 'Mount contract' },
+          def: {
+            pl: 'Jawnie wersjonowane API między shellem a MFE (<code>apiVersion</code>, przekazywane dane, callbacki). Bez wersjonowania pierwsze złamanie kontraktu blokuje wszystkie zespoły naraz.',
+            en: 'The explicitly versioned API between shell and MFE (<code>apiVersion</code>, passed data, callbacks). Without versioning, the first break blocks every team at once.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="mfe1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +
@@ -368,6 +442,43 @@ export default {
       id: 'shared-libs-boundaries',
       title: { pl: 'Biblioteki współdzielone i granice modułów', en: 'Shared libraries and module boundaries' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Taksonomia bibliotek', en: 'Library taxonomy' },
+          def: {
+            pl: 'Każda paczka dostaje typ warstwy (<code>app</code>, <code>feature</code>, <code>ui</code>, <code>util</code>, <code>data</code>) i zakres biznesowy (<code>scope:billing</code>). Bez tagów nie da się zapisać żadnej reguły zależności.',
+            en: 'Every package gets a layer type (<code>app</code>, <code>feature</code>, <code>ui</code>, <code>util</code>, <code>data</code>) and a business scope (<code>scope:billing</code>). Without tags no dependency rule can be expressed.'
+          }
+        },
+        {
+          term: { pl: 'Reguły granic modułów', en: 'Module boundary rules' },
+          def: {
+            pl: 'Lint egzekwowany w CI (<code>@nx/enforce-module-boundaries</code>, dependency-cruiser), który pozwala zależnościom iść tylko w dół warstw i w obrębie zakresu. Naruszenie musi blokować merge.',
+            en: 'A lint rule enforced in CI (<code>@nx/enforce-module-boundaries</code>, dependency-cruiser) that lets dependencies point only downward through layers and inside a scope. A violation must block the merge.'
+          }
+        },
+        {
+          term: { pl: 'Publiczne API paczki', en: 'Package public API' },
+          def: {
+            pl: 'Biblioteka eksportuje wyłącznie przez <code>index.ts</code>, a pole <code>exports</code> w <code>package.json</code> blokuje import po głębokiej ścieżce. Dopiero wtedy wnętrze zostaje refaktorowalne.',
+            en: 'A library exports only through <code>index.ts</code>, and the <code>exports</code> field in <code>package.json</code> blocks deep imports. Only then does its internals stay refactorable.'
+          }
+        },
+        {
+          term: { pl: 'Reguła trzeciego użycia', en: 'Rule of three' },
+          def: {
+            pl: 'Kod trafia do biblioteki współdzielonej dopiero przy trzecim użyciu i tylko wtedy, gdy trzy przypadki są takie same <em>z tego samego powodu</em>. Duplikacja jest tańsza niż zła abstrakcja.',
+            en: 'Code moves into a shared library only at the third usage, and only when the three cases are the same <em>for the same reason</em>. Duplication is cheaper than a wrong abstraction.'
+          }
+        },
+        {
+          term: { pl: 'Fan-in', en: 'Fan-in' },
+          def: {
+            pl: 'Liczba paczek zależnych od danej biblioteki. Wysoki fan-in katalogu typu <code>shared-utils</code> to zapowiedź incydentu: każda zmiana dotyka wszystkich konsumentów naraz.',
+            en: 'The number of packages depending on a given library. A high fan-in on something like <code>shared-utils</code> predicts an incident: every change touches all consumers at once.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="lib1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ok)"/></marker>' +
@@ -473,6 +584,43 @@ export default {
       id: 'feature-flags-experiments',
       title: { pl: 'Feature flagi i eksperymenty', en: 'Feature flags and experiments' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Feature flaga', en: 'Feature flag' },
+          def: {
+            pl: 'Przełącznik rozdzielający <strong>deployment</strong> (kod na produkcji) od <strong>release</strong> (użytkownik widzi funkcję). To on umożliwia trunk based development bez długo żyjących gałęzi.',
+            en: 'A switch that separates <strong>deployment</strong> (code in production) from <strong>release</strong> (the user sees the feature). It is what makes trunk based development possible without long-lived branches.'
+          }
+        },
+        {
+          term: { pl: 'Kill switch (ops toggle)', en: 'Kill switch (ops toggle)' },
+          def: {
+            pl: 'Długo żyjąca flaga operacyjna, która pozwala natychmiast wyłączyć kosztowną funkcję pod obciążeniem. Inny cykl życia niż release toggle - nie usuwa się jej po rollout.',
+            en: 'A long-lived operational flag that instantly disables an expensive feature under load. A different lifecycle than a release toggle: it is not deleted after rollout.'
+          }
+        },
+        {
+          term: { pl: 'Lepkie kubełkowanie', en: 'Sticky bucketing' },
+          def: {
+            pl: 'Deterministyczne przypisanie wariantu z hasha <code>userId + flagKey</code>, dzięki czemu ten sam użytkownik zawsze widzi ten sam wariant. <code>Math.random()</code> daje migotanie i bezwartościowe dane.',
+            en: 'Deterministic variant assignment from a hash of <code>userId + flagKey</code>, so the same user always sees the same variant. <code>Math.random()</code> gives flicker and worthless data.'
+          }
+        },
+        {
+          term: { pl: 'Data ważności flagi', en: 'Flag expiry date' },
+          def: {
+            pl: 'Obowiązkowe pole <code>expiresAt</code>. Po terminie CI ostrzega, a po 30 dniach blokuje merge - to jedyny znany sposób, żeby po dwóch latach nie mieć 200 martwych flag.',
+            en: 'A mandatory <code>expiresAt</code> field. Past the date CI warns, after 30 days it blocks the merge - the only known way to avoid 200 dead flags after two years.'
+          }
+        },
+        {
+          term: { pl: 'Podglądanie wyników (peeking)', en: 'Peeking' },
+          def: {
+            pl: 'Zatrzymywanie eksperymentu w momencie, gdy <em>p</em> spadnie poniżej 0,05. Wielokrotnie zawyża odsetek fałszywych odkryć: kryterium stopu i wielkość próby ustala się przed startem.',
+            en: 'Stopping an experiment the moment <em>p</em> drops below 0.05. It inflates the false discovery rate many times over: the stopping rule and sample size are fixed before the start.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="ff1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +
@@ -691,6 +839,43 @@ export default {
       id: 'dependency-upgrades-strategy',
       title: { pl: 'Strategia aktualizacji zależności', en: 'Dependency upgrade strategy' },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Lockfile i frozen-lockfile', en: 'Lockfile and frozen-lockfile' },
+          def: {
+            pl: 'Lockfile commitowany do repo plus <code>pnpm install --frozen-lockfile</code> w CI. Gwarantuje, że pipeline instaluje dokładnie te wersje co deweloper, i wykrywa niezaktualizowany lock.',
+            en: 'A lockfile committed to the repo plus <code>pnpm install --frozen-lockfile</code> in CI. It guarantees the pipeline installs exactly the developer versions and catches a stale lock.'
+          }
+        },
+        {
+          term: { pl: 'Bot aktualizacyjny (Renovate)', en: 'Update bot (Renovate)' },
+          def: {
+            pl: 'Renovate lub Dependabot otwierający PR-y z podbiciami. Sens daje dopiero podział na strumienie ryzyka: patche i minory grupowane z automerge, majory jako osobny ticket, CVE poza kolejką.',
+            en: 'Renovate or Dependabot opening bump PRs. It only pays off with risk streams: grouped patches and minors on automerge, majors as separate tickets, CVEs jumping the queue.'
+          }
+        },
+        {
+          term: { pl: 'Codemod', en: 'Codemod' },
+          def: {
+            pl: 'Skrypt (jscodeshift, <code>nx migrate</code>, <code>react-codemod</code>) przepisujący kod na poziomie AST. Dwa dni na własny codemod zwykle biją dwa tygodnie ręcznego przepisywania i są powtarzalne.',
+            en: 'A script (jscodeshift, <code>nx migrate</code>, <code>react-codemod</code>) that rewrites code at the AST level. Two days on your own codemod usually beat two weeks of manual edits and are repeatable.'
+          }
+        },
+        {
+          term: { pl: 'Dual publishing i EOL', en: 'Dual publishing and EOL' },
+          def: {
+            pl: 'Przy zmianie łamiącej publikujesz równolegle linię <code>4.x</code> (tylko poprawki bezpieczeństwa) i <code>5.x</code>. Ogłoszona data końca wsparcia jest ważniejsza niż sama migracja.',
+            en: 'On a breaking change you publish a <code>4.x</code> line (security fixes only) alongside <code>5.x</code>. The announced end-of-life date matters more than the migration itself.'
+          }
+        },
+        {
+          term: { pl: 'Atak na łańcuch dostaw', en: 'Supply chain attack' },
+          def: {
+            pl: 'Włamanie nie do Ciebie, tylko do paczki, której używasz. Kontrole: <code>--ignore-scripts</code> w CI, cooldown na świeże wersje, przypinanie akcji do SHA i publikacja z <code>--provenance</code>.',
+            en: 'A break-in not into you but into a package you use. Controls: <code>--ignore-scripts</code> in CI, a cooldown on fresh versions, pinning actions to a SHA and publishing with <code>--provenance</code>.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="dep1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +

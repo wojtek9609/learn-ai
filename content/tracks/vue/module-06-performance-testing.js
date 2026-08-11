@@ -19,6 +19,43 @@ export default {
         en: 'Rendering optimization and v-memo'
       },
       minutes: 13,
+      terms: [
+        {
+          term: { pl: 'patch flags', en: 'patch flags' },
+          def: {
+            pl: 'Znaczniki generowane przez kompilator szablonów przy vnode, mówiące runtime, co dokładnie może się zmienić (klasa, tekst, propsy). Dzięki nim patch pomija statyczną część drzewa.',
+            en: 'Markers the template compiler attaches to a vnode telling the runtime exactly what can change (class, text, props). They let the patch skip the static part of the tree.'
+          }
+        },
+        {
+          term: { pl: 'v-memo', en: 'v-memo' },
+          def: {
+            pl: 'Dyrektywa pomijająca aktualizację poddrzewa, dopóki żadna wartość z podanej listy się nie zmieni. Pominięcie w liście pola, które poddrzewo renderuje, zostawia nieaktualny widok.',
+            en: 'A directive that skips updating a subtree until one of the listed values changes. Leaving out a field the subtree renders leaves stale content on screen.'
+          }
+        },
+        {
+          term: { pl: 'stabilność slotów', en: 'slot stability' },
+          def: {
+            pl: 'Slot bez warunków i bez domknięć na zmienny stan jest oznaczony jako <code>STABLE</code>, więc render rodzica nie wymusza renderu dziecka. <code>v-if</code> na <code>template</code> ze slotem to psuje.',
+            en: 'A slot with no conditionals and no closures over changing state is marked <code>STABLE</code>, so a parent render does not force a child render. A <code>v-if</code> on the slot <code>template</code> breaks that.'
+          }
+        },
+        {
+          term: { pl: 'shallowRef z triggerRef', en: 'shallowRef with triggerRef' },
+          def: {
+            pl: 'Para dla dużych struktur danych: wartość trzymana bez proxy, a odświeżenie wymuszane ręcznie po mutacji. Zdejmuje koszt trackowania dziesiątek tysięcy pól.',
+            en: 'The pair for large data structures: the value is held without a proxy and the refresh is forced manually after a mutation. It removes the cost of tracking tens of thousands of fields.'
+          }
+        },
+        {
+          term: { pl: 'wirtualizacja listy', en: 'list virtualisation' },
+          def: {
+            pl: 'Renderowanie tylko widocznych wierszy plus bufor. Przy tabelach na tysiące wierszy daje rząd wielkości więcej niż jakikolwiek mikro-tuning patchowania.',
+            en: 'Rendering only the visible rows plus a buffer. On tables with thousands of rows it beats any micro-tuning of the patch path by an order of magnitude.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m6l1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -270,6 +307,43 @@ export default {
         en: 'Bundle, code splitting and lazy loading'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'code splitting', en: 'code splitting' },
+          def: {
+            pl: 'Każdy <code>import()</code> tworzy w buildzie Vite/Rollup osobny chunk. Statyczny import tego samego modułu gdzie indziej wciąga go z powrotem do głównego bundla.',
+            en: 'Every <code>import()</code> creates a separate chunk in a Vite/Rollup build. A static import of the same module elsewhere pulls it back into the main bundle.'
+          }
+        },
+        {
+          term: { pl: 'defineAsyncComponent', en: 'defineAsyncComponent' },
+          def: {
+            pl: 'Leniwie ładowany komponent z opcjami <code>delay</code>, <code>timeout</code> oraz komponentami loading i error. Delay około 200 ms zapobiega mignięciu spinnera na szybkim łączu.',
+            en: 'A lazily loaded component with <code>delay</code>, <code>timeout</code> and loading/error components. A delay of around 200 ms stops the spinner flashing on a fast connection.'
+          }
+        },
+        {
+          term: { pl: 'request waterfall', en: 'request waterfall' },
+          def: {
+            pl: 'Łańcuch sekwencyjnych pobrań: trasa ładuje komponent, ten dopiero swój wykres, a ten dopiero dane. Każdy poziom to dodatkowy round trip, więc zagnieżdżone lazy trzeba preloadować.',
+            en: 'A chain of sequential fetches: the route loads a component, which loads its chart, which loads data. Each level is an extra round trip, so nested lazy loads need preloading.'
+          }
+        },
+        {
+          term: { pl: 'modulepreload i prefetch', en: 'modulepreload and prefetch' },
+          def: {
+            pl: 'Podpowiedzi dla przeglądarki, by pobrała chunk zanim będzie potrzebny - <code>modulepreload</code> dla bieżącej nawigacji, prefetch linków dla prawdopodobnej następnej.',
+            en: 'Hints telling the browser to fetch a chunk before it is needed - <code>modulepreload</code> for the current navigation, link prefetch for the likely next one.'
+          }
+        },
+        {
+          term: { pl: 'tree shaking i sideEffects', en: 'tree shaking and sideEffects' },
+          def: {
+            pl: 'Usuwanie nieużywanego kodu z paczek ESM. Flaga <code>sideEffects: false</code> nic nie da, jeśli paczka ma barrel index z globalnym CSS albo globalną rejestracją komponentów.',
+            en: 'Dropping unused code from ESM packages. The <code>sideEffects: false</code> flag helps nothing if the package has a barrel index with global CSS or global component registration.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m6l2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -497,6 +571,43 @@ export default {
         en: 'Vue Test Utils and Testing Library'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'mount i shallowMount', en: 'mount versus shallowMount' },
+          def: {
+            pl: '<code>mount</code> montuje prawdziwe drzewo komponentów, <code>shallowMount</code> zastępuje dzieci stubami. W bibliotece komponentów stuby ukrywają dokładnie te integracje, które chcesz sprawdzić.',
+            en: '<code>mount</code> mounts the real component tree, <code>shallowMount</code> replaces children with stubs. For a component library, stubs hide exactly the integration you wanted to verify.'
+          }
+        },
+        {
+          term: { pl: 'Testing Library', en: 'Testing Library' },
+          def: {
+            pl: 'Podejście testujące jak użytkownik: zapytania po roli, etykiecie i tekście zamiast po klasach i wewnętrznych elementach. Takie testy przeżywają refaktor markupu.',
+            en: 'An approach that tests like a user: queries by role, label and text rather than classes and internal elements. Such tests survive a markup refactor.'
+          }
+        },
+        {
+          term: { pl: 'ograniczenia jsdom', en: 'the jsdom wall' },
+          def: {
+            pl: 'jsdom nie ma silnika layoutu: <code>getBoundingClientRect</code> zwraca zera, brakuje <code>IntersectionObserver</code>, <code>ResizeObserver</code> i <code>matchMedia</code>. Pozycjonowanie testuje się w prawdziwej przeglądarce.',
+            en: 'jsdom has no layout engine: <code>getBoundingClientRect</code> returns zeros, and <code>IntersectionObserver</code>, <code>ResizeObserver</code> and <code>matchMedia</code> are missing. Positioning belongs in a real browser.'
+          }
+        },
+        {
+          term: { pl: 'fake timers', en: 'fake timers' },
+          def: {
+            pl: 'Sterowanie czasem w testach debounce i animacji. Po przesunięciu zegara potrzebna jest wersja async (<code>advanceTimersByTimeAsync</code>) i <code>await nextTick()</code>, bo aktualizacja Vue leci mikrozadaniem.',
+            en: 'Controlling time in debounce and animation tests. After moving the clock you need the async variant (<code>advanceTimersByTimeAsync</code>) plus <code>await nextTick()</code>, because the Vue update runs in a microtask.'
+          }
+        },
+        {
+          term: { pl: 'testowanie composables w scope', en: 'testing composables in a scope' },
+          def: {
+            pl: 'Composable z watcherami uruchamia się w <code>effectScope</code> albo w komponencie testowym, żeby dało się go posprzątać i sprawdzić, że <code>onScopeDispose</code> naprawdę odpina zasoby.',
+            en: 'A composable with watchers is run inside an <code>effectScope</code> or a test component, so it can be disposed and you can assert that <code>onScopeDispose</code> really releases its resources.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Two libraries, one mount, different questions</text>' +
@@ -619,6 +730,43 @@ export default {
         en: 'Component testing patterns'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'test kontraktu a test implementacji', en: 'contract test versus implementation test' },
+          def: {
+            pl: 'Kontrakt to, co widzi i robi konsument komponentu: propsy, emity, sloty, dostępność. Implementacja to nazwy klas i stan wewnętrzny - test na nich pęka przy każdym refaktorze.',
+            en: 'The contract is what a consumer sees and does: props, emits, slots, accessibility. The implementation is class names and internal state - a test on those breaks on every refactor.'
+          }
+        },
+        {
+          term: { pl: 'kontrakt v-model', en: 'the v-model contract' },
+          def: {
+            pl: 'Komponent kontrolowany przyjmuje <code>modelValue</code> i emituje <code>update:modelValue</code>, nie zmieniając własnego stanu bez odpowiedzi rodzica. Test: nie podnoś propa i sprawdź, że wartość stoi.',
+            en: 'A controlled component takes <code>modelValue</code> and emits <code>update:modelValue</code> without changing its own state until the parent responds. The test: do not lift the prop, and assert the value stays put.'
+          }
+        },
+        {
+          term: { pl: 'przekazywanie slotów i atrybutów', en: 'slot and attribute forwarding' },
+          def: {
+            pl: 'Wrapper w design systemie musi przekazać w dół sloty, <code>class</code>, <code>style</code>, handlery i atrybuty ARIA. To najczęstsza cicha regresja i najtańszy test do napisania.',
+            en: 'A design-system wrapper must pass slots, <code>class</code>, <code>style</code>, handlers and ARIA attributes down. This is the most common silent regression and the cheapest test to write.'
+          }
+        },
+        {
+          term: { pl: 'dług snapshotów', en: 'snapshot debt' },
+          def: {
+            pl: 'Duże snapshoty DOM komponentów bibliotecznych zmieniają się przy każdej kosmetyce, więc są akceptowane bez czytania. Lepsze są celowane asercje na role, atrybuty i emitowane zdarzenia.',
+            en: 'Large DOM snapshots of library components change on every cosmetic tweak, so they get approved unread. Targeted assertions on roles, attributes and emitted events are better.'
+          }
+        },
+        {
+          term: { pl: 'test dostępności', en: 'accessibility test' },
+          def: {
+            pl: 'Automatyczna kontrola przez <code>vitest-axe</code> lub <code>axe-core</code> łapie brakujące etykiety, kontrast i złamane role. Wykrywa tylko część problemów, ale najtańszą część.',
+            en: 'An automated check with <code>vitest-axe</code> or <code>axe-core</code> catches missing labels, contrast and broken roles. It finds only a subset of issues, but the cheapest subset.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Test the contract, not the implementation</text>' +
@@ -735,6 +883,43 @@ export default {
         en: 'End-to-end testing with Playwright'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'locator', en: 'locator' },
+          def: {
+            pl: 'Leniwy opis elementu w Playwright, rozwiązywany dopiero przy akcji i z wbudowanym czekaniem. Dlatego <code>await expect(locator)</code> nie potrzebuje ręcznych sleepów.',
+            en: 'A lazy description of an element in Playwright, resolved only at action time and with built-in waiting. That is why <code>await expect(locator)</code> needs no manual sleeps.'
+          }
+        },
+        {
+          term: { pl: 'getByRole', en: 'getByRole' },
+          def: {
+            pl: 'Zapytanie po roli dostępności i nazwie. Nie pęka przy zmianie klas CSS w design systemie, a przy okazji weryfikuje, że komponent ma poprawną semantykę.',
+            en: 'A query by accessibility role and name. It does not break when design-system CSS classes change, and it verifies the component has correct semantics along the way.'
+          }
+        },
+        {
+          term: { pl: 'trace viewer', en: 'trace viewer' },
+          def: {
+            pl: 'Zapis przebiegu testu: snapshoty DOM przed i po każdej akcji, sieć i konsola. Z ustawieniem <code>trace: on-first-retry</code> to najszybsza droga do diagnozy testu padającego tylko na CI.',
+            en: 'A recording of the run: DOM snapshots before and after each action, network and console. With <code>trace: on-first-retry</code> it is the fastest route to diagnosing a CI-only failure.'
+          }
+        },
+        {
+          term: { pl: 'sharding i retries', en: 'sharding and retries' },
+          def: {
+            pl: 'Podział zestawu na równoległe części (<code>--shard=1/4</code>) plus ponowienia na CI. Skraca czas, ale ponowienia mają maskować flake infrastruktury, nie realne błędy.',
+            en: 'Splitting the suite into parallel parts (<code>--shard=1/4</code>) plus retries on CI. It cuts wall time, but retries should mask infrastructure flake, never real bugs.'
+          }
+        },
+        {
+          term: { pl: 'visual regression', en: 'visual regression' },
+          def: {
+            pl: 'Porównanie zrzutu ekranu z wzorcem przez <code>toHaveScreenshot()</code>. Wzorce generuje się w tym samym obrazie kontenera co CI, bo rendering fontów różni się między systemami.',
+            en: 'Comparing a screenshot against a baseline with <code>toHaveScreenshot()</code>. Baselines must be generated in the same container image as CI, because font rendering differs across systems.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m6l5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -859,6 +1044,36 @@ export default {
         en: 'Vapor Mode and the future of Vue'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Vapor Mode', en: 'Vapor Mode' },
+          def: {
+            pl: 'Alternatywny tryb kompilacji Vue: szablon zamienia się w kod tworzący i aktualizujący DOM bezpośrednio, bez vnode i bez runtime wirtualnego DOM.',
+            en: 'An alternative Vue compilation mode: the template becomes code that creates and updates DOM directly, with no vnodes and no virtual DOM runtime.'
+          }
+        },
+        {
+          term: { pl: 'aktualizacje drobnoziarniste', en: 'fine-grained updates' },
+          def: {
+            pl: 'Zamiast diffowania drzewa vnode każde wiązanie ma własny efekt aktualizujący konkretny węzeł. Koszt aktualizacji zależy od liczby zmienionych wiązań, nie od rozmiaru komponentu.',
+            en: 'Instead of diffing a vnode tree, each binding owns an effect that updates one node. Update cost scales with the number of changed bindings, not with component size.'
+          }
+        },
+        {
+          term: { pl: 'włączanie per komponent', en: 'per-component opt-in' },
+          def: {
+            pl: 'Vapor włącza się dla pojedynczych komponentów, a tryb klasyczny i vapor mogą współistnieć w jednym drzewie. Migracja jest więc stopniowa i nie wymaga przepisania aplikacji.',
+            en: 'Vapor is enabled per component, and classic and vapor components can coexist in one tree. Migration is therefore incremental and needs no application rewrite.'
+          }
+        },
+        {
+          term: { pl: 'API zależne od vnode', en: 'vnode-dependent API' },
+          def: {
+            pl: 'Render functions, ręczne <code>h()</code>, grzebanie w <code>$slots()</code> i inspekcja <code>vnode.type</code> nie mają odpowiednika w vapor - ten kod w bibliotece komponentów jest najbardziej zagrożony.',
+            en: 'Render functions, hand-written <code>h()</code>, poking at <code>$slots()</code> and inspecting <code>vnode.type</code> have no vapor equivalent - that code in a component library is the most at risk.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m6l6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +

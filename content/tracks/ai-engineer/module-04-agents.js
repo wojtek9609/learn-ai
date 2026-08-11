@@ -13,6 +13,43 @@ export default {
       id: 'what-is-an-agent',
       title: { pl: 'Czym jest agent', en: 'What is an agent' },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'agent', en: 'agent' },
+          def: {
+            pl: 'Petla model-narzedzia, w ktorej to model decyduje o kolejnym kroku i o tym, kiedy skonczyc. Autonomia w wyborze kroku jest cala roznica wobec zwyklego programu.',
+            en: 'A model-tool loop in which the model chooses the next step and decides when to stop. That autonomy over the next step is the entire difference from an ordinary program.'
+          }
+        },
+        {
+          term: { pl: 'petla agentowa', en: 'agent loop' },
+          def: {
+            pl: 'Cykl: kontekst -> decyzja modelu -> wywolanie narzedzia -> wynik dopisany do kontekstu -> od nowa. Kazdy obrot powieksza historie, wiec koszt rosnie kwadratowo z liczba krokow.',
+            en: 'The cycle: context -> model decision -> tool call -> result appended to context -> repeat. Every turn grows the history, so cost rises quadratically with the number of steps.'
+          }
+        },
+        {
+          term: { pl: 'workflow vs agent', en: 'workflow vs agent' },
+          def: {
+            pl: 'Workflow ma sciezke ustalona w kodzie i model tylko wypelnia kroki; agent sam uklada sciezke. Jesli kolejnosc krokow jest znana z gory, agent jest droga i mniej niezawodna wersja pipeline\'u.',
+            en: 'A workflow fixes the path in code and the model only fills in the steps; an agent picks the path. If the sequence is known upfront, an agent is an expensive, less reliable pipeline.'
+          }
+        },
+        {
+          term: { pl: 'warunek stopu', en: 'stop condition' },
+          def: {
+            pl: 'Jawna regula konczaca petle: cel osiagniety, limit iteracji, limit kosztu albo timeout. Agent bez warunku stopu to nie eksperyment, tylko rachunek za tokeny.',
+            en: 'The explicit rule that ends the loop: goal reached, iteration cap, cost cap or timeout. An agent without one is not an experiment, it is a token bill.'
+          }
+        },
+        {
+          term: { pl: 'petle i zapetlenia', en: 'loops and thrashing' },
+          def: {
+            pl: 'Typowa patologia: model powtarza to samo wywolanie z drobna zmiana argumentow. Wykrywasz to po hashu ostatnich wywolan i przerywasz, zamiast czekac na limit.',
+            en: 'The classic pathology: the model repeats the same call with slightly different arguments. Detect it by hashing recent calls and break out instead of waiting for the cap.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="ag-a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +
@@ -281,6 +318,43 @@ export default {
       id: 'tool-design',
       title: { pl: 'Projektowanie narzedzi', en: 'Tool design' },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'opis narzedzia', en: 'tool description' },
+          def: {
+            pl: 'Tekst, ktory model czyta, decydujac czy i jak uzyc narzedzia - pisany jak dokumentacja dla nowej osoby w zespole: co robi, kiedy uzyc, czego NIE robi. Zmiana opisu zmienia zachowanie agenta mocniej niz zmiana system promptu.',
+            en: 'The text the model reads when deciding whether and how to use a tool - written like docs for a new teammate: what it does, when to use it, what it does NOT do. Editing it changes agent behaviour more than editing the system prompt.'
+          }
+        },
+        {
+          term: { pl: 'schemat wejscia', en: 'input schema' },
+          def: {
+            pl: 'JSON Schema argumentow narzedzia: enumy zamiast wolnych stringow, jawne jednostki, wymagane pola. Kazda dwuznacznosc w schemacie wraca jako blad w argumentach.',
+            en: 'The JSON Schema of the tool arguments: enums instead of free strings, explicit units, required fields. Every ambiguity in the schema comes back as a bad-argument error.'
+          }
+        },
+        {
+          term: { pl: 'granularnosc narzedzi', en: 'tool granularity' },
+          def: {
+            pl: 'Poziom, na ktorym dzielisz zdolnosci: kilka narzedzi domenowych bije trzydziesci cienkich opakowan na endpointy REST. Praktyczny limit to 10-15 narzedzi na jedna petle.',
+            en: 'How finely you slice capabilities: a handful of task-level tools beats thirty thin wrappers over REST endpoints. The practical limit is 10-15 tools per loop.'
+          }
+        },
+        {
+          term: { pl: 'bledy jako dane', en: 'errors as data' },
+          def: {
+            pl: 'Narzedzie zwraca czytelny komunikat bledu jako normalny wynik zamiast rzucac wyjatek, i mowi, co zrobic dalej. Model potrafi wtedy sam sie poprawic w kolejnej iteracji.',
+            en: 'A tool returns a readable error as an ordinary result instead of throwing, and says what to do next. The model can then correct itself on the following turn.'
+          }
+        },
+        {
+          term: { pl: 'przycinanie wynikow narzedzi', en: 'trimming tool results' },
+          def: {
+            pl: 'Zwracanie zwiezlego, stabilnego ksztaltu zamiast surowej odpowiedzi API. Jedno nieprzyciete wywolanie potrafi zjesc kilkanascie tysiecy tokenow okna kontekstu.',
+            en: 'Returning a compact, stable shape instead of a raw API response. A single untrimmed call can eat tens of thousands of tokens of context window.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="ag-a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +
@@ -389,6 +463,36 @@ export default {
       id: 'planning-patterns',
       title: { pl: 'Wzorce planowania', en: 'Planning patterns' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'ReAct', en: 'ReAct' },
+          def: {
+            pl: 'Wzorzec przeplatajacy rozumowanie z dzialaniem: mysl -> akcja -> obserwacja, w kolko. Domyslny tryb wiekszosci agentow, dobry przy nieznanej z gory sciezce.',
+            en: 'The pattern interleaving reasoning and acting: thought -> action -> observation, repeatedly. The default mode of most agents and a good fit when the path is unknown upfront.'
+          }
+        },
+        {
+          term: { pl: 'plan-then-execute', en: 'plan-then-execute' },
+          def: {
+            pl: 'Najpierw model uklada caly plan krokow, potem wykonuje go w petli. Plan jest artefaktem, ktory da sie pokazac czlowiekowi do akceptacji i tanio wznowic po awarii.',
+            en: 'The model first drafts the full plan of steps, then executes it in a loop. The plan is an artifact you can show a human for approval and cheaply resume after a failure.'
+          }
+        },
+        {
+          term: { pl: 'reflection', en: 'reflection' },
+          def: {
+            pl: 'Osobny krok, w ktorym model krytykuje wlasny wynik wzgledem kryteriow i poprawia go. Dziala tylko z konkretna rubryka - samo <em>sprawdz to</em> zwykle daje potwierdzenie, nie poprawke.',
+            en: 'A separate step where the model critiques its own output against criteria and revises it. It only works with a concrete rubric - a bare <em>check this</em> usually yields agreement, not a fix.'
+          }
+        },
+        {
+          term: { pl: 'orchestrator i subagenci', en: 'orchestrator and subagents' },
+          def: {
+            pl: 'Glowny agent rozdaje podzadania agentom z wlasnym, czystym oknem kontekstu i zbiera zwiezle wyniki. Izoluje kontekst i pozwala zrownoleglic, kosztem tokenow i trudniejszego debugowania.',
+            en: 'A main agent hands subtasks to agents with their own clean context window and collects compact results. It isolates context and enables parallelism at the cost of tokens and harder debugging.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<rect x="16" y="20" width="290" height="164" rx="14" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
@@ -499,6 +603,43 @@ export default {
       id: 'context-token-budgets',
       title: { pl: 'Kontekst i budzet tokenow', en: 'Context and token budgets' },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'budzet tokenow', en: 'token budget' },
+          def: {
+            pl: 'Jawny podzial okna kontekstu na czesci: instrukcje, narzedzia, historia, wyniki narzedzi, rezerwa na odpowiedz. Budzet rozpisany w kodzie jest warunkiem przewidywalnego kosztu agenta.',
+            en: 'An explicit split of the context window: instructions, tools, history, tool results, reserve for the answer. A budget written down in code is what makes agent cost predictable.'
+          }
+        },
+        {
+          term: { pl: 'kompaktowanie', en: 'compaction' },
+          def: {
+            pl: 'Zastapienie starszej czesci historii jej streszczeniem, gdy okno sie zapelnia. Streszczenie musi zachowac cel, decyzje i stan - inaczej agent zaczyna zadanie od poczatku.',
+            en: 'Replacing the older part of the history with a summary when the window fills up. The summary must preserve the goal, decisions and state, or the agent restarts the task from scratch.'
+          }
+        },
+        {
+          term: { pl: 'pamiec plikowa', en: 'file-backed memory' },
+          def: {
+            pl: 'Trzymanie stanu poza kontekstem - w pliku albo bazie - i wciaganie tylko potrzebnego fragmentu. Okno kontekstu staje sie cache\'em, a nie jedynym miejscem prawdy.',
+            en: 'Keeping state outside the context, in a file or a store, and pulling in only the fragment needed. The context window becomes a cache rather than the only source of truth.'
+          }
+        },
+        {
+          term: { pl: 'just-in-time retrieval', en: 'just-in-time retrieval' },
+          def: {
+            pl: 'Zamiast ladowac wszystko na starcie, agent dociaga dane dopiero w kroku, ktory ich potrzebuje. Krotszy prompt to nizszy koszt i mniejsze ryzyko zgubienia faktu w srodku kontekstu.',
+            en: 'Instead of loading everything upfront, the agent fetches data in the step that needs it. A shorter prompt means lower cost and less risk of losing a fact in the middle of the context.'
+          }
+        },
+        {
+          term: { pl: 'prompt caching w agencie', en: 'prompt caching in agents' },
+          def: {
+            pl: 'Stale instrukcje i definicje narzedzi na poczatku promptu daja trafienia w cache przy kazdej iteracji petli. Wystarczy dopisac cos na gorze, zeby uniewaznic cache calej sesji.',
+            en: 'Static instructions and tool definitions at the top of the prompt produce cache hits on every loop iteration. Appending anything above them invalidates the cache for the whole session.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="ag-a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +
@@ -737,6 +878,43 @@ export default {
       id: 'reliability',
       title: { pl: 'Niezawodnosc', en: 'Reliability' },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'idempotencja', en: 'idempotency' },
+          def: {
+            pl: 'Wlasciwosc operacji, ktora wykonana dwa razy daje ten sam efekt co raz. Agent bedzie ponawial wywolania, wiec kazda mutacja bez idempotencji predzej czy pozniej zdubluje dane.',
+            en: 'The property that running an operation twice has the same effect as running it once. Agents retry, so any non-idempotent mutation will eventually duplicate data.'
+          }
+        },
+        {
+          term: { pl: 'klucz idempotencji', en: 'idempotency key' },
+          def: {
+            pl: 'Stabilny identyfikator wyliczony z intencji (nie losowy), wysylany razem z zadaniem, po ktorym serwer rozpoznaje powtorke. Ten sam klucz musi przetrwac retry i restart procesu.',
+            en: 'A stable identifier derived from the intent, not random, sent with the request so the server recognises a repeat. The same key must survive a retry and a process restart.'
+          }
+        },
+        {
+          term: { pl: 'retry z backoff', en: 'retry with backoff' },
+          def: {
+            pl: 'Ponowienia z rosnacym opoznieniem i jitterem, wylacznie dla bledow przejsciowych. Bez rozroznienia przejsciowy/terminalny agent uparcie powtarza blad walidacji az do limitu.',
+            en: 'Retries with growing delay and jitter, only for transient errors. Without the transient/terminal distinction an agent will keep replaying a validation error until it hits the cap.'
+          }
+        },
+        {
+          term: { pl: 'bledy przejsciowe vs terminalne', en: 'transient vs terminal errors' },
+          def: {
+            pl: 'Timeout, 429 i 503 to przejsciowe - ponawiasz. 400, 403 i blad walidacji to terminalne - oddajesz modelowi jako dane, zeby zmienil argumenty. Mylenie ich to najczestszy bug w petli.',
+            en: 'Timeouts, 429 and 503 are transient - retry them. 400, 403 and validation errors are terminal - hand them to the model as data so it changes its arguments. Confusing the two is the most common loop bug.'
+          }
+        },
+        {
+          term: { pl: 'checkpoint i wznawianie', en: 'checkpoints and resumability' },
+          def: {
+            pl: 'Zapis stanu po kazdym udanym kroku, dzieki czemu po awarii agent rusza od ostatniego punktu, a nie od zera. Bez tego 20-krokowe zadanie jest transakcja typu wszystko albo nic.',
+            en: 'Persisting state after each successful step so a crash resumes from the last point instead of the beginning. Without it a 20-step task is an all-or-nothing transaction.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="ag-a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +
@@ -846,6 +1024,43 @@ export default {
       id: 'guardrails-hitl',
       title: { pl: 'Zabezpieczenia i czlowiek w petli', en: 'Guardrails and human in the loop' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'warstwa polityki', en: 'policy layer' },
+          def: {
+            pl: 'Kod przed wykonaniem narzedzia, ktory sprawdza, czy dana akcja jest w ogole dozwolona. Polityka mieszka w kodzie, nigdy w prompcie - prompt to sugestia, kod to granica.',
+            en: 'Code that runs before a tool executes and checks whether the action is allowed at all. Policy lives in code, never in the prompt - a prompt is a suggestion, code is a boundary.'
+          }
+        },
+        {
+          term: { pl: 'human-in-the-loop', en: 'human-in-the-loop (HITL)' },
+          def: {
+            pl: 'Wymuszona akceptacja czlowieka przed akcja nieodwracalna, z pokazanym konkretem: co dokladnie sie stanie i na czym. Zgoda blankietowa <em>pozwol na wszystko</em> to brak bramki.',
+            en: 'A required human approval before an irreversible action, showing the specifics: exactly what will happen and to what. A blanket <em>allow everything</em> consent is no gate at all.'
+          }
+        },
+        {
+          term: { pl: 'sandbox', en: 'sandbox' },
+          def: {
+            pl: 'Ograniczone srodowisko wykonania: osobny kontener, katalog roboczy, brak sekretow, allowlista egressu. Zaklada, ze model zostanie przejety, i ogranicza skutki zamiast im zapobiegac.',
+            en: 'A constrained execution environment: its own container, working directory, no secrets, an egress allowlist. It assumes the model will be hijacked and limits the consequences instead of preventing them.'
+          }
+        },
+        {
+          term: { pl: 'promien razenia', en: 'blast radius' },
+          def: {
+            pl: 'Zakres szkody, jaka agent moze wyrzadzic w najgorszym przypadku - liczony przez pryzmat uprawnien, nie intencji. Projektowanie zaczyna sie od pytania, co sie stanie, gdy petla oszaleje.',
+            en: 'The worst-case damage an agent can do, measured by its permissions rather than its intentions. Design starts from the question of what happens when the loop goes wrong.'
+          }
+        },
+        {
+          term: { pl: 'smiertelna trojca', en: 'the lethal trifecta' },
+          def: {
+            pl: 'Polaczenie trzech rzeczy naraz: dostep do danych prywatnych, kontakt z trescia niezaufana i mozliwosc komunikacji na zewnatrz. Kazde dwa sa do zniesienia, wszystkie trzy to gotowa exfiltracja.',
+            en: 'Three things at once: access to private data, exposure to untrusted content, and an outbound channel. Any two are survivable; all three are exfiltration waiting to happen.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="ag-a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>' +

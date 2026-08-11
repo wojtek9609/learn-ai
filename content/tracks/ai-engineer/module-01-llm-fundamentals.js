@@ -83,6 +83,43 @@ export default {
         en: 'How LLMs actually work'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'przewidywanie nastepnego tokena', en: 'next-token prediction' },
+          def: {
+            pl: 'Jedyna operacja modelu: dla calego dotychczasowego tekstu policz rozklad prawdopodobienstwa nastepnego tokena i wylosuj jeden. Cala reszta - chat, kod, tool calling - jest zbudowana na tej jednej petli.',
+            en: 'The only thing the model does: given all the text so far, compute a probability distribution over the next token and sample one. Chat, code and tool calling are all built on that single loop.'
+          }
+        },
+        {
+          term: { pl: 'autoregresja', en: 'autoregression' },
+          def: {
+            pl: 'Kazdy wygenerowany token wraca na wejscie i staje sie czescia kontekstu dla kolejnego kroku. Dlatego wyjscie powstaje sekwencyjnie i nie da sie go zrownoleglic w obrebie jednej odpowiedzi.',
+            en: 'Every generated token is appended to the input and becomes context for the next step. That is why output is produced sequentially and cannot be parallelised within one response.'
+          }
+        },
+        {
+          term: { pl: 'trening vs inferencja', en: 'training vs inference' },
+          def: {
+            pl: 'Trening to jednorazowe (bardzo drogie) ustalenie wag. Inferencja to kazde wywolanie API na zamrozonych wagach - model niczego sie wtedy nie uczy i nic nie pamieta miedzy requestami.',
+            en: 'Training sets the weights once, at huge cost. Inference is every API call against those frozen weights - the model learns nothing then and remembers nothing between requests.'
+          }
+        },
+        {
+          term: { pl: 'halucynacja', en: 'hallucination' },
+          def: {
+            pl: 'Pewnie brzmiaca odpowiedz, ktora nie ma pokrycia w faktach. Nie jest bugiem do zalatania, tylko skutkiem tego, ze model zawsze losuje prawdopodobny ciag dalszy - leczy sie ja groundingiem i weryfikacja, nie prompem <em>badz dokladny</em>.',
+            en: 'A confident answer with no factual backing. Not a bug to patch but a consequence of always sampling a plausible continuation - you treat it with grounding and verification, not with a <em>be accurate</em> prompt.'
+          }
+        },
+        {
+          term: { pl: 'logity', en: 'logits' },
+          def: {
+            pl: 'Surowe wyniki modelu dla kazdego tokena ze slownika, przed zamiana na prawdopodobienstwa przez <code>softmax</code>. Na nich dzialaja temperature, <code>top_p</code> i <code>top_k</code>.',
+            en: 'The raw per-token scores over the whole vocabulary, before <code>softmax</code> turns them into probabilities. Temperature, <code>top_p</code> and <code>top_k</code> all operate on them.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m1arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -258,6 +295,43 @@ export default {
         en: 'Tokenization: why the model cannot see letters'
       },
       minutes: 8,
+      terms: [
+        {
+          term: { pl: 'token', en: 'token' },
+          def: {
+            pl: 'Najmniejsza jednostka, jaka widzi model - zwykle kawalek slowa, nie litera i nie slowo. Rozliczenie i limity API sa liczone w tokenach, w angielskim to srednio okolo 4 znaki na token.',
+            en: 'The smallest unit the model sees - usually a piece of a word, not a letter and not a word. Billing and API limits are counted in tokens; in English roughly 4 characters per token.'
+          }
+        },
+        {
+          term: { pl: 'BPE', en: 'BPE (Byte Pair Encoding)' },
+          def: {
+            pl: 'Algorytm budowy slownika tokenow: startuje od bajtow i iteracyjnie skleja najczestsze pary w wieksze jednostki. Dlatego czeste slowa sa jednym tokenem, a rzadkie rozpadaja sie na kilka.',
+            en: 'The algorithm that builds the token vocabulary: it starts from bytes and repeatedly merges the most frequent pair into a larger unit. Common words end up as one token, rare ones split into several.'
+          }
+        },
+        {
+          term: { pl: 'tokenizer', en: 'tokenizer' },
+          def: {
+            pl: 'Deterministyczna funkcja tekst -> lista id tokenow, powiazana z konkretnym modelem. Liczby tokenow nie przenosza sie miedzy dostawcami - policzone <code>tiktoken</code> nie sa liczbami Claude.',
+            en: 'The deterministic text -> list of token ids function tied to one specific model. Token counts are not portable between providers - what <code>tiktoken</code> reports is not what Claude charges.'
+          }
+        },
+        {
+          term: { pl: 'inflacja tokenow', en: 'token inflation' },
+          def: {
+            pl: 'Ten sam tekst po polsku, w JSON-ie z wcieciami albo w base64 zajmuje znaczaco wiecej tokenow niz zwykla angielska proza. To bezposrednio koszt i zjedzone okno kontekstu.',
+            en: 'The same content in Polish, in pretty-printed JSON or in base64 costs far more tokens than plain English prose. That is money and context window burned directly.'
+          }
+        },
+        {
+          term: { pl: 'problem strawberry', en: 'the strawberry problem' },
+          def: {
+            pl: 'Model nie umie policzyc liter w slowie, bo nigdy nie widzi liter - widzi tokeny. Ten sam mechanizm psuje odwracanie stringow, rymy i liczenie znakow: takie zadania oddaje sie narzedziu.',
+            en: 'The model cannot count letters in a word because it never sees letters, only tokens. The same mechanism breaks string reversal, rhyming and character counting - hand those to a tool.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m2arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -540,6 +614,43 @@ export default {
         en: 'The context window and its traps'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'okno kontekstu', en: 'context window' },
+          def: {
+            pl: 'Maksymalna liczba tokenow wejscia i wyjscia w jednym wywolaniu. To budzet na request, a nie pamiec - model jest bezstanowy i przy kazdym wywolaniu dostaje cala historie od nowa.',
+            en: 'The maximum number of input plus output tokens in a single call. It is a per-request budget, not memory - the model is stateless and receives the whole history again every time.'
+          }
+        },
+        {
+          term: { pl: 'obcinanie', en: 'truncation' },
+          def: {
+            pl: 'Usuwanie czesci historii, gdy przestaje sie miescic w oknie. Robione naiwnie (od poczatku) wycina system prompt albo pierwotne wymagania - dlatego kolejnosc i priorytety trzeba ustalic jawnie.',
+            en: 'Dropping part of the history when it no longer fits. Done naively, from the top, it removes the system prompt or the original requirements - so ordering and priorities must be explicit.'
+          }
+        },
+        {
+          term: { pl: 'lost in the middle', en: 'lost in the middle' },
+          def: {
+            pl: 'Empiryczny efekt: model najlepiej wykorzystuje poczatek i koniec kontekstu, a fakty ze srodka gubi. Najwazniejsze instrukcje i dokumenty kladzie sie na brzegach promptu.',
+            en: 'The empirical effect that models use the beginning and the end of the context best and lose facts placed in the middle. Put the critical instructions and documents at the edges of the prompt.'
+          }
+        },
+        {
+          term: { pl: 'needle in a haystack', en: 'needle in a haystack' },
+          def: {
+            pl: 'Test dlugiego kontekstu: chowasz jedno zdanie w ogromnym tekscie i sprawdzasz, czy model je znajdzie. Wysoki wynik oznacza wyszukanie faktu, a nie rozumowanie na calym dokumencie.',
+            en: 'A long-context benchmark: hide one sentence in a huge text and check whether the model retrieves it. A high score means fact lookup, not reasoning over the whole document.'
+          }
+        },
+        {
+          term: { pl: 'kontekst vs RAG vs fine-tuning', en: 'context vs RAG vs fine-tuning' },
+          def: {
+            pl: 'Trzy sposoby dostarczenia wiedzy: wkleic do promptu (male, zmienne dane), dociagnac przez RAG (duzy, zmienny korpus), dotrenowac (styl i format, nie fakty).',
+            en: 'Three ways to give the model knowledge: paste it into the prompt (small, changing data), retrieve it with RAG (large, changing corpus), or fine-tune (style and format, not facts).'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="32" font-size="15" fill="var(--muted)">One request = one window (input + output)</text>' +
@@ -716,6 +827,43 @@ export default {
         en: 'Embeddings: meaning as coordinates'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'embedding', en: 'embedding' },
+          def: {
+            pl: 'Wektor liczb reprezentujacy znaczenie tekstu - funkcja skrotu, ktora zachowuje bliskosc sensu. Teksty o podobnym znaczeniu maja bliskie wektory, nawet bez wspolnych slow.',
+            en: 'A vector of numbers representing the meaning of a text - a hash that preserves closeness of meaning. Similar texts land close together even with no words in common.'
+          }
+        },
+        {
+          term: { pl: 'podobienstwo kosinusowe', en: 'cosine similarity' },
+          def: {
+            pl: 'Miara podobienstwa dwoch wektorow: kosinus kata miedzy nimi, w praktyce od 0 do 1. Na znormalizowanych wektorach to zwykly iloczyn skalarny, dlatego liczy sie ja bardzo szybko.',
+            en: 'The similarity measure between two vectors: the cosine of the angle between them, in practice 0 to 1. On normalised vectors it is just a dot product, which is why it is so fast.'
+          }
+        },
+        {
+          term: { pl: 'wyszukiwanie semantyczne', en: 'semantic search' },
+          def: {
+            pl: 'Szukanie po znaczeniu zamiast po slowach kluczowych: zapytanie i dokumenty zamieniasz na embeddingi i zwracasz najblizsze wektory. Podstawa etapu retrievalu w RAG.',
+            en: 'Searching by meaning instead of keywords: embed the query and the documents and return the nearest vectors. This is the retrieval half of RAG.'
+          }
+        },
+        {
+          term: { pl: 'asymetria zapytanie-dokument', en: 'query-document asymmetry' },
+          def: {
+            pl: 'Krotkie pytanie i dlugi dokument nie leza naturalnie blisko siebie. Modele asymetryczne maja osobne prefiksy lub tryby dla zapytania i dokumentu - trzeba ich uzyc, inaczej trafnosc spada.',
+            en: 'A short question and a long document do not sit naturally close. Asymmetric embedding models use separate prefixes or modes for query and document - use them or recall drops.'
+          }
+        },
+        {
+          term: { pl: 'podobienstwo to nie trafnosc', en: 'similarity is not relevance' },
+          def: {
+            pl: 'Wysoki cosine oznacza tylko, ze teksty sa o tym samym - nie ze dokument odpowiada na pytanie. Negacja i przeczenia sa dla embeddingow prawie niewidoczne, stad reranking.',
+            en: 'A high cosine only means the texts are about the same thing, not that the document answers the question. Negation is nearly invisible to embeddings - hence reranking.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m4arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -897,6 +1045,43 @@ export default {
         en: 'Sampling parameters: temperature and top_p'
       },
       minutes: 8,
+      terms: [
+        {
+          term: { pl: 'temperature', en: 'temperature' },
+          def: {
+            pl: 'Skaluje logity przed <code>softmax</code>: nizsza wartosc wyostrza rozklad (bezpieczniej, nudniej), wyzsza splaszcza (kreatywniej, wiecej bledow). Do ekstrakcji i tool callingu 0, do burzy mozgow 0.8-1.',
+            en: 'Scales the logits before <code>softmax</code>: lower sharpens the distribution (safer, duller), higher flattens it (more creative, more errors). Use 0 for extraction and tool calling, 0.8-1.0 for brainstorming.'
+          }
+        },
+        {
+          term: { pl: 'top_p', en: 'top_p (nucleus sampling)' },
+          def: {
+            pl: 'Obcina ogon rozkladu: bierze najmniejszy zbior tokenow o lacznym prawdopodobienstwie p i losuje tylko z niego. Zwykle stroi sie temperature <em>albo</em> top_p, nie oba naraz.',
+            en: 'Truncates the tail: take the smallest set of tokens whose probability sums to p and sample only from it. Tune temperature <em>or</em> top_p, not both at once.'
+          }
+        },
+        {
+          term: { pl: 'top_k', en: 'top_k' },
+          def: {
+            pl: 'Prostszy wariant obcinania: zostaw k najbardziej prawdopodobnych tokenow i z nich losuj. Stala liczba niezaleznie od tego, czy model jest pewny, czy waha sie miedzy dziesiatkami opcji.',
+            en: 'The simpler truncation: keep the k most probable tokens and sample from those. A fixed count regardless of whether the model is confident or torn between dozens of options.'
+          }
+        },
+        {
+          term: { pl: 'niedeterminizm przy temperature 0', en: 'nondeterminism at temperature 0' },
+          def: {
+            pl: 'Nawet greedy decoding nie daje gwarancji identycznych odpowiedzi: batching, kolejnosc sumowania na GPU, MoE routing i zmiany wersji modelu psuja powtarzalnosc. Testy pisz na asercjach, nie na porownaniu stringow.',
+            en: 'Even greedy decoding does not guarantee identical answers: batching, GPU reduction order, MoE routing and silent model updates break reproducibility. Write assertions in tests, not string equality.'
+          }
+        },
+        {
+          term: { pl: 'seed', en: 'seed' },
+          def: {
+            pl: 'Parametr ustalajacy losowanie, oferowany przez czesc API. Zwieksza powtarzalnosc w obrebie tej samej wersji modelu, ale nie jest kontraktem - traktuj go jako best effort.',
+            en: 'A parameter that fixes the sampling randomness, offered by some APIs. It improves reproducibility within one model version but is not a contract - treat it as best effort.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="30" font-size="15" fill="var(--text)">temperature 0.0 - sharp</text>' +
@@ -1082,6 +1267,43 @@ export default {
         en: 'Cost, latency and prompt caching'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'TTFT', en: 'TTFT (time to first token)' },
+          def: {
+            pl: 'Czas od wyslania requestu do pierwszego tokena odpowiedzi. Zalezy glownie od dlugosci wejscia (prefill) i to on decyduje o odczuwalnej szybkosci interfejsu, nie calkowity czas generacji.',
+            en: 'The time from sending the request to the first token of the response. Driven mainly by input length (prefill) and it, not total generation time, is what users perceive as speed.'
+          }
+        },
+        {
+          term: { pl: 'przepustowosc', en: 'throughput (tokens/s)' },
+          def: {
+            pl: 'Tempo generowania kolejnych tokenow po pierwszym. Razem z liczba tokenow wyjscia wyznacza calkowita latencje: <code>TTFT + tokeny_wyjscia / tokeny_na_sekunde</code>.',
+            en: 'The rate at which tokens are produced after the first one. Together with the output length it sets total latency: <code>TTFT + output_tokens / tokens_per_second</code>.'
+          }
+        },
+        {
+          term: { pl: 'prefill i decode', en: 'prefill and decode' },
+          def: {
+            pl: 'Dwie fazy inferencji: prefill przetwarza cale wejscie rownolegle (drogie w obliczeniach, jednorazowe), decode generuje wyjscie token po tokenie (sekwencyjne). Dlatego tokeny wyjscia sa duzo drozsze niz wejscia.',
+            en: 'The two phases of inference: prefill processes the whole input in parallel (compute-heavy, once), decode emits the output token by token (sequential). This is why output tokens cost several times more than input.'
+          }
+        },
+        {
+          term: { pl: 'prompt caching', en: 'prompt caching' },
+          def: {
+            pl: 'Serwer zapamietuje policzony stan (KV cache) dla stalego prefiksu promptu i przy kolejnym wywolaniu go nie liczy od nowa. Dziala tylko na dokladny prefiks - stale instrukcje na gorze, zmienne dane na dole.',
+            en: 'The server keeps the computed state (KV cache) for a stable prompt prefix and skips recomputing it on the next call. It matches on the exact prefix - static instructions at the top, variable data at the bottom.'
+          }
+        },
+        {
+          term: { pl: 'Batch API', en: 'Batch API' },
+          def: {
+            pl: 'Tryb asynchroniczny: wysylasz paczke requestow i odbierasz wyniki w ciagu godzin, zwykle za okolo polowe ceny. Idealny do backfillow, ewaluacji i offline processing, bezuzyteczny w chacie.',
+            en: 'An asynchronous mode: submit a batch of requests and collect results within hours, typically at about half price. Ideal for backfills, evals and offline processing, useless for chat.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m6arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +

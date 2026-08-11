@@ -19,6 +19,28 @@ export default {
         en: 'Props, events and v-model, advanced'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Wiele v-modeli', en: 'Multiple v-models' },
+          def: { pl: '<code>v-model:open</code> plus <code>v-model:query</code> - każdy to niezależna para prop plus emit, więc rodzic może kontrolować jeden aspekt, a drugi zostawić niekontrolowany.', en: '<code>v-model:open</code> plus <code>v-model:query</code> - each is an independent prop-plus-emit pair, so a parent can control one aspect and leave the other uncontrolled.' }
+        },
+        {
+          term: { pl: 'Rzutowanie Boolean', en: 'Boolean casting' },
+          def: { pl: 'Jedyna koercja propa działająca w produkcji: <code>&lt;Btn disabled&gt;</code> bez wartości daje <code>true</code>, brak atrybutu daje <code>false</code>, a nie <code>undefined</code>. W unii <code>boolean | string</code> decyduje kolejność deklaracji.', en: 'The only prop coercion that runs in production: <code>&lt;Btn disabled&gt;</code> with no value yields <code>true</code>, an absent one yields <code>false</code> rather than <code>undefined</code>. In a <code>boolean | string</code> union the declaration order decides.' }
+        },
+        {
+          term: { pl: 'Walidacja propsów tylko w dev', en: 'Dev-only prop validation' },
+          def: { pl: '<code>validator</code> i sprawdzanie <code>type</code> działają wyłącznie w buildach deweloperskich. Nigdy nie traktuj ich jako zabezpieczenia runtime w produkcji.', en: '<code>validator</code> and <code>type</code> checks run in development builds only. Never treat them as a runtime guarantee in production.' }
+        },
+        {
+          term: { pl: 'Atrybuty przechodnie ($attrs)', en: 'Fallthrough attributes ($attrs)' },
+          def: { pl: 'Wszystko, czego nie zadeklarowano jako prop lub emit, ląduje na jedynym korzeniu - łącznie z <code>class</code> i listenerami. Przy wielu korzeniach potrzeba <code>inheritAttrs: false</code> i jawnego <code>v-bind="$attrs"</code>.', en: 'Everything not declared as a prop or emit lands on the single root - including <code>class</code> and listeners. With multiple roots you need <code>inheritAttrs: false</code> and an explicit <code>v-bind="$attrs"</code>.' }
+        },
+        {
+          term: { pl: 'Stabilna referencja propa', en: 'Stable prop reference' },
+          def: { pl: 'Świeży literał obiektu w szablonie zmienia referencję przy każdym renderze i wymusza update dziecka mimo patch flags. Na listach 500+ wierszy widać to w profilerze.', en: 'A fresh object literal in the template changes identity on every render and forces a child update despite patch flags. On 500+ row lists it shows up in the profiler.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -278,6 +300,28 @@ export default {
         en: 'Slots and scoped slots'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Slot z zakresem', en: 'Scoped slot' },
+          def: { pl: 'Slot, do którego dziecko przekazuje dane (<code>&lt;slot :row="r"/&gt;</code>), a rodzic je odbiera w <code>#row="{ row }"</code>. Technicznie to funkcja domknięta nad zakresem rodzica.', en: 'A slot the child passes data into (<code>&lt;slot :row="r"/&gt;</code>) and the parent receives via <code>#row="{ row }"</code>. Technically a function closed over the parent scope.' }
+        },
+        {
+          term: { pl: 'Sloty STABLE kontra DYNAMIC', en: 'STABLE versus DYNAMIC slots' },
+          def: { pl: 'W pełni statyczne sloty dostają flagę STABLE i dziecko może pominąć wymuszony update. Jedno <code>v-if</code> lub <code>v-for</code> wokół <code>&lt;template #x&gt;</code> robi je dynamicznymi - render rodzica wymusza wtedy render dziecka.', en: 'Fully static slots get the STABLE flag and the child can skip a forced update. A single <code>v-if</code> or <code>v-for</code> around <code>&lt;template #x&gt;</code> makes them dynamic, so every parent render forces a child render.' }
+        },
+        {
+          term: { pl: 'defineSlots', en: 'defineSlots' },
+          def: { pl: 'Makro deklarujące typy slotów i ich propsów, dzięki czemu konsument dostaje podpowiadanie w Volarze. W design systemie warte często więcej niż typowanie samych propsów.', en: 'The macro declaring slot types and their props so consumers get completion in Volar. In a design system that is often worth more than typing the props themselves.' }
+        },
+        {
+          term: { pl: 'Slot jako fragment', en: 'Slot as a fragment' },
+          def: { pl: 'Wywołanie slotu zwraca tablicę vnode. Owinięte w <code>Transition</code> lub <code>KeepAlive</code> musi dać dokładnie jeden element, inaczej Vue ostrzega, a animacja po cichu nie działa.', en: 'A slot call returns an array of vnodes. Wrapped in <code>Transition</code> or <code>KeepAlive</code> it must yield exactly one element, otherwise Vue warns and the transition silently does nothing.' }
+        },
+        {
+          term: { pl: 'Przekazywanie slotów', en: 'Slot forwarding' },
+          def: { pl: '<code>&lt;template v-for="(_, name) in $slots" #[name]="props"&gt;</code> przepuszcza wszystkie sloty przez warstwę wrappera bez wypisywania ich z nazwy - kosztem uczynienia wszystkich dynamicznymi.', en: '<code>&lt;template v-for="(_, name) in $slots" #[name]="props"&gt;</code> passes every slot through a wrapper layer without listing them by hand - at the cost of making all of them dynamic.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -401,6 +445,28 @@ export default {
         en: 'Dynamic and async components'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'defineAsyncComponent', en: 'defineAsyncComponent' },
+          def: { pl: 'Owija fabrykę <code>() =&gt; import(...)</code> w komponent z opcjami <code>loadingComponent</code>, <code>errorComponent</code>, <code>delay</code> i <code>timeout</code>. Pod <code>&lt;Suspense&gt;</code> opcja loading jest ignorowana.', en: 'Wraps a <code>() =&gt; import(...)</code> factory into a component with <code>loadingComponent</code>, <code>errorComponent</code>, <code>delay</code> and <code>timeout</code>. Under <code>&lt;Suspense&gt;</code> the loading option is ignored.' }
+        },
+        {
+          term: { pl: 'Cache dynamicznego importu', en: 'Dynamic import cache' },
+          def: { pl: 'Specyfikacja ES cache-uje wynik <code>import()</code>, także odrzucenie. Ponowne wywołanie tego samego specyfikatora po błędzie sieci nie wysyła nowego żądania - retry wymaga zmiany URL (cache bust).', en: 'The ES spec caches the result of <code>import()</code>, including rejections. Calling the same specifier again after a network failure fires no new request - a retry needs a changed URL (cache bust).' }
+        },
+        {
+          term: { pl: 'Failed to fetch dynamically imported module', en: 'Failed to fetch dynamically imported module' },
+          def: { pl: 'Klasyczny błąd po deployu: otwarta karta prosi o stary hash chunku, którego już nie ma. Obsłuż <code>vite:preloadError</code>, a po wyczerpaniu retry zaproponuj pełne przeładowanie.', en: 'The classic post-deploy error: an open tab requests an old chunk hash that no longer exists. Handle <code>vite:preloadError</code> and, once retries are exhausted, offer a full reload.' }
+        },
+        {
+          term: { pl: 'KeepAlive :max (LRU)', en: 'KeepAlive :max (LRU)' },
+          def: { pl: 'Cache <code>&lt;KeepAlive&gt;</code> jest domyślnie nieograniczony, więc dwadzieścia zakładek z wykresami trzyma dwadzieścia żywych instancji. <code>:max</code> włącza wypychanie LRU.', en: 'The <code>&lt;KeepAlive&gt;</code> cache is unbounded by default, so twenty chart tabs keep twenty live instances. <code>:max</code> turns on LRU eviction.' }
+        },
+        {
+          term: { pl: 'Granulacja chunków', en: 'Chunk granularity' },
+          def: { pl: 'Sensowny próg lazy-loadingu to komponent od około 30-50 kB gzip albo ciągnący ciężką zależność. Lazy-loading przycisku to strata: kolejny request i kolejne opóźnienie w kolejce.', en: 'A sensible lazy-loading threshold is a component from roughly 30-50 kB gzipped, or one dragging in a heavy dependency. Lazy-loading a button is a loss: another request and another queue delay.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -526,6 +592,28 @@ export default {
         en: 'Teleport and Transition'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Teleport', en: 'Teleport' },
+          def: { pl: 'Renderuje poddrzewo w innym miejscu DOM (<code>to="body"</code>), zachowując logiczne rodzicielstwo dla propsów, inject i zdarzeń. Cel musi istnieć w DOM w chwili montowania.', en: 'Renders a subtree elsewhere in the DOM (<code>to="body"</code>) while keeping logical parenthood for props, inject and events. The target must exist in the DOM at mount time.' }
+        },
+        {
+          term: { pl: 'Wymuszony reflow', en: 'Forced reflow' },
+          def: { pl: 'Vue wstawia węzeł z klasą <code>enter-from</code>, czyta <code>el.offsetHeight</code>, żeby wymusić przeliczenie stylu, i dopiero w kolejnej klatce podmienia klasę na <code>enter-to</code>. Bez tego nie byłoby czego interpolować.', en: 'Vue inserts the node with <code>enter-from</code>, reads <code>el.offsetHeight</code> to force a style flush, and only on the next frame swaps the class for <code>enter-to</code>. Without it there would be nothing to interpolate.' }
+        },
+        {
+          term: { pl: ':css="false"', en: ':css="false"' },
+          def: { pl: 'Wyłącza obsługę klas i nasłuchiwanie <code>transitionend</code>. Standardowy tryb przy Web Animations API, GSAP czy Motion One - hak wywołuje <code>done()</code>, co usuwa całą klasę wyścigów.', en: 'Turns off class handling and <code>transitionend</code> listening. The standard setup with the Web Animations API, GSAP or Motion One - the hook calls <code>done()</code>, removing a whole class of race conditions.' }
+        },
+        {
+          term: { pl: 'TransitionGroup i FLIP', en: 'TransitionGroup and FLIP' },
+          def: { pl: 'Animuje przestawianie listy, mierząc pozycje wszystkich elementów przed zmianą i po niej. Przy 500 pozycjach kosztuje klatki - na długich listach animuj tylko widoczne okno.', en: 'Animates list reordering by measuring every item position before and after. At 500 items that costs frames - on long lists animate only the visible window.' }
+        },
+        {
+          term: { pl: 'Dostępność okien modalnych', en: 'Modal accessibility' },
+          def: { pl: 'Teleport nie robi jej za ciebie: focus trap, <code>aria-modal</code>, <code>inert</code> na tle, obsługa Escape i zwrot fokusu na trigger to twoja robota. Najczęstsze znalezisko w audytach.', en: 'Teleport does none of it for you: focus trap, <code>aria-modal</code>, <code>inert</code> on the background, Escape handling and returning focus to the trigger are your job. The most common audit finding.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -793,6 +881,28 @@ export default {
         en: 'Typed and generic components'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Komponent generyczny', en: 'Generic component' },
+          def: { pl: '<code>&lt;script setup lang="ts" generic="T"&gt;</code> - parametr typu widoczny w całym bloku setup, także w <code>defineProps</code>, <code>defineSlots</code> i <code>defineEmits</code>. Jedyny sposób na w pełni typowaną tabelę czy select.', en: '<code>&lt;script setup lang="ts" generic="T"&gt;</code> - the type parameter is visible across the whole setup block, including <code>defineProps</code>, <code>defineSlots</code> and <code>defineEmits</code>. The only way to build a fully typed table or select.' }
+        },
+        {
+          term: { pl: 'Kierunek wnioskowania', en: 'Inference direction' },
+          def: { pl: 'Typ płynie w jedną stronę, od propa źródłowego (np. <code>options</code>). Dla <code>:options="[]"</code> parametr zapada się do <code>never</code>, więc dawaj domyślny: <code>generic="T = Record&lt;string, unknown&gt;"</code>.', en: 'The type flows one way, from the source prop (for example <code>options</code>). With <code>:options="[]"</code> the parameter collapses to <code>never</code>, so give it a default: <code>generic="T = Record&lt;string, unknown&gt;"</code>.' }
+        },
+        {
+          term: { pl: 'Typy nie są walidacją', en: 'Types are not validation' },
+          def: { pl: 'Deklaracja typu kompiluje się do listy propsów bez sprawdzania. Konsument w czystym JS albo nieprzeparsowane dane z API przechodzą bez zająknięcia - krytyczne propsy warto asertować w dev.', en: 'A type declaration compiles to a props list with no checking. A plain-JS consumer or unparsed API data sails right through - critical props deserve dev-only asserts.' }
+        },
+        {
+          term: { pl: 'Publikowanie deklaracji (.d.ts)', en: 'Shipping declarations (.d.ts)' },
+          def: { pl: 'Komponent generyczny jest użyteczny tylko wtedy, gdy w paczce znajdą się pliki <code>.d.ts</code> z <code>vue-tsc --declaration</code> lub <code>vite-plugin-dts</code>. Niezgodna wersja Volara daje <code>any</code> w propsach slotu bez żadnego błędu.', en: 'A generic component is only usable if <code>.d.ts</code> files from <code>vue-tsc --declaration</code> or <code>vite-plugin-dts</code> ship in the package. A Volar version mismatch silently yields <code>any</code> in slot props with no error.' }
+        },
+        {
+          term: { pl: 'Testy typów', en: 'Type tests' },
+          def: { pl: 'Plik <code>*.test-d.ts</code> z <code>expectTypeOf</code> w Vitest sprawdza kontrakt typu: co dostaje slot, że zły klucz się nie kompiluje, jaki jest payload emitu. Jedyne testy łapiące regresję po bumpie Vue.', en: 'A <code>*.test-d.ts</code> file with Vitest <code>expectTypeOf</code> asserts the type contract: what the slot receives, that a wrong key fails to compile, what the emit payload is. The only tests that catch a regression when you bump Vue.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -913,6 +1023,28 @@ export default {
         en: 'Renderless and headless components'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Komponent renderless', en: 'Renderless component' },
+          def: { pl: 'Komponent bez własnego markupu - cała logika trafia do konsumenta przez scoped slot. Kosztuje jednak osobną instancję, scope i granicę update, więc na liście 1000 wierszy to 1000 nadmiarowych instancji.', en: 'A component with no markup of its own - all logic reaches the consumer through a scoped slot. It costs an extra instance, scope and update boundary though, so a 1000-row list means 1000 extra instances.' }
+        },
+        {
+          term: { pl: 'Komponent headless', en: 'Headless component' },
+          def: { pl: 'Warstwa z zachowaniem, DOM-em i dostępnością, ale bez stylów - konsument decyduje o wyglądzie. Reka UI i Headless UI to referencyjne przykłady.', en: 'A layer that owns behaviour, DOM and accessibility but no styling - the consumer decides how it looks. Reka UI and Headless UI are the reference examples.' }
+        },
+        {
+          term: { pl: 'Prop getters', en: 'Prop getters' },
+          def: { pl: 'Zamiast dwudziestu luźnych propsów slotu zwracasz funkcje oddające gotowe pakiety atrybutów: <code>v-bind="triggerProps"</code> wnosi <code>aria-expanded</code>, <code>id</code>, <code>tabindex</code> i handlery klawiatury.', en: 'Instead of twenty loose slot props you return functions handing back ready-made attribute bundles: <code>v-bind="triggerProps"</code> brings <code>aria-expanded</code>, <code>id</code>, <code>tabindex</code> and the keyboard handlers.' }
+        },
+        {
+          term: { pl: 'Kompozycja przez kontekst', en: 'Context composition' },
+          def: { pl: 'Komponenty złożone (Menu, Tabs) łączą root i części przez provide/inject zamiast zagnieżdżonych slotów. Części mogą siedzieć na dowolnej głębokości - ale <code>inject</code> bez kontekstu musi rzucać czytelny błąd.', en: 'Compound components (Menu, Tabs) connect root and parts through provide/inject instead of nested slots. Parts can sit at any depth - but <code>inject</code> with no context must throw a clear error.' }
+        },
+        {
+          term: { pl: 'Trzy warstwy komponentu', en: 'Three-layer component' },
+          def: { pl: 'Zdrowe warstwowanie w design systemie: composable z zachowaniem, opcjonalny wrapper headless z DOM i dostępnością, na wierzchu cienki komponent ostylowany. Zespół produktowy może zejść piętro niżej zamiast forkować.', en: 'The healthy layering in a design system: a behaviour composable, an optional headless wrapper owning DOM and accessibility, and a thin styled component on top. A product team can drop one level down instead of forking.' }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="m3l6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +

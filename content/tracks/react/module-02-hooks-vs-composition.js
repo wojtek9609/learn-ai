@@ -80,6 +80,43 @@ export default {
         en: 'useState vs ref: a snapshot, not a box'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'useState', en: 'useState' },
+          def: {
+            pl: 'Indeksowany slot na liscie hooków fibera, nie pudełko z wartością. Setter jedynie planuje aktualizację - bieżący render nadal widzi starą migawkę.',
+            en: 'An indexed slot in the fiber hook list, not a box holding a value. The setter only schedules an update - the current render still sees the old snapshot.'
+          }
+        },
+        {
+          term: { pl: 'Bail-out przez Object.is', en: 'Object.is bail-out' },
+          def: {
+            pl: 'Jeśli podasz wartość identyczną referencyjnie z obecną, React pomija render. Dlatego <code>items.push(x); setItems(items)</code> nie robi nic.',
+            en: 'If you pass a value referentially identical to the current one, React skips the render. That is why <code>items.push(x); setItems(items)</code> does nothing.'
+          }
+        },
+        {
+          term: { pl: 'Stale closure', en: 'Stale closure' },
+          def: {
+            pl: 'Domknięcie zamrożone w danym renderze, które widzi nieaktualny stan - typowo w <code>setInterval</code> albo w handlerze WebSocketa. W Vue nie istnieje, bo <code>.value</code> zawsze czyta bieżące pudełko.',
+            en: 'A closure frozen in one render that sees stale state - typically inside <code>setInterval</code> or a WebSocket handler. It does not exist in Vue, where <code>.value</code> always reads the current box.'
+          }
+        },
+        {
+          term: { pl: 'Funkcyjna aktualizacja', en: 'Functional updater' },
+          def: {
+            pl: 'Postać <code>setCount(prev =&gt; prev + 1)</code>, która liczy z najświeższej wartości zamiast z domknięcia. Lekarstwo na trzy setery pod rząd i na stale closure.',
+            en: 'The <code>setCount(prev =&gt; prev + 1)</code> form that computes from the freshest value instead of a closure. The cure for three setters in a row and for stale closures.'
+          }
+        },
+        {
+          term: { pl: 'useReducer', en: 'useReducer' },
+          def: {
+            pl: 'Jedna funkcja przejścia dla kilku powiązanych pól plus stabilna tożsamość <code>dispatch</code>, której nigdy nie trzeba memoizować. Najbliższy odpowiednik akcji Pinii w skali komponentu.',
+            en: 'One transition function for several related fields plus a stable <code>dispatch</code> identity you never memoise. The closest thing to a Pinia action at component scope.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="d1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">' +
@@ -327,6 +364,43 @@ export default {
         en: 'useEffect vs watch and watchEffect'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'useEffect', en: 'useEffect' },
+          def: {
+            pl: 'Narzędzie do synchronizacji komponentu z systemem zewnętrznym: subskrypcją, timerem, WebSocketem, API przeglądarki. Prawie wszystko inne policzysz w czasie renderu.',
+            en: 'The tool for synchronising a component with an external system: a subscription, a timer, a WebSocket, a browser API. Nearly everything else can be computed during render.'
+          }
+        },
+        {
+          term: { pl: 'Funkcja czyszcząca', en: 'Cleanup function' },
+          def: {
+            pl: 'Funkcja zwracana z efektu, wołana przed kolejnym uruchomieniem i przy odmontowaniu. Brak <code>socket.close()</code> to najczęstszy wyciek przy migracji z Vue.',
+            en: 'The function returned from an effect, called before the next run and on unmount. A missing <code>socket.close()</code> is the most common leak when migrating from Vue.'
+          }
+        },
+        {
+          term: { pl: 'Podwójne wywołanie w StrictMode', en: 'StrictMode double invoke' },
+          def: {
+            pl: 'W devie React montuje, sprząta i montuje ponownie. To nie błąd, tylko test poprawności twojego cleanupu.',
+            en: 'In development React mounts, cleans up and mounts again. Not a bug - a test of whether your cleanup is correct.'
+          }
+        },
+        {
+          term: { pl: 'Wyścig w efekcie', en: 'Effect race condition' },
+          def: {
+            pl: 'Dwa pobrania danych kończące się w złej kolejności nadpisują świeższy wynik starszym. Wzorzec strażnika <code>let alive = true</code> plus cleanup rozwiązuje to ręcznie, a TanStack Query automatycznie.',
+            en: 'Two fetches finishing out of order overwrite the fresher result with the older one. The <code>let alive = true</code> guard plus cleanup fixes it by hand; TanStack Query does it for you.'
+          }
+        },
+        {
+          term: { pl: 'useSyncExternalStore', en: 'useSyncExternalStore' },
+          def: {
+            pl: 'Hook do subskrybowania zewnętrznego store bezpiecznie w trybie współbieżnym. Używa go Zustand, tak jak Pinia jedzie na reaktywności Vue.',
+            en: 'The hook for subscribing to an external store safely under concurrent rendering. Zustand uses it, much as Pinia rides on Vue reactivity.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="d2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">' +
@@ -562,6 +636,36 @@ export default {
         en: 'Derived state: useMemo vs computed'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'useMemo', en: 'useMemo' },
+          def: {
+            pl: 'Ręcznie zbudowany <code>computed</code>: bez autotrackingu i bez leniwości, liczy się przy każdej zmianie zależności niezależnie od tego, czy ktoś czyta wynik.',
+            en: 'A hand-built <code>computed</code>: no auto-tracking and no laziness, it recomputes whenever a dependency changes whether or not anyone reads the result.'
+          }
+        },
+        {
+          term: { pl: 'Tablica zależności', en: 'Dependency array' },
+          def: {
+            pl: 'Jawna lista wartości porównywanych przez <code>Object.is</code>. Obiekt lub funkcja tworzone w renderze mają nową tożsamość za każdym razem, więc memo nigdy nie trafia.',
+            en: 'The explicit list of values compared with <code>Object.is</code>. An object or function created during render has a new identity every time, so the memo never hits.'
+          }
+        },
+        {
+          term: { pl: 'Optymalizacja bez gwarancji', en: 'Optimisation without guarantees' },
+          def: {
+            pl: 'React może w każdej chwili wyrzucić zapamiętaną wartość i policzyć ją ponownie. Nigdy nie buduj na <code>useMemo</code> logiki poprawnościowej.',
+            en: 'React may drop a memoised value at any time and recompute it. Never build correctness logic on top of <code>useMemo</code>.'
+          }
+        },
+        {
+          term: { pl: 'Stabilność referencji', en: 'Reference stability' },
+          def: {
+            pl: 'Główny sensowny powód użycia <code>useMemo</code>: wynik idzie jako props do komponentu w <code>memo</code> albo do tablicy zależności innego hooka.',
+            en: 'The main legitimate reason to reach for <code>useMemo</code>: the result goes as a prop into a <code>memo</code> component or into another hook dependency array.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="d3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">' +
@@ -762,6 +866,43 @@ export default {
         en: 'useCallback and stable function references'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'useCallback', en: 'useCallback' },
+          def: {
+            pl: 'Utrwala tożsamość funkcji między renderami. Sam z siebie nie przyspiesza niczego - ma sens tylko wtedy, gdy ktoś tę tożsamość porównuje.',
+            en: 'Keeps a function identity stable across renders. On its own it speeds up nothing - it only matters when something compares that identity.'
+          }
+        },
+        {
+          term: { pl: 'React.memo', en: 'React.memo' },
+          def: {
+            pl: 'Opakowanie pomijające render dziecka, gdy wszystkie propsy są referencyjnie takie same. Jeden <code>style={{ margin: 8 }}</code> unieważnia całą sztuczkę.',
+            en: 'A wrapper that skips a child render when every prop is referentially equal. A single <code>style={{ margin: 8 }}</code> undoes the whole thing.'
+          }
+        },
+        {
+          term: { pl: 'Kaskada memoizacji', en: 'Memoisation cascade' },
+          def: {
+            pl: 'Żeby <code>memo</code> zadziałało, musi trzymać cały łańcuch: dziecko w <code>memo</code>, każdy props stabilny, obiekty wyniesione poza render. Klasyczne pytanie rekrutacyjne o to, czemu memo nie działa.',
+            en: 'For <code>memo</code> to work the whole chain must hold: the child wrapped in <code>memo</code>, every prop stable, objects hoisted out of render. The classic interview question about why memo does nothing.'
+          }
+        },
+        {
+          term: { pl: 'Wzorzec latest ref', en: 'Latest-ref pattern' },
+          def: {
+            pl: 'Ref trzymający najświeższą wersję callbacku plus stabilna funkcja opakowująca. Daje niezmienną tożsamość bez stale closure, gdy callback idzie do biblioteki zewnętrznej.',
+            en: 'A ref holding the newest version of a callback plus a stable wrapper function. Gives a fixed identity without a stale closure when the callback goes to an external library.'
+          }
+        },
+        {
+          term: { pl: 'useEffectEvent', en: 'useEffectEvent' },
+          def: {
+            pl: 'Eksperymentalny hook, który standaryzuje wzorzec latest ref: stabilna funkcja czytająca zawsze bieżące propsy i stan.',
+            en: 'An experimental hook standardising the latest-ref pattern: a stable function that always reads current props and state.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="d4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">' +
@@ -955,6 +1096,36 @@ export default {
         en: 'Custom hooks vs composables'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Custom hook', en: 'Custom hook' },
+          def: {
+            pl: 'Zwykła funkcja o nazwie zaczynającej się od <code>use</code>, która woła inne hooki. Odpowiednik composable: jedno zadanie, argumenty na wejściu, minimalna powierzchnia zwracana.',
+            en: 'A plain function whose name starts with <code>use</code> and which calls other hooks. The composable equivalent: one job, arguments in, a minimal returned surface.'
+          }
+        },
+        {
+          term: { pl: 'Zasady hooków', en: 'Rules of Hooks' },
+          def: {
+            pl: 'Hooki wołasz zawsze na najwyższym poziomie i zawsze w tej samej kolejności, bo są dopasowywane po indeksie. Hook wołany warunkowo to gwarantowana awaria, nie kwestia stylu.',
+            en: 'Call hooks at the top level and always in the same order, because they are matched by index. A conditionally called hook is a guaranteed crash, not a style issue.'
+          }
+        },
+        {
+          term: { pl: 'Hook nie współdzieli stanu', en: 'Hooks do not share state' },
+          def: {
+            pl: 'Dwa komponenty wołające <code>useCart()</code> mają dwa niezależne koszyki. Współdzielenie daje dopiero podniesiony stan z <code>Context</code>, store albo <code>useSyncExternalStore</code>.',
+            en: 'Two components calling <code>useCart()</code> hold two independent carts. Sharing comes only from lifted state plus <code>Context</code>, a store, or <code>useSyncExternalStore</code>.'
+          }
+        },
+        {
+          term: { pl: 'renderHook', en: 'renderHook' },
+          def: {
+            pl: 'Narzędzie z Testing Library do testowania hooka bez pisania komponentu-hosta, odpowiednik montowania hosta dla composable.',
+            en: 'The Testing Library utility for testing a hook without writing a host component - the counterpart of mounting a host for a composable.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="d5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">' +
@@ -1142,6 +1313,36 @@ export default {
         en: 'useRef and reaching the DOM'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'useRef', en: 'useRef' },
+          def: {
+            pl: 'Mutowalne pudełko <code>{ current }</code>, które przeżywa rendery i <em>nie</em> powoduje re-renderu przy zapisie. Odpowiednik zwykłego <code>let</code> w <code>setup</code>, a nie odpowiednik <code>ref</code>.',
+            en: 'A mutable <code>{ current }</code> box that survives renders and does <em>not</em> trigger a re-render when written. The equivalent of a plain <code>let</code> in <code>setup</code>, not of <code>ref</code>.'
+          }
+        },
+        {
+          term: { pl: 'Ref callback', en: 'Ref callback' },
+          def: {
+            pl: 'Funkcja podana w atrybucie <code>ref</code>, wołana z węzłem przy podpięciu i z <code>null</code> przy odpięciu. Jedyny sensowny sposób na pomiar elementu w chwili pojawienia się.',
+            en: 'A function passed to the <code>ref</code> attribute, called with the node on attach and with <code>null</code> on detach. The only sane way to measure an element the moment it appears.'
+          }
+        },
+        {
+          term: { pl: 'forwardRef', en: 'forwardRef' },
+          def: {
+            pl: 'Opakowanie przekazujące <code>ref</code> do wnętrza komponentu funkcyjnego, wymagane do Reacta 18. Od Reacta 19 <code>ref</code> jest zwykłym propsem i <code>forwardRef</code> odchodzi.',
+            en: 'The wrapper that forwards a <code>ref</code> into a function component, required up to React 18. Since React 19 <code>ref</code> is an ordinary prop and <code>forwardRef</code> is on its way out.'
+          }
+        },
+        {
+          term: { pl: 'useImperativeHandle', en: 'useImperativeHandle' },
+          def: {
+            pl: 'Zawęża to, co komponent wystawia przez ref - bezpośredni odpowiednik <code>defineExpose</code>. Wystawiaj czasowniki (<code>focus</code>, <code>scrollToTop</code>), nie surowe węzły.',
+            en: 'Narrows what a component exposes through its ref - the direct counterpart of <code>defineExpose</code>. Expose verbs (<code>focus</code>, <code>scrollToTop</code>), not raw nodes.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="d6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">' +

@@ -16,6 +16,43 @@ export default {
       id: 'web-vitals-budgets',
       title: { pl: 'Web Vitals i budżety wydajności', en: 'Web Vitals and performance budgets' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'LCP (Largest Contentful Paint)', en: 'LCP (Largest Contentful Paint)' },
+          def: {
+            pl: 'Moment narysowania największego elementu treści w widocznym obszarze. Dobry wynik to poniżej <strong>2,5 s</strong> na p75; zwykle decyduje o nim obraz lub nagłówek nad foldem.',
+            en: 'The moment the largest content element in the viewport is painted. Good is under <strong>2.5 s</strong> at p75, and it is usually decided by the hero image or heading above the fold.'
+          }
+        },
+        {
+          term: { pl: 'INP (Interaction to Next Paint)', en: 'INP (Interaction to Next Paint)' },
+          def: {
+            pl: 'Opóźnienie między interakcją a narysowaniem kolejnej klatki, mierzone przez całą sesję. Dobry wynik to poniżej <strong>200 ms</strong>. Od marca 2024 zastąpił FID i to nie to samo co TBT.',
+            en: 'The delay between an interaction and the next paint, measured across the whole session. Good is under <strong>200 ms</strong>. It replaced FID in March 2024 and is not the same as TBT.'
+          }
+        },
+        {
+          term: { pl: 'CLS (Cumulative Layout Shift)', en: 'CLS (Cumulative Layout Shift)' },
+          def: {
+            pl: 'Skumulowana miara nieoczekiwanych przeskoków układu. Dobry wynik to poniżej <strong>0,1</strong>; główne źródła to obrazy bez rezerwacji miejsca, podmiana fontu i treść wstrzykiwana po hydracji.',
+            en: 'A cumulative measure of unexpected layout shifts. Good is under <strong>0.1</strong>; the main sources are unsized images, font swaps and content injected after hydration.'
+          }
+        },
+        {
+          term: { pl: 'p75', en: 'p75' },
+          def: {
+            pl: '75. percentyl, czyli wartość, poniżej której mieści się trzech na czterech użytkowników. Web Vitals raportuje się właśnie tak, bo średnia ukrywa najgorszą ćwiartkę ruchu.',
+            en: 'The 75th percentile: the value three out of four users stay below. Web Vitals are reported this way because an average hides the worst quarter of traffic.'
+          }
+        },
+        {
+          term: { pl: 'Budżet wydajności', en: 'Performance budget' },
+          def: {
+            pl: 'Liczba zapisana w repozytorium i pilnowana przez CI (<code>size-limit</code>, asercje Lighthouse CI). Budżet bez właściciela i bez prawa blokowania merge jest tylko wykresem.',
+            en: 'A number committed to the repo and enforced by CI (<code>size-limit</code>, Lighthouse CI assertions). A budget with no owner and no power to block a merge is just a chart.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">'
           + '<text x="20" y="28" font-size="15" fill="var(--text)">Core Web Vitals: p75 of real users</text>'
@@ -203,6 +240,43 @@ export default {
       id: 'rendering-strategies',
       title: { pl: 'Strategie renderowania: CSR, SSR, SSG, ISR, streaming', en: 'Rendering strategies: CSR, SSR, SSG, ISR, streaming' },
       minutes: 13,
+      terms: [
+        {
+          term: { pl: 'TTFB (Time To First Byte)', en: 'TTFB (Time To First Byte)' },
+          def: {
+            pl: 'Czas do pierwszego bajtu odpowiedzi. Przy SSR zależy od najwolniejszego backendu w łańcuchu, przy SSG i ISR odpowiada CDN z gotowego pliku.',
+            en: 'Time to the first byte of the response. Under SSR it depends on the slowest backend in the chain; under SSG and ISR the CDN answers from a ready file.'
+          }
+        },
+        {
+          term: { pl: 'SSR (Server-Side Rendering)', en: 'SSR (Server-Side Rendering)' },
+          def: {
+            pl: 'HTML generowany na żądanie, per użytkownik. Zawsze świeży i indeksowalny, ale oznacza serwer: skalowanie, obserwowalność, incydenty i realny rachunek przy 10 mln żądań miesięcznie.',
+            en: 'HTML generated per request, per user. Always fresh and indexable, but it means a server: scaling, observability, incidents and a real bill at 10M requests a month.'
+          }
+        },
+        {
+          term: { pl: 'ISR (Incremental Static Regeneration)', en: 'ISR (Incremental Static Regeneration)' },
+          def: {
+            pl: 'Statyczny HTML z datą ważności (<code>revalidate</code>): pierwszy użytkownik po wygaśnięciu dostaje starą wersję, a świeża powstaje w tle. Cena to unieważnianie cache na wszystkich POP-ach CDN.',
+            en: 'Static HTML with a time to live (<code>revalidate</code>): the first user after expiry gets the stale copy while a fresh one is built in the background. The price is cache invalidation across every CDN POP.'
+          }
+        },
+        {
+          term: { pl: 'Streaming SSR', en: 'Streaming SSR' },
+          def: {
+            pl: 'Serwer wypycha HTML kawałkami, a granice <code>&lt;Suspense&gt;</code> pozwalają wysłać szkielet natychmiast i dosłać wolną sekcję później. Backend nie przyspiesza, ale treść pojawia się kilka razy wcześniej.',
+            en: 'The server pushes HTML in chunks, and <code>&lt;Suspense&gt;</code> boundaries let the shell go out immediately while a slow section arrives later. The backend gets no faster, but content appears several times sooner.'
+          }
+        },
+        {
+          term: { pl: 'Hydracja (hydration)', en: 'Hydration' },
+          def: {
+            pl: 'Doczepianie interaktywności Reacta lub Vue do HTML z serwera. Między pierwszym paintem a końcem hydracji strona wygląda na gotową i nie reaguje - na tanim telefonie to 800-1500 ms.',
+            en: 'Attaching React or Vue interactivity to server HTML. Between first paint and the end of hydration the page looks ready and does not respond - on a cheap phone that is 800-1500 ms.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">'
           + '<text x="20" y="26" font-size="15" fill="var(--text)">Where the HTML is produced</text>'
@@ -491,6 +565,43 @@ export default {
       id: 'asset-strategy-fonts-images',
       title: { pl: 'Strategia assetów: fonty i obrazy', en: 'Asset strategy: fonts and images' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'srcset i sizes', en: 'srcset and sizes' },
+          def: {
+            pl: '<code>srcset</code> podaje warianty szerokości pliku, <code>sizes</code> mówi przeglądarce, ile miejsca obraz zajmie w layoucie. Bez <code>sizes</code> przeglądarka zgaduje i zwykle pobiera za duży plik.',
+            en: '<code>srcset</code> lists the available file widths and <code>sizes</code> tells the browser how much layout space the image will take. Without <code>sizes</code> the browser guesses and usually downloads too much.'
+          }
+        },
+        {
+          term: { pl: 'fetchpriority="high"', en: 'fetchpriority="high"' },
+          def: {
+            pl: 'Podbicie priorytetu pobierania, które daje się <strong>wyłącznie</strong> obrazowi LCP. Wszystkie pozostałe obrazy poniżej folda dostają <code>loading="lazy"</code>.',
+            en: 'A download priority boost given to the LCP image <strong>only</strong>. Every other below-the-fold image gets <code>loading="lazy"</code> instead.'
+          }
+        },
+        {
+          term: { pl: 'font-display: swap', en: 'font-display: swap' },
+          def: {
+            pl: 'Tekst rysuje się natychmiast fontem zastępczym i podmienia po pobraniu właściwego kroju. Bez tego użytkownik ogląda niewidzialny tekst, a treść czeka na plik fontu.',
+            en: 'Text paints immediately with a fallback font and swaps once the real face loads. Without it the user stares at invisible text while the font file downloads.'
+          }
+        },
+        {
+          term: { pl: 'Metric overrides', en: 'Metric overrides' },
+          def: {
+            pl: 'Deskryptory <code>size-adjust</code>, <code>ascent-override</code> i podobne, które sprawiają, że font zastępczy zajmuje dokładnie tyle miejsca co docelowy. Podmiana kroju nie przesuwa wtedy układu i CLS zostaje przy zerze.',
+            en: 'Descriptors like <code>size-adjust</code> and <code>ascent-override</code> that make the fallback font occupy exactly the same space as the real one. The swap then shifts nothing and CLS stays at zero.'
+          }
+        },
+        {
+          term: { pl: 'Cache-Control: immutable', en: 'Cache-Control: immutable' },
+          def: {
+            pl: 'Zasoby z hashem w nazwie dostają <code>max-age=31536000, immutable</code>, a dokument HTML <code>no-cache</code> z ETagiem. Ta jedna para reguł robi dla powracających użytkowników więcej niż tydzień mikrooptymalizacji.',
+            en: 'Hashed assets get <code>max-age=31536000, immutable</code> while the HTML document gets <code>no-cache</code> with an ETag. That single pair does more for returning users than a week of micro-optimisation.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">'
           + '<defs><marker id="fa5-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>'
@@ -678,6 +789,43 @@ export default {
       id: 'runtime-patterns-virtualization',
       title: { pl: 'Wzorce runtime: wirtualizacja i wątek główny', en: 'Runtime patterns: virtualization and the main thread' },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Wirtualizacja (windowing)', en: 'Virtualization (windowing)' },
+          def: {
+            pl: 'Trzymanie w DOM tylko widocznych wierszy plus zapasu, przy zachowaniu pełnej wysokości kontenera. Cena: <code>ctrl+F</code>, dostępność, druk i eksport wymagają osobnej obsługi.',
+            en: 'Keeping only the visible rows plus an overscan in the DOM while the container keeps its full height. The price: <code>ctrl+F</code>, accessibility, printing and export all need explicit handling.'
+          }
+        },
+        {
+          term: { pl: 'Long task', en: 'Long task' },
+          def: {
+            pl: 'Zadanie na wątku głównym trwające ponad <strong>50 ms</strong>. W jego trakcie kliknięcie użytkownika po prostu czeka, więc long taski są bezpośrednią przyczyną złego INP.',
+            en: 'A main-thread task longer than <strong>50 ms</strong>. While it runs, a user click simply waits, which makes long tasks the direct cause of bad INP.'
+          }
+        },
+        {
+          term: { pl: 'Ustąpienie wątku (yielding)', en: 'Yielding to the main thread' },
+          def: {
+            pl: 'Świadome oddanie kontroli przeglądarce w środku długiej pracy: <code>await scheduler.yield()</code> lub <code>postTask</code> z priorytetem. Praca trwa tyle samo, ale interakcje wchodzą pomiędzy.',
+            en: 'Deliberately handing control back to the browser in the middle of long work: <code>await scheduler.yield()</code> or <code>postTask</code> with a priority. The work takes as long, but interactions slot in between.'
+          }
+        },
+        {
+          term: { pl: 'Web Worker', en: 'Web Worker' },
+          def: {
+            pl: 'Osobny wątek na pracę niedotykającą DOM: parsowanie dużego JSON-a, filtrowanie, kryptografia. Uwaga na koszt serializacji - opłaca się przy dłuższej pracy lub obiektach transferowalnych.',
+            en: 'A separate thread for work that never touches the DOM: parsing big JSON, filtering, crypto. Watch the serialization cost - it pays off for longer work or transferable objects.'
+          }
+        },
+        {
+          term: { pl: 'content-visibility: auto', en: 'content-visibility: auto' },
+          def: {
+            pl: 'Pozwala przeglądarce pominąć layout i paint sekcji poza ekranem; razem z <code>contain-intrinsic-size</code> potrafi ściąć czas layoutu o połowę bez ani jednej linii JS.',
+            en: 'Lets the browser skip layout and paint for off-screen sections; together with <code>contain-intrinsic-size</code> it can halve layout time without a single line of JS.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">'
           + '<text x="20" y="28" font-size="15" fill="var(--err)">Without virtualization</text>'
@@ -998,6 +1146,43 @@ export default {
       id: 'rum-monitoring',
       title: { pl: 'RUM: monitoring realnych użytkowników', en: 'RUM: real user monitoring' },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'RUM (Real User Monitoring)', en: 'RUM (Real User Monitoring)' },
+          def: {
+            pl: 'Zbieranie metryk z przeglądarek prawdziwych użytkowników zamiast z testu syntetycznego. Wartość daje dopiero z wymiarami: trasa (znormalizowana, nie surowy URL), urządzenie, sieć, wersja wydania.',
+            en: 'Collecting metrics from real users browsers instead of a synthetic test. It only becomes useful with dimensions: route (normalised, not the raw URL), device, network, release version.'
+          }
+        },
+        {
+          term: { pl: 'navigator.sendBeacon', en: 'navigator.sendBeacon' },
+          def: {
+            pl: 'Wysyłka telemetrii, która dojdzie nawet gdy użytkownik zamyka kartę - zwykły <code>fetch</code> zostanie anulowany. Wyzwalaj ją w <code>visibilitychange</code>, bo <code>unload</code> na mobile często się nie odpala.',
+            en: 'A telemetry send that survives the user closing the tab, where a plain <code>fetch</code> would be cancelled. Trigger it on <code>visibilitychange</code>, since <code>unload</code> often never fires on mobile.'
+          }
+        },
+        {
+          term: { pl: 'CrUX', en: 'CrUX' },
+          def: {
+            pl: 'Zagregowane dane Chrome z 28 dni, którymi karmi się Search Console. Wiarygodne, ale wolne i tylko dla Chrome; własny RUM widzi też Safari i ma dane w minutach.',
+            en: 'Aggregated 28-day Chrome data that feeds Search Console. Trustworthy but slow and Chrome-only; your own RUM also sees Safari and reports within minutes.'
+          }
+        },
+        {
+          term: { pl: 'Atrybucja (web-vitals/attribution)', en: 'Attribution (web-vitals/attribution)' },
+          def: {
+            pl: 'Rozszerzenie biblioteki web-vitals, które przy INP zwraca selektor klikniętego elementu, a przy LCP wskazuje element i przyczynę opóźnienia. Zamienia zgłoszenie <em>jest wolno</em> w konkretny ticket.',
+            en: 'The web-vitals extension that returns the interacted element selector for INP and the element plus delay cause for LCP. It turns <em>it feels slow</em> into an actionable ticket.'
+          }
+        },
+        {
+          term: { pl: 'Ślepota SPA (soft navigation)', en: 'SPA blindness (soft navigation)' },
+          def: {
+            pl: 'Domyślnie LCP mierzy się tylko dla pierwszej nawigacji, więc przejścia w routerze nie istnieją w danych. Potrzebujesz własnych znaczników albo Soft Navigations API.',
+            en: 'By default LCP is measured only for the first navigation, so router transitions never appear in the data. You need your own marks or the Soft Navigations API.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">'
           + '<defs><marker id="rum5-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>'

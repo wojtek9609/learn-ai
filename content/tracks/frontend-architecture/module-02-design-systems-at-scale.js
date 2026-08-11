@@ -22,6 +22,43 @@ export default {
         en: 'Design tokens and theming'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Token prymitywny', en: 'Primitive token' },
+          def: {
+            pl: 'Surowa wartość z palety, na przykład <code>blue-500</code> albo <code>space-4</code>. Warstwa najniższa: komponenty i aplikacje nie sięgają po nią bezpośrednio.',
+            en: 'A raw value from the palette, for example <code>blue-500</code> or <code>space-4</code>. The bottom layer: components and apps never reach for it directly.'
+          }
+        },
+        {
+          term: { pl: 'Token semantyczny', en: 'Semantic token' },
+          def: {
+            pl: 'Token nazywający rolę, nie wygląd: <code>color-action</code>, <code>color-text-inverse</code>. To jedyna warstwa, którą realnie widzą aplikacje, i to ona umożliwia theming.',
+            en: 'A token that names a role, not a look: <code>color-action</code>, <code>color-text-inverse</code>. It is the only layer apps really see, and the one that makes theming possible.'
+          }
+        },
+        {
+          term: { pl: 'Token komponentowy', en: 'Component token' },
+          def: {
+            pl: 'Token przypisany do jednego komponentu, na przykład <code>button-bg</code> albo <code>card-padding</code>. Daje punkt nadpisania bez otwierania wnętrza komponentu.',
+            en: 'A token scoped to one component, such as <code>button-bg</code> or <code>card-padding</code>. It gives an override point without opening up component internals.'
+          }
+        },
+        {
+          term: { pl: 'Style Dictionary', en: 'Style Dictionary' },
+          def: {
+            pl: 'Narzędzie generujące z jednego źródła w JSON pliki <code>tokens.css</code>, <code>tokens.scss</code>, <code>tokens.ts</code> i wyjścia natywne, dzięki czemu platformy nie rozjeżdżają się w czasie.',
+            en: 'A tool that generates <code>tokens.css</code>, <code>tokens.scss</code>, <code>tokens.ts</code> and native outputs from one JSON source, so the platforms cannot drift apart.'
+          }
+        },
+        {
+          term: { pl: 'Theming w runtime', en: 'Runtime theming' },
+          def: {
+            pl: 'Przełączanie motywu bez przebudowy, przez CSS custom properties i atrybut w rodzaju <code>[data-theme="dark"]</code>. Wariant build-time daje mniejszy CSS, ale nie zmieni motywu w locie.',
+            en: 'Switching themes with no rebuild, via CSS custom properties and an attribute such as <code>[data-theme="dark"]</code>. The build-time variant ships less CSS but cannot switch on the fly.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="fa2l1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -370,6 +407,43 @@ export default {
         en: 'Component API design'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Wariant jako enum', en: 'Variant as an enum' },
+          def: {
+            pl: 'Jeden prop <code>variant</code> z zamkniętą listą wartości zamiast zestawu flag boolean. Flagi pozwalają złożyć kombinacje bez sensu, enum tego nie dopuszcza.',
+            en: 'One <code>variant</code> prop with a closed set of values instead of a pile of boolean flags. Flags let people assemble meaningless combinations; an enum does not.'
+          }
+        },
+        {
+          term: { pl: 'Slot', en: 'Slot' },
+          def: {
+            pl: 'Miejsce, w które konsument wstawia własną treść (w Reakcie <code>children</code>). Reguła podziału: propsy konfigurują zachowanie, sloty wnoszą treść.',
+            en: 'A hole where the consumer puts their own content (<code>children</code> in React). The dividing rule: props configure behaviour, slots carry content.'
+          }
+        },
+        {
+          term: { pl: 'Komponent compound', en: 'Compound component' },
+          def: {
+            pl: 'Złożony komponent wystawiony jako rodzina części (<code>DataTable.Toolbar</code>, <code>DataTable.Pagination</code>). Kompozycja zamiast konfiguracji - właściwa, gdy lista propsów przekracza kilkanaście pozycji.',
+            en: 'A complex component exposed as a family of parts (<code>DataTable.Toolbar</code>, <code>DataTable.Pagination</code>). Composition instead of configuration - the right move once the prop list passes a dozen.'
+          }
+        },
+        {
+          term: { pl: 'Furtka awaryjna', en: 'Escape hatch' },
+          def: {
+            pl: 'Kontrolowane wyjście poza API, na przykład <code>::part()</code> w web componentach. Bez niej zespoły robią forka; z nią zostają w systemie, a ty wiesz, co jest nadpisywane.',
+            en: 'A controlled way out of the API, for example <code>::part()</code> in web components. Without one teams fork the component; with one they stay in the system and you can see what gets overridden.'
+          }
+        },
+        {
+          term: { pl: 'Kontrolowany i niekontrolowany', en: 'Controlled and uncontrolled' },
+          def: {
+            pl: 'Komponent kontrolowany dostaje stan z zewnątrz (<code>open</code> plus <code>onOpenChange</code>), niekontrolowany trzyma go u siebie (<code>defaultOpen</code>). Dobry komponent obsługuje oba tryby.',
+            en: 'A controlled component takes its state from outside (<code>open</code> plus <code>onOpenChange</code>); an uncontrolled one keeps it inside (<code>defaultOpen</code>). A good component supports both.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Two ways to grow a Button</text>' +
@@ -551,6 +625,43 @@ export default {
         en: 'Versioning and breaking changes'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'SemVer', en: 'SemVer' },
+          def: {
+            pl: 'Schemat <code>major.minor.patch</code>: major łamie kontrakt, minor dodaje, patch naprawia. W design systemie kontraktem jest też klasa CSS i nazwa zdarzenia, nie tylko sygnatura TypeScriptu.',
+            en: 'The <code>major.minor.patch</code> scheme: major breaks the contract, minor adds, patch fixes. In a design system the contract includes CSS classes and event names, not just TypeScript signatures.'
+          }
+        },
+        {
+          term: { pl: 'Breaking change', en: 'Breaking change' },
+          def: {
+            pl: 'Każda zmiana, po której działający kod konsumenta przestaje działać - także zmiana nazwy klasy CSS, usunięcie slotu albo zmiana domyślnej wartości propa.',
+            en: 'Any change after which working consumer code stops working - including renaming a CSS class, removing a slot or changing a default prop value.'
+          }
+        },
+        {
+          term: { pl: 'Codemod', en: 'Codemod' },
+          def: {
+            pl: 'Skrypt, zwykle na bazie jscodeshift, automatycznie przepisujący kod konsumentów na nowe API. Bez niego wersja major jest życzeniem, a nie planem migracji.',
+            en: 'A script, usually jscodeshift based, that rewrites consumer code to the new API automatically. Without one a major version is a wish, not a migration plan.'
+          }
+        },
+        {
+          term: { pl: 'Okno deprecjacji', en: 'Deprecation window' },
+          def: {
+            pl: 'Zadeklarowany czas, przez który stare API nadal działa, ale ostrzega. Musi być dłuższy niż cykl wydawniczy najwolniejszej aplikacji, inaczej nikt nie zdąży.',
+            en: 'A declared period during which the old API still works but warns. It has to outlast the release cycle of the slowest app, otherwise nobody makes it in time.'
+          }
+        },
+        {
+          term: { pl: 'Changesets', en: 'Changesets' },
+          def: {
+            pl: 'Narzędzie, w którym autor PR-a deklaruje typ zmiany, a bot składa z tego wersję i changelog. Zamienia wersjonowanie z osądu jednej osoby w powtarzalny proces.',
+            en: 'A tool where the PR author declares the change type and a bot assembles the version and the changelog. It turns versioning from one person judgement into a repeatable process.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="fa2l3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -874,6 +985,36 @@ export default {
         en: 'Docs, Storybook and playgrounds'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'CSF3 (Component Story Format 3)', en: 'CSF3 (Component Story Format 3)' },
+          def: {
+            pl: 'Format historii Storybooka oparty na obiektach i <code>args</code>. Jedna historia jest jednocześnie dokumentacją, przypadkiem testowym i celem regresji wizualnej.',
+            en: 'The object-and-<code>args</code> based Storybook story format. One story is documentation, a test case and a visual regression target at the same time.'
+          }
+        },
+        {
+          term: { pl: 'Autodocs', en: 'Autodocs' },
+          def: {
+            pl: 'Tabele propsów generowane z kodu, dla web componentów z <code>custom-elements.json</code>. Cel to <strong>zero</strong> ręcznie utrzymywanych tabel, bo ręczne zawsze rozjeżdżają się z implementacją.',
+            en: 'Prop tables generated from the code, from <code>custom-elements.json</code> for web components. The goal is <strong>zero</strong> hand-maintained tables, because hand-written ones always drift from the implementation.'
+          }
+        },
+        {
+          term: { pl: 'Do and Do not', en: 'Do and Do not' },
+          def: {
+            pl: 'Sekcja pokazująca obok siebie użycie poprawne i błędne. Uczy szybciej niż opis propsów, bo odpowiada na realne pytanie konsumenta: czy wolno mi tak zrobić.',
+            en: 'A section showing correct and incorrect usage side by side. It teaches faster than a prop description because it answers the real consumer question: am I allowed to do this.'
+          }
+        },
+        {
+          term: { pl: 'Dokumentacja jako produkt', en: 'Docs as a product' },
+          def: {
+            pl: 'Traktowanie dokumentacji jak produktu z metrykami: unikalni użytkownicy tygodniowo, zapytania w wyszukiwarce bez wyników i najczęściej kopiowane snippety.',
+            en: 'Treating documentation as a product with metrics: weekly unique users, searches that return nothing, and the most-copied snippets.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="fa2l4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -1056,6 +1197,43 @@ export default {
         en: 'Testing and visual regression'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'Regresja wizualna', en: 'Visual regression' },
+          def: {
+            pl: 'Porównanie zrzutów historii przed zmianą i po niej. Łapie to, czego nie złapie żaden assert: przesunięty focus ring, zmieniony cień, zły kontrast po podmianie tokena.',
+            en: 'Comparing screenshots of stories before and after a change. It catches what no assertion will: a shifted focus ring, a changed shadow, bad contrast after a token swap.'
+          }
+        },
+        {
+          term: { pl: 'Flakiness', en: 'Flakiness' },
+          def: {
+            pl: 'Testy dające losowe wyniki bez zmiany w kodzie. W testach wizualnych źródła są zawsze te same: animacje, ładowanie fontów, daty i dane losowe - trzeba je zamrozić.',
+            en: 'Tests that give random results with no code change. In visual testing the causes are always the same: animations, font loading, dates and random data - all of which must be frozen.'
+          }
+        },
+        {
+          term: { pl: 'TurboSnap', en: 'TurboSnap' },
+          def: {
+            pl: 'Detekcja zmian wysyłająca do porównania tylko historie realnie dotknięte commitem. Przy tysiącach zrzutów decyduje o tym, czy testy wizualne są opłacalne.',
+            en: 'Change detection that only sends the stories a commit actually touched. With thousands of snapshots it decides whether visual testing pays for itself.'
+          }
+        },
+        {
+          term: { pl: 'Test kontraktu API', en: 'API contract test' },
+          def: {
+            pl: 'Commitowany raport publicznego API (<code>api-extractor</code>, <code>custom-elements.json</code>), którego różnica wywala build. Breaking change staje się widoczny w PR, a nie w changelogu po fakcie.',
+            en: 'A committed public API report (<code>api-extractor</code>, <code>custom-elements.json</code>) whose diff fails the build. A breaking change becomes visible in the PR, not in the changelog afterwards.'
+          }
+        },
+        {
+          term: { pl: 'Automatyczne testy dostępności', en: 'Automated accessibility tests' },
+          def: {
+            pl: 'axe uruchamiane na każdej historii (<code>@storybook/addon-a11y</code>). Łapie około 30-40 procent problemów, więc nie zastępuje ręcznego przejścia czytnikiem ekranu.',
+            en: 'axe running on every story (<code>@storybook/addon-a11y</code>). It catches roughly 30-40 percent of issues, so it never replaces a manual screen reader pass.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">Test pyramid for a design system</text>' +
@@ -1232,6 +1410,43 @@ export default {
         en: 'Governance and the contribution model'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'Model zarządzania', en: 'Governance model' },
+          def: {
+            pl: 'Trzy warianty: scentralizowany (spójny, wolny), federacyjny (szybki, rozjeżdża się) i hybrydowy, w którym rdzeń pilnuje kontraktu, a zespoły kontrybuują. Przy dużej skali wygrywa hybryda.',
+            en: 'Three options: centralised (consistent, slow), federated (fast, drifts) and hybrid, where a core team guards the contract and product teams contribute. At scale the hybrid wins.'
+          }
+        },
+        {
+          term: { pl: 'Lejek przyjmowania zgłoszeń', en: 'Intake funnel' },
+          def: {
+            pl: 'Jedna widoczna droga zgłaszania potrzeb, z kryteriami przyjęcia i publiczną odpowiedzią. Bez niego decyzje zapadają na prywatnych rozmowach i nikt nie wie, dlaczego czegoś nie ma.',
+            en: 'One visible route for requests, with acceptance criteria and a public answer. Without it decisions happen in private messages and nobody knows why something does not exist.'
+          }
+        },
+        {
+          term: { pl: 'Office hours', en: 'Office hours' },
+          def: {
+            pl: 'Stały, cotygodniowy termin, w którym zespół rdzenia jest dostępny dla zespołów produktowych. Najtańszy rytuał, który realnie zmniejsza liczbę forków.',
+            en: 'A fixed weekly slot when the core team is available to product teams. The cheapest ritual that measurably reduces the number of forks.'
+          }
+        },
+        {
+          term: { pl: 'Pokrycie adopcji', en: 'Adoption coverage' },
+          def: {
+            pl: 'Odsetek ekranów albo aplikacji realnie używających komponentów systemu. Razem z liczbą forków i zaoszczędzonym czasem to metryki, którymi finansuje się zespół platformowy.',
+            en: 'The share of screens or apps genuinely using system components. Together with fork count and time saved, these are the metrics that fund the platform team.'
+          }
+        },
+        {
+          term: { pl: 'Odmowa z alternatywą', en: 'Saying no with an alternative' },
+          def: {
+            pl: 'Zasada: nigdy samo "nie", zawsze "nie w tej formie, oto alternatywa". Samo nie buduje forka, nie z alternatywą buduje zaufanie.',
+            en: 'The rule: never a bare no, always not in this shape, here is the alternative. A bare no builds a fork; a no with an alternative builds trust.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="fa2l6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker></defs>' +

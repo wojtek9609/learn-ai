@@ -18,6 +18,13 @@ export default {
         en: 'Reading Python with TypeScript eyes'
       },
       minutes: 9,
+      terms: [
+        { term: { pl: 'List comprehension', en: 'List comprehension' }, def: { pl: 'Zwięzły zapis transformacji kolekcji: <code>[f(x) for x in xs if p(x)]</code>. Odpowiednik <code>xs.filter(p).map(f)</code> w JS.', en: 'A compact collection transform: <code>[f(x) for x in xs if p(x)]</code>. The equivalent of <code>xs.filter(p).map(f)</code> in JS.' } },
+        { term: { pl: 'Dekorator', en: 'Decorator' }, def: { pl: 'Funkcja opakowująca inną funkcję, zapisywana jako <code>@nazwa</code> nad definicją. Tak działają <code>@app.get</code> w FastAPI i <code>@tool</code> w SDK agentowych.', en: 'A function wrapping another function, written as <code>@name</code> above the definition. This is how <code>@app.get</code> in FastAPI and <code>@tool</code> in agent SDKs work.' } },
+        { term: { pl: 'Metody dunder', en: 'Dunder methods' }, def: { pl: 'Metody specjalne z podwójnym podkreśleniem (<code>__init__</code>, <code>__call__</code>, <code>__enter__</code>), którymi klasa wpina się w składnię języka.', en: 'Special double-underscore methods (<code>__init__</code>, <code>__call__</code>, <code>__enter__</code>) through which a class hooks into language syntax.' } },
+        { term: { pl: 'Mutable default argument', en: 'Mutable default argument' }, def: { pl: 'Klasyczna pułapka: <code>def f(items=[])</code> tworzy listę raz, przy definicji, i współdzieli ją między wywołaniami. Poprawnie: <code>items=None</code>.', en: 'The classic trap: <code>def f(items=[])</code> creates the list once, at definition time, and shares it across calls. Correct: <code>items=None</code>.' } },
+        { term: { pl: 'Context manager', en: 'Context manager' }, def: { pl: 'Blok <code>with</code> gwarantujący sprzątanie zasobu, tak jak <code>try/finally</code>. W JS najbliżej mu do <code>using</code> ze wzorca Disposable.', en: 'A <code>with</code> block guaranteeing resource cleanup, like <code>try/finally</code>. In JS the closest thing is <code>using</code> from the Disposable pattern.' } }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="140" y="26" text-anchor="middle" font-size="16" fill="var(--accent)">TypeScript</text>' +
@@ -139,6 +146,13 @@ export default {
         en: 'Environment and tooling: uv, venv, pyproject'
       },
       minutes: 8,
+      terms: [
+        { term: { pl: 'uv', en: 'uv' }, def: { pl: 'Szybki menedżer pakietów i środowisk napisany w Ruście, zastępujący pip, venv i pyenv jednym narzędziem. Rola jak <code>npm</code> plus <code>nvm</code>.', en: 'A fast Rust-based package and environment manager replacing pip, venv and pyenv with one tool. It plays the role of <code>npm</code> plus <code>nvm</code>.' } },
+        { term: { pl: 'venv', en: 'venv' }, def: { pl: 'Katalog z odizolowanym interpreterem i pakietami projektu. Odpowiednik <code>node_modules</code>, tyle że nigdy nie trafia do repozytorium.', en: 'A directory with an isolated interpreter and the project packages. The <code>node_modules</code> equivalent, except it never goes into the repo.' } },
+        { term: { pl: 'pyproject.toml', en: 'pyproject.toml' }, def: { pl: 'Manifest projektu: zależności, wersja Pythona, konfiguracja narzędzi. Odpowiednik <code>package.json</code>.', en: 'The project manifest: dependencies, Python version, tool config. The <code>package.json</code> equivalent.' } },
+        { term: { pl: 'uv.lock', en: 'uv.lock' }, def: { pl: 'Lockfile z dokładnymi wersjami i hashami, commitowany do repo. <code>uv sync --frozen</code> to odpowiednik <code>npm ci</code>.', en: 'A lockfile with exact versions and hashes, committed to the repo. <code>uv sync --frozen</code> is the <code>npm ci</code> equivalent.' } },
+        { term: { pl: 'ruff', en: 'ruff' }, def: { pl: 'Linter i formatter w jednym, również w Ruście. Zastępuje flake8, isort i w praktyce także black.', en: 'Linter and formatter in one, also in Rust. It replaces flake8, isort and in practice black too.' } }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="p8a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -262,6 +276,13 @@ export default {
         en: 'HTTP and asyncio: httpx, the event loop, gotchas'
       },
       minutes: 10,
+      terms: [
+        { term: { pl: 'asyncio', en: 'asyncio' }, def: { pl: 'Biblioteka pętli zdarzeń Pythona. Różnica wobec JS: pętla nie startuje sama, trzeba ją uruchomić przez <code>asyncio.run()</code>.', en: 'Python event loop library. The difference from JS: the loop does not start by itself, you launch it with <code>asyncio.run()</code>.' } },
+        { term: { pl: 'Korutyna', en: 'Coroutine' }, def: { pl: 'Obiekt zwracany przez <code>async def</code>, który nic nie robi, dopóki go nie awaitujesz albo nie opakujesz w task. Promise startuje sam, korutyna nie.', en: 'The object returned by <code>async def</code>, which does nothing until awaited or wrapped in a task. A Promise starts itself, a coroutine does not.' } },
+        { term: { pl: 'httpx.AsyncClient', en: 'httpx.AsyncClient' }, def: { pl: 'Asynchroniczny klient HTTP z pulą połączeń, tworzony raz na proces. <code>requests</code> jest synchroniczny i blokuje pętlę.', en: 'An async HTTP client with connection pooling, created once per process. <code>requests</code> is synchronous and blocks the loop.' } },
+        { term: { pl: 'Ograniczona współbieżność', en: 'Bounded concurrency' }, def: { pl: '<code>asyncio.gather</code> na tysiącu zadań wysyła tysiąc żądań naraz. Kontrola: <code>asyncio.Semaphore</code> albo pula workerów na kolejce.', en: '<code>asyncio.gather</code> over a thousand tasks fires a thousand requests at once. Control: an <code>asyncio.Semaphore</code> or a worker pool over a queue.' } },
+        { term: { pl: 'Blokowanie pętli', en: 'Blocking the loop' }, def: { pl: 'Wywołanie synchroniczne (<code>psycopg2</code>, <code>boto3</code>, ciężkie parsowanie) wewnątrz kodu async zatrzymuje wszystko. Ratunek: <code>run_in_executor</code> lub wersja async biblioteki.', en: 'A synchronous call (<code>psycopg2</code>, <code>boto3</code>, heavy parsing) inside async code stalls everything. Fix: <code>run_in_executor</code> or the async variant of the library.' } }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="34" font-size="15" fill="var(--ok)">asyncio.gather plus httpx.AsyncClient</text>' +
@@ -549,6 +570,13 @@ export default {
         en: 'Typing and pydantic - zod for Python'
       },
       minutes: 9,
+      terms: [
+        { term: { pl: 'Type hints', en: 'Type hints' }, def: { pl: 'Adnotacje typów w sygnaturach, ignorowane w czasie wykonania. Same z siebie nic nie sprawdzają - potrzebują mypy albo pydantic.', en: 'Type annotations in signatures, ignored at runtime. On their own they check nothing - they need mypy or pydantic.' } },
+        { term: { pl: 'pydantic BaseModel', en: 'pydantic BaseModel' }, def: { pl: 'Klasa, która waliduje i konwertuje dane w czasie wykonania i generuje JSON Schema. Rola zod w świecie Pythona.', en: 'A class that validates and coerces data at runtime and emits JSON Schema. The role zod plays in the Python world.' } },
+        { term: { pl: 'Field(description=...)', en: 'Field(description=...)' }, def: { pl: 'Opis pola trafiający do JSON Schema, a więc wprost do promptu przy tool callingu. Jeden model opisuje kontrakt narzędzia i waliduje wynik.', en: 'A field description that lands in the JSON Schema and therefore straight in the prompt during tool calling. One model describes the tool contract and validates the result.' } },
+        { term: { pl: 'ValidationError i pętla naprawcza', en: 'ValidationError and the repair loop' }, def: { pl: '<code>e.errors()</code> daje listę błędów per pole, którą odsyłasz modelowi jako komunikat naprawczy. Zwykle jedna dodatkowa tura wystarcza.', en: '<code>e.errors()</code> gives a per-field error list you feed back to the model as a repair message. One extra turn is usually enough.' } },
+        { term: { pl: 'extra="forbid"', en: 'extra="forbid"' }, def: { pl: 'Ustawienie odrzucające pola spoza schematu zamiast po cichu je pomijać. Wyłapuje halucynowane klucze, zanim wejdą do bazy.', en: 'A setting that rejects fields outside the schema instead of silently dropping them. It catches hallucinated keys before they reach the database.' } }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="p8a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -794,6 +822,13 @@ export default {
         en: 'Scripts and notebooks: choosing between them'
       },
       minutes: 8,
+      terms: [
+        { term: { pl: 'Jupyter notebook', en: 'Jupyter notebook' }, def: { pl: 'Interaktywny dokument z komórkami kodu i wyników, ze stanem trzymanym w kernelu. Dobry do eksploracji, zły jako produkcyjny pipeline.', en: 'An interactive document of code and output cells with state held in a kernel. Good for exploration, bad as a production pipeline.' } },
+        { term: { pl: 'autoreload', en: 'autoreload' }, def: { pl: 'Magia <code>%load_ext autoreload</code> i <code>%autoreload 2</code>: notebook podciąga zmiany w importowanych modułach bez restartu kernela.', en: 'The <code>%load_ext autoreload</code> and <code>%autoreload 2</code> magic: the notebook picks up changes in imported modules without a kernel restart.' } },
+        { term: { pl: 'nbstripout', en: 'nbstripout' }, def: { pl: 'Hook czyszczący wyniki komórek przed commitem. Bez tego każdy notebook to nieczytelny diff i ryzyko wycieku danych do repo.', en: 'A hook stripping cell outputs before commit. Without it every notebook is an unreadable diff and a data-leak risk in the repo.' } },
+        { term: { pl: 'PEP 723', en: 'PEP 723' }, def: { pl: 'Metadane zależności w komentarzu na górze jednoplikowego skryptu. <code>uv run skrypt.py</code> stawia środowisko samo, jak <code>npx</code>.', en: 'Dependency metadata in a comment at the top of a single-file script. <code>uv run script.py</code> builds the environment itself, like <code>npx</code>.' } },
+        { term: { pl: 'Odtwarzalność', en: 'Reproducibility' }, def: { pl: 'Zapinany seed, przypięte wersje modeli i pakietów oraz kod w module, nie w komórce. Bez tego wynik ewaluacji nie znaczy nic.', en: 'A fixed seed, pinned model and package versions, and code in a module rather than a cell. Without it an eval number means nothing.' } }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="p8a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)"/></marker></defs>' +

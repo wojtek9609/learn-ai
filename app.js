@@ -129,11 +129,44 @@ const I18N = {
     reviewAllDoneTitle: 'Wszystko powtorzone na dzis',
     reviewAllDoneBody:
       'Zadne pytanie nie czeka dzis na powtorke. Jesli masz ochote, cwicz dalej bez limitu.',
+
+    /* -- v6: fiszki w SRS + mikro-sesja -- */
+    termCard: 'fiszka',
+    termPrompt: 'Co to znaczy?',
+    termReveal: 'Pokaz odpowiedz',
+    termKnew: 'Umialem',
+    termMissed: 'Nie umialem',
+    termRequeued: 'Ta fiszka wroci jeszcze w tej sesji.',
+    quickTitle: 'Mam 5 minut',
+    quickCta: 'Mam 5 minut',
+    quickDesc: 'Piec kart powtorki albo najkrotsza nieukonczona lekcja.',
+    quickRound: 'Szybka runda',
     sessionRecap: 'Podsumowanie',
     sessionAgain: 'Jeszcze raz',
     recapOk: 'dobrze',
     recapBad: 'zle',
     recapSkipped: 'bez odpowiedzi',
+
+    /* -- v6: pytanie na rozgrzewke, Feynman, zapytaj Claude -- */
+    preguessTitle: 'Zgadnij, zanim przeczytasz',
+    preguessHint:
+      'Jedno pytanie z tej lekcji. Nie liczy sie do wyniku ani do powtorek - chodzi o samo zgadywanie.',
+    preguessAfter: 'Teraz przeczytaj lekcje i sprawdz sie.',
+    feynmanTitle: 'Wyjasnij wlasnymi slowami',
+    feynmanDesc:
+      'Napisz to tak, jakbys tlumaczyl koledze z zespolu. Na telefonie mozesz dyktowac klawiatura.',
+    feynmanPlaceholder: 'O co tu chodzi? Wyjasnij to wlasnymi slowami...',
+    feynmanCompare: 'Porownaj z wersja prosta',
+    feynmanHide: 'Ukryj wersje prosta',
+    feynmanGap: 'Czego zabraklo?',
+    feynmanGapHint:
+      'Porownaj oba teksty: ktore pojecia sa w wersji prostej, a nie ma ich w twoim opisie?',
+    feynmanSaved: 'Zapisano ✓',
+    feynmanSaving: 'Zapisuje...',
+    feynmanAria: 'Twoje wyjasnienie tej lekcji',
+    askClaude: '💬 Zapytaj Claude o te lekcje',
+    askClaudePrompt: (lesson, track, mod) =>
+      `Ucze sie tematu "${lesson}" (kurs ${track}, modul ${mod}). Wyjasnij mi to inaczej niz standardowo, sprawdz moje zrozumienie 2-3 pytaniami i podaj jeden praktyczny przyklad z frontendu.`,
 
     /* -- v5: rozmowa rekrutacyjna -- */
     interviewTitle: 'Rozmowa rekrutacyjna',
@@ -179,6 +212,41 @@ const I18N = {
     goalToday: (x, g) => `Dzis: ${x} / cel ${g}`,
     goalDone: 'Cel dnia zrobiony ✓',
     goalHint: 'Jedna zaliczona lekcja albo skonczona sesja = jeden punkt.',
+    statsTitle: 'Statystyki',
+    statsLink: 'Statystyki',
+    statsDesc: 'Gdzie jest najslabiej i jak regularnie sie uczysz.',
+    statsWeakTitle: 'Najslabsze obszary',
+    statsWeakHint:
+      'Liczymy je z powtorek: im nizsze pudelko i wiecej wpadek, tym slabszy modul. Do rankingu wchodza moduly z co najmniej 3 zaplanowanymi kartami.',
+    statsWeakEmpty:
+      'Za malo danych. Zrob kilka powtorek - ranking pojawi sie, gdy jakis modul bedzie mial co najmniej 3 zaplanowane karty.',
+    statsWeakMeta: (cards, lapses) =>
+      `${cards} ${plural(cards, 'karta', 'karty', 'kart')} · ${lapses} ${plural(
+        lapses,
+        'wpadka',
+        'wpadki',
+        'wpadek'
+      )}`,
+    statsWeakScore: (p) => `slabosc ${p}%`,
+    statsReviewModule: 'Powtorz ten modul',
+    statsHeatTitle: 'Aktywnosc',
+    statsHeatHint: 'Ostatnie 16 tygodni. Jeden punkt = zaliczona lekcja albo skonczona sesja.',
+    statsHeatSummary: (points, days) =>
+      `${points} ${plural(points, 'punkt', 'punkty', 'punktow')} w ${days} ${plural(
+        days,
+        'dniu',
+        'dniach',
+        'dniach'
+      )}`,
+    statsHeatLess: 'mniej',
+    statsHeatMore: 'wiecej',
+    statsHeatToday: 'dzis',
+    statsCellAria: (day, n) =>
+      `${day}: ${n} ${plural(n, 'punkt', 'punkty', 'punktow')}`,
+    statsWeekdays: ['pon', 'wt', 'sr', 'czw', 'pt', 'sob', 'ndz'],
+    statsMonths: ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paz', 'lis', 'gru'],
+    weakChipLabel: (name) => `Najslabszy obszar: ${name}`,
+    weakChipCta: 'Powtorz',
     dataTitle: 'Kopia postepu',
     dataDesc: 'Zapisz postep do pliku albo przenies go na inne urzadzenie kodem.',
     dataExport: '⬇ Eksportuj',
@@ -301,11 +369,44 @@ const I18N = {
     reviewAllDoneTitle: 'All reviewed for today',
     reviewAllDoneBody:
       'Nothing is due right now. If you feel like it, keep going without a limit.',
+
+    /* -- v6: flashcards in SRS + micro-session -- */
+    termCard: 'flashcard',
+    termPrompt: 'What does it mean?',
+    termReveal: 'Show answer',
+    termKnew: 'I knew it',
+    termMissed: 'I did not know',
+    termRequeued: 'This flashcard comes back later in this session.',
+    quickTitle: 'I have 5 minutes',
+    quickCta: 'I have 5 minutes',
+    quickDesc: 'Five review cards, or the shortest lesson you have not finished.',
+    quickRound: 'Quick round',
     sessionRecap: 'Recap',
     sessionAgain: 'Again',
     recapOk: 'correct',
     recapBad: 'wrong',
     recapSkipped: 'unanswered',
+
+    /* -- v6: pre-question, Feynman, ask Claude -- */
+    preguessTitle: 'Guess before you read',
+    preguessHint:
+      'One question from this lesson. It does not count toward your score or your reviews - guessing is the point.',
+    preguessAfter: 'Now read the lesson and check yourself.',
+    feynmanTitle: 'Explain it in your own words',
+    feynmanDesc:
+      'Write it the way you would explain it to a teammate. On a phone you can dictate with the keyboard.',
+    feynmanPlaceholder: 'So what is this really about? Explain it in your own words...',
+    feynmanCompare: 'Compare with the simple version',
+    feynmanHide: 'Hide the simple version',
+    feynmanGap: 'What was missing?',
+    feynmanGapHint:
+      'Compare the two: which ideas show up in the simple version but not in your explanation?',
+    feynmanSaved: 'Saved ✓',
+    feynmanSaving: 'Saving...',
+    feynmanAria: 'Your explanation of this lesson',
+    askClaude: '💬 Ask Claude about this lesson',
+    askClaudePrompt: (lesson, track, mod) =>
+      `I am learning about "${lesson}" (course ${track}, module ${mod}). Explain it to me in a different way than usual, check my understanding with 2-3 questions, and give me one practical frontend example.`,
 
     /* -- v5: interview -- */
     interviewTitle: 'Interview mode',
@@ -351,6 +452,30 @@ const I18N = {
     goalToday: (x, g) => `Today: ${x} / goal ${g}`,
     goalDone: 'Daily goal done ✓',
     goalHint: 'One completed lesson or one finished session = one point.',
+    statsTitle: 'Stats',
+    statsLink: 'Stats',
+    statsDesc: 'Where you are weakest, and how steadily you show up.',
+    statsWeakTitle: 'Weakest areas',
+    statsWeakHint:
+      'Computed from your reviews: the lower the box and the more lapses, the weaker the module. Modules join the ranking once they have at least 3 scheduled cards.',
+    statsWeakEmpty:
+      'Not enough data yet. Do a few reviews - the ranking shows up once a module has at least 3 scheduled cards.',
+    statsWeakMeta: (cards, lapses) =>
+      `${cards} ${cards === 1 ? 'card' : 'cards'} · ${lapses} ${lapses === 1 ? 'lapse' : 'lapses'}`,
+    statsWeakScore: (p) => `weakness ${p}%`,
+    statsReviewModule: 'Review this module',
+    statsHeatTitle: 'Activity',
+    statsHeatHint: 'Last 16 weeks. One point = a completed lesson or a finished session.',
+    statsHeatSummary: (points, days) =>
+      `${points} ${points === 1 ? 'point' : 'points'} across ${days} ${days === 1 ? 'day' : 'days'}`,
+    statsHeatLess: 'less',
+    statsHeatMore: 'more',
+    statsHeatToday: 'today',
+    statsCellAria: (day, n) => `${day}: ${n} ${n === 1 ? 'point' : 'points'}`,
+    statsWeekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    statsMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    weakChipLabel: (name) => `Weakest area: ${name}`,
+    weakChipCta: 'Review',
     dataTitle: 'Progress backup',
     dataDesc: 'Save your progress to a file, or move it to another device with a code.',
     dataExport: '⬇ Export',
@@ -399,10 +524,23 @@ const DEFAULT_STATE = {
   interview: {},
   srs: {},
   reviewDay: { date: '', done: 0 },
+  notes: {},
 };
 
 const MISSED_CAP = 200;
+// v6 (Feynman): one free-text note per lesson, keyed `<t>/<m>/<l>`.
+const NOTE_CAP = 5000;
+const NOTE_KEY_RE = /^[^/]+\/[^/]+\/[^/]+$/;
 const DATE_KEY_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+// v6: an SRS card key is either a quiz card `<t>/<m>/<l>/<qIndex>` or a term
+// (flashcard) card `<t>/<m>/<l>/term/<i>`. Anything else in a stored payload is
+// not a card this build knows how to schedule, so it is dropped on load.
+const SRS_KEY_RE = /^[^/]+\/[^/]+\/[^/]+\/(?:\d+|term\/\d+)$/;
+
+function isSrsKey(id) {
+  return typeof id === 'string' && SRS_KEY_RE.test(id);
+}
 
 // v5.1 SM-2 lite. Declared up here because the missed -> srs migration runs
 // inside stateFromRaw(), i.e. before the review section is evaluated.
@@ -419,6 +557,7 @@ function freshState() {
     interview: {},
     srs: {},
     reviewDay: { date: '', done: 0 },
+    notes: {},
   };
 }
 
@@ -479,7 +618,7 @@ function stateFromRaw(parsed) {
 
     if (parsed.srs && typeof parsed.srs === 'object' && !Array.isArray(parsed.srs)) {
       for (const [id, raw] of Object.entries(parsed.srs)) {
-        if (!id || typeof id !== 'string' || !raw || typeof raw !== 'object') continue;
+        if (!isSrsKey(id) || !raw || typeof raw !== 'object') continue;
         const box = Number(raw.box);
         const reps = Number(raw.reps);
         const lapses = Number(raw.lapses);
@@ -501,6 +640,19 @@ function stateFromRaw(parsed) {
       };
       if (!state.reviewDay.date) state.reviewDay.done = 0;
     }
+
+    if (parsed.notes && typeof parsed.notes === 'object' && !Array.isArray(parsed.notes)) {
+      for (const [key, raw] of Object.entries(parsed.notes)) {
+        if (!NOTE_KEY_RE.test(key) || !raw || typeof raw !== 'object') continue;
+        if (typeof raw.text !== 'string') continue;
+        const text = raw.text.slice(0, NOTE_CAP);
+        if (!text.trim()) continue;
+        state.notes[key] = {
+          text,
+          at: typeof raw.at === 'string' ? raw.at : new Date().toISOString(),
+        };
+      }
+    }
   }
   migrateMissedToSrs(state);
   return state;
@@ -514,7 +666,7 @@ function migrateMissedToSrs(target) {
   if (!Array.isArray(target.missed) || !target.missed.length) return target;
   const today = todayKey();
   for (const id of target.missed) {
-    if (typeof id !== 'string' || !id || target.srs[id]) continue;
+    if (!isSrsKey(id) || target.srs[id]) continue;
     target.srs[id] = { box: 0, due: today, reps: 0, lapses: 0 };
   }
   target.missed = [];
@@ -680,6 +832,31 @@ function unmarkDone(trackId, moduleId, lessonId) {
   updateHeaderProgress();
 }
 
+/* --- v6: Feynman notes ------------------------------------------------ */
+
+function noteText(trackId, moduleId, lessonId) {
+  const entry = state.notes[keyOf(trackId, moduleId, lessonId)];
+  return entry && typeof entry.text === 'string' ? entry.text : '';
+}
+
+// Writes (or clears) the note for one lesson. Returns true when something
+// actually changed, so the caller can skip a pointless localStorage write.
+function setNote(trackId, moduleId, lessonId, rawText) {
+  const key = keyOf(trackId, moduleId, lessonId);
+  const text = String(rawText == null ? '' : rawText).slice(0, NOTE_CAP);
+  const prev = state.notes[key];
+  if (!text.trim()) {
+    if (!prev) return false;
+    delete state.notes[key];
+    saveState();
+    return true;
+  }
+  if (prev && prev.text === text) return false;
+  state.notes[key] = { text, at: new Date().toISOString() };
+  saveState();
+  return true;
+}
+
 function pctOf(done, total) {
   return total ? Math.round((done / total) * 100) : 0;
 }
@@ -795,6 +972,8 @@ function parseHash() {
     }
     return { name: 'review', scope: null, mode: 'daily' };
   }
+  if (parts[0] === 'quick') return { name: 'quick' };
+  if (parts[0] === 'stats') return { name: 'stats' };
   if (parts[0] === 'search') return { name: 'search' };
   if (parts[0] === 'interview') {
     if (parts.length === 1) return { name: 'interview', trackId: null };
@@ -826,9 +1005,22 @@ function render() {
     return;
   }
 
+  // v6: #/quick decides at navigation time whether it is a five-card round or
+  // a jump into the shortest unfinished lesson.
+  if (route.name === 'quick' && TRACKS.length) {
+    const jump = quickRedirectHref();
+    if (jump) {
+      location.replace(`${location.pathname}${location.search}${jump}`);
+      return;
+    }
+  }
+
   // Every render() replaces #main, so the reader never outlives the page it was
   // started on: this covers route changes and the language switch alike.
   ttsStop();
+  // The Feynman textarea is about to be thrown away with #main - persist
+  // whatever the debounce still owes before that happens.
+  flushNote();
 
   const routeKey = JSON.stringify(route);
   const routeChanged = routeKey !== lastRouteKey;
@@ -855,8 +1047,10 @@ function render() {
   else if (route.name === 'module') html = viewModule(route.trackId, route.moduleId);
   else if (route.name === 'lesson') html = viewLesson(route.trackId, route.moduleId, route.lessonId);
   else if (route.name === 'review') html = viewReview(route.scope, route.mode);
+  else if (route.name === 'quick') html = viewReviewSession({ kind: 'all' }, 'quick');
   else if (route.name === 'interview') html = viewInterview(route.trackId);
   else if (route.name === 'search') html = viewSearch();
+  else if (route.name === 'stats') html = viewStats();
   else html = viewNotFound();
 
   main.innerHTML = html;
@@ -864,7 +1058,7 @@ function render() {
   if (route.name === 'home') bindHome();
   if (route.name === 'search') bindSearch();
   if (route.name === 'lesson') bindLesson(route.trackId, route.moduleId, route.lessonId);
-  if (route.name === 'review') bindReviewSession();
+  if (route.name === 'review' || route.name === 'quick') bindReviewSession();
   if (route.name === 'interview') bindInterviewSession();
   animateBars(main);
 
@@ -877,7 +1071,9 @@ function render() {
 
 function pageTitle(route) {
   if (route.name === 'search') return `${t().searchTitle} - Learn AI`;
+  if (route.name === 'stats') return `${t().statsTitle} - Learn AI`;
   if (route.name === 'review') return `${t().reviewTitle} - Learn AI`;
+  if (route.name === 'quick') return `${t().quickTitle} - Learn AI`;
   if (route.name === 'interview') return `${t().interviewTitle} - Learn AI`;
   if (route.name === 'track') {
     const track = getTrack(route.trackId);
@@ -925,9 +1121,13 @@ function viewHome() {
 
       ${continueCard(L)}
 
+      ${quickCard(L)}
+
       ${ringCard(L.yourProgress, L.lessonsDone(done, total), pct, L.totalMinutes(overallMinutes()))}
 
       ${streakCard(L)}
+
+      ${weakChip(L)}
 
       ${modeCards(L)}
 
@@ -936,6 +1136,20 @@ function viewHome() {
 
       ${dataBlock(L)}
     </section>`;
+}
+
+// v6: the micro-session entry point, right under "continue". Where it lands is
+// decided by the router (#/quick), so this stays a plain link.
+function quickCard(L) {
+  return `
+    <a class="quick-card" href="#/quick">
+      <span class="quick-icon" aria-hidden="true">⚡</span>
+      <span class="quick-body">
+        <span class="quick-title">${esc(L.quickCta)}</span>
+        <span class="quick-desc">${esc(L.quickDesc)}</span>
+      </span>
+      <span class="mode-chev" aria-hidden="true">›</span>
+    </a>`;
 }
 
 // Home entry points for the two v5 practice modes.
@@ -1233,6 +1447,8 @@ function viewLesson(trackId, moduleId, lessonId) {
         </div>
       </div>
 
+      ${renderPreguess(lesson, done, L)}
+
       <div class="tabs" role="tablist" aria-label="${esc(L.levelAria)}">${tabs}</div>
 
       ${renderTts()}
@@ -1245,7 +1461,11 @@ function viewLesson(trackId, moduleId, lessonId) {
         ${levelHtml(lesson, level)}
       </article>
 
+      ${renderFeynman(track, mod, lesson, L)}
+
       ${renderQuiz(track, mod, lesson)}
+
+      ${renderAskClaude(track, mod, lesson, L)}
 
       <nav class="lesson-nav" aria-label="${esc(L.lessonsLabel)}">
         ${
@@ -1707,6 +1927,204 @@ function viewNoContent() {
 
 /* ---------------------------------------------------------------- quiz --- */
 
+/* ------------------------- v6: pre-question, Feynman, ask Claude --------- */
+
+// 1-366. Stable for the whole local day, which is what makes the pre-question
+// pick deterministic ("the same question all day, a different one tomorrow").
+function dayOfYear(date = new Date()) {
+  const start = Date.UTC(date.getFullYear(), 0, 0);
+  const now = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+  return Math.round((now - start) / 86400000);
+}
+
+// The question shown before reading. Deterministic within a day so reloading
+// the lesson does not reshuffle it mid-thought.
+function preguessIndex(lesson) {
+  const quiz = Array.isArray(lesson.quiz) ? lesson.quiz : [];
+  if (!quiz.length) return -1;
+  return dayOfYear() % quiz.length;
+}
+
+// Only on lessons that are NOT completed - once you know the material the
+// guess is pointless. Answering here never touches SRS, score or activity.
+function renderPreguess(lesson, done, L) {
+  if (done) return '';
+  const qi = preguessIndex(lesson);
+  if (qi < 0) return '';
+  const item = lesson.quiz[qi];
+  if (!item || !Array.isArray(item.options) || !item.options.length) return '';
+
+  const options = item.options
+    .map(
+      (opt, oi) => `
+        <button type="button" class="option" data-o="${oi}">
+          <span class="option-key" aria-hidden="true">${String.fromCharCode(65 + oi)}</span>
+          <span class="option-text">${tr(opt)}</span>
+        </button>`
+    )
+    .join('');
+
+  return `
+    <details class="preguess" data-preguess data-qi="${qi}" open>
+      <summary class="preguess-head">
+        <span class="preguess-icon" aria-hidden="true">🤔</span>
+        <span class="preguess-title">${esc(L.preguessTitle)}</span>
+      </summary>
+      <div class="preguess-body">
+        <p class="preguess-hint">${esc(L.preguessHint)}</p>
+        <p class="q-text">${tr(item.q)}</p>
+        <div class="options" role="group">${options}</div>
+        <div class="explain-slot" data-preguess-slot></div>
+      </div>
+    </details>`;
+}
+
+function bindPreguess(lesson) {
+  const box = $('[data-preguess]');
+  if (!box) return;
+  const L = t();
+  const qi = Number(box.dataset.qi);
+  const item = (Array.isArray(lesson.quiz) ? lesson.quiz : [])[qi];
+  if (!item) return;
+  let answered = false;
+
+  box.addEventListener('click', (ev) => {
+    const opt = ev.target.closest('.option');
+    if (!opt || opt.disabled || answered) return;
+    answered = true;
+    const oi = Number(opt.dataset.o);
+    const correct = Number(item.correct);
+
+    $$('.option', box).forEach((btn) => {
+      const bi = Number(btn.dataset.o);
+      btn.disabled = true;
+      if (bi === correct) btn.classList.add('is-correct');
+      else if (bi === oi) btn.classList.add('is-wrong');
+      else btn.classList.add('is-dim');
+    });
+
+    const isRight = oi === correct;
+    const slot = $('[data-preguess-slot]', box);
+    if (slot) {
+      slot.innerHTML = `
+        <div class="explain ${isRight ? 'is-correct' : 'is-wrong'}">
+          <strong>${esc(isRight ? L.correct : L.wrong)}</strong>
+          ${tr(item.explain)}
+        </div>
+        <p class="preguess-after">${esc(L.preguessAfter)}</p>`;
+    }
+  });
+}
+
+// --- Feynman: explain it in your own words ------------------------------
+
+const NOTE_SAVE_DELAY = 600;
+let noteTimer = null;
+let notePending = null; // { trackId, moduleId, lessonId, text }
+
+// Writes whatever the debounce still owes. Called before a new keystroke wins
+// the timer, on route change and on page hide, so nothing typed is ever lost.
+function flushNote() {
+  if (noteTimer) {
+    clearTimeout(noteTimer);
+    noteTimer = null;
+  }
+  if (!notePending) return;
+  const p = notePending;
+  notePending = null;
+  setNote(p.trackId, p.moduleId, p.lessonId, p.text);
+}
+
+function queueNote(trackId, moduleId, lessonId, text, onSaved) {
+  if (noteTimer) clearTimeout(noteTimer);
+  notePending = { trackId, moduleId, lessonId, text };
+  noteTimer = setTimeout(() => {
+    noteTimer = null;
+    flushNote();
+    if (typeof onSaved === 'function') onSaved();
+  }, NOTE_SAVE_DELAY);
+}
+
+function renderFeynman(track, mod, lesson, L) {
+  const saved = noteText(track.id, mod.id, lesson.id);
+  return `
+    <section class="feynman" data-feynman>
+      <h2 class="feynman-title">${esc(L.feynmanTitle)}</h2>
+      <p class="feynman-desc">${esc(L.feynmanDesc)}</p>
+      <textarea class="feynman-input" data-feynman-input rows="6" maxlength="${NOTE_CAP}"
+        aria-label="${esc(L.feynmanAria)}"
+        placeholder="${esc(L.feynmanPlaceholder)}">${esc(saved)}</textarea>
+      <div class="feynman-row">
+        <button type="button" class="btn" data-action="compare" aria-expanded="false">
+          ${esc(L.feynmanCompare)}
+        </button>
+        <span class="feynman-status" data-feynman-status role="status" aria-live="polite"
+          ${saved ? '' : 'hidden'}>${esc(L.feynmanSaved)}</span>
+      </div>
+      <div class="feynman-compare" data-feynman-compare hidden>
+        <h3 class="feynman-sub">${esc(L.levels.eli5)}</h3>
+        <div class="prose" data-feynman-eli5>${levelHtml(lesson, 'eli5')}</div>
+        <p class="feynman-gap"><strong>${esc(L.feynmanGap)}</strong> ${esc(L.feynmanGapHint)}</p>
+      </div>
+    </section>`;
+}
+
+function bindFeynman(trackId, moduleId, lessonId) {
+  const box = $('[data-feynman]');
+  if (!box) return;
+  const L = t();
+  const input = $('[data-feynman-input]', box);
+  const status = $('[data-feynman-status]', box);
+  const compare = $('[data-feynman-compare]', box);
+  const toggle = box.querySelector('[data-action="compare"]');
+
+  if (input) {
+    input.addEventListener('input', () => {
+      if (status) {
+        status.hidden = false;
+        status.textContent = L.feynmanSaving;
+      }
+      queueNote(trackId, moduleId, lessonId, input.value, () => {
+        if (!status) return;
+        status.hidden = !input.value.trim();
+        status.textContent = L.feynmanSaved;
+      });
+    });
+    input.addEventListener('blur', () => {
+      flushNote();
+      if (status) {
+        status.hidden = !input.value.trim();
+        status.textContent = L.feynmanSaved;
+      }
+    });
+  }
+
+  if (toggle && compare) {
+    toggle.addEventListener('click', () => {
+      const show = compare.hidden;
+      compare.hidden = !show;
+      toggle.setAttribute('aria-expanded', String(show));
+      toggle.textContent = show ? L.feynmanHide : L.feynmanCompare;
+      if (show) compare.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+}
+
+// --- ask Claude ---------------------------------------------------------
+
+function askClaudeHref(track, mod, lesson, L) {
+  const prompt = L.askClaudePrompt(tr(lesson.title), tr(track.title), tr(mod.title));
+  return `https://claude.ai/new?q=${enc(prompt)}`;
+}
+
+function renderAskClaude(track, mod, lesson, L) {
+  return `
+    <p class="ask-claude">
+      <a class="btn btn-block ask-claude-link" href="${askClaudeHref(track, mod, lesson, L)}"
+        target="_blank" rel="noopener">${esc(L.askClaude)}</a>
+    </p>`;
+}
+
 function renderQuiz(track, mod, lesson) {
   const L = t();
   const quiz = Array.isArray(lesson.quiz) ? lesson.quiz : [];
@@ -1790,6 +2208,8 @@ function bindLesson(trackId, moduleId, lessonId) {
 
   bindInteractive(lesson);
   bindTts(lesson);
+  bindPreguess(lesson);
+  bindFeynman(track.id, mod.id, lesson.id);
 
   const quizEl = $('[data-quiz]');
   if (!quizEl) return;
@@ -1907,6 +2327,12 @@ function bindLesson(trackId, moduleId, lessonId) {
   }
 
   function updateLessonHeaderState() {
+    // v6: the pre-question only belongs on an uncompleted lesson. Completing it
+    // mid-page (quiz pass or "mark as done") retires the card straight away.
+    if (isDone(track.id, mod.id, lesson.id)) {
+      const guess = $('[data-preguess]');
+      if (guess) guess.remove();
+    }
     const tagline = $('.lesson-tagline');
     if (!tagline) return;
     const existing = tagline.querySelector('.lesson-score');
@@ -1925,6 +2351,8 @@ function bindLesson(trackId, moduleId, lessonId) {
 
 const SESSION_SIZE = 10;
 const REVIEW_DOSE = 10; // cards per daily dose and per endless round
+const QUICK_DOSE = 5; // v6 micro-session ("I have 5 minutes")
+const QUICK_DUE_MIN = 3; // below this many due cards #/quick sends you to a lesson
 const INTERVIEW_AGAIN_PICK = 4;
 
 // The items the currently rendered session view wrote into #main. bind* reads
@@ -1961,7 +2389,9 @@ function completedLessonCount() {
   return reviewableModules().reduce((n, entry) => n + entry.done, 0);
 }
 
-// Flat pool of quiz questions from COMPLETED lessons inside the scope.
+// Flat pool of cards from COMPLETED lessons inside the scope: quiz questions
+// plus (v6) the lesson's flashcard terms. Lessons without a `terms` array -
+// content is filled in module by module - simply contribute no term cards.
 function reviewPool(scope) {
   const pool = [];
   for (const track of availableTracks()) {
@@ -1981,10 +2411,27 @@ function reviewPool(scope) {
             lesson,
           });
         });
+        if (!Array.isArray(lesson.terms)) continue;
+        lesson.terms.forEach((entry, ti) => {
+          if (!entry || typeof entry !== 'object' || !entry.term || !entry.def) return;
+          pool.push({
+            id: `${track.id}/${mod.id}/${lesson.id}/term/${ti}`,
+            kind: 'term',
+            term: entry,
+            track,
+            module: mod,
+            lesson,
+          });
+        });
       }
     }
   }
   return pool;
+}
+
+// What the recap and the flags call a card, whichever kind it is.
+function cardLabel(item) {
+  return item.kind === 'term' ? tr(item.term.term) : tr(item.question.q);
 }
 
 // Splits the scope's cards into the three buckets the scheduler cares about:
@@ -2020,14 +2467,14 @@ function reviewBuckets(scope) {
 
 // Daily dose: due first (oldest first), topped up with new cards. Endless
 // rounds fall through to the weakest scheduled cards once those run out.
-function buildReviewRound(scope, mode) {
+function buildReviewRound(scope, mode, size = REVIEW_DOSE) {
   const { pool, due, fresh, later } = reviewBuckets(scope);
   const ordered =
     mode === 'endless'
       ? due.concat(shuffle(fresh), later)
       : due.concat(shuffle(fresh));
   return {
-    items: ordered.slice(0, REVIEW_DOSE),
+    items: ordered.slice(0, size),
     poolSize: pool.length,
     dueCount: due.length,
     newCount: fresh.length,
@@ -2048,6 +2495,37 @@ function reviewDoseStatus() {
     doneToday,
     finished: pool.length > 0 && (waiting === 0 || doneToday >= REVIEW_DOSE),
   };
+}
+
+/* --- v6 micro-session ------------------------------------------------- */
+
+// Shortest unfinished lesson across every available track. Ties keep
+// curriculum order, because the first match wins.
+function shortestUnfinishedLesson() {
+  let best = null;
+  let bestMinutes = Infinity;
+  for (const track of availableTracks()) {
+    for (const x of trackLessons(track.id)) {
+      if (isDone(track.id, x.module.id, x.lesson.id)) continue;
+      const raw = Number(x.lesson.minutes);
+      const minutes = Number.isFinite(raw) && raw > 0 ? raw : 999;
+      if (minutes < bestMinutes) {
+        best = x;
+        bestMinutes = minutes;
+      }
+    }
+  }
+  return best;
+}
+
+// "I have 5 minutes": with at least three due cards it is a five-card round,
+// otherwise the router jumps straight into the shortest unfinished lesson.
+// Returns a href to redirect to, or null to run the round.
+function quickRedirectHref() {
+  const { due } = reviewBuckets({ kind: 'all' });
+  if (due.length >= QUICK_DUE_MIN) return null;
+  const target = shortestUnfinishedLesson();
+  return target ? lessonHref(target.track.id, target.module.id, target.lesson.id) : null;
 }
 
 function capCount(n) {
@@ -2168,9 +2646,18 @@ function viewReviewOptions() {
 // session object is simply overwritten.
 let reviewSession = null;
 
+// Heading of the running round: endless counts rounds, quick is the v6
+// micro-session, everything else is the daily dose.
+function roundTitle(mode, round, L) {
+  if (mode === 'endless') return L.reviewRound(round);
+  if (mode === 'quick') return L.quickRound;
+  return L.reviewDoseTitle;
+}
+
 function viewReviewSession(scope, mode) {
   const L = t();
-  const round = buildReviewRound(scope, mode);
+  const size = mode === 'quick' ? QUICK_DOSE : REVIEW_DOSE;
+  const round = buildReviewRound(scope, mode, size);
   reviewSession = null;
 
   if (!round.poolSize) {
@@ -2192,6 +2679,7 @@ function viewReviewSession(scope, mode) {
   reviewSession = {
     scope,
     mode,
+    size,
     round: 1,
     queue: round.items.slice(),
     index: 0,
@@ -2218,9 +2706,7 @@ function viewReviewSession(scope, mode) {
 
       <section class="quiz" data-session="review">
         <div class="quiz-head">
-          <h2 data-review-head>${esc(
-            mode === 'endless' ? L.reviewRound(1) : L.reviewDoseTitle
-          )}</h2>
+          <h2 data-review-head>${esc(roundTitle(mode, 1, L))}</h2>
           <span class="quiz-count" data-session-count>${esc(
             L.reviewCardOf(1, round.items.length)
           )}</span>
@@ -2231,7 +2717,7 @@ function viewReviewSession(scope, mode) {
           isRepeat: false,
         }, L)}</div>
         <div data-session-result></div>
-        <div class="quiz-actions" data-review-actions></div>
+        <div class="quiz-actions" data-review-actions>${reviewActionsHtml(round.items[0], L)}</div>
       </section>
     </section>`;
 }
@@ -2253,29 +2739,70 @@ function reviewNoticeView(title, body, extraCta) {
     </section>`;
 }
 
-// One card, drawn with the same markup a lesson quiz question uses.
+// One card, drawn with the same markup a lesson quiz question uses. Term cards
+// (v6) share the shell but show only the front until the learner reveals it.
 function reviewCardHtml(item, opts, L) {
   const src = `${tr(item.module.title)} · ${tr(item.lesson.title)}`;
   const flags = [];
-  if (opts.isRepeat) flags.push(L.reviewAgainCard);
-  else if (opts.isNew) flags.push(L.reviewNewCard);
+  if (item.kind === 'term') flags.push({ text: L.termCard, kind: true });
+  if (opts.isRepeat) flags.push({ text: L.reviewAgainCard });
+  else if (opts.isNew) flags.push({ text: L.reviewNewCard });
 
-  return `
-    <div class="q" data-question="${opts.index}">
+  const head = `
       <a class="q-src" href="${lessonHref(item.track.id, item.module.id, item.lesson.id)}">${esc(src)}</a>
       ${
         flags.length
           ? `<span class="q-tags">${flags
-              .map((flag) => `<span class="pill">${esc(flag)}</span>`)
+              .map(
+                (flag) =>
+                  `<span class="pill${flag.kind ? ' pill-kind' : ''}">${esc(flag.text)}</span>`
+              )
               .join('')}</span>`
           : ''
-      }
+      }`;
+
+  if (item.kind === 'term') {
+    return `
+    <div class="q q-term" data-question="${opts.index}">
+      ${head}
+      <p class="term-front"><span class="q-num" aria-hidden="true">${opts.index + 1}</span>${esc(
+        tr(item.term.term)
+      )}</p>
+      <p class="term-prompt">${esc(L.termPrompt)}</p>
+      <div class="term-back" data-term-back hidden></div>
+      <div class="explain-slot"></div>
+    </div>`;
+  }
+
+  return `
+    <div class="q" data-question="${opts.index}">
+      ${head}
       <p class="q-text"><span class="q-num" aria-hidden="true">${opts.index + 1}</span>${esc(
         tr(item.question.q)
       )}</p>
       <div class="options" role="group">${choiceOptions(item.question, opts.index)}</div>
       <div class="explain-slot"></div>
     </div>`;
+}
+
+// Buttons that belong under a freshly drawn card: a term card starts with
+// "show answer", a quiz card is answered by tapping an option.
+function reviewActionsHtml(item, L) {
+  if (!item || item.kind !== 'term') return '';
+  return `<button type="button" class="btn btn-primary btn-block" data-action="term-reveal">${esc(
+    L.termReveal
+  )}</button>`;
+}
+
+// The two self-grade buttons of a revealed term card (Anki classic).
+function termGradeHtml(L) {
+  return `
+    <button type="button" class="btn btn-primary btn-block" data-action="term-grade" data-ok="1">✓ ${esc(
+      L.termKnew
+    )}</button>
+    <button type="button" class="btn btn-block btn-term-miss" data-action="term-grade" data-ok="0">✕ ${esc(
+      L.termMissed
+    )}</button>`;
 }
 
 function choiceOptions(question, qi) {
@@ -2528,6 +3055,8 @@ function bindReviewSession() {
     if (!action) return;
     if (action.dataset.action === 'review-next') advance();
     if (action.dataset.action === 'review-more') nextRound();
+    if (action.dataset.action === 'term-reveal') revealTerm();
+    if (action.dataset.action === 'term-grade') commit(action.dataset.ok === '1', '');
   });
 
   function current() {
@@ -2536,7 +3065,7 @@ function bindReviewSession() {
 
   function syncHead() {
     const head = $('[data-review-head]', root);
-    if (head) head.textContent = s.mode === 'endless' ? L.reviewRound(s.round) : L.reviewDoseTitle;
+    if (head) head.textContent = roundTitle(s.mode, s.round, L);
     const count = $('[data-session-count]', root);
     if (count) {
       count.textContent = L.reviewCardOf(
@@ -2555,14 +3084,25 @@ function bindReviewSession() {
       { index: s.index, isNew: !srsCard(item.id), isRepeat: s.repeated.has(item.id) },
       L
     );
-    if (actionSlot) actionSlot.innerHTML = '';
+    if (actionSlot) actionSlot.innerHTML = reviewActionsHtml(item, L);
     syncHead();
+  }
+
+  // Term card: flip to the definition, then offer the self-grade buttons.
+  function revealTerm() {
+    const item = current();
+    if (!item || item.kind !== 'term' || s.answeredCurrent) return;
+    const wrapper = root.querySelector(`[data-question="${s.index}"]`);
+    const back = wrapper ? $('[data-term-back]', wrapper) : null;
+    if (!back || !back.hidden) return;
+    back.innerHTML = tr(item.term.def);
+    back.hidden = false;
+    if (actionSlot) actionSlot.innerHTML = termGradeHtml(L);
   }
 
   function answer(oi) {
     const item = current();
-    if (!item || s.answeredCurrent || !Number.isInteger(oi)) return;
-    s.answeredCurrent = true;
+    if (!item || item.kind === 'term' || s.answeredCurrent || !Number.isInteger(oi)) return;
 
     const correct = Number(item.question.correct);
     const isRight = oi === correct;
@@ -2577,6 +3117,21 @@ function bindReviewSession() {
       });
     }
 
+    commit(isRight, tr(item.question.explain));
+  }
+
+  // Grades whatever card is on screen - a quiz answer or a term self-grade -
+  // and puts the round back in "next card" state.
+  function commit(isRight, explainHtml) {
+    const item = current();
+    if (!item || s.answeredCurrent) return;
+    // A term card is only gradeable once its definition is on screen.
+    if (item.kind === 'term') {
+      const back = root.querySelector(`[data-question="${s.index}"] [data-term-back]`);
+      if (!back || back.hidden) return;
+    }
+    s.answeredCurrent = true;
+
     const card = srsGrade(item.id, isRight);
 
     // The recap scores the FIRST attempt at each card; the re-queued copies
@@ -2590,13 +3145,20 @@ function bindReviewSession() {
       s.repeated.add(item.id);
     }
 
-    const note = isRight ? L.reviewBackIn(daysBetween(todayKey(), card.due)) : L.reviewRequeued;
+    const isTerm = item.kind === 'term';
+    const verdict = isTerm ? (isRight ? L.termKnew : L.termMissed) : isRight ? L.correct : L.wrong;
+    const note = isRight
+      ? L.reviewBackIn(daysBetween(todayKey(), card.due))
+      : isTerm
+      ? L.termRequeued
+      : L.reviewRequeued;
+    const wrapper = root.querySelector(`[data-question="${s.index}"]`);
     const slot = wrapper ? $('.explain-slot', wrapper) : null;
     if (slot) {
       slot.innerHTML = `
         <div class="explain ${isRight ? 'is-correct' : 'is-wrong'}">
-          <strong>${esc(isRight ? L.correct : L.wrong)}</strong>
-          ${tr(item.question.explain)}
+          <strong>${esc(verdict)}</strong>
+          ${explainHtml}
           <span class="srs-note">${esc(note)}</span>
         </div>`;
     }
@@ -2621,7 +3183,7 @@ function bindReviewSession() {
   }
 
   function nextRound() {
-    const next = buildReviewRound(s.scope, 'endless');
+    const next = buildReviewRound(s.scope, 'endless', s.size);
     if (!next.items.length) return;
     s.round += 1;
     s.queue = next.items.slice();
@@ -2662,7 +3224,7 @@ function bindReviewSession() {
                      row.item.track.id,
                      row.item.module.id,
                      row.item.lesson.id
-                   )}">${tr(row.item.question.q)}</a></span>
+                   )}">${esc(cardLabel(row.item))}</a></span>
                    <span class="recap-verdict">${esc(row.ok ? L.recapOk : L.recapBad)}</span>
                  </li>`
              )
@@ -2672,9 +3234,9 @@ function bindReviewSession() {
       resultSlot.innerHTML = `
         <div class="quiz-result ${pass ? 'is-pass' : 'is-fail'}">
           <div class="quiz-score">${pct}%</div>
-          <p class="quiz-verdict">${esc(
-            s.mode === 'endless' ? L.reviewRound(s.round) : L.reviewDoseTitle
-          )} · ${esc(L.yourScore)}: ${right}/${cards}</p>
+          <p class="quiz-verdict">${esc(roundTitle(s.mode, s.round, L))} · ${esc(
+            L.yourScore
+          )}: ${right}/${cards}</p>
         </div>
         ${recap}`;
       resultSlot.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2955,6 +3517,7 @@ function streakCard(L) {
       <div class="streak-main">
         <p class="streak-title">${esc(L.streakTitle)}</p>
         <p class="streak-value">${esc(streak ? L.streakValue(streak) : L.streakNone)}</p>
+        <a class="streak-stats" href="#/stats">${esc(L.statsLink)} ›</a>
       </div>
       <div class="streak-goal">
         <span class="streak-goal-text">${esc(reached ? L.goalDone : L.goalToday(todayCount, DAILY_GOAL))}</span>
@@ -2962,6 +3525,271 @@ function streakCard(L) {
         <span class="streak-hint">${esc(L.goalHint)}</span>
       </div>
     </div>`;
+}
+
+/* --- v6: weak areas + activity heatmap -------------------------------- */
+
+// A module needs this many scheduled (already reviewed at least once) cards
+// before its weakness score means anything.
+const WEAK_MIN_CARDS = 3;
+const WEAK_TOP = 3;
+// Weakness = mostly "how low are the boxes", plus a lapse penalty.
+const WEAK_BOX_WEIGHT = 0.65;
+const WEAK_LAPSE_WEIGHT = 0.35;
+
+const HEAT_WEEKS = 16;
+const HEAT_DAYS = HEAT_WEEKS * 7;
+// Counts per day -> intensity bucket 1..4 (0 is "nothing happened").
+const HEAT_STEPS = [1, 2, 3, 5];
+
+// Weakness per module, from the srs cards that belong to it. A card is
+// "scheduled" simply by being in `srs` - new cards say nothing about strength.
+// Boxes are averaged with a weight of (1 + lapses), so a card you keep failing
+// drags its module down harder than a card that just sits in box 1.
+function moduleWeakness() {
+  const rows = new Map();
+
+  for (const [id, card] of Object.entries(state.srs)) {
+    if (!card || typeof card !== 'object') continue;
+    const parts = id.split('/');
+    const found = getModule(parts[0], parts[1]);
+    if (!found || !isAvailable(found.track)) continue;
+
+    const key = `${parts[0]}/${parts[1]}`;
+    let row = rows.get(key);
+    if (!row) {
+      row = {
+        track: found.track,
+        module: found.module,
+        cards: 0,
+        lapses: 0,
+        reps: 0,
+        boxSum: 0,
+        weightSum: 0,
+      };
+      rows.set(key, row);
+    }
+
+    const box = clamp(Number(card.box) || 0, 0, SRS_BOX_MAX);
+    const lapses = Math.max(0, Number(card.lapses) || 0);
+    const weight = 1 + lapses;
+    row.cards += 1;
+    row.lapses += lapses;
+    row.reps += Math.max(0, Number(card.reps) || 0);
+    row.boxSum += box * weight;
+    row.weightSum += weight;
+  }
+
+  const out = [];
+  for (const row of rows.values()) {
+    if (row.cards < WEAK_MIN_CARDS) continue;
+    const avgBox = row.weightSum ? row.boxSum / row.weightSum : 0;
+    const boxWeak = 1 - avgBox / SRS_BOX_MAX;
+    const attempts = row.reps + row.lapses;
+    const lapseRatio = attempts ? row.lapses / attempts : 0;
+    const score = clamp(
+      Math.round((boxWeak * WEAK_BOX_WEIGHT + lapseRatio * WEAK_LAPSE_WEIGHT) * 100),
+      0,
+      100
+    );
+    out.push({ ...row, avgBox, score });
+  }
+
+  // Weakest first; ties broken by card count so a bigger sample wins.
+  out.sort((a, b) => b.score - a.score || b.cards - a.cards);
+  return out;
+}
+
+function weakestModule() {
+  const rows = moduleWeakness();
+  return rows.length ? rows[0] : null;
+}
+
+function weakScopeHref(row) {
+  return reviewHref({ kind: 'module', trackId: row.track.id, moduleId: row.module.id }, 'endless');
+}
+
+// Home chip under the streak card. Absent until a module qualifies.
+function weakChip(L) {
+  const row = weakestModule();
+  if (!row) return '';
+  return `
+    <a class="weak-chip" href="${weakScopeHref(row)}">
+      <span class="weak-chip-icon" aria-hidden="true">🎯</span>
+      <span class="weak-chip-text">${esc(L.weakChipLabel(tr(row.module.title)))}</span>
+      <span class="weak-chip-cta">${esc(L.weakChipCta)} ›</span>
+    </a>`;
+}
+
+function weakRowsHtml(rows, L) {
+  return rows
+    .map(
+      (row) => `
+      <li class="weak-row">
+        <div class="weak-head">
+          <span class="weak-icon" aria-hidden="true">${esc(row.module.icon || '📘')}</span>
+          <span class="weak-main">
+            <span class="weak-name">${esc(tr(row.module.title))}</span>
+            <span class="weak-meta">${esc(tr(row.track.title))} · ${esc(
+              L.statsWeakMeta(row.cards, row.lapses)
+            )}</span>
+          </span>
+          <span class="weak-score">${esc(L.statsWeakScore(row.score))}</span>
+        </div>
+        <span class="bar weak-bar"><i data-pct="${row.score}"></i></span>
+        <a class="btn btn-block weak-cta" href="${weakScopeHref(row)}">🔁 ${esc(
+          L.statsReviewModule
+        )}</a>
+      </li>`
+    )
+    .join('');
+}
+
+/* --- heatmap ---------------------------------------------------------- */
+
+function heatBucket(count) {
+  if (count <= 0) return 0;
+  let level = 1;
+  for (let i = 1; i < HEAT_STEPS.length; i += 1) {
+    if (count >= HEAT_STEPS[i]) level = i + 1;
+  }
+  return level;
+}
+
+// Monday-first weekday index for a Date.
+function weekdayIndex(date) {
+  return (date.getDay() + 6) % 7;
+}
+
+// 16 columns x 7 rows ending on the column that holds today. Cells are emitted
+// column by column, which is exactly the order a `grid-auto-flow: column` grid
+// wants. Days after today (tail of the last column) are rendered as blanks.
+function heatCells() {
+  const now = new Date();
+  const today = todayKey(now);
+  const back = (HEAT_WEEKS - 1) * 7 + weekdayIndex(now);
+  const start = new Date(now.getTime());
+  start.setDate(start.getDate() - back);
+
+  const cells = [];
+  for (let i = 0; i < HEAT_DAYS; i += 1) {
+    const d = new Date(start.getTime());
+    d.setDate(d.getDate() + i);
+    const key = todayKey(d);
+    const future = key > today;
+    cells.push({
+      key,
+      date: d,
+      count: future ? 0 : activityOn(key),
+      future,
+      isToday: key === today,
+    });
+  }
+  return cells;
+}
+
+// One label per column, printed only when the month changes (GitHub style).
+function heatMonthLabels(cells, L) {
+  const months = L.statsMonths || [];
+  let last = -1;
+  const out = [];
+  for (let col = 0; col < HEAT_WEEKS; col += 1) {
+    const first = cells[col * 7];
+    const m = first.date.getMonth();
+    const show = m !== last;
+    last = m;
+    out.push(show ? months[m] || '' : '');
+  }
+  return out;
+}
+
+function heatmapHtml(L) {
+  const cells = heatCells();
+  const points = cells.reduce((n, c) => n + c.count, 0);
+  const activeDays = cells.filter((c) => c.count > 0).length;
+
+  const grid = cells
+    .map((cell) => {
+      if (cell.future) return '<span class="heat-cell is-blank" aria-hidden="true"></span>';
+      const level = heatBucket(cell.count);
+      const label = L.statsCellAria(cell.key, cell.count);
+      return `<span class="heat-cell${cell.isToday ? ' is-today' : ''}" data-level="${level}"
+        title="${esc(label)}${cell.isToday ? ` (${esc(L.statsHeatToday)})` : ''}"><span
+        class="sr-only">${esc(label)}</span></span>`;
+    })
+    .join('');
+
+  const months = heatMonthLabels(cells, L)
+    .map((label) => `<span class="heat-month">${esc(label)}</span>`)
+    .join('');
+
+  // Only every other weekday gets a label, otherwise the gutter is unreadable
+  // on a phone.
+  const days = (L.statsWeekdays || [])
+    .map(
+      (label, i) =>
+        `<span class="heat-day">${i % 2 === 0 ? esc(label) : ''}</span>`
+    )
+    .join('');
+
+  const legend = [0, 1, 2, 3, 4]
+    .map((level) => `<span class="heat-cell" data-level="${level}"></span>`)
+    .join('');
+
+  return `
+    <div class="heat">
+      <div class="heat-scroll">
+        <div class="heat-inner">
+          <div class="heat-months-row">
+            <span class="heat-gutter" aria-hidden="true"></span>
+            <div class="heat-months">${months}</div>
+          </div>
+          <div class="heat-body">
+            <div class="heat-days" aria-hidden="true">${days}</div>
+            <div class="heat-grid" role="img"
+              aria-label="${esc(L.statsHeatSummary(points, activeDays))}">${grid}</div>
+          </div>
+        </div>
+      </div>
+      <div class="heat-foot">
+        <span class="heat-summary">${esc(L.statsHeatSummary(points, activeDays))}</span>
+        <span class="heat-legend">
+          <span class="heat-legend-label">${esc(L.statsHeatLess)}</span>
+          ${legend}
+          <span class="heat-legend-label">${esc(L.statsHeatMore)}</span>
+        </span>
+      </div>
+    </div>`;
+}
+
+function viewStats() {
+  const L = t();
+  const rows = moduleWeakness().slice(0, WEAK_TOP);
+
+  return `
+    <section class="view">
+      <a class="back-link" href="#/">← ${esc(L.backHome)}</a>
+      <div class="hero">
+        <span class="hero-eyebrow">📊 ${esc(L.statsTitle)}</span>
+        <h1>${esc(L.statsTitle)}</h1>
+        <p class="hero-sub">${esc(L.statsDesc)}</p>
+      </div>
+
+      <h2 class="section-title">${esc(L.statsWeakTitle)}</h2>
+      ${
+        rows.length
+          ? `<ul class="weak-list">${weakRowsHtml(rows, L)}</ul>
+             <p class="stats-hint">${esc(L.statsWeakHint)}</p>`
+          : `<div class="notice notice-soft">
+               <p>${esc(L.statsWeakEmpty)}</p>
+               <a class="btn btn-primary" href="${reviewHref(null)}">🔁 ${esc(L.reviewTitle)}</a>
+             </div>`
+      }
+
+      <h2 class="section-title">${esc(L.statsHeatTitle)}</h2>
+      ${heatmapHtml(L)}
+      <p class="stats-hint">${esc(L.statsHeatHint)}</p>
+    </section>`;
 }
 
 /* --- search ----------------------------------------------------------- */
@@ -3555,6 +4383,13 @@ function boot() {
   });
 
   window.addEventListener('hashchange', render);
+
+  // A phone can freeze or kill the tab between two keystrokes, so the pending
+  // Feynman note is written out the moment the page stops being visible.
+  window.addEventListener('pagehide', flushNote);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') flushNote();
+  });
 
   // Voices load asynchronously in Chrome; warm the list and stop any speech
   // when the page goes away (speechSynthesis outlives a normal unload).

@@ -22,6 +22,43 @@ export default {
         en: 'Thinking in React'
       },
       minutes: 8,
+      terms: [
+        {
+          term: { pl: 'Lifting state up', en: 'Lifting state up' },
+          def: {
+            pl: 'Przeniesienie stanu do najblizszego wspolnego rodzica komponentow, ktore go czytaja. Daje jedno zrodlo prawdy zamiast dwoch kopii synchronizowanych efektem.',
+            en: 'Moving state up to the closest common parent of the components that read it. Gives one source of truth instead of two copies synced by an effect.'
+          }
+        },
+        {
+          term: { pl: 'Wartosc pochodna', en: 'Derived value' },
+          def: {
+            pl: 'Wszystko, co da sie policzyc podczas renderu z innych danych - jak <code>computed</code> w Vue. Przefiltrowana lista <strong>nie</strong> jest stanem.',
+            en: 'Anything computable during render from other data - the <code>computed</code> of Vue. A filtered list is <strong>not</strong> state.'
+          }
+        },
+        {
+          term: { pl: 'Jedno zrodlo prawdy', en: 'Single source of truth' },
+          def: {
+            pl: 'Zasada: jedna wartosc ma jednego wlasciciela i jedna funkcje aktualizujaca. Kopia propsa w <code>useState</code> lamie ten kontrakt i sie rozjezdza.',
+            en: 'The rule: one value has one owner and one updater. Copying a prop into <code>useState</code> breaks the contract and drifts out of sync.'
+          }
+        },
+        {
+          term: { pl: 'Controlled component', en: 'Controlled component' },
+          def: {
+            pl: 'Komponent, ktory dostaje <code>value</code> w dol i <code>onChange</code> w gore zamiast trzymac wlasny stan. Reactowy odpowiednik rozlozonego na czesci <code>v-model</code>.',
+            en: 'A component that receives <code>value</code> down and <code>onChange</code> up instead of holding its own state. The React equivalent of <code>v-model</code> taken apart.'
+          }
+        },
+        {
+          term: { pl: 'Kolokacja stanu', en: 'State colocation' },
+          def: {
+            pl: 'Trzymanie stanu tak nisko w drzewie, jak sie da. Stan w korzeniu renderuje cale poddrzewo na kazde nacisniecie klawisza.',
+            en: 'Keeping state as low in the tree as possible. Root-level state re-renders the whole subtree on every keystroke.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker>' +
@@ -203,6 +240,43 @@ export default {
         en: 'JSX versus Vue templates'
       },
       minutes: 8,
+      terms: [
+        {
+          term: { pl: 'JSX', en: 'JSX' },
+          def: {
+            pl: 'Cukier skladniowy nad wywolaniem funkcji: <code>&lt;Card /&gt;</code> kompiluje sie do <code>jsx(Card, props)</code>. Element JSX to zwykla wartosc JavaScriptu.',
+            en: 'Syntax sugar over a function call: <code>&lt;Card /&gt;</code> compiles to <code>jsx(Card, props)</code>. A JSX element is an ordinary JavaScript value.'
+          }
+        },
+        {
+          term: { pl: 'Fragment', en: 'Fragment' },
+          def: {
+            pl: 'Zapis <code>&lt;&gt;...&lt;/&gt;</code> pozwalajacy zwrocic kilka wezlow bez dodatkowego <code>div</code> w DOM.',
+            en: 'The <code>&lt;&gt;...&lt;/&gt;</code> form that lets a component return several nodes without an extra <code>div</code> in the DOM.'
+          }
+        },
+        {
+          term: { pl: 'Patch flags', en: 'Patch flags' },
+          def: {
+            pl: 'Znaczniki, ktorymi kompilator Vue oznacza dynamiczne fragmenty szablonu, zeby runtime porownywal tylko je. JSX nie da sie tak analizowac statycznie.',
+            en: 'Markers the Vue compiler puts on the dynamic parts of a template so the runtime only diffs those. JSX cannot be analysed statically that way.'
+          }
+        },
+        {
+          term: { pl: 'Falsy zero w JSX', en: 'Falsy zero in JSX' },
+          def: {
+            pl: 'Zapis <code>{count &amp;&amp; &lt;Badge /&gt;}</code> przy <code>count === 0</code> renderuje na ekranie samotne <code>0</code>. Pisz <code>count &gt; 0 &amp;&amp; ...</code>.',
+            en: 'Writing <code>{count &amp;&amp; &lt;Badge /&gt;}</code> renders a bare <code>0</code> when <code>count === 0</code>. Use <code>count &gt; 0 &amp;&amp; ...</code>.'
+          }
+        },
+        {
+          term: { pl: 'dangerouslySetInnerHTML', en: 'dangerouslySetInnerHTML' },
+          def: {
+            pl: 'Odpowiednik <code>v-html</code> - wstawia surowy HTML i wymaga tej samej sanityzacji.',
+            en: 'The <code>v-html</code> equivalent - it injects raw HTML and needs the same sanitisation.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker>' +
@@ -384,6 +458,43 @@ export default {
         en: 'Components and props'
       },
       minutes: 8,
+      terms: [
+        {
+          term: { pl: 'Props', en: 'Props' },
+          def: {
+            pl: 'Argument funkcji komponentu, tylko do odczytu. Mutacja obiektu propsow lamie zalozenia reconcilera i porownania w <code>React.memo</code>.',
+            en: 'The read-only argument of a component function. Mutating the props object breaks reconciler assumptions and <code>React.memo</code> comparisons.'
+          }
+        },
+        {
+          term: { pl: 'children', en: 'children' },
+          def: {
+            pl: 'Prop, do ktorego trafia JSX zapisany miedzy tagami komponentu. Odpowiednik slotu domyslnego z Vue.',
+            en: 'The prop that receives the JSX written between a component tags. The equivalent of the Vue default slot.'
+          }
+        },
+        {
+          term: { pl: 'Render prop', en: 'Render prop' },
+          def: {
+            pl: 'Prop bedacy funkcja zwracajaca JSX, np. <code>renderItem={(item) =&gt; ...}</code>. Reactowy odpowiednik scoped slota, w pelni typowany.',
+            en: 'A prop that is a function returning JSX, e.g. <code>renderItem={(item) =&gt; ...}</code>. The React equivalent of a scoped slot, fully typed.'
+          }
+        },
+        {
+          term: { pl: 'Callback prop', en: 'Callback prop' },
+          def: {
+            pl: 'Funkcja przekazana w propsie z prefiksem <code>on</code> (<code>onChange</code>, <code>onSelect</code>). Zastepuje <code>emit</code>, bo React nie ma systemu zdarzen komponentowych.',
+            en: 'A function passed as an <code>on</code>-prefixed prop (<code>onChange</code>, <code>onSelect</code>). It replaces <code>emit</code>, because React has no component event system.'
+          }
+        },
+        {
+          term: { pl: 'ComponentPropsWithoutRef', en: 'ComponentPropsWithoutRef' },
+          def: {
+            pl: 'Typ pomocniczy do rozszerzania natywnych atrybutow elementu, np. <code>ComponentPropsWithoutRef&lt;"button"&gt;</code>. Jawny odpowiednik <code>attrs</code> i <code>inheritAttrs</code>.',
+            en: 'A helper type for extending native element attributes, e.g. <code>ComponentPropsWithoutRef&lt;"button"&gt;</code>. The explicit counterpart of <code>attrs</code> and <code>inheritAttrs</code>.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker>' +
@@ -561,6 +672,43 @@ export default {
         en: 'Rendering and re-renders'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'Faza render', en: 'Render phase' },
+          def: {
+            pl: 'Wywolanie funkcji komponentu, ktore buduje elementy. Musi byc czysta, bo React moze ja przerwac i powtorzyc.',
+            en: 'The component function call that builds elements. It must be pure, because React may interrupt and replay it.'
+          }
+        },
+        {
+          term: { pl: 'Faza commit', en: 'Commit phase' },
+          def: {
+            pl: 'Moment, w ktorym React nanosi obliczone zmiany na DOM i odpala efekty. Dlugi profil renderu, a nie commitu, wskazuje na zbyt wysoko trzymany stan.',
+            en: 'The point where React applies the computed changes to the DOM and runs effects. A long render profile rather than commit points to state held too high.'
+          }
+        },
+        {
+          term: { pl: 'StrictMode', en: 'StrictMode' },
+          def: {
+            pl: 'Tryb deweloperski, ktory montuje i renderuje komponent dwa razy, zeby ujawnic efekty uboczne i brakujace cleanupy.',
+            en: 'A development mode that mounts and renders a component twice to expose side effects and missing cleanups.'
+          }
+        },
+        {
+          term: { pl: 'Children jako props', en: 'Children as props' },
+          def: {
+            pl: 'Trik wydajnosciowy: ciezkie poddrzewo tworzy komponent nadrzedny i przekazuje jako <code>children</code>, wiec zmiana stanu wrappera go nie renderuje. Dziala bez <code>memo</code>.',
+            en: 'A performance trick: the heavy subtree is created by the outer component and passed as <code>children</code>, so wrapper state changes do not re-render it. Works without <code>memo</code>.'
+          }
+        },
+        {
+          term: { pl: 'useTransition', en: 'useTransition' },
+          def: {
+            pl: 'Hook oznaczajacy aktualizacje jako niepilna, zeby wpisywanie zostalo plynne mimo ciezkiego renderu. Blizniaczy <code>useDeferredValue</code> robi to dla samej wartosci.',
+            en: 'A hook that marks an update as non-urgent so typing stays smooth despite a heavy render. Its twin <code>useDeferredValue</code> does the same for a single value.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -868,6 +1016,43 @@ export default {
         en: 'Reconciliation and keys'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'Reconciliation', en: 'Reconciliation' },
+          def: {
+            pl: 'Algorytm porownujacy nowe drzewo elementow ze starym. Liniowy i heurystyczny: porownuje rodzenstwo po kolei, korzystajac z mapy kluczy.',
+            en: 'The algorithm diffing the new element tree against the old one. Linear and heuristic: it walks siblings in order using a map of keys.'
+          }
+        },
+        {
+          term: { pl: 'key', en: 'key' },
+          def: {
+            pl: 'Specjalny prop nadajacy elementowi tozsamosc wsrod rodzenstwa. Musi byc stabilny - <code>Math.random()</code> gwarantuje remount przy kazdym renderze.',
+            en: 'A special prop giving an element identity among its siblings. It must be stable - <code>Math.random()</code> guarantees a remount on every render.'
+          }
+        },
+        {
+          term: { pl: 'Remount', en: 'Remount' },
+          def: {
+            pl: 'Odmontowanie starej instancji i zamontowanie nowej. Ginie stan hookow, odpalaja sie cleanupy, znika focus, scroll i zaznaczenie tekstu.',
+            en: 'Unmounting the old instance and mounting a new one. Hook state is lost, cleanups run, and focus, scroll and text selection disappear.'
+          }
+        },
+        {
+          term: { pl: 'key jako reset', en: 'key as a reset' },
+          def: {
+            pl: 'Zmiana klucza celowo wymusza remount, np. <code>&lt;Form key={userId} /&gt;</code> czysci caly formularz. W Vue pisalbys do tego <code>watch</code>.',
+            en: 'Changing the key deliberately forces a remount, e.g. <code>&lt;Form key={userId} /&gt;</code> clears the whole form. In Vue you would write a <code>watch</code> for that.'
+          }
+        },
+        {
+          term: { pl: 'Indeks jako klucz', en: 'Index as key' },
+          def: {
+            pl: 'Bezpieczny wylacznie dla listy tylko do odczytu, ktora nigdy sie nie sortuje ani nie dostaje elementow na poczatek. Inaczej stan wedruje do zlych wierszy.',
+            en: 'Safe only for a read-only list that never reorders and never gets items prepended. Otherwise state migrates into the wrong rows.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
@@ -1178,6 +1363,43 @@ export default {
         en: 'The React 19 landscape'
       },
       minutes: 9,
+      terms: [
+        {
+          term: { pl: 'React Compiler', en: 'React Compiler' },
+          def: {
+            pl: 'Kompilator wstawiajacy memoizacje automatycznie na podstawie analizy kodu, wiec <code>useMemo</code> i <code>useCallback</code> staja sie wyjatkiem. Ufa, ze render jest czysty.',
+            en: 'A compiler that inserts memoisation automatically from static analysis, making <code>useMemo</code> and <code>useCallback</code> the exception. It trusts that render is pure.'
+          }
+        },
+        {
+          term: { pl: 'RSC', en: 'RSC' },
+          def: {
+            pl: 'React Server Components - komponenty renderowane wylacznie na serwerze, nieobecne w bundlu i bez hydracji. Moga robic <code>await db.query()</code> w ciele komponentu.',
+            en: 'React Server Components - components rendered only on the server, absent from the bundle and never hydrated. They can <code>await db.query()</code> in the component body.'
+          }
+        },
+        {
+          term: { pl: 'use client', en: 'use client' },
+          def: {
+            pl: 'Dyrektywa oznaczajaca granice miedzy kodem serwerowym a interaktywnym kodem klienta. W architekturze RSC pelni role, ktora w SPA miala granica bundla.',
+            en: 'The directive marking the boundary between server code and interactive client code. In RSC it plays the role the bundle boundary played in an SPA.'
+          }
+        },
+        {
+          term: { pl: 'useActionState', en: 'useActionState' },
+          def: {
+            pl: 'Hook laczacy akcje formularza ze stanem wyniku i flaga <code>pending</code>. Dziala takze bez serwera, wiec zastepuje wlasne composable do stanu ladowania.',
+            en: 'A hook that ties a form action to its result state and a <code>pending</code> flag. It works without a server too, replacing a hand-rolled loading-state composable.'
+          }
+        },
+        {
+          term: { pl: 'useOptimistic', en: 'useOptimistic' },
+          def: {
+            pl: 'Hook pokazujacy przewidywany wynik akcji zanim serwer odpowie i cofajacy go przy bledzie.',
+            en: 'A hook that shows the predicted result of an action before the server replies, and rolls it back on failure.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="r6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +

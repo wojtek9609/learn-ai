@@ -68,6 +68,36 @@ export default {
         en: 'Proxies, track and trigger'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'track i trigger', en: 'track and trigger' },
+          def: {
+            pl: 'Dwie operacje rdzenia reaktywności: <code>track</code> w getterze zapisuje aktywny efekt jako zależny od pary obiekt-klucz, a <code>trigger</code> w setterze odpala z powrotem wszystkie efekty zebrane dla tej pary.',
+            en: 'The two core reactivity operations: <code>track</code> in the getter records the active effect as depending on an object-key pair, and <code>trigger</code> in the setter replays every effect collected for that pair.'
+          }
+        },
+        {
+          term: { pl: 'targetMap', en: 'targetMap' },
+          def: {
+            pl: 'Globalna <code>WeakMap</code> o kształcie obiekt -&gt; klucz -&gt; dep, w której Vue trzyma zależności. Jest słaba, więc wpisy znikają razem z obiektem oddanym garbage collectorowi.',
+            en: 'The global <code>WeakMap</code> shaped object -&gt; key -&gt; dep where Vue keeps dependencies. It is weak, so entries die together with the object once it is garbage collected.'
+          }
+        },
+        {
+          term: { pl: 'activeEffect', en: 'activeEffect' },
+          def: {
+            pl: 'Globalna zmienna wskazująca efekt, który właśnie się wykonuje. Bez niej getter nie wiedziałby, kogo zapisać jako zależnego; po zakończeniu efektu wraca do <code>null</code>.',
+            en: 'The global variable pointing at the effect currently running. Without it a getter would not know whom to record as a dependent; it goes back to <code>null</code> once the effect finishes.'
+          }
+        },
+        {
+          term: { pl: 'toRaw', en: 'toRaw' },
+          def: {
+            pl: 'Zdejmuje warstwę proxy i zwraca oryginalny obiekt. Potrzebne, bo zagnieżdżone obiekty są opakowywane leniwie przy odczycie, więc <code>state.item === raw</code> jest fałszem.',
+            en: 'Strips the proxy layer and returns the original object. You need it because nested objects are wrapped lazily on read, so <code>state.item === raw</code> is false.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="v4l1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -270,6 +300,43 @@ export default {
         en: 'Effects and the scheduler'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'scheduler efektu', en: 'effect scheduler' },
+          def: {
+            pl: 'Opcjonalna funkcja efektu wołana zamiast <code>run()</code>, gdy zależność się zmieni. Ten jeden punkt rozszerzenia sprawia, że aktualizacje Vue są kolejkowane, a nie natychmiastowe.',
+            en: 'An optional function on an effect that Vue calls instead of <code>run()</code> when a dependency fires. This single extension point is what makes Vue updates queued rather than immediate.'
+          }
+        },
+        {
+          term: { pl: 'flush: pre / post / sync', en: 'flush: pre / post / sync' },
+          def: {
+            pl: 'Moment uruchomienia callbacku <code>watch</code>: <code>pre</code> przed renderem (domyślnie), <code>post</code> po spatchowaniu DOM (pomiary elementów), <code>sync</code> natychmiast, bez batchowania.',
+            en: 'When a <code>watch</code> callback runs: <code>pre</code> before render (the default), <code>post</code> after the DOM patch (element measurements), <code>sync</code> immediately with no batching.'
+          }
+        },
+        {
+          term: { pl: 'nextTick', en: 'nextTick' },
+          def: {
+            pl: 'Promise rozwiązywany po flushu kolejki zadań. <code>await nextTick()</code> to jedyny poprawny sposób, by po mutacji stanu zobaczyć już zaktualizowany DOM.',
+            en: 'A promise resolved after the job queue flushes. <code>await nextTick()</code> is the only correct way to observe the updated DOM after mutating state.'
+          }
+        },
+        {
+          term: { pl: 'effectScope', en: 'effectScope' },
+          def: {
+            pl: 'Kontener zbierający efekty i watchery, żeby zatrzymać je jednym <code>scope.stop()</code>. Watcher utworzony po <code>await</code> wypada poza scope komponentu i wycieka.',
+            en: 'A container that collects effects and watchers so one <code>scope.stop()</code> tears them all down. A watcher created after an <code>await</code> falls outside the component scope and leaks.'
+          }
+        },
+        {
+          term: { pl: 'deduplikacja kolejki jobów', en: 'job queue dedupe' },
+          def: {
+            pl: 'Kolejka aktualizacji odrzuca duplikaty po identyfikatorze joba i sortuje rosnąco po <code>uid</code> komponentu, więc rodzic renderuje się przed dzieckiem, a trzy mutacje dają jeden patch.',
+            en: 'The update queue drops duplicates by job id and sorts by ascending component <code>uid</code>, so a parent renders before its child and three mutations produce a single patch.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="v4l2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
@@ -464,6 +531,36 @@ export default {
         en: 'Shallow APIs, markRaw and escape hatches'
       },
       minutes: 10,
+      terms: [
+        {
+          term: { pl: 'shallowRef', en: 'shallowRef' },
+          def: {
+            pl: 'Ref reaktywny tylko na podmianę całej wartości <code>.value</code>; wnętrze obiektu nie jest opakowywane w proxy. Domyślny wybór dla dużych list i instancji zewnętrznych bibliotek.',
+            en: 'A ref that is reactive only when the whole <code>.value</code> is replaced; the inner object is never wrapped in a proxy. The default choice for large lists and third-party instances.'
+          }
+        },
+        {
+          term: { pl: 'shallowReactive', en: 'shallowReactive' },
+          def: {
+            pl: 'Proxy śledzące wyłącznie właściwości pierwszego poziomu. Zagnieżdżone obiekty zostają surowe, ale <code>ref</code> na pierwszym poziomie nadal jest rozpakowywany.',
+            en: 'A proxy that tracks first-level properties only. Nested objects stay raw, though a <code>ref</code> at the first level is still unwrapped.'
+          }
+        },
+        {
+          term: { pl: 'markRaw', en: 'markRaw' },
+          def: {
+            pl: 'Oznacza obiekt flagą <code>__v_skip</code>, przez co <code>reactive</code> nigdy go nie opakuje. Stosowane do instancji bibliotek (mapy, wykresy, edytory), które proxy psuje.',
+            en: 'Tags an object with the <code>__v_skip</code> flag so <code>reactive</code> never wraps it. Used for library instances (maps, charts, editors) that a proxy breaks.'
+          }
+        },
+        {
+          term: { pl: 'shallowReadonly', en: 'shallowReadonly' },
+          def: {
+            pl: 'Blokuje zapis tylko na najwyższym poziomie obiektu; zagnieżdżone właściwości pozostają zapisywalne. Tak właśnie zachowuje się obiekt <code>props</code> w komponencie.',
+            en: 'Blocks writes at the top level only; nested properties stay writable. This is exactly how the component <code>props</code> object behaves.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<text x="20" y="26" fill="var(--muted)" font-size="14">How deep does reactivity go?</text>' +
@@ -591,6 +688,43 @@ export default {
         en: 'Reactivity pitfalls'
       },
       minutes: 11,
+      terms: [
+        {
+          term: { pl: 'utrata reaktywności przy destrukturyzacji', en: 'losing reactivity on destructuring' },
+          def: {
+            pl: 'Destrukturyzacja obiektu <code>reactive</code> kopiuje prymitywy i zrywa połączenie z proxy. Ratunkiem jest <code>toRefs</code>, getter w <code>watch</code> albo trzymanie wartości w <code>ref</code>.',
+            en: 'Destructuring a <code>reactive</code> object copies primitives and cuts the link to the proxy. The fixes are <code>toRefs</code>, a getter in <code>watch</code>, or keeping values in a <code>ref</code>.'
+          }
+        },
+        {
+          term: { pl: 'onWatcherCleanup', en: 'onWatcherCleanup' },
+          def: {
+            pl: 'Rejestruje sprzątanie uruchamiane przed kolejnym odpaleniem watchera - anuluje poprzedni request i usuwa wyścig, w którym wolniejsza odpowiedź nadpisuje nowszą.',
+            en: 'Registers cleanup that runs before the next watcher invocation - it cancels the previous request and removes the race where a slower response overwrites a newer one.'
+          }
+        },
+        {
+          term: { pl: 'luka w zależności warunkowej', en: 'conditional dependency gap' },
+          def: {
+            pl: 'Efekt śledzi tylko klucze faktycznie odczytane w danym przebiegu. Gałąź niewykonana w <code>if</code> nie jest zależnością, więc jej późniejsza zmiana niczego nie odświeży.',
+            en: 'An effect tracks only the keys it actually read on that run. A branch not taken inside an <code>if</code> is not a dependency, so changing it later refreshes nothing.'
+          }
+        },
+        {
+          term: { pl: 'computed bez efektów ubocznych', en: 'side-effect-free computed' },
+          def: {
+            pl: 'Getter <code>computed</code> ma wyłącznie liczyć wartość. Zapisy do stanu, requesty czy logowanie w getterze dają nieprzewidywalną liczbę wywołań i pętle aktualizacji.',
+            en: 'A <code>computed</code> getter must only derive a value. Writes to state, requests or logging inside it give an unpredictable number of calls and update loops.'
+          }
+        },
+        {
+          term: { pl: 'onScopeDispose', en: 'onScopeDispose' },
+          def: {
+            pl: 'Hook sprzątający w composable: odpina listenery i wpisy w globalnym stanie przy niszczeniu scope. Bez niego singleton trzyma referencję do odmontowanego komponentu.',
+            en: 'The cleanup hook inside a composable: it removes listeners and global-state entries when the scope is disposed. Without it a singleton keeps a reference to an unmounted component.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 440" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="v4l4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--err)"/></marker></defs>' +
@@ -715,6 +849,43 @@ export default {
         en: 'Render functions and JSX'
       },
       minutes: 12,
+      terms: [
+        {
+          term: { pl: 'render function', en: 'render function' },
+          def: {
+            pl: 'Funkcja zwracająca vnode zbudowane przez <code>h()</code> zamiast szablonu. Daje pełną moc JavaScriptu przy budowaniu drzewa, kosztem optymalizacji kompilatora.',
+            en: 'A function returning vnodes built with <code>h()</code> instead of a template. It gives you the full power of JavaScript over the tree, at the cost of compiler optimisations.'
+          }
+        },
+        {
+          term: { pl: 'patchFlag i block tree', en: 'patchFlag and block tree' },
+          def: {
+            pl: 'Metadane generowane przez kompilator szablonów: znacznik, co w vnode jest dynamiczne, plus płaska lista dynamicznych dzieci. Ręczne <code>h()</code> ich nie ma, więc idzie pełnym diffem.',
+            en: 'Metadata the template compiler emits: a marker of what is dynamic in a vnode plus a flat list of dynamic children. Hand-written <code>h()</code> has neither, so it takes the full diff path.'
+          }
+        },
+        {
+          term: { pl: 'mergeProps', en: 'mergeProps' },
+          def: {
+            pl: 'Jedyny poprawny sposób łączenia <code>class</code>, <code>style</code> i handlerów zdarzeń. Zwykły spread nadpisze <code>onClick</code> rodzica zamiast dołożyć go do istniejącego.',
+            en: 'The only correct way to combine <code>class</code>, <code>style</code> and event handlers. A plain spread overwrites the parent <code>onClick</code> instead of adding to it.'
+          }
+        },
+        {
+          term: { pl: 'inheritAttrs: false', en: 'inheritAttrs: false' },
+          def: {
+            pl: 'Wyłącza automatyczne doklejanie atrybutów do korzenia komponentu, żeby rozmieścić je ręcznie przez <code>attrs</code> - podstawa wrapperów w design systemie.',
+            en: 'Turns off automatic attribute fallthrough to the root element so you can place <code>attrs</code> yourself - the foundation of design-system wrappers.'
+          }
+        },
+        {
+          term: { pl: 'komponent funkcyjny', en: 'functional component' },
+          def: {
+            pl: 'Zwykła funkcja <code>(props, { slots, emit, attrs })</code> zwracająca vnode, bez instancji i bez hooków cyklu życia. Tania warstwa prezentacyjna, ale bez template refów i z ubogim devtools.',
+            en: 'A plain <code>(props, { slots, emit, attrs })</code> function returning a vnode, with no instance and no lifecycle hooks. A cheap presentational layer, but no template refs and thin devtools.'
+          }
+        }
+      ],
       diagram: {
         svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
           '<defs><marker id="v4l5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
