@@ -247,6 +247,23 @@ const I18N = {
     statsMonths: ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paz', 'lis', 'gru'],
     weakChipLabel: (name) => `Najslabszy obszar: ${name}`,
     weakChipCta: 'Powtorz',
+    glossaryTitle: 'Slowniczek',
+    glossaryLink: 'Slowniczek',
+    glossaryDesc:
+      'Wszystkie pojecia ze wszystkich kierunkow, alfabetycznie. Szukaj i wracaj do lekcji zrodlowej.',
+    glossaryPlaceholder: 'Szukaj pojecia...',
+    glossaryAria: 'Szukaj w slowniczku',
+    glossaryTooShort: 'Wpisz co najmniej 2 znaki, zeby filtrowac.',
+    glossaryEmpty: 'Zadne pojecie nie pasuje.',
+    glossaryCount: (n) => `${n} ${plural(n, 'pojecie', 'pojecia', 'pojec')}`,
+    glossaryFiltered: (n, total) => `${n} z ${total}`,
+    glossaryNone: 'W tresci nie ma jeszcze zadnych pojec.',
+    termsLabel: 'Pojecia w tej lekcji',
+    termChipAria: (term) => `Pokaz definicje: ${term}`,
+    termMarkAria: (term) => `Pojecie: ${term}. Pokaz definicje.`,
+    defSheetAria: 'Definicja pojecia',
+    defSheetClose: 'Zamknij',
+    defSheetSource: 'Lekcja zrodlowa',
     dataTitle: 'Kopia postepu',
     dataDesc: 'Zapisz postep do pliku albo przenies go na inne urzadzenie kodem.',
     dataExport: '⬇ Eksportuj',
@@ -476,6 +493,23 @@ const I18N = {
     statsMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     weakChipLabel: (name) => `Weakest area: ${name}`,
     weakChipCta: 'Review',
+    glossaryTitle: 'Glossary',
+    glossaryLink: 'Glossary',
+    glossaryDesc:
+      'Every term from every track, alphabetically. Search it and jump back to the source lesson.',
+    glossaryPlaceholder: 'Search a term...',
+    glossaryAria: 'Search the glossary',
+    glossaryTooShort: 'Type at least 2 characters to filter.',
+    glossaryEmpty: 'No term matches that.',
+    glossaryCount: (n) => `${n} ${n === 1 ? 'term' : 'terms'}`,
+    glossaryFiltered: (n, total) => `${n} of ${total}`,
+    glossaryNone: 'No terms in the content yet.',
+    termsLabel: 'Terms in this lesson',
+    termChipAria: (term) => `Show the definition of ${term}`,
+    termMarkAria: (term) => `Term: ${term}. Show the definition.`,
+    defSheetAria: 'Term definition',
+    defSheetClose: 'Close',
+    defSheetSource: 'Source lesson',
     dataTitle: 'Progress backup',
     dataDesc: 'Save your progress to a file, or move it to another device with a code.',
     dataExport: '⬇ Export',
@@ -907,6 +941,17 @@ function esc(str) {
     .replace(/"/g, '&quot;');
 }
 
+// Fisher-Yates over option indexes: options render in random order while
+// data-o keeps the original index, so answer checking stays untouched.
+function shuffledIdx(options) {
+  const idx = options.map((_, i) => i);
+  for (let i = idx.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [idx[i], idx[j]] = [idx[j], idx[i]];
+  }
+  return idx;
+}
+
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -935,6 +980,10 @@ function moduleHref(trackId, moduleId) {
 
 function lessonHref(trackId, moduleId, lessonId) {
   return `#/t/${enc(trackId)}/l/${enc(moduleId)}/${enc(lessonId)}`;
+}
+
+function glossaryHref() {
+  return '#/glossary';
 }
 
 /* -------------------------------------------------------------- router --- */
@@ -975,6 +1024,7 @@ function parseHash() {
   if (parts[0] === 'quick') return { name: 'quick' };
   if (parts[0] === 'stats') return { name: 'stats' };
   if (parts[0] === 'search') return { name: 'search' };
+  if (parts[0] === 'glossary') return { name: 'glossary' };
   if (parts[0] === 'interview') {
     if (parts.length === 1) return { name: 'interview', trackId: null };
     return { name: 'interview', trackId: parts[1] };
@@ -1018,6 +1068,8 @@ function render() {
   // Every render() replaces #main, so the reader never outlives the page it was
   // started on: this covers route changes and the language switch alike.
   ttsStop();
+  // v7.1: the definition sheet belongs to the page that opened it.
+  closeDefSheet();
   // The Feynman textarea is about to be thrown away with #main - persist
   // whatever the debounce still owes before that happens.
   flushNote();
@@ -1050,6 +1102,7 @@ function render() {
   else if (route.name === 'quick') html = viewReviewSession({ kind: 'all' }, 'quick');
   else if (route.name === 'interview') html = viewInterview(route.trackId);
   else if (route.name === 'search') html = viewSearch();
+  else if (route.name === 'glossary') html = viewGlossary();
   else if (route.name === 'stats') html = viewStats();
   else html = viewNotFound();
 
@@ -1057,6 +1110,7 @@ function render() {
 
   if (route.name === 'home') bindHome();
   if (route.name === 'search') bindSearch();
+  if (route.name === 'glossary') bindGlossary();
   if (route.name === 'lesson') bindLesson(route.trackId, route.moduleId, route.lessonId);
   if (route.name === 'review' || route.name === 'quick') bindReviewSession();
   if (route.name === 'interview') bindInterviewSession();
@@ -1071,6 +1125,7 @@ function render() {
 
 function pageTitle(route) {
   if (route.name === 'search') return `${t().searchTitle} - Learn AI`;
+  if (route.name === 'glossary') return `${t().glossaryTitle} - Learn AI`;
   if (route.name === 'stats') return `${t().statsTitle} - Learn AI`;
   if (route.name === 'review') return `${t().reviewTitle} - Learn AI`;
   if (route.name === 'quick') return `${t().quickTitle} - Learn AI`;
@@ -1451,6 +1506,8 @@ function viewLesson(trackId, moduleId, lessonId) {
 
       <div class="tabs" role="tablist" aria-label="${esc(L.levelAria)}">${tabs}</div>
 
+      ${renderTermChips(lesson, L)}
+
       ${renderTts()}
 
       ${renderDiagram(lesson)}
@@ -1508,27 +1565,45 @@ function renderDiagram(lesson) {
 
 /* --------------------------------------------- interactive frames player -- */
 
-// Returns the frames of a valid `interactive` block, or [] when the lesson has
-// none / it is malformed. Keeps every consumer below free of defensive checks.
-function interactiveFrames(lesson) {
-  const it = lesson && lesson.interactive;
-  if (!it || it.kind !== 'frames' || !Array.isArray(it.frames)) return [];
-  return it.frames.filter(
+// v7: `lesson.interactive` is EITHER one player object (v4 shape) or an array of
+// 1-4 player objects. Everything below works on the normalized list, so both
+// shapes render and bind identically.
+const MAX_PLAYERS = 4;
+
+// Frames of ONE player block, filtered to the usable ones ([] when malformed).
+function interactiveFrames(block) {
+  if (!block || block.kind !== 'frames' || !Array.isArray(block.frames)) return [];
+  return block.frames.filter(
     (f) => f && typeof f.svg === 'string' && f.svg.trim().startsWith('<svg')
   );
 }
 
-function renderInteractive(lesson) {
-  const L = t();
-  const frames = interactiveFrames(lesson);
-  if (frames.length < 2) return '';
-  const caption = tr(lesson.interactive.caption);
+// Normalizes `lesson.interactive` into a list of playable players (>= 2 frames
+// each), capped at MAX_PLAYERS, in content order.
+function interactivePlayers(lesson) {
+  const it = lesson && lesson.interactive;
+  if (!it) return [];
+  const blocks = Array.isArray(it) ? it : [it];
+  const players = [];
+  for (const block of blocks) {
+    const frames = interactiveFrames(block);
+    if (frames.length < 2) continue;
+    players.push({ frames, caption: tr(block.caption) });
+    if (players.length >= MAX_PLAYERS) break;
+  }
+  return players;
+}
+
+function renderInteractivePlayer(player, idx, total, L) {
+  const { frames, caption } = player;
   const last = frames.length - 1;
+  // Numbering only matters when the lesson stacks several mechanisms.
+  const title = total > 1 ? `${L.interactiveTitle} ${idx + 1}/${total}` : L.interactiveTitle;
 
   return `
-    <figure class="player" data-player>
+    <figure class="player" data-player="${idx}">
       <div class="player-head">
-        <h2 class="player-title">${esc(L.interactiveTitle)}</h2>
+        <h2 class="player-title">${esc(title)}</h2>
         <span class="player-step" data-player-step>${esc(L.frameOf(1, frames.length))}</span>
       </div>
 
@@ -1553,19 +1628,33 @@ function renderInteractive(lesson) {
       </div>
 
       ${caption ? `<figcaption>${esc(caption)}</figcaption>` : ''}
-      <p class="player-hint">${esc(L.interactiveHint)}</p>
+      ${idx === 0 ? `<p class="player-hint">${esc(L.interactiveHint)}</p>` : ''}
     </figure>`;
 }
 
-// Binds the player that render() just wrote into #main. Every listener lives on
-// nodes inside that subtree, so the next innerHTML swap drops them with the DOM
-// (no manual teardown, no leaks) - same lifecycle as the quiz binding.
-function bindInteractive(lesson) {
-  const root = $('[data-player]');
-  if (!root) return;
-  const frames = interactiveFrames(lesson);
-  if (frames.length < 2) return;
+function renderInteractive(lesson) {
+  const L = t();
+  const players = interactivePlayers(lesson);
+  if (!players.length) return '';
+  return players.map((p, i) => renderInteractivePlayer(p, i, players.length, L)).join('');
+}
 
+// Binds every player render() just wrote into #main. Each figure gets its own
+// independent state; all listeners live on nodes inside that subtree, so the
+// next innerHTML swap drops them with the DOM (no manual teardown, no leaks) -
+// same lifecycle as the quiz binding.
+function bindInteractive(lesson) {
+  const players = interactivePlayers(lesson);
+  if (!players.length) return;
+  const roots = $$('[data-player]');
+  roots.forEach((root) => {
+    const idx = Number(root.dataset.player);
+    const player = players[Number.isFinite(idx) ? idx : -1];
+    if (player) bindInteractivePlayer(root, player.frames);
+  });
+}
+
+function bindInteractivePlayer(root, frames) {
   const L = t();
   const last = frames.length - 1;
   const stage = $('[data-player-stage]', root);
@@ -1956,12 +2045,12 @@ function renderPreguess(lesson, done, L) {
   const item = lesson.quiz[qi];
   if (!item || !Array.isArray(item.options) || !item.options.length) return '';
 
-  const options = item.options
+  const options = shuffledIdx(item.options)
     .map(
-      (opt, oi) => `
+      (oi, pos) => `
         <button type="button" class="option" data-o="${oi}">
-          <span class="option-key" aria-hidden="true">${String.fromCharCode(65 + oi)}</span>
-          <span class="option-text">${tr(opt)}</span>
+          <span class="option-key" aria-hidden="true">${String.fromCharCode(65 + pos)}</span>
+          <span class="option-text">${tr(item.options[oi])}</span>
         </button>`
     )
     .join('');
@@ -2142,12 +2231,13 @@ function renderQuiz(track, mod, lesson) {
 
   const questions = quiz
     .map((item, qi) => {
-      const options = (item.options || [])
+      const opts = item.options || [];
+      const options = shuffledIdx(opts)
         .map(
-          (opt, oi) => `
+          (oi, pos) => `
             <button type="button" class="option" data-q="${qi}" data-o="${oi}">
-              <span class="option-key" aria-hidden="true">${String.fromCharCode(65 + oi)}</span>
-              <span class="option-text">${tr(opt)}</span>
+              <span class="option-key" aria-hidden="true">${String.fromCharCode(65 + pos)}</span>
+              <span class="option-text">${tr(opts[oi])}</span>
             </button>`
         )
         .join('');
@@ -2188,6 +2278,11 @@ function bindLesson(trackId, moduleId, lessonId) {
   const { track, module: mod, lesson } = found;
   const L = t();
 
+  // v7.1: chips, inline markers and the sheet all read this one list. It is
+  // rebuilt per render, so the language switch lands here too.
+  setActiveTerms(lessonTerms(lesson));
+  highlightTerms(activeTerms);
+
   // Level tabs
   $$('.tab').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -2204,6 +2299,8 @@ function bindLesson(trackId, moduleId, lessonId) {
         panel.style.animation = 'none';
         void panel.offsetWidth;
         panel.style.animation = '';
+        // The new level is fresh markup - re-run the first-occurrence pass.
+        highlightTerms(activeTerms, panel);
       }
     });
   });
@@ -2808,12 +2905,13 @@ function termGradeHtml(L) {
 }
 
 function choiceOptions(question, qi) {
-  return (question.options || [])
+  const opts = question.options || [];
+  return shuffledIdx(opts)
     .map(
-      (opt, oi) => `
+      (oi, pos) => `
         <button type="button" class="option" data-q="${qi}" data-o="${oi}">
-          <span class="option-key" aria-hidden="true">${String.fromCharCode(65 + oi)}</span>
-          <span class="option-text">${tr(opt)}</span>
+          <span class="option-key" aria-hidden="true">${String.fromCharCode(65 + pos)}</span>
+          <span class="option-text">${tr(opts[oi])}</span>
         </button>`
     )
     .join('');
@@ -3519,7 +3617,10 @@ function streakCard(L) {
       <div class="streak-main">
         <p class="streak-title">${esc(L.streakTitle)}</p>
         <p class="streak-value">${esc(streak ? L.streakValue(streak) : L.streakNone)}</p>
-        <a class="streak-stats" href="#/stats">${esc(L.statsLink)} ›</a>
+        <span class="streak-links">
+          <a class="streak-stats" href="#/stats">${esc(L.statsLink)} ›</a>
+          <a class="streak-stats" href="${glossaryHref()}">${esc(L.glossaryLink)} ›</a>
+        </span>
       </div>
       <div class="streak-goal">
         <span class="streak-goal-text">${esc(reached ? L.goalDone : L.goalToday(todayCount, DAILY_GOAL))}</span>
@@ -3996,6 +4097,380 @@ function bindSearch() {
   });
 }
 
+/* --- v7.1: glossary layer --------------------------------------------- */
+
+// One lesson's `terms` normalized to the current UI language. Entries without
+// both a term and a definition are dropped, so a half-written term never
+// reaches a chip, a marker or the glossary.
+function lessonTerms(lesson) {
+  if (!lesson || !Array.isArray(lesson.terms)) return [];
+  const out = [];
+  lesson.terms.forEach((entry, idx) => {
+    if (!entry || typeof entry !== 'object') return;
+    const term = tr(entry.term).trim();
+    const def = tr(entry.def).trim();
+    if (!term || !def) return;
+    out.push({ term, def, idx });
+  });
+  return out;
+}
+
+// The chips row under the level tabs. `data-term-chip` is the index into
+// activeTerms, which bindLesson refreshes for the lesson on screen.
+function renderTermChips(lesson, L) {
+  const terms = lessonTerms(lesson);
+  if (!terms.length) return '';
+  const chips = terms
+    .map(
+      (entry, i) => `
+        <button type="button" class="term-chip" data-term-chip="${i}"
+          aria-label="${esc(L.termChipAria(entry.term))}">${esc(entry.term)}</button>`
+    )
+    .join('');
+  return `<div class="term-chips" role="group" aria-label="${esc(L.termsLabel)}">${chips}</div>`;
+}
+
+/* --- shared definition sheet ------------------------------------------ */
+
+// Terms of whatever page is on screen: chips, inline markers and glossary rows
+// all address them by index, so only one list has to stay in sync.
+let activeTerms = [];
+let defSheetEl = null;
+let defSheetKeydown = null;
+let defSheetLastFocus = null;
+
+function setActiveTerms(list) {
+  activeTerms = Array.isArray(list) ? list : [];
+}
+
+function openTermByIndex(i) {
+  const entry = activeTerms[Number(i)];
+  if (!entry) return;
+  openDefSheet(entry);
+}
+
+// `entry.def` is authored HTML (the content ships inline <code>/<strong>), so
+// it goes in as markup; everything else is escaped.
+function openDefSheet(entry) {
+  if (!entry || !document.body || typeof document.createElement !== 'function') return;
+  const L = t();
+  closeDefSheet();
+
+  try {
+    defSheetLastFocus = document.activeElement || null;
+  } catch (err) {
+    defSheetLastFocus = null;
+  }
+
+  const root = document.createElement('div');
+  root.className = 'def-sheet-root';
+  root.dataset.defSheet = '1';
+  const source =
+    entry.href && entry.crumb
+      ? `<a class="def-sheet-src" href="${entry.href}">${esc(L.defSheetSource)}: ${esc(
+          entry.crumb
+        )} ›</a>`
+      : '';
+  root.innerHTML = `
+    <div class="def-sheet-backdrop" data-sheet-backdrop></div>
+    <div class="def-sheet" role="dialog" aria-modal="true" aria-label="${esc(L.defSheetAria)}">
+      <span class="def-sheet-grip" aria-hidden="true"></span>
+      <h2 class="def-sheet-term">${esc(entry.term)}</h2>
+      <div class="def-sheet-def">${entry.def}</div>
+      ${source}
+      <button type="button" class="btn btn-block def-sheet-close" data-sheet-close>${esc(
+        L.defSheetClose
+      )}</button>
+    </div>`;
+
+  document.body.appendChild(root);
+  defSheetEl = root;
+
+  defSheetKeydown = (ev) => {
+    if (ev && ev.key === 'Escape') closeDefSheet();
+  };
+  document.addEventListener('keydown', defSheetKeydown);
+
+  const btn = root.querySelector ? root.querySelector('[data-sheet-close]') : null;
+  if (btn && typeof btn.focus === 'function') {
+    requestAnimationFrame(() => {
+      try {
+        btn.focus();
+      } catch (err) {
+        /* detached before the frame ran */
+      }
+    });
+  }
+}
+
+function closeDefSheet() {
+  if (defSheetKeydown) {
+    document.removeEventListener('keydown', defSheetKeydown);
+    defSheetKeydown = null;
+  }
+  if (defSheetEl) {
+    if (typeof defSheetEl.remove === 'function') defSheetEl.remove();
+    defSheetEl = null;
+  }
+  if (defSheetLastFocus && typeof defSheetLastFocus.focus === 'function') {
+    try {
+      defSheetLastFocus.focus({ preventScroll: true });
+    } catch (err) {
+      /* the opener may be gone with the previous render */
+    }
+  }
+  defSheetLastFocus = null;
+}
+
+// One delegated listener for the whole layer, installed once at boot: chips,
+// inline markers, glossary rows and the sheet's own close targets.
+let glossaryClicksBound = false;
+
+function bindGlossaryClicks() {
+  if (glossaryClicksBound) return;
+  glossaryClicksBound = true;
+  document.addEventListener('click', (ev) => {
+    const target = ev && ev.target;
+    if (!target || typeof target.closest !== 'function') return;
+    if (target.closest('[data-sheet-close]') || target.closest('[data-sheet-backdrop]')) {
+      closeDefSheet();
+      return;
+    }
+    if (defSheetEl && target.closest('[data-def-sheet]')) return;
+    const opener = target.closest('[data-term-chip], [data-term-mark], [data-gl-term]');
+    if (!opener) return;
+    const raw =
+      opener.dataset.termChip != null
+        ? opener.dataset.termChip
+        : opener.dataset.termMark != null
+          ? opener.dataset.termMark
+          : opener.dataset.glTerm;
+    openTermByIndex(raw);
+  });
+}
+
+/* --- inline first-occurrence highlighter ------------------------------ */
+
+// Text nodes inside these never get touched: code samples must stay verbatim,
+// and links/buttons already own the tap.
+const TERM_SKIP_TAGS = new Set(['CODE', 'PRE', 'A', 'BUTTON', 'SCRIPT', 'STYLE', 'SVG', 'KBD']);
+const TERM_WORD_RE = /[\p{L}\p{N}_]/u;
+
+function isWordChar(ch) {
+  return typeof ch === 'string' && ch !== '' && TERM_WORD_RE.test(ch);
+}
+
+// Post-render DOM pass over the ACTIVE level's text nodes. Wraps the FIRST
+// occurrence of each term (case-insensitive) in a tappable marker. Operates on
+// text nodes only - never innerHTML surgery - so authored markup survives.
+function highlightTerms(terms, root) {
+  const host = root || $('#level-panel');
+  if (!host || !terms || !terms.length) return 0;
+  if (typeof document.createTreeWalker !== 'function' || typeof NodeFilter === 'undefined') {
+    return 0;
+  }
+
+  // term key -> index in activeTerms; longest first so "context window" wins
+  // over "context" when both start at the same offset.
+  const pending = [];
+  terms.forEach((entry, i) => {
+    const key = entry.term.trim().toLowerCase();
+    if (key.length < 2) return;
+    if (pending.some((p) => p.key === key)) return;
+    pending.push({ key, index: i });
+  });
+  pending.sort((a, b) => b.key.length - a.key.length);
+  if (!pending.length) return 0;
+
+  const nodes = [];
+  try {
+    const walker = document.createTreeWalker(host, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        for (let el = node.parentNode; el && el !== host; el = el.parentNode) {
+          if (el.nodeType !== 1) continue;
+          if (TERM_SKIP_TAGS.has(String(el.tagName || '').toUpperCase())) {
+            return NodeFilter.FILTER_REJECT;
+          }
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      },
+    });
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) nodes.push(n);
+  } catch (err) {
+    return 0;
+  }
+
+  let wrapped = 0;
+  for (const start of nodes) {
+    if (!pending.length) break;
+    let node = start;
+    while (node && pending.length) {
+      const hay = String(node.nodeValue || '').toLowerCase();
+      let best = null;
+      for (const cand of pending) {
+        let at = hay.indexOf(cand.key);
+        while (at !== -1) {
+          const before = at > 0 ? hay[at - 1] : '';
+          const after = hay[at + cand.key.length] || '';
+          if (!isWordChar(before) && !isWordChar(after)) break;
+          at = hay.indexOf(cand.key, at + 1);
+        }
+        if (at === -1) continue;
+        if (!best || at < best.at || (at === best.at && cand.key.length > best.cand.key.length)) {
+          best = { at, cand };
+        }
+      }
+      if (!best) break;
+
+      const hit = node.splitText(best.at);
+      hit.splitText(best.cand.key.length);
+      const entry = terms[best.cand.index];
+      const mark = document.createElement('button');
+      mark.type = 'button';
+      mark.className = 'term-mark';
+      mark.dataset.termMark = String(best.cand.index);
+      mark.setAttribute('aria-label', t().termMarkAria(entry.term));
+      mark.textContent = hit.nodeValue;
+      if (hit.parentNode) hit.parentNode.replaceChild(mark, hit);
+      wrapped += 1;
+
+      const used = pending.indexOf(best.cand);
+      if (used !== -1) pending.splice(used, 1);
+      node = mark.nextSibling && mark.nextSibling.nodeType === 3 ? mark.nextSibling : null;
+    }
+  }
+  return wrapped;
+}
+
+/* --- global glossary route -------------------------------------------- */
+
+const GLOSSARY_MIN = 2;
+
+let glossaryCache = { lang: '', entries: [] };
+let glossaryQuery = '';
+
+// Every term from every available track, deduped by term text in the CURRENT
+// language (first definition wins) and sorted alphabetically.
+function glossaryEntries() {
+  if (glossaryCache.lang === state.lang) return glossaryCache.entries;
+  const seen = new Set();
+  const out = [];
+  for (const track of availableTracks()) {
+    for (const mod of track.modules || []) {
+      for (const lesson of mod.lessons || []) {
+        for (const entry of lessonTerms(lesson)) {
+          const key = entry.term.toLowerCase();
+          if (seen.has(key)) continue;
+          seen.add(key);
+          out.push({
+            term: entry.term,
+            def: entry.def,
+            key,
+            hay: `${key} ${stripTags(entry.def).toLowerCase()}`,
+            crumb: `${tr(mod.title)} · ${tr(lesson.title)}`,
+            href: lessonHref(track.id, mod.id, lesson.id),
+          });
+        }
+      }
+    }
+  }
+  try {
+    out.sort((a, b) => a.term.localeCompare(b.term, state.lang === 'pl' ? 'pl' : 'en'));
+  } catch (err) {
+    out.sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0));
+  }
+  glossaryCache = { lang: state.lang, entries: out };
+  return out;
+}
+
+function glossarySectionKey(term) {
+  const ch = String(term || '').charAt(0).toUpperCase();
+  return TERM_WORD_RE.test(ch) && !/\d/.test(ch) ? ch : '#';
+}
+
+function glossaryVisible() {
+  const all = glossaryEntries();
+  const q = glossaryQuery.trim().toLowerCase();
+  if (q.length < GLOSSARY_MIN) return all;
+  return all.filter((entry) => entry.hay.includes(q));
+}
+
+// The rows also feed activeTerms, so tapping a term opens the shared sheet
+// with its source-lesson link (the "opened outside that lesson" case).
+function glossaryListHtml() {
+  const L = t();
+  const all = glossaryEntries();
+  if (!all.length) return `<p class="search-note">${esc(L.glossaryNone)}</p>`;
+
+  const rows = glossaryVisible();
+  setActiveTerms(rows);
+  if (!rows.length) return `<p class="search-note">${esc(L.glossaryEmpty)}</p>`;
+
+  const q = glossaryQuery.trim();
+  const note =
+    q.length < GLOSSARY_MIN
+      ? `${esc(L.glossaryCount(all.length))} · ${esc(L.glossaryTooShort)}`
+      : esc(L.glossaryFiltered(rows.length, all.length));
+
+  let section = '';
+  const parts = [];
+  rows.forEach((entry, i) => {
+    const key = glossarySectionKey(entry.term);
+    if (key !== section) {
+      if (section) parts.push('</ul>');
+      section = key;
+      parts.push(`<h2 class="gl-section">${esc(key)}</h2><ul class="gl-list">`);
+    }
+    parts.push(`
+      <li class="gl-row">
+        <button type="button" class="gl-term" data-gl-term="${i}"
+          aria-label="${esc(L.termChipAria(entry.term))}">${esc(entry.term)}</button>
+        <div class="gl-def">${entry.def}</div>
+        <a class="gl-src" href="${entry.href}">${esc(entry.crumb)} ›</a>
+      </li>`);
+  });
+  if (section) parts.push('</ul>');
+
+  return `<p class="search-note">${note}</p>${parts.join('')}`;
+}
+
+function viewGlossary() {
+  const L = t();
+  return `
+    <section class="view">
+      <a class="back-link" href="#/">← ${esc(L.backHome)}</a>
+      <div class="hero">
+        <span class="hero-eyebrow">📖 ${esc(L.glossaryTitle)}</span>
+        <h1>${esc(L.glossaryTitle)}</h1>
+        <p class="hero-sub">${esc(L.glossaryDesc)}</p>
+      </div>
+
+      <div class="gl-search">
+        <div class="search-box">
+          <span class="search-box-icon" aria-hidden="true">🔎</span>
+          <input class="search-input" type="search" data-glossary-input
+            value="${esc(glossaryQuery)}" placeholder="${esc(L.glossaryPlaceholder)}"
+            aria-label="${esc(L.glossaryAria)}" autocomplete="off" enterkeyhint="search">
+        </div>
+      </div>
+
+      <div class="gl-results" data-glossary-results aria-live="polite">
+        ${glossaryListHtml()}
+      </div>
+    </section>`;
+}
+
+function bindGlossary() {
+  const input = $('[data-glossary-input]');
+  const out = $('[data-glossary-results]');
+  if (!input || !out) return;
+  input.addEventListener('input', () => {
+    glossaryQuery = input.value;
+    out.innerHTML = glossaryListHtml();
+  });
+}
+
 /* --- export / import -------------------------------------------------- */
 
 const EXPORT_FILE = 'learnai-progress.json';
@@ -4385,6 +4860,9 @@ function boot() {
   });
 
   window.addEventListener('hashchange', render);
+
+  // v7.1: one delegated listener for chips / inline markers / glossary rows.
+  bindGlossaryClicks();
 
   // A phone can freeze or kill the tab between two keystrokes, so the pending
   // Feynman note is written out the moment the page stops being visible.

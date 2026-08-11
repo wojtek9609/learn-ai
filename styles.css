@@ -1743,6 +1743,7 @@ pre code {
   text-decoration: none;
 }
 .streak-stats:hover { text-decoration: underline; }
+.streak-links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
 
 /* search */
 
@@ -2020,6 +2021,213 @@ pre code {
 .heat-legend .heat-cell { width: 10px; height: 10px; min-height: 0; }
 .heat-legend-label { color: var(--muted); font-size: 0.7rem; margin: 0 3px; }
 
+/* ------------------------------------- v7.1: glossary layer -------------- */
+
+/* term chips - under the level tabs, above the listening bar */
+
+.term-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 16px;
+}
+.term-chip {
+  min-height: var(--tap);
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease),
+              transform 0.16s var(--ease);
+}
+.term-chip::before {
+  content: "?";
+  display: inline-block;
+  margin-right: 7px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 15px;
+  text-align: center;
+  vertical-align: 1px;
+}
+.term-chip:hover { border-color: var(--accent); background: var(--accent-soft); }
+.term-chip:active { transform: scale(0.97); }
+
+/* inline first-occurrence marker inside the prose */
+
+.term-mark {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  text-decoration: underline dotted var(--accent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+  border-radius: 4px;
+}
+.term-mark:hover { background: var(--accent-soft); color: var(--accent); }
+.term-mark:active { background: var(--accent-soft); }
+
+/* the shared definition sheet */
+
+.def-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(10, 11, 18, 0.5);
+  animation: fade-in 0.18s var(--ease);
+}
+@media (prefers-color-scheme: dark) {
+  .def-sheet-backdrop { background: rgba(0, 0, 0, 0.62); }
+}
+
+.def-sheet {
+  position: fixed;
+  z-index: 61;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 12px 18px calc(18px + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  box-shadow: var(--shadow-lg);
+  animation: def-sheet-up 0.26s var(--ease);
+}
+@keyframes def-sheet-up {
+  from { transform: translateY(14px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.def-sheet-grip {
+  display: block;
+  width: 40px;
+  height: 4px;
+  margin: 0 auto 12px;
+  border-radius: 999px;
+  background: var(--border-strong);
+}
+.def-sheet-term { margin: 0 0 8px; font-size: 1.1rem; }
+.def-sheet-def { color: var(--text); font-size: 0.95rem; }
+.def-sheet-def p { margin: 0 0 0.8em; }
+.def-sheet-def code {
+  padding: 1px 5px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.86em;
+}
+.def-sheet-src {
+  display: inline-block;
+  min-height: var(--tap);
+  margin-top: 10px;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: var(--tap);
+}
+.def-sheet-close { margin-top: 12px; }
+
+@media (min-width: 560px) {
+  .def-sheet {
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    top: 50%;
+    width: min(520px, calc(100vw - 40px));
+    max-height: 76vh;
+    padding: 18px 22px 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transform: translate(-50%, -50%);
+    animation: def-sheet-pop 0.22s var(--ease);
+  }
+  .def-sheet-grip { display: none; }
+  @keyframes def-sheet-pop {
+    from { transform: translate(-50%, calc(-50% + 10px)); opacity: 0; }
+    to { transform: translate(-50%, -50%); opacity: 1; }
+  }
+}
+
+/* #/glossary */
+
+.gl-search {
+  position: sticky;
+  top: calc(var(--header-h) + env(safe-area-inset-top));
+  z-index: 12;
+  padding: 8px 0 4px;
+  background: var(--bg);
+}
+.gl-search .search-box { margin-bottom: 4px; }
+
+.gl-section {
+  margin: 20px 0 8px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.gl-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.gl-row {
+  display: grid;
+  gap: 4px;
+  padding: 13px 15px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+.gl-term {
+  justify-self: start;
+  min-height: var(--tap);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: left;
+  text-decoration: underline dotted var(--accent);
+  text-underline-offset: 4px;
+}
+.gl-term:hover { color: var(--accent); }
+.gl-def { color: var(--muted); font-size: 0.88rem; }
+.gl-def p { margin: 0 0 0.6em; }
+.gl-def code {
+  padding: 1px 5px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.86em;
+}
+.gl-src {
+  display: inline-block;
+  justify-self: start;
+  min-height: var(--tap);
+  margin-top: 2px;
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: var(--tap);
+}
+
 /* ------------------------------------------------------------ desktop ---- */
 
 @media (min-width: 700px) {
@@ -2040,5 +2248,6 @@ pre code {
 
 @media print {
   .app-header, .tabs, .quiz, .lesson-nav, .app-footer,
+  .term-chips, .def-sheet-root, .def-sheet, .def-sheet-backdrop,
   .player-controls, .player-dots, .player-hint { display: none !important; }
 }

@@ -694,6 +694,77 @@ in stateFromRaw like existing keys): `notes: { '<t>/<m>/<l>': { text: string (ca
 - i18n for every new string in both languages; README gets a short
   "Learning effectiveness" note in both languages.
 
+## v7 - Content quality bar v2 (PILOT: ai-engineer module 1 only)
+
+User feedback driving this version: lessons feel generic; the pro level is
+written in expert shorthand although this is FUNDAMENTALS for someone who does
+not know the material yet; quiz questions rely on pro-only content; too little
+interactivity. The pilot rewrites `content/tracks/ai-engineer/module-01-llm-fundamentals.js`
+to the new bar. If accepted, modules 2-8 follow.
+
+### Multiple interactive players per lesson (app change, global)
+
+- `lesson.interactive` may now be EITHER a single player object (back-compat,
+  all existing content keeps working) OR an ARRAY of 1-4 player objects
+  (same frames schema each). App renders them stacked, in order, under the
+  static diagram; each player is independent (own slider/buttons/labels).
+  Validation and bind logic must handle both shapes.
+
+### Content rules v2 (apply on top of the v1 "Content schema" section)
+
+- **Every lesson has interactive players covering its key sub-problems** -
+  typically 2-3 per lesson, minimum 1. One player = one concrete mechanism
+  shown step by step (not a decorative slideshow): e.g. for tokenization -
+  (a) BPE merges building tokens from characters, (b) why counting letters in
+  a token stream fails, (c) same text tokenized cheap vs expensive.
+- **eli5**: 150-250 words. One everyday analogy carried through, playful,
+  zero jargon.
+- **school**: 300-450 words. Introduces every proper term WITH a plain-language
+  definition at first use, one worked example with real numbers, ends with a
+  2-3 sentence "co musisz zapamiętać" wrap-up. After reading ONLY this level,
+  quiz questions 1-3 must be answerable.
+- **pro**: 400-650 words. Full depth - real prices/latencies/sizes, code where
+  useful, production pitfalls, interview angles - BUT written as an expert
+  explaining to a smart newcomer: every technical term, abbreviation and tool
+  name gets an in-line parenthetical definition at first use; no sentence may
+  depend on knowledge the lesson has not provided. Longer is fine; unexplained
+  shorthand is a defect. Ends with "co z tego wynika w praktyce" (2-3 bullets).
+- **quiz**: q1 answerable from eli5, q2-q3 from school, q4 may draw on pro but
+  must be SELF-CONTAINED (all needed context inside the question itself).
+  Explanations teach the underlying rule, not just the right letter.
+- Keep lesson ids and the module id/order/icon. Titles may be sharpened.
+  Keep the `terms` field (refine defs only if the rewrite changes framing).
+  Update `minutes` to match the longer content. Diagrams: keep or improve.
+- Both languages, Polish natural (not translated). All existing SVG and string
+  escaping rules apply.
+
+## v7.1 - Glossary layer (tlumaczenie pojec) + shuffled answers
+
+- **Shuffled answers** (done, in app.js): every choice question (lesson quiz,
+  review, interview, pre-question) renders its options in random order on
+  every render; `data-o` keeps the original index so scoring is untouched;
+  A-D letters follow display position.
+- **Term chips**: lesson view, directly under the level tabs (above TTS): a
+  wrapping row of small chips - one per entry in `lesson.terms` (current UI
+  language). Tapping a chip opens the definition sheet.
+- **Definition sheet**: a bottom sheet (mobile-first; centered dialog >=560px)
+  with the term, its definition (def may contain inline HTML), source lesson
+  link when opened outside that lesson, and a close button; closes on
+  backdrop tap and Escape. One shared component.
+- **Inline term highlight**: after rendering lesson content, a post-render DOM
+  pass over the ACTIVE level's text nodes wraps the FIRST occurrence of each
+  of the lesson's terms (case-insensitive, current language, skip inside
+  <code>/<pre>) in a tappable marker (dotted underline) that opens the sheet.
+  Re-runs on level/language switch. Must never break existing markup (operate
+  on text nodes only, never innerHTML string surgery).
+- **Global glossary** - route `#/glossary`: all terms from ALL tracks (dedupe
+  identical term text per language, keep first def), alphabetical sections
+  with a sticky search input (min 2 chars filters live), each row: term, def,
+  breadcrumb link to the source lesson. Entry point: a small "Slowniczek" /
+  "Glossary" link in the home footer area next to Statystyki, plus i18n.
+- No content changes, no sw.js changes (no new files). i18n pl+en for all new
+  strings.
+
 ## Definition of done
 
 - Every JS file passes `node --check`.
