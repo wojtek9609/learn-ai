@@ -2,7 +2,7 @@
 
 export default {
   id: 'frontend-architecture',
-  order: 5,
+  order: 4,
   icon: '🏗️',
   status: 'coming-soon',
   title: { pl: 'Architektura Frontendu', en: 'Frontend Architecture' },

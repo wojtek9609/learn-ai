@@ -33,7 +33,6 @@ const PRECACHE = [
   './content/tracks/ai-engineer/module-08-python.js',
   './content/tracks/frontend-architecture/index.js',
   './content/tracks/react/index.js',
-  './content/tracks/react-vs-vue/index.js',
   './content/tracks/vue/index.js',
 ];
 

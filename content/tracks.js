@@ -4,10 +4,9 @@
 import aiEngineer from './tracks/ai-engineer/index.js';
 import react from './tracks/react/index.js';
 import vue from './tracks/vue/index.js';
-import reactVsVue from './tracks/react-vs-vue/index.js';
 import frontendArchitecture from './tracks/frontend-architecture/index.js';
 
-export const TRACKS = [aiEngineer, react, vue, reactVsVue, frontendArchitecture]
+export const TRACKS = [aiEngineer, react, vue, frontendArchitecture]
   .filter(Boolean)
   .sort((a, b) => (a.order || 0) - (b.order || 0));
 
