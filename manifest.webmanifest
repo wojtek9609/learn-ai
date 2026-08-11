@@ -1,0 +1,29 @@
+{
+  "name": "Learn AI",
+  "short_name": "Learn AI",
+  "description": "Bilingual (PL/EN) learning platform: AI Engineer / Applied AI and more.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "lang": "pl",
+  "dir": "ltr",
+  "theme_color": "#f6f7fb",
+  "background_color": "#f6f7fb",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
