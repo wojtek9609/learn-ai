@@ -1656,7 +1656,7 @@ function bindInteractive(lesson) {
 
 /* --------------------------------------------- v5: listening mode (TTS) -- */
 
-const TTS_RATES = [0.9, 1, 1.2];
+const TTS_RATES = [0.7, 0.8, 0.9, 1, 1.2];
 // Chrome cuts long utterances off; paragraph chunks stay well under the limit
 // and long paragraphs get split again on sentence boundaries.
 const TTS_CHUNK_MAX = 280;
@@ -1830,7 +1830,9 @@ function renderTts() {
         aria-label="${esc(L.ttsPlay)}" title="${esc(L.ttsPlay)}">▶</button>
       <button type="button" class="tts-btn" data-tts-stop disabled
         aria-label="${esc(L.ttsStop)}" title="${esc(L.ttsStop)}">■</button>
-      <select class="tts-rate" data-tts-rate aria-label="${esc(L.ttsRate)}">${options}</select>
+      <span class="tts-rate-wrap">
+        <select class="tts-rate" data-tts-rate aria-label="${esc(L.ttsRate)}">${options}</select>
+      </span>
     </div>`;
 }
 
