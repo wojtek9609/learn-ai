@@ -40,6 +40,179 @@ export default {
           en: 'RAG is a plain pipeline: the question goes to a search engine, the found chunks go into the prompt, the model answers with citations.'
         }
       },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Krok po kroku: to samo pytanie przechodzi przez cały pipeline RAG, od wyszukiwarki po odpowiedź z cytatami.',
+          en: 'Step by step: one question travels the whole RAG pipeline, from the retriever to a cited answer.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Step 1 - the question arrives</text>' +
+              '<rect x="20" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="105" y="78" text-anchor="middle" font-size="15" fill="var(--text)">User question</text>' +
+              '<rect x="235" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="68" text-anchor="middle" font-size="15" fill="var(--muted)">Retriever</text>' +
+              '<text x="320" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">idle</text>' +
+              '<rect x="450" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="535" y="68" text-anchor="middle" font-size="15" fill="var(--muted)">Your knowledge</text>' +
+              '<text x="535" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">docs, tickets, wiki</text>' +
+              '<rect x="235" y="170" width="170" height="72" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="198" text-anchor="middle" font-size="15" fill="var(--muted)">Prompt</text>' +
+              '<text x="320" y="222" text-anchor="middle" font-size="13" fill="var(--muted)">empty</text>' +
+              '<rect x="235" y="300" width="170" height="60" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="328" text-anchor="middle" font-size="15" fill="var(--muted)">LLM answer</text>' +
+              '<text x="320" y="348" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<path d="M190,72 L228,72" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M405,72 L443,72" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M535,100 L535,136 L320,136 L320,163" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M105,100 L105,206 L228,206" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M320,242 L320,293" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">Nothing retrieved yet - the model has not been called.</text>' +
+              '</svg>',
+            label: { pl: 'Pytanie wchodzi', en: 'The question arrives' },
+            note: {
+              pl: 'Start: mamy tylko pytanie użytkownika. Model jeszcze nie wie nic o Twoich dokumentach.',
+              en: 'Start: we only have the user question. The model knows nothing about your documents yet.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Step 2 - the retriever searches your data</text>' +
+              '<rect x="20" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="105" y="78" text-anchor="middle" font-size="15" fill="var(--text)">User question</text>' +
+              '<rect x="235" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="68" text-anchor="middle" font-size="15" fill="var(--text)">Retriever</text>' +
+              '<text x="320" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">search top-k</text>' +
+              '<rect x="450" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="535" y="68" text-anchor="middle" font-size="15" fill="var(--text)">Your knowledge</text>' +
+              '<text x="535" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">docs, tickets, wiki</text>' +
+              '<rect x="235" y="170" width="170" height="72" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="198" text-anchor="middle" font-size="15" fill="var(--muted)">Prompt</text>' +
+              '<text x="320" y="222" text-anchor="middle" font-size="13" fill="var(--muted)">empty</text>' +
+              '<rect x="235" y="300" width="170" height="60" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="328" text-anchor="middle" font-size="15" fill="var(--muted)">LLM answer</text>' +
+              '<text x="320" y="348" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<path d="M190,72 L228,72" stroke="var(--accent)" stroke-width="2" marker-end="url(#rag1i-a)"/>' +
+              '<path d="M405,72 L443,72" stroke="var(--accent)" stroke-width="2" marker-end="url(#rag1i-a)"/>' +
+              '<path d="M535,100 L535,136 L320,136 L320,163" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M105,100 L105,206 L228,206" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M320,242 L320,293" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">This step is plain search - no LLM involved.</text>' +
+              '</svg>',
+            label: { pl: 'Retriever szuka', en: 'The retriever searches' },
+            note: {
+              pl: 'Pytanie idzie do wyszukiwarki, a ta przegląda Twoją bazę wiedzy. To zwykłe wyszukiwanie, model jeszcze nie działa.',
+              en: 'The question goes to the search engine, which scans your knowledge base. Plain search - the model is still idle.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Step 3 - top-k chunks come back</text>' +
+              '<rect x="20" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="105" y="78" text-anchor="middle" font-size="15" fill="var(--text)">User question</text>' +
+              '<rect x="235" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="68" text-anchor="middle" font-size="15" fill="var(--text)">Retriever</text>' +
+              '<text x="320" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">5 chunks found</text>' +
+              '<rect x="450" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="535" y="68" text-anchor="middle" font-size="15" fill="var(--text)">Your knowledge</text>' +
+              '<text x="535" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">docs, tickets, wiki</text>' +
+              '<rect x="235" y="170" width="170" height="72" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="320" y="198" text-anchor="middle" font-size="15" fill="var(--text)">Prompt</text>' +
+              '<text x="320" y="216" text-anchor="middle" font-size="13" fill="var(--muted)">chunks arriving</text>' +
+              '<rect x="250" y="224" width="36" height="12" rx="6" fill="var(--accent2)"/>' +
+              '<rect x="296" y="224" width="36" height="12" rx="6" fill="var(--accent2)"/>' +
+              '<rect x="342" y="224" width="36" height="12" rx="6" fill="var(--accent2)"/>' +
+              '<rect x="235" y="300" width="170" height="60" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="328" text-anchor="middle" font-size="15" fill="var(--muted)">LLM answer</text>' +
+              '<text x="320" y="348" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<path d="M190,72 L228,72" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M405,72 L443,72" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M535,100 L535,136 L320,136 L320,163" fill="none" stroke="var(--accent2)" stroke-width="2" marker-end="url(#rag1i-a)"/>' +
+              '<path d="M105,100 L105,206 L228,206" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M320,242 L320,293" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">Bad chunks here means a confident wrong answer later.</text>' +
+              '</svg>',
+            label: { pl: 'Fragmenty wracają', en: 'Chunks come back' },
+            note: {
+              pl: 'Pięć najlepszych fragmentów wędruje do promptu. Jakość tego kroku decyduje o jakości całego RAG.',
+              en: 'The top five chunks travel into the prompt. The quality of this step decides the quality of the whole RAG system.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Step 4 - the prompt is assembled</text>' +
+              '<rect x="20" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="105" y="78" text-anchor="middle" font-size="15" fill="var(--text)">User question</text>' +
+              '<rect x="235" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="68" text-anchor="middle" font-size="15" fill="var(--text)">Retriever</text>' +
+              '<text x="320" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">done</text>' +
+              '<rect x="450" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="535" y="68" text-anchor="middle" font-size="15" fill="var(--text)">Your knowledge</text>' +
+              '<text x="535" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">docs, tickets, wiki</text>' +
+              '<rect x="235" y="170" width="170" height="72" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="320" y="198" text-anchor="middle" font-size="15" fill="var(--text)">Prompt</text>' +
+              '<text x="320" y="216" text-anchor="middle" font-size="13" fill="var(--muted)">question + 5 chunks</text>' +
+              '<rect x="250" y="224" width="36" height="12" rx="6" fill="var(--accent2)"/>' +
+              '<rect x="296" y="224" width="36" height="12" rx="6" fill="var(--accent2)"/>' +
+              '<rect x="342" y="224" width="36" height="12" rx="6" fill="var(--accent2)"/>' +
+              '<rect x="235" y="300" width="170" height="60" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="328" text-anchor="middle" font-size="15" fill="var(--muted)">LLM answer</text>' +
+              '<text x="320" y="348" text-anchor="middle" font-size="13" fill="var(--muted)">generating</text>' +
+              '<path d="M190,72 L228,72" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M405,72 L443,72" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M535,100 L535,136 L320,136 L320,163" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M105,100 L105,206 L228,206" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#rag1i-a)"/>' +
+              '<path d="M320,242 L320,293" stroke="var(--accent)" stroke-width="2" marker-end="url(#rag1i-a)"/>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">Instruction: answer only from these chunks, cite the source.</text>' +
+              '</svg>',
+            label: { pl: 'Prompt gotowy', en: 'Prompt assembled' },
+            note: {
+              pl: 'Pytanie i fragmenty lądują w jednym promptcie z instrukcją: odpowiadaj tylko z tego materiału i podaj źródło.',
+              en: 'The question and the chunks land in one prompt with the instruction: answer only from this material and cite the source.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Step 5 - grounded answer with citations</text>' +
+              '<rect x="20" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="105" y="78" text-anchor="middle" font-size="15" fill="var(--text)">User question</text>' +
+              '<rect x="235" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="68" text-anchor="middle" font-size="15" fill="var(--text)">Retriever</text>' +
+              '<text x="320" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">done</text>' +
+              '<rect x="450" y="44" width="170" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="535" y="68" text-anchor="middle" font-size="15" fill="var(--text)">Your knowledge</text>' +
+              '<text x="535" y="88" text-anchor="middle" font-size="13" fill="var(--muted)">swap it, answer changes</text>' +
+              '<rect x="235" y="170" width="170" height="72" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="198" text-anchor="middle" font-size="15" fill="var(--text)">Prompt</text>' +
+              '<text x="320" y="216" text-anchor="middle" font-size="13" fill="var(--muted)">question + 5 chunks</text>' +
+              '<rect x="250" y="224" width="36" height="12" rx="6" fill="var(--accent2)"/>' +
+              '<rect x="296" y="224" width="36" height="12" rx="6" fill="var(--accent2)"/>' +
+              '<rect x="342" y="224" width="36" height="12" rx="6" fill="var(--accent2)"/>' +
+              '<rect x="235" y="300" width="170" height="60" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="320" y="328" text-anchor="middle" font-size="15" fill="var(--text)">LLM answer</text>' +
+              '<text x="320" y="348" text-anchor="middle" font-size="13" fill="var(--ok)">with citations</text>' +
+              '<path d="M190,72 L228,72" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M405,72 L443,72" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M535,100 L535,136 L320,136 L320,163" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M105,100 L105,206 L228,206" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M320,242 L320,293" stroke="var(--ok)" stroke-width="2" marker-end="url(#rag1i-a)"/>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">No retraining anywhere: update the docs, the answer updates.</text>' +
+              '</svg>',
+            label: { pl: 'Odpowiedź z cytatami', en: 'Answer with citations' },
+            note: {
+              pl: 'Model odpowiada wyłącznie z podanego materiału i wskazuje źródło. Zmiana dokumentów natychmiast zmienia odpowiedź - bez trenowania.',
+              en: 'The model answers only from the supplied material and points at the source. Change the docs and the answer changes instantly - no training involved.'
+            }
+          }
+        ]
+      },
       levels: {
         eli5: {
           pl: '<p>Wyobraź sobie kolegę, który zna cały internet sprzed roku, ale nigdy nie widział dokumentów Twojej firmy. Pytasz go: ile dni urlopu mi zostało? On nie ma pojęcia, więc zmyśla coś sensownie brzmiącego.</p><p>RAG to prosty trik: zanim zadasz pytanie, biegniesz do szafy z dokumentami, wyciągasz trzy najbardziej pasujące kartki i kładziesz je koledze na biurku. Potem mówisz: odpowiedz na moje pytanie, ale korzystaj tylko z tych kartek i powiedz, z której wziąłeś odpowiedź.</p><p>Cała magia jest w tym, że kolega nie musi się niczego uczyć na nowo. Zmieniasz kartki w szafie, a on natychmiast odpowiada inaczej. To jak podpowiedzi na ściądze: model dalej mówi ładnie, ale fakty bierze z Twojej ściągi.</p><p>Jeżeli wyciągniesz z szafy złe kartki, kolega odpowie pewnym głosem i całkowicie źle. Dlatego w RAG najtrudniejsza część to nie model, tylko szukanie właściwych kartek.</p>',
@@ -351,6 +524,202 @@ export default {
           pl: 'Dwie wyszukiwarki biegną równolegle, wyniki łączy fuzja rang, a cross-encoder wybiera pięć najlepszych fragmentów do promptu.',
           en: 'Two search engines run in parallel, rank fusion merges the results, and a cross-encoder picks the best five chunks for the prompt.'
         }
+      },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Dwa przebiegi: najpierw szybkie wyszukiwanie kandydatów, potem wolny, dokładny reranking krótkiej listy.',
+          en: 'Two passes: a fast candidate search first, then a slow and accurate rerank of the short list.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag4i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Step 1 - one query, two engines</text>' +
+              '<rect x="230" y="34" width="180" height="48" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="64" text-anchor="middle" font-size="15" fill="var(--text)">Query: XR-9012 charger</text>' +
+              '<rect x="30" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="150" y="148" text-anchor="middle" font-size="15" fill="var(--muted)">BM25 keywords</text>' +
+              '<text x="150" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">exact terms, codes, names</text>' +
+              '<rect x="370" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="490" y="148" text-anchor="middle" font-size="15" fill="var(--muted)">Vector search</text>' +
+              '<text x="490" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">meaning, paraphrase</text>' +
+              '<rect x="180" y="240" width="280" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="264" text-anchor="middle" font-size="15" fill="var(--muted)">Fusion</text>' +
+              '<text x="320" y="285" text-anchor="middle" font-size="13" fill="var(--muted)">0 candidates</text>' +
+              '<rect x="180" y="330" width="280" height="66" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="356" text-anchor="middle" font-size="15" fill="var(--muted)">Cross-encoder rerank</text>' +
+              '<text x="320" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<path d="M280,82 L160,114" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M360,82 L480,114" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M150,220 L150,268 L173,268" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M490,220 L490,268 L467,268" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M320,296 L320,323" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<text x="20" y="412" font-size="13" fill="var(--muted)">One query contains both an exact code and a meaning.</text>' +
+              '</svg>',
+            label: { pl: 'Jedno zapytanie, dwie wyszukiwarki', en: 'One query, two engines' },
+            note: {
+              pl: 'Zapytanie zawiera i dokładny kod, i sens. Żadna pojedyncza wyszukiwarka nie łapie obu naraz.',
+              en: 'The query carries both an exact code and a meaning. Neither engine alone catches both.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag4i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Step 2 - both engines run in parallel</text>' +
+              '<rect x="230" y="34" width="180" height="48" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="64" text-anchor="middle" font-size="15" fill="var(--text)">Query: XR-9012 charger</text>' +
+              '<rect x="30" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="150" y="148" text-anchor="middle" font-size="15" fill="var(--text)">BM25 keywords</text>' +
+              '<text x="150" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">hit: the exact code</text>' +
+              '<rect x="40" y="200" width="48" height="14" rx="7" fill="var(--accent2)"/>' +
+              '<rect x="96" y="200" width="48" height="14" rx="7" fill="var(--accent2)"/>' +
+              '<rect x="152" y="200" width="48" height="14" rx="7" fill="var(--accent2)"/>' +
+              '<rect x="208" y="200" width="48" height="14" rx="7" fill="var(--accent2)"/>' +
+              '<rect x="370" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="490" y="148" text-anchor="middle" font-size="15" fill="var(--text)">Vector search</text>' +
+              '<text x="490" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">hit: paraphrases</text>' +
+              '<rect x="380" y="200" width="48" height="14" rx="7" fill="var(--accent)"/>' +
+              '<rect x="436" y="200" width="48" height="14" rx="7" fill="var(--accent)"/>' +
+              '<rect x="492" y="200" width="48" height="14" rx="7" fill="var(--accent)"/>' +
+              '<rect x="548" y="200" width="48" height="14" rx="7" fill="var(--accent)"/>' +
+              '<rect x="180" y="240" width="280" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="264" text-anchor="middle" font-size="15" fill="var(--muted)">Fusion</text>' +
+              '<text x="320" y="285" text-anchor="middle" font-size="13" fill="var(--muted)">0 candidates</text>' +
+              '<rect x="180" y="330" width="280" height="66" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="356" text-anchor="middle" font-size="15" fill="var(--muted)">Cross-encoder rerank</text>' +
+              '<text x="320" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<path d="M280,82 L160,114" stroke="var(--accent2)" stroke-width="2" marker-end="url(#rag4i-a)"/>' +
+              '<path d="M360,82 L480,114" stroke="var(--accent)" stroke-width="2" marker-end="url(#rag4i-a)"/>' +
+              '<path d="M150,220 L150,268 L173,268" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M490,220 L490,268 L467,268" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M320,296 L320,323" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<text x="20" y="412" font-size="13" fill="var(--muted)">Both are cheap: milliseconds over the whole corpus.</text>' +
+              '</svg>',
+            label: { pl: 'Oba przebiegi równolegle', en: 'Both engines in parallel' },
+            note: {
+              pl: 'BM25 łapie dokładny kod, wektory łapią parafrazy. Oba są tanie i przeszukują cały korpus w milisekundach.',
+              en: 'BM25 catches the exact code, vectors catch paraphrases. Both are cheap and scan the entire corpus in milliseconds.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag4i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Step 3 - reciprocal rank fusion merges both lists</text>' +
+              '<rect x="230" y="34" width="180" height="48" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="64" text-anchor="middle" font-size="15" fill="var(--text)">Query: XR-9012 charger</text>' +
+              '<rect x="30" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="150" y="148" text-anchor="middle" font-size="15" fill="var(--text)">BM25 keywords</text>' +
+              '<text x="150" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">25 hits</text>' +
+              '<rect x="40" y="200" width="48" height="14" rx="7" fill="var(--accent2)"/>' +
+              '<rect x="96" y="200" width="48" height="14" rx="7" fill="var(--accent2)"/>' +
+              '<rect x="152" y="200" width="48" height="14" rx="7" fill="var(--accent2)"/>' +
+              '<rect x="208" y="200" width="48" height="14" rx="7" fill="var(--accent2)"/>' +
+              '<rect x="370" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="490" y="148" text-anchor="middle" font-size="15" fill="var(--text)">Vector search</text>' +
+              '<text x="490" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">25 hits</text>' +
+              '<rect x="380" y="200" width="48" height="14" rx="7" fill="var(--accent)"/>' +
+              '<rect x="436" y="200" width="48" height="14" rx="7" fill="var(--accent)"/>' +
+              '<rect x="492" y="200" width="48" height="14" rx="7" fill="var(--accent)"/>' +
+              '<rect x="548" y="200" width="48" height="14" rx="7" fill="var(--accent)"/>' +
+              '<rect x="180" y="240" width="280" height="56" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="320" y="264" text-anchor="middle" font-size="15" fill="var(--text)">Fusion, 50 candidates</text>' +
+              '<text x="320" y="285" text-anchor="middle" font-size="13" fill="var(--muted)">reciprocal rank fusion</text>' +
+              '<rect x="180" y="330" width="280" height="66" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="356" text-anchor="middle" font-size="15" fill="var(--muted)">Cross-encoder rerank</text>' +
+              '<text x="320" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<path d="M280,82 L160,114" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M360,82 L480,114" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M150,220 L150,268 L173,268" fill="none" stroke="var(--accent2)" stroke-width="2" marker-end="url(#rag4i-a)"/>' +
+              '<path d="M490,220 L490,268 L467,268" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#rag4i-a)"/>' +
+              '<path d="M320,296 L320,323" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<text x="20" y="412" font-size="13" fill="var(--muted)">RRF needs no score calibration - it only uses ranks.</text>' +
+              '</svg>',
+            label: { pl: 'Fuzja rang', en: 'Rank fusion' },
+            note: {
+              pl: 'RRF łączy obie listy po pozycjach, a nie po wynikach punktowych, więc nie trzeba kalibrować niekompatybilnych skal.',
+              en: 'RRF merges both lists by position rather than by score, so incompatible scales never need calibrating.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag4i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Step 4 - second pass: the cross-encoder reads each pair</text>' +
+              '<rect x="230" y="34" width="180" height="48" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="64" text-anchor="middle" font-size="15" fill="var(--text)">Query: XR-9012 charger</text>' +
+              '<rect x="30" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="150" y="148" text-anchor="middle" font-size="15" fill="var(--muted)">BM25 keywords</text>' +
+              '<text x="150" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">25 hits</text>' +
+              '<rect x="40" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="96" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="152" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="208" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="370" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="490" y="148" text-anchor="middle" font-size="15" fill="var(--muted)">Vector search</text>' +
+              '<text x="490" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">25 hits</text>' +
+              '<rect x="380" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="436" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="492" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="548" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="180" y="240" width="280" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="264" text-anchor="middle" font-size="15" fill="var(--text)">Fusion, 50 candidates</text>' +
+              '<text x="320" y="285" text-anchor="middle" font-size="13" fill="var(--muted)">short list, not the corpus</text>' +
+              '<rect x="180" y="330" width="280" height="66" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="320" y="356" text-anchor="middle" font-size="15" fill="var(--text)">Cross-encoder rerank</text>' +
+              '<text x="320" y="378" text-anchor="middle" font-size="13" fill="var(--warn)">scoring 50 pairs, ~200 ms</text>' +
+              '<path d="M280,82 L160,114" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M360,82 L480,114" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M150,220 L150,268 L173,268" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M490,220 L490,268 L467,268" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M320,296 L320,323" stroke="var(--warn)" stroke-width="2" marker-end="url(#rag4i-a)"/>' +
+              '<text x="20" y="412" font-size="13" fill="var(--muted)">Too slow for the corpus, perfect for 50 candidates.</text>' +
+              '</svg>',
+            label: { pl: 'Drugi przebieg: reranker', en: 'Second pass: the reranker' },
+            note: {
+              pl: 'Cross-encoder czyta parę pytanie-fragment razem, więc jest wolny. Dlatego dostaje tylko krótką listę, nie cały korpus.',
+              en: 'A cross-encoder reads the query and the chunk together, so it is slow. That is why it only ever sees the short list.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="rag4i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Step 5 - top 5 go into the prompt</text>' +
+              '<rect x="230" y="34" width="180" height="48" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="64" text-anchor="middle" font-size="15" fill="var(--text)">Query: XR-9012 charger</text>' +
+              '<rect x="30" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="150" y="148" text-anchor="middle" font-size="15" fill="var(--muted)">BM25 keywords</text>' +
+              '<text x="150" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">25 hits</text>' +
+              '<rect x="40" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="96" y="200" width="48" height="14" rx="7" fill="var(--ok)"/>' +
+              '<rect x="152" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="208" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="370" y="120" width="240" height="68" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="490" y="148" text-anchor="middle" font-size="15" fill="var(--muted)">Vector search</text>' +
+              '<text x="490" y="170" text-anchor="middle" font-size="13" fill="var(--muted)">25 hits</text>' +
+              '<rect x="380" y="200" width="48" height="14" rx="7" fill="var(--ok)"/>' +
+              '<rect x="436" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="492" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="548" y="200" width="48" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="180" y="240" width="280" height="56" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="264" text-anchor="middle" font-size="15" fill="var(--muted)">Fusion, 50 candidates</text>' +
+              '<text x="320" y="285" text-anchor="middle" font-size="13" fill="var(--muted)">45 dropped</text>' +
+              '<rect x="180" y="330" width="280" height="66" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="320" y="356" text-anchor="middle" font-size="15" fill="var(--text)">Top 5 for the prompt</text>' +
+              '<text x="320" y="378" text-anchor="middle" font-size="13" fill="var(--ok)">rank 31 promoted to rank 1</text>' +
+              '<path d="M280,82 L160,114" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M360,82 L480,114" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M150,220 L150,268 L173,268" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M490,220 L490,268 L467,268" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<path d="M320,296 L320,323" stroke="var(--ok)" stroke-width="2" marker-end="url(#rag4i-a)"/>' +
+              '<text x="20" y="412" font-size="13" fill="var(--muted)">Recall from pass one, precision from pass two.</text>' +
+              '</svg>',
+            label: { pl: 'Pięć najlepszych', en: 'The best five' },
+            note: {
+              pl: 'Reranker potrafi wypchnąć na pierwsze miejsce fragment, który w fuzji był trzydziesty. Pierwszy przebieg daje recall, drugi precision.',
+              en: 'The reranker can promote a chunk that fusion ranked thirty-first. Pass one buys recall, pass two buys precision.'
+            }
+          }
+        ]
       },
       levels: {
         eli5: {

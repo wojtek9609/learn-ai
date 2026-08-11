@@ -1,6 +1,67 @@
 // Module 01 - LLM Fundamentals
 // Plain ES module, no imports. Schema: see SPEC.md ("Content schema").
 
+// ---------------------------------------------------------------- shared SVG
+// Frame builders for the interactive players (SPEC v4 "Interactive diagram
+// widget"). Every frame of a set shares the viewBox and the layout, so the
+// player reads as one animation instead of a slideshow of unrelated pictures.
+
+const BPE_HEAD =
+  '<text x="20" y="28" fill="var(--muted)" font-size="14">BPE: merge the most frequent pair, then repeat</text>';
+
+const BPE_FOOT =
+  '<rect x="20" y="250" width="600" height="130" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+  '<text x="40" y="284" font-size="14" fill="var(--muted)">The merge list is learned once, on a huge corpus.</text>' +
+  '<text x="40" y="308" font-size="14" fill="var(--muted)">Every prompt is then cut with exactly the same rules.</text>';
+
+function bpeCell(x, w, label, stroke) {
+  return '<rect x="' + x + '" y="110" width="' + w + '" height="56" rx="10" fill="var(--surface)" stroke="' + stroke + '" stroke-width="2"/>' +
+    '<text x="' + (x + w / 2) + '" y="146" text-anchor="middle" font-size="16" fill="var(--text)">' + label + '</text>';
+}
+
+function bpePair(x1, x2) {
+  return '<path d="M' + x1 + ' 176 L' + x1 + ' 188 L' + x2 + ' 188 L' + x2 + ' 176" fill="none" stroke="var(--accent)" stroke-width="2"/>';
+}
+
+function bpeStep(text, color) {
+  return '<text x="320" y="216" text-anchor="middle" font-size="15" fill="' + color + '">' + text + '</text>';
+}
+
+function bpeFrame(inner, status, statusColor) {
+  return '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+    BPE_HEAD + inner + BPE_FOOT +
+    '<text x="40" y="350" font-size="15" fill="' + statusColor + '">' + status + '</text>' +
+    '</svg>';
+}
+
+const CACHE_HEAD =
+  '<text x="20" y="26" fill="var(--muted)" font-size="14">Prompt caching: the prefix is what you are paying for</text>' +
+  '<rect x="20" y="42" width="600" height="58" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>';
+
+function cacheSeg(x, w, label, fill, opacity) {
+  return '<rect x="' + x + '" y="52" width="' + w + '" height="38" rx="8" fill="' + fill + '" opacity="' + opacity + '"/>' +
+    '<text x="' + (x + w / 2) + '" y="76" text-anchor="middle" font-size="13" fill="var(--text)">' + label + '</text>';
+}
+
+function cacheBox(x, title, line1, line2, stroke) {
+  return '<rect x="' + x + '" y="130" width="290" height="96" rx="12" fill="var(--surface)" stroke="' + stroke + '" stroke-width="2"/>' +
+    '<text x="' + (x + 145) + '" y="160" text-anchor="middle" font-size="15" fill="var(--text)">' + title + '</text>' +
+    '<text x="' + (x + 145) + '" y="184" text-anchor="middle" font-size="13" fill="var(--muted)">' + line1 + '</text>' +
+    '<text x="' + (x + 145) + '" y="206" text-anchor="middle" font-size="13" fill="var(--muted)">' + line2 + '</text>';
+}
+
+function cacheFoot(headline, line1, line2, color) {
+  return '<rect x="20" y="250" width="600" height="130" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+    '<text x="40" y="286" font-size="15" fill="' + color + '">' + headline + '</text>' +
+    '<text x="40" y="316" font-size="14" fill="var(--muted)">' + line1 + '</text>' +
+    '<text x="40" y="344" font-size="14" fill="var(--muted)">' + line2 + '</text>';
+}
+
+function cacheFrame(inner) {
+  return '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+    CACHE_HEAD + inner + '</svg>';
+}
+
 export default {
   id: 'llm-fundamentals',
   order: 1,
@@ -230,6 +291,117 @@ export default {
           pl: 'Tekst jest ciety na tokeny (kawalki slow) zanim dotrze do modelu. Ten sam tekst kosztuje inna liczbe tokenow w zaleznosci od jezyka i formatu.',
           en: 'Text is cut into tokens (chunks of words) before it reaches the model. The same text costs a different number of tokens depending on language and format.'
         }
+      },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Trening tokenizera na jednym slowie: BPE laczy najczestsza pare symboli, zapisuje regule i powtarza, az slowo lowest zostaje dwoma tokenami.',
+          en: 'Training the tokenizer on one word: BPE merges the most frequent pair, records the rule and repeats, until lowest is just two tokens.'
+        },
+        frames: [
+          {
+            svg: bpeFrame(
+              bpeCell(85, 70, 'l', 'var(--border)') +
+              bpeCell(165, 70, 'o', 'var(--border)') +
+              bpeCell(245, 70, 'w', 'var(--border)') +
+              bpeCell(325, 70, 'e', 'var(--border)') +
+              bpeCell(405, 70, 's', 'var(--border)') +
+              bpeCell(485, 70, 't', 'var(--border)') +
+              bpeStep('start: one symbol per character', 'var(--muted)'),
+              '6 symbols, 6 tokens - the most expensive possible split',
+              'var(--warn)'
+            ),
+            label: { pl: '1. Same litery', en: '1. Bare characters' },
+            note: {
+              pl: 'BPE zaczyna od alfabetu: kazdy znak to osobny symbol. Na tym etapie slowo lowest kosztuje szesc tokenow.',
+              en: 'BPE starts from the alphabet: every character is its own symbol. At this point the word lowest costs six tokens.'
+            }
+          },
+          {
+            svg: bpeFrame(
+              bpeCell(85, 70, 'l', 'var(--border)') +
+              bpeCell(165, 70, 'o', 'var(--border)') +
+              bpeCell(245, 70, 'w', 'var(--border)') +
+              bpeCell(325, 70, 'e', 'var(--accent)') +
+              bpeCell(405, 70, 's', 'var(--accent)') +
+              bpeCell(485, 70, 't', 'var(--border)') +
+              bpePair(325, 475) +
+              bpeStep('most frequent pair in the corpus: e + s', 'var(--accent)'),
+              'merge rule 1 recorded: e + s = es',
+              'var(--accent)'
+            ),
+            label: { pl: '2. Najczestsza para', en: '2. The most frequent pair' },
+            note: {
+              pl: 'Algorytm liczy wystapienia wszystkich sasiednich par w calym korpusie i wybiera zwyciezce. Tu wygrywa e + s.',
+              en: 'The algorithm counts every adjacent pair across the whole corpus and picks the winner. Here e + s wins.'
+            }
+          },
+          {
+            svg: bpeFrame(
+              bpeCell(115, 70, 'l', 'var(--border)') +
+              bpeCell(195, 70, 'o', 'var(--border)') +
+              bpeCell(275, 70, 'w', 'var(--border)') +
+              bpeCell(355, 90, 'es', 'var(--ok)') +
+              bpeCell(455, 70, 't', 'var(--accent)') +
+              bpePair(355, 525) +
+              bpeStep('next pair: es + t', 'var(--accent)'),
+              '5 symbols - merge rule 2: es + t = est',
+              'var(--accent)'
+            ),
+            label: { pl: '3. Sklejka rosnie', en: '3. The merge grows' },
+            note: {
+              pl: 'Nowy symbol es wchodzi do slownika i od razu bierze udzial w kolejnym liczeniu par. Koncowka est jest czesta w angielskim.',
+              en: 'The new symbol es joins the vocabulary and immediately competes in the next round of counting. The ending est is common in English.'
+            }
+          },
+          {
+            svg: bpeFrame(
+              bpeCell(145, 70, 'l', 'var(--accent)') +
+              bpeCell(225, 70, 'o', 'var(--accent)') +
+              bpeCell(305, 70, 'w', 'var(--border)') +
+              bpeCell(385, 110, 'est', 'var(--ok)') +
+              bpePair(145, 295) +
+              bpeStep('next pair: l + o', 'var(--accent)'),
+              '4 symbols - merge rule 3: l + o = lo',
+              'var(--accent)'
+            ),
+            label: { pl: '4. Poczatek slowa', en: '4. The head of the word' },
+            note: {
+              pl: 'Ten sam mechanizm dziala od lewej strony slowa. Kazda regula jest numerowana, wiec kolejnosc laczenia jest zawsze taka sama.',
+              en: 'The same mechanism works on the head of the word. Every rule is numbered, so the merge order is always identical.'
+            }
+          },
+          {
+            svg: bpeFrame(
+              bpeCell(175, 90, 'lo', 'var(--ok)') +
+              bpeCell(275, 70, 'w', 'var(--accent)') +
+              bpeCell(355, 110, 'est', 'var(--ok)') +
+              bpePair(175, 345) +
+              bpeStep('next pair: lo + w', 'var(--accent)'),
+              '3 symbols - merge rule 4: lo + w = low',
+              'var(--accent)'
+            ),
+            label: { pl: '5. Przedostatnia regula', en: '5. One rule to go' },
+            note: {
+              pl: 'Slowo low wystepuje w korpusie samodzielnie tysiace razy, wiec oplaca sie miec dla niego jeden symbol.',
+              en: 'The word low appears thousands of times on its own, so it earns a symbol of its own.'
+            }
+          },
+          {
+            svg: bpeFrame(
+              bpeCell(200, 120, 'low', 'var(--ok)') +
+              bpeCell(330, 110, 'est', 'var(--ok)') +
+              bpeStep('no rule matches any remaining pair', 'var(--ok)'),
+              '2 tokens - this is what the model actually sees',
+              'var(--ok)'
+            ),
+            label: { pl: '6. Gotowe tokeny', en: '6. Final tokens' },
+            note: {
+              pl: 'Model dostaje dwa identyfikatory, nie szesc liter. Dlatego pytanie o liczbe liter r w slowie jest dla niego zagadka, a nie odczytem.',
+              en: 'The model receives two ids, not six letters. That is why counting the letter r in a word is a puzzle for it, not a lookup.'
+            }
+          }
+        ]
       },
       levels: {
         eli5: {
@@ -941,6 +1113,116 @@ export default {
           pl: 'Stabilny prefiks promptu na gorze daje trafienia cache, a latencje dzieli sie na prefill (TTFT) i decode zalezny od dlugosci odpowiedzi.',
           en: 'A stable prompt prefix at the top earns cache hits, while latency splits into prefill (TTFT) and decode, which scales with answer length.'
         }
+      },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Dwa zapytania z tym samym prefiksem: pierwsze placi pelna cene i zapisuje cache, drugie trafia w cache. Ostatnia klatka pokazuje, jak jeden znak potrafi to zepsuc.',
+          en: 'Two requests with the same prefix: the first pays full price and writes the cache, the second hits it. The last frame shows how one character can ruin it.'
+        },
+        frames: [
+          {
+            svg: cacheFrame(
+              cacheSeg(28, 224, 'system + tools', 'var(--muted)', '0.35') +
+              cacheSeg(260, 196, 'docs', 'var(--muted)', '0.35') +
+              cacheSeg(464, 148, 'user turn A', 'var(--muted)', '0.35') +
+              cacheBox(20, 'prefill', 'nothing to reuse', '20k tokens to process', 'var(--border)') +
+              cacheBox(330, 'prompt cache', 'empty', 'first call of the day', 'var(--border)') +
+              cacheFoot(
+                'Request 1: cold start',
+                'The whole prompt has to go through the model before token one comes out.',
+                'Input 20k tokens at full price, TTFT around 2 s.',
+                'var(--warn)'
+              )
+            ),
+            label: { pl: '1. Zimny start', en: '1. Cold start' },
+            note: {
+              pl: 'Pierwsze zapytanie nie ma czego odzyskac. Caly prompt jest liczony od zera i to on tworzy TTFT (czas do pierwszego tokenu).',
+              en: 'The first request has nothing to reuse. The entire prompt is computed from scratch and that is what your TTFT (time to first token) is made of.'
+            }
+          },
+          {
+            svg: cacheFrame(
+              cacheSeg(28, 224, 'system + tools', 'var(--ok)', '0.6') +
+              cacheSeg(260, 196, 'docs', 'var(--accent2)', '0.55') +
+              cacheSeg(464, 148, 'user turn A', 'var(--warn)', '0.55') +
+              cacheBox(20, 'prefill done', 'answer streaming', 'decode phase now', 'var(--accent)') +
+              cacheBox(330, 'prompt cache', 'prefix written: 18k tokens', 'alive for about 5 minutes', 'var(--ok)') +
+              cacheFoot(
+                'The cache write is the investment',
+                'Writing costs a little more than a normal input token (about 1.25x).',
+                'Only an exact prefix, from the very first token, can be stored.',
+                'var(--accent)'
+              )
+            ),
+            label: { pl: '2. Cache zapisany', en: '2. Cache written' },
+            note: {
+              pl: 'Stabilna czesc promptu - system, definicje narzedzi i dokumenty - laduje w cache. Zmienna koncowka rozmowy zostaje poza nim.',
+              en: 'The stable part of the prompt - system, tool definitions and documents - lands in the cache. The volatile tail of the conversation stays outside it.'
+            }
+          },
+          {
+            svg: cacheFrame(
+              cacheSeg(28, 224, 'system + tools', 'var(--ok)', '0.6') +
+              cacheSeg(260, 196, 'docs', 'var(--accent2)', '0.55') +
+              cacheSeg(464, 148, 'user turn B', 'var(--warn)', '0.55') +
+              cacheBox(20, 'prefix compare', 'byte for byte, from token 0', 'match: 18k of 20k', 'var(--ok)') +
+              cacheBox(330, 'prompt cache', 'hit', 'only the tail is new', 'var(--ok)') +
+              cacheFoot(
+                'Request 2: same prefix, new question',
+                'The provider walks the prompt from the start and stops at the first difference.',
+                'Everything before that point is served from the cache.',
+                'var(--ok)'
+              )
+            ),
+            label: { pl: '3. Trafienie w cache', en: '3. Cache hit' },
+            note: {
+              pl: 'Porownanie idzie od poczatku promptu, jak wspolny prefiks dwoch stringow. Wystarczy, ze koncowka jest inna - reszta i tak sie zgadza.',
+              en: 'The comparison runs from the start of the prompt, like the common prefix of two strings. Only the tail differs, and the rest still matches.'
+            }
+          },
+          {
+            svg: cacheFrame(
+              cacheSeg(28, 224, 'served from cache', 'var(--ok)', '0.6') +
+              cacheSeg(260, 196, 'served from cache', 'var(--ok)', '0.6') +
+              cacheSeg(464, 148, '2k new tokens', 'var(--warn)', '0.55') +
+              cacheBox(20, 'prefill', 'only 2k tokens processed', 'TTFT around 0.6 s', 'var(--ok)') +
+              cacheBox(330, 'bill', '18k tokens at about 10 percent', '2k tokens at full price', 'var(--ok)') +
+              cacheFoot(
+                'Same answer, a fraction of the cost',
+                'Roughly 80 to 90 percent off the repeated prefix, and several times faster to first token.',
+                'This is why chat, agents and RAG apps care about prompt layout at all.',
+                'var(--ok)'
+              )
+            ),
+            label: { pl: '4. Rachunek i latencja', en: '4. Bill and latency' },
+            note: {
+              pl: 'Cache nie zmienia odpowiedzi - zmienia cene i czas. Im dluzszy stabilny prefiks, tym wiekszy zysk przy kazdym kolejnym zapytaniu.',
+              en: 'The cache does not change the answer - it changes price and time. The longer the stable prefix, the bigger the win on every following request.'
+            }
+          },
+          {
+            svg: cacheFrame(
+              cacheSeg(28, 120, 'timestamp', 'var(--err)', '0.6') +
+              cacheSeg(156, 96, 'system', 'var(--err)', '0.35') +
+              cacheSeg(260, 196, 'docs', 'var(--err)', '0.35') +
+              cacheSeg(464, 148, 'user turn C', 'var(--err)', '0.35') +
+              cacheBox(20, 'prefix compare', 'difference at token 3', 'nothing after it can match', 'var(--err)') +
+              cacheBox(330, 'prompt cache', 'miss', 'full price again', 'var(--err)') +
+              cacheFoot(
+                'One volatile token at the top kills everything',
+                'A clock, a session id or a shuffled tool list invalidates the whole prefix.',
+                'Order the prompt: system, tools, documents, and only then the changing turn.',
+                'var(--err)'
+              )
+            ),
+            label: { pl: '5. Jak to zepsuc', en: '5. How to break it' },
+            note: {
+              pl: 'Najczestszy blad produkcyjny: data lub identyfikator sesji na samej gorze promptu. Cache liczy sie od tokenu zero, wiec placisz pelna stawke.',
+              en: 'The classic production mistake: a date or a session id at the very top of the prompt. Caching starts at token zero, so you pay the full rate.'
+            }
+          }
+        ]
       },
       levels: {
         eli5: {

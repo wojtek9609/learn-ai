@@ -479,6 +479,145 @@ the learner maintains a design system (CHI) at a large telco.
   `content/**/*.js` file (old removed react-vs-vue entry must stay gone).
 - README curriculum section updated: 4 available tracks, ~142 lessons total.
 
+## v5 - Review, Interview, UX pack, AI-track animations, Listening mode
+
+### Storage additions (key `learnai:v1`, all migration-safe with defaults)
+
+```
+lastVisited: { trackId, moduleId, lessonId }        // set on every lesson view
+activity:    { 'YYYY-MM-DD': number }               // counts completions + finished review/interview sessions
+missed:      [ '<trackId>/<moduleId>/<lessonId>/<qIndex>', ... ]  // quiz/review questions answered wrong (deduped, cap 200)
+interview:   { '<trackId>/<qIndex>': 'ok' | 'again' }             // self-assessment for open questions
+```
+
+### Review mode (Powtórka) - route `#/review`
+
+- Entry: card on home ("Powtórka" / "Review") + button on module pages that have
+  at least one completed lesson ("Powtórz ten moduł" / "Review this module").
+- Options screen: scope = "Wszystko" (all completed lessons across tracks) OR one
+  module picked from a list of modules with >=1 completed lesson (grouped by
+  track, with completed-lesson counts). If nothing is completed yet, friendly
+  empty state pointing to the courses.
+- Session: EXACTLY 10 questions drawn from the quiz pools of COMPLETED lessons
+  in scope (fewer only if the pool is smaller - say so). Selection: up to 3 from
+  `missed` first (in scope), the rest random without repeats, shuffled.
+- Question UX identical to lesson quizzes (instant feedback + explanation).
+  End screen: score, per-question recap, "Jeszcze raz" button.
+- After session: wrong answers -> add to `missed`, correct -> remove from
+  `missed`; bump today's `activity`.
+
+### Interview mode - route `#/interview`
+
+- Content: per-track question banks at `content/tracks/<trackId>/interview.js`
+  (all 4 tracks), plus `content/interview.js` exporting
+  `INTERVIEW_BANKS = { [trackId]: bank }` (static imports).
+- Bank schema:
+
+```js
+export default {
+  trackId: 'react',
+  questions: [   // 36 per track, order mixed
+    { kind: 'choice', level: 'mid'|'senior',
+      q: {pl,en}, options: [{pl,en} x4], correct: 0-3, explain: {pl,en} },
+    { kind: 'open', level: 'mid'|'senior',
+      q: {pl,en},
+      answer: {pl,en},              // model answer, HTML, 100-200 words
+      keyPoints: [{pl,en} x3-5] }   // the checklist an interviewer listens for
+  ]
+}
+```
+
+  ~60% choice / 40% open. Distinctly HARDER than lesson quizzes: production
+  scenarios, tradeoffs, "what breaks when..." - real interview register, both
+  languages natural.
+- Options screen: track (or "Wszystkie") -> session of 10 (choice questions
+  scored like quizzes; open questions: think -> "Pokaż odpowiedź" reveals answer
+  + key points -> self-assess "Umiałem" / "Muszę powtórzyć", stored in
+  `interview`). "Muszę powtórzyć" questions get selection priority next time.
+- End screen: score for choice, self-assessment tally for open; bumps `activity`.
+
+### UX pack
+
+- **Continue**: home, above the track list: "Kontynuuj: <lesson title>" jumping
+  to `lastVisited`'s first incomplete lesson (or next lesson if that one is
+  done); hidden when nothing visited yet.
+- **Search**: icon button in the sticky header -> `#/search`, autofocused input,
+  client-side index built lazily on first use (lesson titles + tag-stripped text
+  of all three levels, both languages searched regardless of UI language).
+  Ranking: title match > content match. Results show track/module breadcrumb +
+  matched-fragment snippet. Min 2 chars, results capped at 30.
+- **Streak / daily goal**: home card: "Seria: N dni 🔥" (consecutive days with
+  >=1 activity, today counts if active) + "Dziś: X / cel 2". Fixed goal of 2.
+- **Export/import**: small settings block at the bottom of home:
+  Export downloads `learnai-progress.json` AND copies a compact base64 code to
+  the clipboard; Import accepts a pasted code or a picked .json file, shows what
+  it contains (lesson count, date) and asks in-app confirmation before
+  overwriting. No QR (no dependencies allowed).
+
+### Listening mode (TTS) - lesson page
+
+- Toolbar under the level tabs: Play/Pause, Stop, rate select (0.9x / 1x / 1.2x).
+- Reads lesson title + the ACTIVE level's content, tags stripped, split into
+  paragraph-sized chunks queued sequentially (avoids Chrome's long-utterance
+  cutoff). `speechSynthesis` with voice matched to UI language (pl-PL / en-US;
+  first available match, else default voice). Cancel on route change, level
+  switch, and language switch. Hide the toolbar entirely when
+  `speechSynthesis` is unavailable.
+
+### AI Engineer track animations
+
+Add `interactive` frames (existing v4 schema, 3-8 frames) to 12-16 existing
+ai-engineer lessons - the ones where motion genuinely explains the mechanism,
+e.g.: tokenization (BPE merges), context-window (truncation), embeddings
+(vector-space projection), cost-latency-caching (cache hit flow), tool-calling
+(the loop), validation-retries (parse-repair-retry), what-is-rag +
+hybrid-search-reranking (pipeline), what-is-an-agent (loop with state),
+ci-regression (eval gate), sse-vs-websockets (stream frames),
+streaming-partial-json, prompt-injection (untrusted content flow),
+sandboxing-least-privilege. Target 1-2 per module across all 8 modules.
+Only ADD the `interactive` field - do not touch existing lesson content.
+
+### Wiring
+
+- New routes #/review, #/interview, #/search in the hash router; entries on
+  home; i18n for every new UI string in both languages.
+- sw.js precache regenerated from disk (now includes content/interview.js and
+  the 4 interview banks).
+- README: document the new features (EN + PL).
+
+## v5.1 - Anki-style review (supersedes the v5 review SESSION rules)
+
+Entry points and scope selection stay as in v5 (home card, module-page button,
+"Wszystko" or one module). What changes: scheduling and session flow.
+
+### Card scheduling (SM-2 lite)
+
+- A card = one quiz question of a COMPLETED lesson. Key `<t>/<m>/<l>/<qIndex>`.
+- Storage (inside `learnai:v1`): `srs: { '<key>': { box: 0-5, due: 'YYYY-MM-DD', reps, lapses } }`
+  plus `reviewDay: { date: 'YYYY-MM-DD', done: number }` for the daily counter.
+  The v5 `missed` array is superseded - migrate it once: every key in `missed`
+  becomes a card with box 0 due today, then drop `missed`.
+- Cards not in `srs` are "new". Intervals by box: 0->today, 1->1d, 2->3d,
+  3->7d, 4->14d, 5->30d (cap).
+- Correct answer: box+1 (max 5), due = today + interval(box), reps++.
+- Wrong answer: box = 0, lapses++, due = today, AND the card re-queues at the
+  end of the CURRENT session until answered correctly (Anki learning step).
+
+### Daily dose + endless mode
+
+- **Daily dose**: up to 10 cards: overdue/due first (oldest due date first),
+  topped up with new cards (never-reviewed, from completed lessons in scope).
+  Home card shows "Powtórki na dziś: N" (count of due, capped display 99+);
+  after finishing: "Dzienna dawka zrobiona ✓" state on home.
+- **Endless mode**: after the daily dose (or from the options screen) -
+  "Dalej bez limitu" / "Keep going": serves rounds of 10 with a mini-summary
+  between rounds (score, "Jeszcze 10" / "Koniec"). Pool order: due cards,
+  then new cards, then lowest-box cards (weakest first), never the same card
+  twice in a round except failed re-queues. Works indefinitely.
+- Finishing the daily dose (or any full round of 10) bumps `activity`.
+- Empty states: nothing completed -> point to courses; everything reviewed and
+  no due cards -> "Wszystko powtórzone na dziś" + offer endless mode anyway.
+
 ## Definition of done
 
 - Every JS file passes `node --check`.

@@ -25,6 +25,139 @@ export default {
           en: 'SSE is one HTTP request after which the server keeps pushing chunks. A WebSocket is a two-way channel you have to keep alive yourself.'
         }
       },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Jedno polaczenie SSE w czasie: request, pierwsze zdarzenia, zerwanie sieci, wznowienie przez Last-Event-ID i domkniecie strumienia.',
+          en: 'A single SSE connection over time: the request, the first events, a dropped network, resume via Last-Event-ID, and the closing event.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 0.00 s - one request opens the stream</text>' +
+              '<rect x="30" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Browser</text>' +
+              '<rect x="460" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Server</text>' +
+              '<line x1="184" y1="82" x2="446" y2="82" stroke="var(--accent)" stroke-width="2"/>' +
+              '<polygon points="460,82 446,75 446,89" fill="var(--accent)"/>' +
+              '<text x="320" y="72" fill="var(--accent)" font-size="13" text-anchor="middle">POST /chat - Accept: text/event-stream</text>' +
+              '<rect x="30" y="140" width="580" height="140" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="48" y="168" fill="var(--muted)" font-size="13">event log</text>' +
+              '<text x="48" y="200" fill="var(--muted)" font-size="14">waiting for the first byte (TTFT)</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="48" y="326" fill="var(--muted)" font-size="13">chat bubble</text>' +
+              '<rect x="48" y="338" width="180" height="14" rx="7" fill="var(--border)"/>' +
+              '</svg>',
+            label: { pl: 'Otwarcie strumienia', en: 'Stream opens' },
+            note: {
+              pl: 'Jeden zwykly request HTTP z naglowkiem Accept: text/event-stream. Nic nie wrocilo jeszcze do UI - to okno czekania mierzysz jako TTFT.',
+              en: 'One ordinary HTTP request with an Accept: text/event-stream header. Nothing has reached the UI yet - this waiting window is what TTFT measures.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 0.32 s - first events arrive</text>' +
+              '<rect x="30" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Browser</text>' +
+              '<rect x="460" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Server</text>' +
+              '<line x1="456" y1="82" x2="194" y2="82" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<polygon points="180,82 194,75 194,89" fill="var(--accent2)"/>' +
+              '<text x="320" y="72" fill="var(--accent2)" font-size="13" text-anchor="middle">chunks pushed on the open response</text>' +
+              '<rect x="30" y="140" width="580" height="140" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="48" y="168" fill="var(--muted)" font-size="13">event log</text>' +
+              '<text x="48" y="196" fill="var(--text)" font-size="14">id: 1  data: {"delta":"Rachunek"}</text>' +
+              '<text x="48" y="222" fill="var(--text)" font-size="14">id: 2  data: {"delta":" za marzec"}</text>' +
+              '<text x="48" y="252" fill="var(--muted)" font-size="13">every event ends with a blank line - that is the whole protocol</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="48" y="326" fill="var(--muted)" font-size="13">chat bubble</text>' +
+              '<text x="48" y="352" fill="var(--text)" font-size="15">Rachunek za marzec</text>' +
+              '</svg>',
+            label: { pl: 'Pierwsze zdarzenia', en: 'First events' },
+            note: {
+              pl: 'Serwer dosyla kolejne zdarzenia na tej samej, wciaz otwartej odpowiedzi. Kazde ma id, dzieki czemu przegladarka wie, gdzie skonczyla.',
+              en: 'The server pushes further events on the same still-open response. Each carries an id, so the browser knows exactly where it left off.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 1.10 s - the phone loses the network</text>' +
+              '<rect x="30" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Browser</text>' +
+              '<rect x="460" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Server</text>' +
+              '<line x1="456" y1="82" x2="330" y2="82" stroke="var(--err)" stroke-width="2" stroke-dasharray="6 5"/>' +
+              '<line x1="300" y1="66" x2="330" y2="98" stroke="var(--err)" stroke-width="2"/>' +
+              '<line x1="330" y1="66" x2="300" y2="98" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="320" y="120" fill="var(--err)" font-size="13" text-anchor="middle">connection dropped mid-token</text>' +
+              '<rect x="30" y="140" width="580" height="140" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="48" y="168" fill="var(--muted)" font-size="13">event log</text>' +
+              '<text x="48" y="196" fill="var(--muted)" font-size="14">id: 41  data: {"delta":" wynosi"}</text>' +
+              '<text x="48" y="222" fill="var(--err)" font-size="14">id: 42  data: {"delta":" 12</text>' +
+              '<text x="48" y="252" fill="var(--muted)" font-size="13">last complete event id kept in memory: 41</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="48" y="326" fill="var(--muted)" font-size="13">chat bubble</text>' +
+              '<text x="48" y="352" fill="var(--text)" font-size="15">Rachunek za marzec wynosi</text>' +
+              '</svg>',
+            label: { pl: 'Zerwane polaczenie', en: 'Connection drops' },
+            note: {
+              pl: 'Telefon wchodzi do windy i strumien pada w polowie tokenu. Tekst juz wyrenderowany zostaje, a przegladarka pamieta ostatnie kompletne id.',
+              en: 'The phone walks into a lift and the stream dies mid-token. The text already rendered stays, and the browser remembers the last complete event id.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 4.10 s - automatic reconnect with resume</text>' +
+              '<rect x="30" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Browser</text>' +
+              '<rect x="460" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Server</text>' +
+              '<line x1="184" y1="82" x2="446" y2="82" stroke="var(--warn)" stroke-width="2"/>' +
+              '<polygon points="460,82 446,75 446,89" fill="var(--warn)"/>' +
+              '<text x="320" y="72" fill="var(--warn)" font-size="13" text-anchor="middle">GET /chat - Last-Event-ID: 41</text>' +
+              '<rect x="30" y="140" width="580" height="140" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="48" y="168" fill="var(--muted)" font-size="13">event log</text>' +
+              '<text x="48" y="196" fill="var(--text)" font-size="14">EventSource retried on its own after 3 s</text>' +
+              '<text x="48" y="222" fill="var(--text)" font-size="14">server replays from id 42, not from the start</text>' +
+              '<text x="48" y="252" fill="var(--muted)" font-size="13">with fetch + ReadableStream you write this retry yourself</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="48" y="326" fill="var(--muted)" font-size="13">chat bubble</text>' +
+              '<text x="48" y="352" fill="var(--text)" font-size="15">Rachunek za marzec wynosi</text>' +
+              '</svg>',
+            label: { pl: 'Wznowienie', en: 'Resume' },
+            note: {
+              pl: 'EventSource sam ponawia polaczenie i wysyla naglowek Last-Event-ID. Serwer dosyla tylko brakujacy ogon, wiec nie placisz drugi raz za cala odpowiedz.',
+              en: 'EventSource retries on its own and sends a Last-Event-ID header. The server replays only the missing tail, so you do not pay twice for the whole answer.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 4.90 s - stream closes cleanly</text>' +
+              '<rect x="30" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Browser</text>' +
+              '<rect x="460" y="50" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Server</text>' +
+              '<line x1="456" y1="82" x2="194" y2="82" stroke="var(--ok)" stroke-width="2"/>' +
+              '<polygon points="180,82 194,75 194,89" fill="var(--ok)"/>' +
+              '<text x="320" y="72" fill="var(--ok)" font-size="13" text-anchor="middle">data: [DONE] then the response ends</text>' +
+              '<rect x="30" y="140" width="580" height="140" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="48" y="168" fill="var(--muted)" font-size="13">event log</text>' +
+              '<text x="48" y="196" fill="var(--text)" font-size="14">id: 58  data: {"delta":" zlotych."}</text>' +
+              '<text x="48" y="222" fill="var(--ok)" font-size="14">data: [DONE] - close the EventSource here</text>' +
+              '<text x="48" y="252" fill="var(--muted)" font-size="13">no heartbeats, no socket state - the browser did the plumbing</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="48" y="326" fill="var(--muted)" font-size="13">chat bubble</text>' +
+              '<text x="48" y="352" fill="var(--text)" font-size="15">Rachunek za marzec wynosi 128 zlotych.</text>' +
+              '</svg>',
+            label: { pl: 'Domkniecie strumienia', en: 'Stream closed' },
+            note: {
+              pl: 'Sentinel [DONE] konczy strumien i zamykasz EventSource. Cala ta petla poszla jednym kierunkiem - WebSocket dodalby heartbeaty i stan, ktorego tu nie potrzebujesz.',
+              en: 'The [DONE] sentinel ends the stream and you close the EventSource. The whole loop went one way - a WebSocket would add heartbeats and state you never needed.'
+            }
+          }
+        ]
+      },
       levels: {
         eli5: {
           pl: '<p>Wyobraz sobie, ze zamawiasz pizze przez telefon. Sa dwa sposoby, zeby dowiedziec sie, co sie dzieje z zamowieniem.</p><p><strong>Sposob pierwszy (SSE):</strong> dzwonisz raz, a pizzeria mowi "nie odkladaj sluchawki, bede ci opowiadal". I opowiada: "ciasto gotowe", "ser na wierzchu", "wjezdza do pieca", "kurier wyjechal". Ty tylko sluchasz. Nic nie mowisz. Jak polaczenie sie urwie, telefon sam oddzwania i pyta "na czym skonczylismy?".</p><p><strong>Sposob drugi (WebSocket):</strong> masz z pizzeria domofon, przez ktory obie strony moga gadac kiedy chca. Ty w polowie mozesz krzyknac "dodaj oliwki!", a oni odpowiedza. Fajne, ale ktos musi ten domofon naprawiac, kiedy sie zepsuje - i tym kims jestes ty.</p><p>Odpowiedz modelu AI to najczesciej opowiadanie w jedna strone. Dlatego zwykly telefon wystarcza, a domofon zakladasz tylko wtedy, gdy naprawde chcesz przerywac w polowie zdania.</p>',
@@ -123,6 +256,148 @@ export default {
           pl: 'Zwykly JSON.parse rzuca bledem az do ostatniego chunka. Parser tolerancyjny domyka otwarte nawiasy i pozwala renderowac gotowe pola juz w trakcie.',
           en: 'Plain JSON.parse throws until the very last chunk. A tolerant parser closes open brackets so you can render finished fields while the rest still streams.'
         }
+      },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Ten sam bufor co pol sekundy: po lewej to, co przyszlo, po prawej karta w UI, ktora wypelnia sie polami, gdy tylko sa kompletne.',
+          en: 'The same buffer every half second: on the left what has arrived, on the right the UI card filling in field by field as each one completes.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 0.20 s - the buffer is not JSON yet</text>' +
+              '<rect x="30" y="45" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="48" y="72" fill="var(--muted)" font-size="13">buffer</text>' +
+              '<text x="48" y="98" fill="var(--text)" font-size="14">{ "title": "Fak</text>' +
+              '<line x1="320" y1="118" x2="320" y2="141" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="320,155 313,141 327,141" fill="var(--muted)"/>' +
+              '<rect x="30" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="48" y="188" fill="var(--muted)" font-size="13">parsed value</text>' +
+              '<text x="48" y="216" fill="var(--err)" font-size="14">JSON.parse throws</text>' +
+              '<text x="48" y="242" fill="var(--muted)" font-size="13">tolerant parser: {} so far</text>' +
+              '<rect x="340" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="358" y="188" fill="var(--muted)" font-size="13">invoice card</text>' +
+              '<rect x="358" y="200" width="150" height="16" rx="8" fill="var(--border)"/>' +
+              '<rect x="358" y="228" width="234" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="358" y="252" width="234" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--muted)" font-size="14" text-anchor="middle">skeleton only - nothing is safe to show yet</text>' +
+              '</svg>',
+            label: { pl: 'Bufor bez struktury', en: 'Buffer with no structure' },
+            note: {
+              pl: 'Po 200 ms masz kilkanascie znakow i urwane pole. JSON.parse rzuca bledem, wiec UI zostaje na skeletonie - to jedyny moment, gdy nie ma czego pokazac.',
+              en: 'After 200 ms you have a dozen characters and a truncated field. JSON.parse throws, so the UI stays on skeletons - the only moment with nothing to show.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 0.50 s - first field is closed</text>' +
+              '<rect x="30" y="45" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="48" y="72" fill="var(--muted)" font-size="13">buffer</text>' +
+              '<text x="48" y="98" fill="var(--text)" font-size="14">{ "title": "Faktura 03/2026", "items": [ {</text>' +
+              '<line x1="320" y1="118" x2="320" y2="141" stroke="var(--accent)" stroke-width="2"/>' +
+              '<polygon points="320,155 313,141 327,141" fill="var(--accent)"/>' +
+              '<rect x="30" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="48" y="188" fill="var(--muted)" font-size="13">parsed value</text>' +
+              '<text x="48" y="216" fill="var(--ok)" font-size="14">title: "Faktura 03/2026"</text>' +
+              '<text x="48" y="242" fill="var(--muted)" font-size="13">items: [] - open, do not commit</text>' +
+              '<rect x="340" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="358" y="188" fill="var(--muted)" font-size="13">invoice card</text>' +
+              '<text x="358" y="214" fill="var(--text)" font-size="15">Faktura 03/2026</text>' +
+              '<rect x="358" y="228" width="234" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="358" y="252" width="234" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--accent)" font-size="14" text-anchor="middle">a field counts as final once its closing quote arrived</text>' +
+              '</svg>',
+            label: { pl: 'Tytul gotowy', en: 'Title complete' },
+            note: {
+              pl: 'Zamykajacy cudzyslow konczy pole title, wiec mozna je wyrenderowac na stale. Tablica items jest wciaz otwarta, wiec nie dotykasz jej jeszcze w UI.',
+              en: 'The closing quote finishes the title field, so it can be rendered for good. The items array is still open, so the UI leaves it alone.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 0.90 s - a value is mid-token</text>' +
+              '<rect x="30" y="45" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="48" y="72" fill="var(--muted)" font-size="13">buffer</text>' +
+              '<text x="48" y="98" fill="var(--text)" font-size="14">..."items": [ { "name": "Kawa ziarnist</text>' +
+              '<line x1="320" y1="118" x2="320" y2="141" stroke="var(--warn)" stroke-width="2"/>' +
+              '<polygon points="320,155 313,141 327,141" fill="var(--warn)"/>' +
+              '<rect x="30" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="48" y="188" fill="var(--muted)" font-size="13">parsed value</text>' +
+              '<text x="48" y="216" fill="var(--ok)" font-size="14">title: final</text>' +
+              '<text x="48" y="242" fill="var(--warn)" font-size="14">items[0].name: partial</text>' +
+              '<text x="48" y="266" fill="var(--muted)" font-size="13">price: missing, no row commit</text>' +
+              '<rect x="340" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="358" y="188" fill="var(--muted)" font-size="13">invoice card</text>' +
+              '<text x="358" y="214" fill="var(--text)" font-size="15">Faktura 03/2026</text>' +
+              '<text x="358" y="240" fill="var(--warn)" font-size="14">Kawa ziarnist</text>' +
+              '<rect x="358" y="252" width="234" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--warn)" font-size="14" text-anchor="middle">render it as pending, never as a finished row</text>' +
+              '</svg>',
+            label: { pl: 'Pole w polowie', en: 'Field mid-token' },
+            note: {
+              pl: 'Parser tolerancyjny domyka nawiasy i oddaje urwana nazwe. Renderujesz ja jako stan przejsciowy, bez ceny i bez akcji - inaczej uzytkownik kliknie w polprawde.',
+              en: 'The tolerant parser closes the brackets and hands back the truncated name. Render it as a pending state, with no price and no actions, or users click a half-truth.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 1.40 s - first row is whole</text>' +
+              '<rect x="30" y="45" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="48" y="72" fill="var(--muted)" font-size="13">buffer</text>' +
+              '<text x="48" y="98" fill="var(--text)" font-size="14">...{ "name": "Kawa ziarnista", "price": 42 }, { "na</text>' +
+              '<line x1="320" y1="118" x2="320" y2="141" stroke="var(--accent)" stroke-width="2"/>' +
+              '<polygon points="320,155 313,141 327,141" fill="var(--accent)"/>' +
+              '<rect x="30" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="48" y="188" fill="var(--muted)" font-size="13">parsed value</text>' +
+              '<text x="48" y="216" fill="var(--ok)" font-size="14">items[0]: complete object</text>' +
+              '<text x="48" y="242" fill="var(--warn)" font-size="14">items[1]: just started</text>' +
+              '<text x="48" y="266" fill="var(--muted)" font-size="13">key by index, not by array position drift</text>' +
+              '<rect x="340" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="358" y="188" fill="var(--muted)" font-size="13">invoice card</text>' +
+              '<text x="358" y="214" fill="var(--text)" font-size="15">Faktura 03/2026</text>' +
+              '<text x="358" y="240" fill="var(--text)" font-size="14">Kawa ziarnista - 42 zl</text>' +
+              '<rect x="358" y="252" width="234" height="14" rx="7" fill="var(--border)"/>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--accent)" font-size="14" text-anchor="middle">stable keys keep the DOM from re-mounting every chunk</text>' +
+              '</svg>',
+            label: { pl: 'Pierwszy wiersz gotowy', en: 'First row final' },
+            note: {
+              pl: 'Obiekt z name i price jest kompletny, wiec wiersz przestaje byc pending. Klucz po indeksie utrzymuje ten sam wezel DOM zamiast przemontowywac liste.',
+              en: 'The object has both name and price, so the row leaves the pending state. Keying by index keeps the same DOM node instead of re-mounting the list.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">t = 2.00 s - final chunk, strict validation</text>' +
+              '<rect x="30" y="45" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="48" y="72" fill="var(--muted)" font-size="13">buffer</text>' +
+              '<text x="48" y="98" fill="var(--text)" font-size="14">...{ "name": "Mleko owsiane", "price": 9 } ], "total": 51 }</text>' +
+              '<line x1="320" y1="118" x2="320" y2="141" stroke="var(--ok)" stroke-width="2"/>' +
+              '<polygon points="320,155 313,141 327,141" fill="var(--ok)"/>' +
+              '<rect x="30" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="48" y="188" fill="var(--muted)" font-size="13">parsed value</text>' +
+              '<text x="48" y="216" fill="var(--ok)" font-size="14">JSON.parse succeeds</text>' +
+              '<text x="48" y="242" fill="var(--ok)" font-size="14">zod schema passes</text>' +
+              '<text x="48" y="266" fill="var(--muted)" font-size="13">this object, not the partials, is the source of truth</text>' +
+              '<rect x="340" y="160" width="270" height="120" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="358" y="188" fill="var(--muted)" font-size="13">invoice card</text>' +
+              '<text x="358" y="214" fill="var(--text)" font-size="15">Faktura 03/2026</text>' +
+              '<text x="358" y="240" fill="var(--text)" font-size="14">Kawa ziarnista - 42 zl</text>' +
+              '<text x="358" y="264" fill="var(--text)" font-size="14">Mleko owsiane - 9 zl, razem 51 zl</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--ok)" font-size="14" text-anchor="middle">only now enable Save - partial data never triggers actions</text>' +
+              '</svg>',
+            label: { pl: 'Domkniete i zwalidowane', en: 'Closed and validated' },
+            note: {
+              pl: 'Na koniec robisz normalny JSON.parse i walidacje schema. Dopiero ten obiekt jest zrodlem prawdy i dopiero teraz odblokowujesz akcje typu Zapisz.',
+              en: 'At the end you do a normal JSON.parse plus schema validation. Only that object is the source of truth, and only then do you enable actions like Save.'
+            }
+          }
+        ]
       },
       levels: {
         eli5: {

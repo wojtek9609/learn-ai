@@ -213,6 +213,170 @@ export default {
           en: 'An LLM judge: a rubric, reasoning before the verdict, deliberate bias control, and calibration against human labels.'
         }
       },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Ta sama para odpowiedzi przechodzi przez sedziego dwa razy - zamiana miejscami obnaza position bias, a kalibracja mowi, czy w ogole warto ufac tym liczbom.',
+          en: 'One pair of answers goes through the judge twice - swapping the order exposes position bias, and calibration says whether the numbers are worth trusting at all.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 1 of 5 - rubric and two candidate answers</text>' +
+              '<rect x="30" y="50" width="200" height="92" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="130" y="78" fill="var(--text)" font-size="14" text-anchor="middle">Rubric, 4 yes/no</text>' +
+              '<text x="130" y="100" fill="var(--muted)" font-size="13" text-anchor="middle">grounded, on topic,</text>' +
+              '<text x="130" y="120" fill="var(--muted)" font-size="13" text-anchor="middle">tone, no false promise</text>' +
+              '<rect x="30" y="160" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="130" y="192" fill="var(--text)" font-size="14" text-anchor="middle">Answer A - 90 words</text>' +
+              '<rect x="30" y="230" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="130" y="262" fill="var(--text)" font-size="14" text-anchor="middle">Answer B - 240 words</text>' +
+              '<rect x="265" y="130" width="150" height="100" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="340" y="172" fill="var(--text)" font-size="15" text-anchor="middle">Judge model</text>' +
+              '<text x="340" y="196" fill="var(--muted)" font-size="13" text-anchor="middle">idle</text>' +
+              '<rect x="450" y="145" width="160" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="187" fill="var(--muted)" font-size="14" text-anchor="middle">no verdict yet</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--muted)" font-size="14" text-anchor="middle">both answers are factually fine - only style differs</text>' +
+              '</svg>',
+            label: { pl: 'Rubryka i para odpowiedzi', en: 'Rubric and a pair' },
+            note: {
+              pl: 'Rubryka to cztery pytania tak/nie, nie ocena od 1 do 10. Obie odpowiedzi sa poprawne merytorycznie, roznia sie tylko dlugoscia i stylem.',
+              en: 'The rubric is four yes/no questions, not a 1-to-10 score. Both answers are factually correct; they differ only in length and style.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 2 of 5 - first pass, order A then B</text>' +
+              '<rect x="30" y="50" width="200" height="92" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="130" y="78" fill="var(--text)" font-size="14" text-anchor="middle">Rubric, 4 yes/no</text>' +
+              '<text x="130" y="100" fill="var(--muted)" font-size="13" text-anchor="middle">criteria first,</text>' +
+              '<text x="130" y="120" fill="var(--muted)" font-size="13" text-anchor="middle">verdict last</text>' +
+              '<rect x="30" y="160" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="130" y="192" fill="var(--text)" font-size="14" text-anchor="middle">slot 1: Answer A</text>' +
+              '<rect x="30" y="230" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="130" y="262" fill="var(--text)" font-size="14" text-anchor="middle">slot 2: Answer B</text>' +
+              '<line x1="234" y1="187" x2="251" y2="180" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="265,177 251,174 253,188" fill="var(--muted)"/>' +
+              '<line x1="234" y1="257" x2="251" y2="215" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="265,205 250,209 259,220" fill="var(--muted)"/>' +
+              '<rect x="265" y="130" width="150" height="100" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="340" y="168" fill="var(--text)" font-size="15" text-anchor="middle">Judge model</text>' +
+              '<text x="340" y="192" fill="var(--accent)" font-size="13" text-anchor="middle">reason, then</text>' +
+              '<text x="340" y="212" fill="var(--accent)" font-size="13" text-anchor="middle">verdict</text>' +
+              '<line x1="419" y1="180" x2="436" y2="180" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="450,180 436,173 436,187" fill="var(--muted)"/>' +
+              '<rect x="450" y="145" width="160" height="70" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="530" y="175" fill="var(--ok)" font-size="15" text-anchor="middle">winner: A</text>' +
+              '<text x="530" y="197" fill="var(--muted)" font-size="13" text-anchor="middle">clearer, cites source</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--muted)" font-size="14" text-anchor="middle">one run, one verdict - looks convincing, proves nothing</text>' +
+              '</svg>',
+            label: { pl: 'Pierwszy przebieg', en: 'First pass' },
+            note: {
+              pl: 'Sedzia najpierw uzasadnia, potem oglasza werdykt - odwrotna kolejnosc wyraznie obniza jakosc. Wygrywa A, z sensownym uzasadnieniem.',
+              en: 'The judge reasons first and only then states the verdict; the reverse order measurably degrades quality. A wins, with a sensible justification.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 3 of 5 - same pair, positions swapped</text>' +
+              '<rect x="30" y="50" width="200" height="92" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="130" y="78" fill="var(--text)" font-size="14" text-anchor="middle">Rubric, 4 yes/no</text>' +
+              '<text x="130" y="100" fill="var(--muted)" font-size="13" text-anchor="middle">identical prompt,</text>' +
+              '<text x="130" y="120" fill="var(--muted)" font-size="13" text-anchor="middle">only slots swapped</text>' +
+              '<rect x="30" y="160" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="130" y="192" fill="var(--text)" font-size="14" text-anchor="middle">slot 1: Answer B</text>' +
+              '<rect x="30" y="230" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="130" y="262" fill="var(--text)" font-size="14" text-anchor="middle">slot 2: Answer A</text>' +
+              '<line x1="234" y1="187" x2="251" y2="180" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="265,177 251,174 253,188" fill="var(--muted)"/>' +
+              '<line x1="234" y1="257" x2="251" y2="215" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="265,205 250,209 259,220" fill="var(--muted)"/>' +
+              '<rect x="265" y="130" width="150" height="100" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="340" y="168" fill="var(--text)" font-size="15" text-anchor="middle">Judge model</text>' +
+              '<text x="340" y="192" fill="var(--accent)" font-size="13" text-anchor="middle">same rubric,</text>' +
+              '<text x="340" y="212" fill="var(--accent)" font-size="13" text-anchor="middle">same temperature</text>' +
+              '<line x1="419" y1="180" x2="436" y2="180" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="450,180 436,173 436,187" fill="var(--muted)"/>' +
+              '<rect x="450" y="145" width="160" height="70" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="530" y="175" fill="var(--err)" font-size="15" text-anchor="middle">winner: B</text>' +
+              '<text x="530" y="197" fill="var(--muted)" font-size="13" text-anchor="middle">more thorough</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--err)" font-size="14" text-anchor="middle">verdict flipped - the judge scored the slot, not the answer</text>' +
+              '</svg>',
+            label: { pl: 'Zamiana miejscami', en: 'Positions swapped' },
+            note: {
+              pl: 'Ten sam prompt, te same odpowiedzi, tylko inna kolejnosc - i werdykt sie odwraca. To position bias, wzmocniony przez dluzsza odpowiedz B.',
+              en: 'Same prompt, same answers, only a different order - and the verdict flips. That is position bias, amplified by B simply being longer.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 4 of 5 - measure the bias over 500 pairs</text>' +
+              '<rect x="30" y="50" width="200" height="92" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="130" y="78" fill="var(--text)" font-size="14" text-anchor="middle">Consistency rate</text>' +
+              '<text x="130" y="104" fill="var(--warn)" font-size="15" text-anchor="middle">0.62</text>' +
+              '<text x="130" y="126" fill="var(--muted)" font-size="13" text-anchor="middle">healthy is above 0.8</text>' +
+              '<rect x="30" y="160" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="130" y="184" fill="var(--muted)" font-size="13" text-anchor="middle">length vs win rate</text>' +
+              '<text x="130" y="204" fill="var(--warn)" font-size="13" text-anchor="middle">correlation 0.71</text>' +
+              '<rect x="30" y="230" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="130" y="254" fill="var(--muted)" font-size="13" text-anchor="middle">judge family = model</text>' +
+              '<text x="130" y="274" fill="var(--warn)" font-size="13" text-anchor="middle">self-preference risk</text>' +
+              '<rect x="265" y="130" width="150" height="100" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="340" y="168" fill="var(--text)" font-size="15" text-anchor="middle">Fixes</text>' +
+              '<text x="340" y="192" fill="var(--muted)" font-size="13" text-anchor="middle">score both orders,</text>' +
+              '<text x="340" y="212" fill="var(--muted)" font-size="13" text-anchor="middle">count only matches</text>' +
+              '<line x1="419" y1="180" x2="436" y2="180" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="450,180 436,173 436,187" fill="var(--muted)"/>' +
+              '<rect x="450" y="145" width="160" height="70" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="530" y="175" fill="var(--text)" font-size="14" text-anchor="middle">rubric v2: length</text>' +
+              '<text x="530" y="197" fill="var(--text)" font-size="14" text-anchor="middle">is not a virtue</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--accent)" font-size="14" text-anchor="middle">a judge is a production model - it needs its own metrics</text>' +
+              '</svg>',
+            label: { pl: 'Pomiar uprzedzen', en: 'Bias measured' },
+            note: {
+              pl: 'Consistency rate 0.62 oznacza, ze prawie cztery pary na dziesiec zmieniaja werdykt po zamianie. Kazda pare oceniaj w obu kolejnosciach i licz tylko zgodne.',
+              en: 'A consistency rate of 0.62 means nearly four pairs in ten flip after the swap. Score every pair in both orders and count only the agreeing ones.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 5 of 5 - calibrate against human labels</text>' +
+              '<rect x="30" y="50" width="200" height="92" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="130" y="78" fill="var(--text)" font-size="14" text-anchor="middle">Rubric v2</text>' +
+              '<text x="130" y="100" fill="var(--muted)" font-size="13" text-anchor="middle">both orders scored,</text>' +
+              '<text x="130" y="120" fill="var(--muted)" font-size="13" text-anchor="middle">judge model pinned</text>' +
+              '<rect x="30" y="160" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="130" y="192" fill="var(--text)" font-size="14" text-anchor="middle">150 human labels</text>' +
+              '<rect x="30" y="230" width="200" height="54" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="130" y="262" fill="var(--text)" font-size="14" text-anchor="middle">same 150 judged</text>' +
+              '<line x1="234" y1="187" x2="251" y2="180" stroke="var(--accent)" stroke-width="2"/>' +
+              '<polygon points="265,177 251,174 253,188" fill="var(--accent)"/>' +
+              '<line x1="234" y1="257" x2="251" y2="215" stroke="var(--accent)" stroke-width="2"/>' +
+              '<polygon points="265,205 250,209 259,220" fill="var(--accent)"/>' +
+              '<rect x="265" y="130" width="150" height="100" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="340" y="168" fill="var(--text)" font-size="15" text-anchor="middle">Agreement</text>' +
+              '<text x="340" y="196" fill="var(--ok)" font-size="15" text-anchor="middle">87 percent</text>' +
+              '<text x="340" y="216" fill="var(--muted)" font-size="13" text-anchor="middle">kappa 0.71</text>' +
+              '<line x1="419" y1="180" x2="436" y2="180" stroke="var(--ok)" stroke-width="2"/>' +
+              '<polygon points="450,180 436,173 436,187" fill="var(--ok)"/>' +
+              '<rect x="450" y="145" width="160" height="70" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="530" y="175" fill="var(--ok)" font-size="14" text-anchor="middle">judge promoted</text>' +
+              '<text x="530" y="197" fill="var(--muted)" font-size="13" text-anchor="middle">to CI scorer</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--warn)" font-size="14" text-anchor="middle">re-calibrate after every judge model swap</text>' +
+              '</svg>',
+            label: { pl: 'Kalibracja', en: 'Calibration' },
+            note: {
+              pl: 'Dopiero zgodnosc 87 procent z ludzmi i kappa 0.71 pozwalaja uzywac sedziego jako metryki w CI. Po kazdej podmianie modelu sedziego kalibracje robisz od nowa.',
+              en: 'Only 87 percent agreement with humans and a kappa of 0.71 make the judge usable as a CI metric. After every judge model swap you calibrate again from scratch.'
+            }
+          }
+        ]
+      },
       levels: {
         eli5: {
           pl: '<p>Wyobraz sobie konkurs na najlepsze ciasto, w ktorym jurorem jest ktos, kto sam piecze ciasta. Bywa swietny, ale ma dziwne nawyki. Zawsze bardziej lubi ciasto, ktore probuje jako pierwsze. Zawsze wybiera wieksze, nawet jesli mniejsze smakuje lepiej. I podejrzanie czesto wygrywa ciasto zrobione wedlug jego wlasnego przepisu.</p><p>Da sie z nim pracowac, tylko trzeba go pilnowac. Dajesz mu kartke z dokladna lista, na co ma patrzec: czy jest sloda, czy nie jest suche, czy pachnie wanilia. Podajesz mu te same dwa ciasta drugi raz, tylko zamienione miejscami, i sprawdzasz, czy nie zmienil zdania. Raz na jakis czas dajesz mu ciasta, o ktorych juz wiesz, ktore jest lepsze, zeby sprawdzic, czy nadal ma smak.</p><p>Wtedy taki juror jest bardzo przydatny, bo moze ocenic tysiac ciast w godzine. Sto prawdziwych osob potrzebowaloby na to tygodnia.</p>',
@@ -406,6 +570,160 @@ export default {
           pl: 'Zamknieta petla: bramka ewaluacyjna na PR, nocny sedzia na probce ruchu, alerty na dryf, a zle przypadki wracaja do zestawu testowego.',
           en: 'The closed loop: an eval gate on the PR, a nightly judge on a traffic sample, drift alerts, and bad cases feeding back into the test set.'
         }
+      },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Jeden pull request przechodzi przez bramke ewaluacyjna: od uruchomienia zestawu, przez spadek wyniku i zablokowany merge, po poprawke i nowe przypadki testowe.',
+          en: 'One pull request walking through the eval gate: the suite runs, the score drops, the merge is blocked, and the fix turns the bad cases into permanent tests.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 1 of 5 - a pull request opens</text>' +
+              '<rect x="30" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">PR 482</text>' +
+              '<text x="105" y="110" fill="var(--accent)" font-size="13" text-anchor="middle">prompt tweak</text>' +
+              '<line x1="184" y1="92" x2="231" y2="92" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="245,92 231,85 231,99" fill="var(--muted)"/>' +
+              '<rect x="245" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Eval suite</text>' +
+              '<text x="320" y="110" fill="var(--muted)" font-size="13" text-anchor="middle">250 cases</text>' +
+              '<line x1="399" y1="92" x2="446" y2="92" stroke="var(--muted)" stroke-width="2"/>' +
+              '<polygon points="460,92 446,85 446,99" fill="var(--muted)"/>' +
+              '<rect x="460" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Gate</text>' +
+              '<text x="535" y="110" fill="var(--muted)" font-size="13" text-anchor="middle">vs baseline</text>' +
+              '<rect x="30" y="160" width="580" height="110" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="50" y="192" fill="var(--muted)" font-size="14">Result: nothing scored yet</text>' +
+              '<text x="50" y="218" fill="var(--muted)" font-size="13">the suite is queued, same as unit tests on a fresh PR</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--muted)" font-size="14" text-anchor="middle">main is still serving the build that scored 88.0</text>' +
+              '</svg>',
+            label: { pl: 'PR otwarty', en: 'PR opened' },
+            note: {
+              pl: 'Zmiana promptu wyglada niewinnie i przechodzi code review. Bramka ewaluacyjna startuje automatycznie, tak samo jak testy jednostkowe.',
+              en: 'The prompt tweak looks harmless and passes code review. The eval gate starts automatically, exactly like the unit test job.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 2 of 5 - the suite runs</text>' +
+              '<rect x="30" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">PR 482</text>' +
+              '<text x="105" y="110" fill="var(--muted)" font-size="13" text-anchor="middle">prompt tweak</text>' +
+              '<line x1="184" y1="92" x2="231" y2="92" stroke="var(--accent)" stroke-width="2"/>' +
+              '<polygon points="245,92 231,85 231,99" fill="var(--accent)"/>' +
+              '<rect x="245" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Eval suite</text>' +
+              '<text x="320" y="110" fill="var(--accent)" font-size="13" text-anchor="middle">running</text>' +
+              '<line x1="399" y1="92" x2="446" y2="92" stroke="var(--border)" stroke-width="2"/>' +
+              '<polygon points="460,92 446,85 446,99" fill="var(--border)"/>' +
+              '<rect x="460" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Gate</text>' +
+              '<text x="535" y="110" fill="var(--muted)" font-size="13" text-anchor="middle">waiting</text>' +
+              '<rect x="30" y="160" width="580" height="110" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="50" y="192" fill="var(--text)" font-size="14">142 of 250 cases scored</text>' +
+              '<text x="50" y="218" fill="var(--muted)" font-size="13">code assertions run first, the judge scores the open-ended ones</text>' +
+              '<rect x="50" y="234" width="540" height="16" rx="8" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<rect x="50" y="234" width="307" height="16" rx="8" fill="var(--accent)"/>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--muted)" font-size="14" text-anchor="middle">merge button stays disabled for the 6 minutes this takes</text>' +
+              '</svg>',
+            label: { pl: 'Zestaw sie liczy', en: 'Suite running' },
+            note: {
+              pl: 'Zestaw idzie przez 250 przypadkow: najpierw tanie asercje kodowe, potem sedzia modelowy na zadaniach otwartych. Merge jest zablokowany, dopoki check nie skonczy.',
+              en: 'The suite walks 250 cases: cheap code assertions first, then the LLM judge on the open-ended ones. Merge stays disabled until the check finishes.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 3 of 5 - score compared with the baseline</text>' +
+              '<rect x="30" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">PR 482</text>' +
+              '<text x="105" y="110" fill="var(--muted)" font-size="13" text-anchor="middle">prompt tweak</text>' +
+              '<line x1="184" y1="92" x2="231" y2="92" stroke="var(--border)" stroke-width="2"/>' +
+              '<polygon points="245,92 231,85 231,99" fill="var(--border)"/>' +
+              '<rect x="245" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="320" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Eval suite</text>' +
+              '<text x="320" y="110" fill="var(--ok)" font-size="13" text-anchor="middle">250 of 250 done</text>' +
+              '<line x1="399" y1="92" x2="446" y2="92" stroke="var(--warn)" stroke-width="2"/>' +
+              '<polygon points="460,92 446,85 446,99" fill="var(--warn)"/>' +
+              '<rect x="460" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Gate</text>' +
+              '<text x="535" y="110" fill="var(--warn)" font-size="13" text-anchor="middle">comparing</text>' +
+              '<rect x="30" y="160" width="580" height="110" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="50" y="192" fill="var(--text)" font-size="14">This run 84.1 percent</text>' +
+              '<text x="50" y="218" fill="var(--muted)" font-size="14">Baseline on main 88.0 percent</text>' +
+              '<text x="50" y="248" fill="var(--warn)" font-size="14">Delta -3.9 pts, allowed drop is 1.0 pt</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--warn)" font-size="14" text-anchor="middle">an absolute score means nothing, the delta is the signal</text>' +
+              '</svg>',
+            label: { pl: 'Porownanie z baseline', en: 'Compared to baseline' },
+            note: {
+              pl: 'Bramka nie patrzy na sam wynik, tylko na roznice wobec main. Spadek 3.9 punktu przy dozwolonym 1.0 to regresja, nie szum.',
+              en: 'The gate does not look at the raw score, only at the delta against main. A 3.9 point drop against an allowed 1.0 is a regression, not noise.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 4 of 5 - the gate blocks the merge</text>' +
+              '<rect x="30" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">PR 482</text>' +
+              '<text x="105" y="110" fill="var(--err)" font-size="13" text-anchor="middle">check failed</text>' +
+              '<line x1="184" y1="92" x2="231" y2="92" stroke="var(--border)" stroke-width="2"/>' +
+              '<polygon points="245,92 231,85 231,99" fill="var(--border)"/>' +
+              '<rect x="245" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="320" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Eval suite</text>' +
+              '<text x="320" y="110" fill="var(--ok)" font-size="13" text-anchor="middle">250 of 250 done</text>' +
+              '<line x1="399" y1="92" x2="446" y2="92" stroke="var(--err)" stroke-width="2"/>' +
+              '<polygon points="460,92 446,85 446,99" fill="var(--err)"/>' +
+              '<rect x="460" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Gate</text>' +
+              '<text x="535" y="110" fill="var(--err)" font-size="13" text-anchor="middle">blocked</text>' +
+              '<rect x="30" y="160" width="580" height="110" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="50" y="192" fill="var(--err)" font-size="14">7 cases flipped from pass to fail</text>' +
+              '<text x="50" y="218" fill="var(--muted)" font-size="13">refund questions: the answer no longer cites the policy chunk</text>' +
+              '<text x="50" y="244" fill="var(--muted)" font-size="13">each failure links to its trace, prompt and model output</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--err)" font-size="14" text-anchor="middle">merge blocked - nothing reaches production</text>' +
+              '</svg>',
+            label: { pl: 'Merge zablokowany', en: 'Merge blocked' },
+            note: {
+              pl: 'Bramka pokazuje nie tylko liczbe, ale konkretne przypadki, ktore sie zepsuly, z linkiem do trace. To roznica miedzy alarmem a zgloszeniem bledu.',
+              en: 'The gate reports not just a number but the exact cases that broke, each linked to its trace. That is the difference between an alarm and a bug report.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="28" fill="var(--muted)" font-size="14">Step 5 of 5 - fix pushed, cases kept forever</text>' +
+              '<rect x="30" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="105" y="88" fill="var(--text)" font-size="15" text-anchor="middle">PR 482</text>' +
+              '<text x="105" y="110" fill="var(--accent)" font-size="13" text-anchor="middle">citation rule back</text>' +
+              '<line x1="184" y1="92" x2="231" y2="92" stroke="var(--ok)" stroke-width="2"/>' +
+              '<polygon points="245,92 231,85 231,99" fill="var(--ok)"/>' +
+              '<rect x="245" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="320" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Eval suite</text>' +
+              '<text x="320" y="110" fill="var(--ok)" font-size="13" text-anchor="middle">257 cases now</text>' +
+              '<line x1="399" y1="92" x2="446" y2="92" stroke="var(--ok)" stroke-width="2"/>' +
+              '<polygon points="460,92 446,85 446,99" fill="var(--ok)"/>' +
+              '<rect x="460" y="60" width="150" height="64" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="535" y="88" fill="var(--text)" font-size="15" text-anchor="middle">Gate</text>' +
+              '<text x="535" y="110" fill="var(--ok)" font-size="13" text-anchor="middle">pass</text>' +
+              '<rect x="30" y="160" width="580" height="110" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="50" y="192" fill="var(--ok)" font-size="14">This run 89.2 percent, delta +1.2</text>' +
+              '<text x="50" y="218" fill="var(--muted)" font-size="13">the 7 broken refund cases were added to the golden set</text>' +
+              '<text x="50" y="244" fill="var(--muted)" font-size="13">this exact regression can never ship silently again</text>' +
+              '<rect x="30" y="300" width="580" height="70" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="320" y="342" fill="var(--ok)" font-size="14" text-anchor="middle">merge allowed - deploy runs, new baseline is 89.2</text>' +
+              '</svg>',
+            label: { pl: 'Poprawka i nowa baseline', en: 'Fix and new baseline' },
+            note: {
+              pl: 'Zepsute przypadki trafiaja na stale do zestawu, a wynik po poprawce staje sie nowa baseline. Kazda zlapana regresja trwale podnosi poprzeczke.',
+              en: 'The broken cases join the golden set permanently and the passing score becomes the new baseline. Every caught regression raises the bar for good.'
+            }
+          }
+        ]
       },
       levels: {
         eli5: {

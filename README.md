@@ -17,6 +17,11 @@ frames with a slider, prev/next buttons, arrow keys and swipe) under the static
 diagram. Scoring 75% or more marks the lesson complete. Progress, language and
 the chosen level are stored in `localStorage` under the key `learnai:v1`.
 
+On top of the lessons sits a practice layer: **review**, a **mock interview**
+(4 banks x 36 questions), bilingual **search**, a **continue** card and a daily
+**streak**, **export/import** of progress, and a **listening mode** that reads
+a lesson out loud. See "Practice modes and tools" below.
+
 ### Curriculum - 4 tracks, 26 modules, 142 lessons
 
 All four tracks are **available** (no coming-soon placeholders left).
@@ -80,6 +85,58 @@ Senior to principal level: design systems at scale, monorepos, delivery, leaders
 | 4 | Scaling codebases | 5 - monorepo tooling, micro-frontend trade-offs, shared library boundaries, feature flags, dependency upgrades |
 | 5 | Performance architecture | 5 - Web Vitals budgets, rendering strategies, asset strategy, runtime patterns, RUM monitoring |
 | 6 | Quality, delivery & leadership | 6 - testing strategy, frontend CI/CD, error observability, frontend security, code review culture, principal-track case studies |
+
+### Practice modes and tools
+
+Beyond reading lessons, the app has a practice layer built on the progress you
+have already made. Everything is client-side and lives in the same
+`localStorage` key.
+
+**🔁 Review (`#/review`)** - spaced practice over quiz questions from lessons
+you have **completed**. Start it from the home card, or from a module page
+("Review this module") once at least one lesson there is done. Pick a scope -
+everything, or a single module - and get a session of 10 questions drawn from
+that pool, with the questions you previously got wrong given priority. The
+question UX is identical to a lesson quiz (instant colouring plus the
+explanation); the end screen shows the score and a per-question recap. Wrong
+answers go back into the missed pool, correct ones leave it.
+
+**🎤 Interview (`#/interview`)** - a mock technical interview, deliberately
+harder than the lesson quizzes: production scenarios, trade-offs, "what breaks
+when...". Each track has its own bank of 36 questions (144 in total), roughly
+60% multiple choice and 40% open. Choose one track or all of them, then answer
+10. Choice questions are scored like a quiz. For an open question you think
+first, tap "Show answer" to reveal a model answer plus the key points an
+interviewer listens for, and then self-assess: "I knew it" / "Need to review".
+Anything you marked "Need to review" is served first next time.
+
+**🔎 Search (`#/search`)** - the magnifier in the sticky header. The index is
+built lazily on first use from lesson titles and the tag-stripped text of all
+three levels, in **both languages at once**, so an English query finds Polish
+lessons and the other way round. Minimum 2 characters, title matches rank above
+content matches, results show a track/module breadcrumb plus the matching
+snippet, capped at 30.
+
+**Continue & streak** - the home screen shows a "Continue" card that jumps
+straight back to the last lesson you opened (or the next unfinished one), plus
+a streak card: consecutive days with at least one activity, and today's count
+against a fixed daily goal of 2. Completing a lesson or finishing a review or
+interview session counts as activity.
+
+**Export / import** - a small settings block at the bottom of the home screen.
+Export downloads `learnai-progress.json` and copies a compact base64 code to
+the clipboard. Import takes either a pasted code or a picked `.json` file,
+tells you what it contains (lesson count and date) and asks for confirmation
+before it overwrites what you have. Useful for moving progress between the
+browser and the installed Android app - there is no account and no server.
+
+**🎧 Listening mode** - on every lesson page, a toolbar under the level tabs:
+play/pause, stop and a reading speed (0.9x / 1x / 1.2x). It reads the lesson
+title and the **currently selected level**, tags stripped, split into
+paragraph-sized chunks so Chrome does not cut off long utterances. The voice
+follows the UI language (pl-PL / en-US, falling back to the default voice).
+Speech stops on navigation, on a level switch and on a language switch. If the
+browser has no `speechSynthesis` support, the toolbar is not rendered at all.
 
 ### Run locally
 
@@ -150,6 +207,7 @@ index.html   styles.css   app.js   SPEC.md
 manifest.webmanifest   icon.svg   sw.js   scripts/dev-tailscale.sh
 content/tracks.js + content/tracks/<track-id>/index.js (+ module-NN-*.js)
   tracks: ai-engineer (8 modules), react (6), vue (6), frontend-architecture (6)
+content/interview.js + content/tracks/<track-id>/interview.js  (4 banks x 36 questions)
 .github/workflows/deploy-pages.yml   (GitHub Pages deploy on push to main)
 ```
 
@@ -171,6 +229,12 @@ Wybrane lekcje maja dodatkowo **interaktywny odtwarzacz krok po kroku** (3-8
 klatek SVG, suwak, przyciski, strzalki i swipe) pod statycznym diagramem.
 Wynik 75% lub wyzszy automatycznie zalicza lekcje. Postep, jezyk i wybrany
 poziom sa zapisywane w `localStorage` pod kluczem `learnai:v1`.
+
+Na lekcjach nadbudowana jest warstwa cwiczen: **powtorka**, symulowana
+**rozmowa kwalifikacyjna** (4 banki po 36 pytan), dwujezyczne **wyszukiwanie**,
+kafel **kontynuuj** i dzienna **seria**, **eksport/import** postepu oraz
+**tryb sluchania**, ktory czyta lekcje na glos. Szczegoly nizej, w sekcji
+"Tryby cwiczen i narzedzia".
 
 ### Program - 4 kierunki, 26 modulow, 142 lekcje
 
@@ -235,6 +299,60 @@ Poziom senior -> principal: design systemy w skali, monorepo, dostarczanie, przy
 | 4 | Skalowanie kodu | 5 - narzedzia monorepo, micro-frontendy, granice bibliotek, feature flagi, strategia aktualizacji zaleznosci |
 | 5 | Architektura wydajnosci | 5 - budzety Web Vitals, strategie renderowania, zasoby i fonty, wzorce runtime, monitoring RUM |
 | 6 | Jakosc, dostarczanie i przywodztwo | 6 - strategia testow, CI/CD, obserwowalnosc bledow, bezpieczenstwo frontendu, kultura code review, studia przypadkow |
+
+### Tryby cwiczen i narzedzia
+
+Poza czytaniem lekcji aplikacja ma warstwe cwiczeniowa zbudowana na tym, co juz
+przerobiles. Wszystko dzieje sie po stronie przegladarki i siedzi w tym samym
+kluczu `localStorage`.
+
+**🔁 Powtorka (`#/review`)** - cwiczenie pytan quizowych z lekcji, ktore masz
+**zaliczone**. Wchodzisz z kafla na stronie glownej albo ze strony modulu
+(przycisk "Powtorz ten modul"), gdy jest w nim co najmniej jedna zaliczona
+lekcja. Wybierasz zakres - wszystko albo jeden modul - i dostajesz sesje 10
+pytan z tej puli, przy czym pytania, w ktorych ostatnio sie mylilies, maja
+pierwszenstwo. Obsluga pytania jest taka sama jak w quizie w lekcji
+(natychmiastowe kolorowanie i wyjasnienie), a ekran koncowy pokazuje wynik i
+podsumowanie pytanie po pytaniu. Bledne odpowiedzi wracaja do puli powtorek,
+poprawne z niej wypadaja.
+
+**🎤 Rozmowa kwalifikacyjna (`#/interview`)** - symulacja rozmowy technicznej,
+celowo trudniejsza niz quizy w lekcjach: scenariusze produkcyjne, kompromisy,
+"co sie zepsuje, gdy...". Kazdy kierunek ma wlasny bank 36 pytan (razem 144),
+w okolicach 60% zamknietych i 40% otwartych. Wybierasz jeden kierunek albo
+wszystkie i odpowiadasz na 10. Pytania zamkniete sa punktowane jak quiz. Przy
+pytaniu otwartym najpierw myslisz, potem "Pokaz odpowiedz" odslania wzorcowa
+odpowiedz i liste punktow, ktorych sluchalby rekruter, i oceniasz sie sam:
+"Umialem" / "Musze powtorzyc". To, co oznaczysz jako do powtorki, dostaniesz
+nastepnym razem w pierwszej kolejnosci.
+
+**🔎 Szukaj (`#/search`)** - lupka w przyklejonym naglowku. Indeks powstaje
+leniwie przy pierwszym uzyciu z tytulow lekcji i tekstu wszystkich trzech
+poziomow bez tagow, **w obu jezykach naraz** - angielskie zapytanie znajdzie
+wiec polska lekcje i odwrotnie. Minimum 2 znaki, trafienia w tytul sa wyzej niz
+w tresci, wyniki pokazuja sciezke kierunek/modul oraz pasujacy fragment,
+maksymalnie 30 pozycji.
+
+**Kontynuuj i seria** - strona glowna pokazuje kafel "Kontynuuj", ktory wraca
+do ostatnio otwartej lekcji (albo do nastepnej nieukonczonej), oraz kafel
+serii: liczba dni z rzedu z co najmniej jedna aktywnoscia i dzisiejszy licznik
+wzgledem stalego celu 2. Jako aktywnosc liczy sie zaliczenie lekcji albo
+ukonczenie sesji powtorki lub rozmowy.
+
+**Eksport / import** - maly blok ustawien na dole strony glownej. Eksport
+pobiera `learnai-progress.json` i kopiuje do schowka zwiezly kod base64.
+Import przyjmuje wklejony kod albo wskazany plik `.json`, pokazuje, co jest w
+srodku (liczba lekcji i data), i prosi o potwierdzenie, zanim nadpisze biezacy
+postep. Przydatne do przenoszenia postepu miedzy przegladarka a zainstalowana
+aplikacja na Androidzie - nie ma tu zadnego konta ani serwera.
+
+**🎧 Tryb sluchania** - na kazdej stronie lekcji, pasek pod zakladkami poziomu:
+odtwarzanie/pauza, stop i tempo czytania (0.9x / 1x / 1.2x). Czyta tytul lekcji
+i **aktualnie wybrany poziom**, bez tagow, podzielony na kawalki wielkosci
+akapitu, zeby Chrome nie ucinal dlugich wypowiedzi. Glos idzie za jezykiem
+interfejsu (pl-PL / en-US, w razie braku glos domyslny). Mowa zatrzymuje sie
+przy zmianie strony, poziomu i jezyka. Jesli przegladarka nie ma
+`speechSynthesis`, pasek w ogole sie nie pojawia.
 
 ### Uruchomienie lokalnie
 

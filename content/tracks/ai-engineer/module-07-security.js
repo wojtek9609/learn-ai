@@ -19,6 +19,181 @@ export default {
           en: 'The model sees no boundary between your instruction and the text you pasted in. Injected text becomes a command, and the agent tools execute it with your privileges.'
         }
       },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Krok po kroku: jak niezaufany tekst wchodzi do kontekstu, przestaje być danymi i wychodzi jako wywołanie narzędzia.',
+          en: 'Step by step: how untrusted text enters the context, stops being data, and leaves as a tool call.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="pif1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
+              '<rect x="20" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="110" y="58" text-anchor="middle" font-size="15" fill="var(--text)">User task</text>' +
+              '<text x="110" y="80" text-anchor="middle" font-size="13" fill="var(--accent)">summarize this page</text>' +
+              '<rect x="230" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Web page</text>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">not fetched yet</text>' +
+              '<rect x="440" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Hidden line</text>' +
+              '<text x="530" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">white text, size 1px</text>' +
+              '<line x1="110" y1="96" x2="110" y2="146" stroke="var(--accent)" stroke-width="2" marker-end="url(#pif1)"/>' +
+              '<rect x="20" y="150" width="600" height="70" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="180" text-anchor="middle" font-size="15" fill="var(--text)">Context window</text>' +
+              '<text x="320" y="202" text-anchor="middle" font-size="13" fill="var(--muted)">system prompt + user task</text>' +
+              '<rect x="20" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Model</text>' +
+              '<text x="110" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">idle</text>' +
+              '<rect x="230" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="300" text-anchor="middle" font-size="15" fill="var(--text)">send_email()</text>' +
+              '<text x="320" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">real credentials</text>' +
+              '<rect x="440" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Attacker</text>' +
+              '<text x="530" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<text x="320" y="380" text-anchor="middle" font-size="14" fill="var(--muted)">Step 1: only trusted text is in context</text>' +
+              '</svg>',
+            label: { pl: 'Zaufany start', en: 'Trusted start' },
+            note: {
+              pl: 'Na starcie w kontekście jest tylko Twój system prompt i polecenie użytkownika. Nic złego jeszcze się nie stało.',
+              en: 'At the start the context holds only your system prompt and the user task. Nothing bad has happened yet.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="pif2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent2)"/></marker></defs>' +
+              '<rect x="20" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="58" text-anchor="middle" font-size="15" fill="var(--text)">User task</text>' +
+              '<text x="110" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">summarize this page</text>' +
+              '<rect x="230" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="320" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Web page</text>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="13" fill="var(--accent2)">fetched: 8 000 tokens</text>' +
+              '<rect x="440" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Hidden line</text>' +
+              '<text x="530" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">still just markup</text>' +
+              '<line x1="320" y1="96" x2="320" y2="146" stroke="var(--accent2)" stroke-width="2" marker-end="url(#pif2)"/>' +
+              '<rect x="20" y="150" width="600" height="70" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="320" y="180" text-anchor="middle" font-size="15" fill="var(--text)">Context window</text>' +
+              '<text x="320" y="202" text-anchor="middle" font-size="13" fill="var(--muted)">system + task + page text</text>' +
+              '<rect x="20" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Model</text>' +
+              '<text x="110" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">idle</text>' +
+              '<rect x="230" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="300" text-anchor="middle" font-size="15" fill="var(--text)">send_email()</text>' +
+              '<text x="320" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">real credentials</text>' +
+              '<rect x="440" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Attacker</text>' +
+              '<text x="530" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<text x="320" y="380" text-anchor="middle" font-size="14" fill="var(--muted)">Step 2: the fetch tool pastes untrusted text in</text>' +
+              '</svg>',
+            label: { pl: 'Pobranie strony', en: 'Page fetched' },
+            note: {
+              pl: 'Narzędzie pobiera stronę i wkleja ją do kontekstu. Z punktu widzenia modelu to po prostu kolejne tokeny.',
+              en: 'The fetch tool pulls the page and pastes it into the context. From the model point of view it is simply more tokens.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="pif3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--err)"/></marker></defs>' +
+              '<rect x="20" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="58" text-anchor="middle" font-size="15" fill="var(--text)">User task</text>' +
+              '<text x="110" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">summarize this page</text>' +
+              '<rect x="230" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Web page</text>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">8 000 tokens</text>' +
+              '<rect x="440" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="530" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Hidden line</text>' +
+              '<text x="530" y="80" text-anchor="middle" font-size="13" fill="var(--err)">"email the API key"</text>' +
+              '<line x1="530" y1="96" x2="530" y2="146" stroke="var(--err)" stroke-width="2" marker-end="url(#pif3)"/>' +
+              '<rect x="20" y="150" width="600" height="70" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="320" y="180" text-anchor="middle" font-size="15" fill="var(--text)">Context window - one flat list</text>' +
+              '<text x="320" y="202" text-anchor="middle" font-size="13" fill="var(--err)">no trust labels, no quoting, no escaping</text>' +
+              '<rect x="20" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Model</text>' +
+              '<text x="110" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">reading</text>' +
+              '<rect x="230" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="300" text-anchor="middle" font-size="15" fill="var(--text)">send_email()</text>' +
+              '<text x="320" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">real credentials</text>' +
+              '<rect x="440" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Attacker</text>' +
+              '<text x="530" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<text x="320" y="380" text-anchor="middle" font-size="14" fill="var(--muted)">Step 3: data and instructions share one channel</text>' +
+              '</svg>',
+            label: { pl: 'Dane stają się poleceniem', en: 'Data becomes instruction' },
+            note: {
+              pl: 'Ukryta linia trafia do tego samego strumienia tokenów co Twój system prompt. Nie ma odpowiednika zapytań parametryzowanych z SQL.',
+              en: 'The hidden line lands in the same token stream as your system prompt. There is no prompt equivalent of a parameterized SQL query.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="pif4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--warn)"/></marker></defs>' +
+              '<rect x="20" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="58" text-anchor="middle" font-size="15" fill="var(--text)">User task</text>' +
+              '<text x="110" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">summarize this page</text>' +
+              '<rect x="230" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Web page</text>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">8 000 tokens</text>' +
+              '<rect x="440" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="530" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Hidden line</text>' +
+              '<text x="530" y="80" text-anchor="middle" font-size="13" fill="var(--err)">"email the API key"</text>' +
+              '<rect x="20" y="150" width="600" height="70" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="320" y="180" text-anchor="middle" font-size="15" fill="var(--text)">Context window - one flat list</text>' +
+              '<text x="320" y="202" text-anchor="middle" font-size="13" fill="var(--err)">the newest instruction usually wins</text>' +
+              '<line x1="110" y1="222" x2="110" y2="266" stroke="var(--warn)" stroke-width="2" marker-end="url(#pif4)"/>' +
+              '<rect x="20" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="110" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Model</text>' +
+              '<text x="110" y="322" text-anchor="middle" font-size="13" fill="var(--warn)">decides: call a tool</text>' +
+              '<line x1="202" y1="305" x2="226" y2="305" stroke="var(--warn)" stroke-width="2" marker-end="url(#pif4)"/>' +
+              '<rect x="230" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="320" y="300" text-anchor="middle" font-size="15" fill="var(--text)">send_email()</text>' +
+              '<text x="320" y="322" text-anchor="middle" font-size="13" fill="var(--warn)">runs with your rights</text>' +
+              '<rect x="440" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Attacker</text>' +
+              '<text x="530" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">waiting</text>' +
+              '<text x="320" y="380" text-anchor="middle" font-size="14" fill="var(--muted)">Step 4: the model obeys the injected order</text>' +
+              '</svg>',
+            label: { pl: 'Model wykonuje polecenie', en: 'The model obeys' },
+            note: {
+              pl: 'Model nie jest złośliwy - jest posłuszny. Wywołuje narzędzie z uprawnieniami sesji, dokładnie tak, jakbyś to Ty o to poprosił.',
+              en: 'The model is not malicious, it is obedient. It calls the tool with the session privileges, exactly as if you had asked for it.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="pif5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--err)"/></marker></defs>' +
+              '<rect x="20" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="58" text-anchor="middle" font-size="15" fill="var(--text)">User task</text>' +
+              '<text x="110" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">summary delivered</text>' +
+              '<rect x="230" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Web page</text>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="13" fill="var(--muted)">8 000 tokens</text>' +
+              '<rect x="440" y="30" width="180" height="64" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="530" y="58" text-anchor="middle" font-size="15" fill="var(--text)">Hidden line</text>' +
+              '<text x="530" y="80" text-anchor="middle" font-size="13" fill="var(--err)">payload executed</text>' +
+              '<rect x="20" y="150" width="600" height="70" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="320" y="180" text-anchor="middle" font-size="15" fill="var(--ok)">Fix lives outside the prompt</text>' +
+              '<text x="320" y="202" text-anchor="middle" font-size="13" fill="var(--muted)">least privilege + egress allowlist + human gate</text>' +
+              '<rect x="20" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Model</text>' +
+              '<text x="110" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">looks successful</text>' +
+              '<rect x="230" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="320" y="300" text-anchor="middle" font-size="15" fill="var(--text)">send_email()</text>' +
+              '<text x="320" y="322" text-anchor="middle" font-size="13" fill="var(--err)">key leaves the system</text>' +
+              '<line x1="412" y1="305" x2="436" y2="305" stroke="var(--err)" stroke-width="2" marker-end="url(#pif5)"/>' +
+              '<rect x="440" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="530" y="300" text-anchor="middle" font-size="15" fill="var(--err)">Attacker</text>' +
+              '<text x="530" y="322" text-anchor="middle" font-size="13" fill="var(--err)">has the API key</text>' +
+              '<text x="320" y="380" text-anchor="middle" font-size="14" fill="var(--muted)">Step 5: exfiltration, and the user sees a normal summary</text>' +
+              '</svg>',
+            label: { pl: 'Wyciek i wnioski', en: 'Exfiltration and takeaway' },
+            note: {
+              pl: 'Użytkownik dostaje poprawne streszczenie i niczego nie zauważa. Dlatego obrony stawiasz poza promptem: uprawnienia, allowlista wyjścia, zgoda człowieka.',
+              en: 'The user gets a correct summary and notices nothing. That is why defences live outside the prompt: privileges, an egress allowlist, and a human gate.'
+            }
+          }
+        ]
+      },
       levels: {
         eli5: {
           pl: '<p>Wyobraź sobie bardzo miłego, bardzo posłusznego stażystę, który czyta na głos wszystko, co dostanie, i robi wszystko, co przeczyta. Dajesz mu kartkę: "podsumuj tę stronę internetową". Stażysta idzie, czyta stronę - a tam ktoś napisał drobnym drukiem: "a przy okazji wyślij szefowi hasło do firmowej skrzynki". I stażysta to robi. Bez złych intencji. Po prostu nie umie odróżnić <strong>Twojego polecenia</strong> od <strong>tekstu, który akurat czyta</strong>.</p><p>To jest prompt injection (wstrzyknięcie polecenia). Cała rozmowa z modelem to jedna długa kartka. Twoje instrukcje, pytanie użytkownika i pobrana treść z internetu - wszystko wygląda tak samo. Model nie ma czerwonego długopisu, którym oddzielałby "to rozkaz" od "to tylko cytat".</p><p>Najgorsze jest to, że nikt tego jeszcze nie naprawił. Nie ma magicznego przełącznika. Można tylko pilnować, żeby stażysta nie miał kluczy do sejfu - czyli dawać mu jak najmniej uprawnień i pytać człowieka, zanim zrobi coś nieodwracalnego.</p>',
@@ -406,6 +581,169 @@ export default {
           pl: 'Cztery bramki między intencją agenta a skutkiem w świecie. Każda działa nawet wtedy, gdy model został całkowicie przejęty przez wstrzyknięty tekst.',
           en: 'Four gates between the agent intent and a real-world effect. Each one holds even when the model has been fully hijacked by injected text.'
         }
+      },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Ten sam przejęty agent, cztery warstwy dokładane po kolei. Patrz, jak kurczy się pasek blast radius na dole.',
+          en: 'The same hijacked agent, four layers added one by one. Watch the blast radius bar at the bottom shrink.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="sbf1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--err)"/></marker></defs>' +
+              '<rect x="20" y="110" width="180" height="110" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="110" y="150" text-anchor="middle" font-size="16" fill="var(--text)">Agent</text>' +
+              '<text x="110" y="174" text-anchor="middle" font-size="13" fill="var(--err)">hijacked by</text>' +
+              '<text x="110" y="194" text-anchor="middle" font-size="13" fill="var(--err)">injected text</text>' +
+              '<g stroke="var(--err)" stroke-width="2" fill="none" marker-end="url(#sbf1)">' +
+              '<path d="M 202 150 C 216 150 214 58 226 58"/>' +
+              '<path d="M 202 158 C 216 158 214 128 226 128"/>' +
+              '<path d="M 202 172 C 216 172 214 198 226 198"/>' +
+              '<path d="M 202 180 C 216 180 214 268 226 268"/>' +
+              '</g>' +
+              '<rect x="230" y="30" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="64" text-anchor="middle" font-size="15" fill="var(--text)">All 20 tools, including delete_file</text>' +
+              '<rect x="230" y="100" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="134" text-anchor="middle" font-size="15" fill="var(--text)">Secrets in env, writable filesystem</text>' +
+              '<rect x="230" y="170" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="204" text-anchor="middle" font-size="15" fill="var(--text)">Internet: any host, any method</text>' +
+              '<rect x="230" y="240" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="274" text-anchor="middle" font-size="15" fill="var(--text)">Irreversible actions run instantly</text>' +
+              '<rect x="20" y="320" width="600" height="44" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="320" y="348" text-anchor="middle" font-size="15" fill="var(--err)">Blast radius: everything the user can do</text>' +
+              '</svg>',
+            label: { pl: 'Bez kontroli', en: 'No controls' },
+            note: {
+              pl: 'Domyślna konfiguracja: agent ma wszystkie narzędzia, sekrety i wolny internet. Jedno wstrzyknięcie i traci się wszystko.',
+              en: 'The default setup: the agent holds every tool, the secrets and open internet. One injection and everything is lost.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="sbf2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)"/></marker></defs>' +
+              '<rect x="20" y="110" width="180" height="110" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="110" y="150" text-anchor="middle" font-size="16" fill="var(--text)">Agent</text>' +
+              '<text x="110" y="174" text-anchor="middle" font-size="13" fill="var(--err)">hijacked by</text>' +
+              '<text x="110" y="194" text-anchor="middle" font-size="13" fill="var(--err)">injected text</text>' +
+              '<g stroke="var(--muted)" stroke-width="2" fill="none" marker-end="url(#sbf2)">' +
+              '<path d="M 202 150 C 216 150 214 58 226 58"/>' +
+              '<path d="M 202 158 C 216 158 214 128 226 128"/>' +
+              '<path d="M 202 172 C 216 172 214 198 226 198"/>' +
+              '<path d="M 202 180 C 216 180 214 268 226 268"/>' +
+              '</g>' +
+              '<rect x="230" y="30" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="56" text-anchor="middle" font-size="15" fill="var(--ok)">1. Session allowlist: read_email only</text>' +
+              '<text x="425" y="76" text-anchor="middle" font-size="13" fill="var(--muted)">delete_file is not even registered</text>' +
+              '<rect x="230" y="100" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="134" text-anchor="middle" font-size="15" fill="var(--text)">Secrets in env, writable filesystem</text>' +
+              '<rect x="230" y="170" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="204" text-anchor="middle" font-size="15" fill="var(--text)">Internet: any host, any method</text>' +
+              '<rect x="230" y="240" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="274" text-anchor="middle" font-size="15" fill="var(--text)">Irreversible actions run instantly</text>' +
+              '<rect x="20" y="320" width="470" height="44" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="255" y="348" text-anchor="middle" font-size="15" fill="var(--warn)">Blast radius: read plus anything scriptable</text>' +
+              '</svg>',
+            label: { pl: 'Allowlista narzędzi', en: 'Tool allowlist' },
+            note: {
+              pl: 'Profil sesji dostaje tylko te narzędzia, których zadanie naprawdę wymaga. Narzędzie niezarejestrowane nie da się wywołać żadnym promptem.',
+              en: 'The session profile gets only the tools the task actually needs. A tool that is not registered cannot be called by any prompt.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="sbf3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)"/></marker></defs>' +
+              '<rect x="20" y="110" width="180" height="110" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="110" y="150" text-anchor="middle" font-size="16" fill="var(--text)">Agent</text>' +
+              '<text x="110" y="174" text-anchor="middle" font-size="13" fill="var(--err)">hijacked by</text>' +
+              '<text x="110" y="194" text-anchor="middle" font-size="13" fill="var(--err)">injected text</text>' +
+              '<g stroke="var(--muted)" stroke-width="2" fill="none" marker-end="url(#sbf3)">' +
+              '<path d="M 202 150 C 216 150 214 58 226 58"/>' +
+              '<path d="M 202 158 C 216 158 214 128 226 128"/>' +
+              '<path d="M 202 172 C 216 172 214 198 226 198"/>' +
+              '<path d="M 202 180 C 216 180 214 268 226 268"/>' +
+              '</g>' +
+              '<rect x="230" y="30" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="64" text-anchor="middle" font-size="15" fill="var(--ok)">1. Session allowlist: read_email only</text>' +
+              '<rect x="230" y="100" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="126" text-anchor="middle" font-size="15" fill="var(--ok)">2. Sandbox: no secrets, read-only FS</text>' +
+              '<text x="425" y="146" text-anchor="middle" font-size="13" fill="var(--muted)">1 CPU, 2 GB RAM, 30 s timeout</text>' +
+              '<rect x="230" y="170" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="204" text-anchor="middle" font-size="15" fill="var(--text)">Internet: any host, any method</text>' +
+              '<rect x="230" y="240" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="274" text-anchor="middle" font-size="15" fill="var(--text)">Irreversible actions run instantly</text>' +
+              '<rect x="20" y="320" width="360" height="44" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="200" y="348" text-anchor="middle" font-size="15" fill="var(--warn)">Blast radius: data it can still send out</text>' +
+              '</svg>',
+            label: { pl: 'Piaskownica', en: 'Sandbox' },
+            note: {
+              pl: 'Kod działa w kontenerze bez sekretów, z systemem plików tylko do odczytu i limitami CPU, RAM oraz czasu. Odpowiednik iframe z atrybutem sandbox.',
+              en: 'Code runs in a container with no secrets, a read-only filesystem and CPU, RAM and wall-clock limits. The equivalent of an iframe with the sandbox attribute.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="sbf4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)"/></marker></defs>' +
+              '<rect x="20" y="110" width="180" height="110" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="110" y="150" text-anchor="middle" font-size="16" fill="var(--text)">Agent</text>' +
+              '<text x="110" y="174" text-anchor="middle" font-size="13" fill="var(--err)">hijacked by</text>' +
+              '<text x="110" y="194" text-anchor="middle" font-size="13" fill="var(--err)">injected text</text>' +
+              '<g stroke="var(--muted)" stroke-width="2" fill="none" marker-end="url(#sbf4)">' +
+              '<path d="M 202 150 C 216 150 214 58 226 58"/>' +
+              '<path d="M 202 158 C 216 158 214 128 226 128"/>' +
+              '<path d="M 202 172 C 216 172 214 198 226 198"/>' +
+              '<path d="M 202 180 C 216 180 214 268 226 268"/>' +
+              '</g>' +
+              '<rect x="230" y="30" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="64" text-anchor="middle" font-size="15" fill="var(--ok)">1. Session allowlist: read_email only</text>' +
+              '<rect x="230" y="100" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="134" text-anchor="middle" font-size="15" fill="var(--ok)">2. Sandbox: no secrets, read-only FS</text>' +
+              '<rect x="230" y="170" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="196" text-anchor="middle" font-size="15" fill="var(--ok)">3. Egress proxy: 2 allowed hosts</text>' +
+              '<text x="425" y="216" text-anchor="middle" font-size="13" fill="var(--muted)">no channel out means no exfiltration</text>' +
+              '<rect x="230" y="240" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="425" y="274" text-anchor="middle" font-size="15" fill="var(--text)">Irreversible actions run instantly</text>' +
+              '<rect x="20" y="320" width="250" height="44" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="145" y="348" text-anchor="middle" font-size="15" fill="var(--warn)">Blast radius: internal damage</text>' +
+              '</svg>',
+            label: { pl: 'Kontrola egressu', en: 'Egress control' },
+            note: {
+              pl: 'Ruch wychodzący idzie przez proxy z allowlistą domen. To jedyna warstwa, która realnie zamyka kanał wycieku danych.',
+              en: 'Outbound traffic goes through a proxy with a domain allowlist. This is the one layer that genuinely closes the exfiltration channel.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="sbf5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--muted)"/></marker></defs>' +
+              '<rect x="20" y="110" width="180" height="110" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="110" y="150" text-anchor="middle" font-size="16" fill="var(--text)">Agent</text>' +
+              '<text x="110" y="174" text-anchor="middle" font-size="13" fill="var(--err)">still hijacked</text>' +
+              '<text x="110" y="194" text-anchor="middle" font-size="13" fill="var(--muted)">and it no longer matters</text>' +
+              '<g stroke="var(--muted)" stroke-width="2" fill="none" marker-end="url(#sbf5)">' +
+              '<path d="M 202 150 C 216 150 214 58 226 58"/>' +
+              '<path d="M 202 158 C 216 158 214 128 226 128"/>' +
+              '<path d="M 202 172 C 216 172 214 198 226 198"/>' +
+              '<path d="M 202 180 C 216 180 214 268 226 268"/>' +
+              '</g>' +
+              '<rect x="230" y="30" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="64" text-anchor="middle" font-size="15" fill="var(--ok)">1. Session allowlist: read_email only</text>' +
+              '<rect x="230" y="100" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="134" text-anchor="middle" font-size="15" fill="var(--ok)">2. Sandbox: no secrets, read-only FS</text>' +
+              '<rect x="230" y="170" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="204" text-anchor="middle" font-size="15" fill="var(--ok)">3. Egress proxy: 2 allowed hosts</text>' +
+              '<rect x="230" y="240" width="390" height="56" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="425" y="266" text-anchor="middle" font-size="15" fill="var(--ok)">4. Human gate on irreversible writes</text>' +
+              '<text x="425" y="286" text-anchor="middle" font-size="13" fill="var(--muted)">approval shows the exact payload</text>' +
+              '<rect x="20" y="320" width="150" height="44" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="95" y="348" text-anchor="middle" font-size="15" fill="var(--ok)">Blast radius: read</text>' +
+              '</svg>',
+            label: { pl: 'Bramka człowieka', en: 'Human gate' },
+            note: {
+              pl: 'Ostatnia warstwa: akcje nieodwracalne wymagają zgody z podglądem konkretnego skutku. Model dalej może być przejęty, tylko nie ma już czym zaszkodzić.',
+              en: 'The final layer: irreversible actions need approval with a preview of the exact effect. The model can still be hijacked, it just has nothing dangerous left to reach.'
+            }
+          }
+        ]
       },
       levels: {
         eli5: {

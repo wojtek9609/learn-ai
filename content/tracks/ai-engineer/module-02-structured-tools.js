@@ -1,3 +1,81 @@
+// ---------------------------------------------------------------- shared SVG
+// Frame builders for the interactive players (SPEC v4 "Interactive diagram
+// widget"). All frames of a set share the viewBox and the layout, so only the
+// highlighted state and the payload text change between steps.
+
+const REPAIR_HEAD =
+  '<defs><marker id="m2ri" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
+  '<text x="20" y="26" fill="var(--muted)" font-size="14">Parse, validate, repair - with a hard attempt budget</text>' +
+  '<line x1="165" y1="108" x2="165" y2="126" stroke="var(--muted)" stroke-width="2" marker-end="url(#m2ri)"/>' +
+  '<line x1="310" y1="160" x2="328" y2="160" stroke="var(--muted)" stroke-width="2" marker-end="url(#m2ri)"/>' +
+  '<line x1="475" y1="194" x2="475" y2="210" stroke="var(--muted)" stroke-width="2" marker-end="url(#m2ri)"/>';
+
+function repairRaw(line1, line2, stroke) {
+  return '<rect x="20" y="42" width="600" height="66" rx="12" fill="var(--surface)" stroke="' + stroke + '" stroke-width="2"/>' +
+    '<text x="40" y="72" font-size="15" fill="var(--text)">' + line1 + '</text>' +
+    '<text x="40" y="95" font-size="13" fill="var(--muted)">' + line2 + '</text>';
+}
+
+function repairStep(x, title, state, stroke, stateColor) {
+  return '<rect x="' + x + '" y="128" width="290" height="66" rx="12" fill="var(--surface)" stroke="' + stroke + '" stroke-width="2"/>' +
+    '<text x="' + (x + 145) + '" y="156" text-anchor="middle" font-size="15" fill="var(--text)">' + title + '</text>' +
+    '<text x="' + (x + 145) + '" y="180" text-anchor="middle" font-size="13" fill="' + stateColor + '">' + state + '</text>';
+}
+
+function repairOut(text, stroke, color) {
+  return '<rect x="20" y="212" width="600" height="60" rx="12" fill="var(--surface)" stroke="' + stroke + '" stroke-width="2"/>' +
+    '<text x="320" y="249" text-anchor="middle" font-size="15" fill="' + color + '">' + text + '</text>';
+}
+
+function repairFoot(line1, line2, color) {
+  return '<rect x="20" y="290" width="600" height="90" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+    '<text x="40" y="324" font-size="15" fill="' + color + '">' + line1 + '</text>' +
+    '<text x="40" y="352" font-size="14" fill="var(--muted)">' + line2 + '</text>';
+}
+
+function repairFrame(attempt, inner) {
+  return '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+    REPAIR_HEAD +
+    '<text x="620" y="26" text-anchor="end" font-size="14" fill="var(--muted)">attempt ' + attempt + '</text>' +
+    inner + '</svg>';
+}
+
+const LOOP_HEAD =
+  '<defs><marker id="m2li" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
+  '<text x="20" y="26" fill="var(--muted)" font-size="14">One turn of the tool loop, step by step</text>';
+
+function loopBox(x, y, w, h, title, sub, stroke) {
+  return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="14" fill="var(--surface)" stroke="' + stroke + '" stroke-width="2"/>' +
+    '<text x="' + (x + w / 2) + '" y="' + (y + 34) + '" text-anchor="middle" font-size="15" fill="var(--text)">' + title + '</text>' +
+    '<text x="' + (x + w / 2) + '" y="' + (y + 58) + '" text-anchor="middle" font-size="13" fill="var(--muted)">' + sub + '</text>';
+}
+
+function loopSend(label, color) {
+  return '<line x1="272" y1="98" x2="366" y2="98" stroke="' + color + '" stroke-width="2" marker-end="url(#m2li)"/>' +
+    '<text x="320" y="86" text-anchor="middle" font-size="13" fill="' + color + '">' + label + '</text>';
+}
+
+function loopCall(color) {
+  return '<line x1="495" y1="144" x2="495" y2="186" stroke="' + color + '" stroke-width="2" marker-end="url(#m2li)"/>';
+}
+
+function loopReturn(label, color) {
+  return '<path d="M368 228 L146 228 L146 148" fill="none" stroke="' + color + '" stroke-width="2" marker-end="url(#m2li)"/>' +
+    '<text x="160" y="252" font-size="13" fill="' + color + '">' + label + '</text>';
+}
+
+function loopLog(line1, line2, line3, color) {
+  return '<rect x="20" y="290" width="600" height="90" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+    '<text x="40" y="316" font-size="13" fill="var(--muted)">' + line1 + '</text>' +
+    '<text x="40" y="340" font-size="13" fill="var(--muted)">' + line2 + '</text>' +
+    '<text x="40" y="364" font-size="13" fill="' + color + '">' + line3 + '</text>';
+}
+
+function loopFrame(inner) {
+  return '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+    LOOP_HEAD + inner + '</svg>';
+}
+
 export default {
   id: 'structured-output-tools',
   order: 2,
@@ -299,6 +377,147 @@ export default {
           en: 'The repair loop: parse, validate, send the concrete zod issues back - at most twice, then fail in a controlled way.'
         }
       },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Jedno wywołanie, które nie udaje się za pierwszym razem: mechaniczna naprawa, walidacja zodem, tura naprawcza z konkretnymi błędami i twardy limit prób.',
+          en: 'One call that does not work the first time: mechanical repair, zod validation, a repair turn with concrete issues, and a hard attempt limit.'
+        },
+        frames: [
+          {
+            svg: repairFrame('1 of 2',
+              repairRaw(
+                'Sure! Here is the ticket you asked for:',
+                'fenced code block, chatty prefix, trailing comma after the last field',
+                'var(--warn)'
+              ) +
+              repairStep(20, 'JSON.parse', 'not run yet', 'var(--border)', 'var(--muted)') +
+              repairStep(330, 'schema.safeParse', 'not run yet', 'var(--border)', 'var(--muted)') +
+              repairOut('no typed object yet', 'var(--border)', 'var(--muted)') +
+              repairFoot(
+                'Treat the reply as untrusted input',
+                'It is a string from a stranger, not a typed API response.',
+                'var(--muted)'
+              )
+            ),
+            label: { pl: '1. Surowa odpowiedź', en: '1. The raw reply' },
+            note: {
+              pl: 'Model dostał schemat, ale i tak dokleił zdanie wstępne i ogrodzenie z markdownu. To normalny przypadek, nie awaria.',
+              en: 'The model got the schema and still added a chatty prefix and a markdown fence. That is a normal case, not an outage.'
+            }
+          },
+          {
+            svg: repairFrame('1 of 2',
+              repairRaw(
+                'Sure! Here is the ticket you asked for:',
+                'stripped fence and prefix, cut the trailing comma - deterministic fixes first',
+                'var(--accent)'
+              ) +
+              repairStep(20, 'JSON.parse', 'SyntaxError, then ok after cleanup', 'var(--err)', 'var(--err)') +
+              repairStep(330, 'schema.safeParse', 'waiting', 'var(--border)', 'var(--muted)') +
+              repairOut('plain object, shape still unknown', 'var(--accent)', 'var(--text)') +
+              repairFoot(
+                'Cheap repairs before any model call',
+                'Fence stripping and comma cleanup cost nothing and fix most failures.',
+                'var(--accent)'
+              )
+            ),
+            label: { pl: '2. Naprawa mechaniczna', en: '2. Mechanical repair' },
+            note: {
+              pl: 'Zanim zapłacisz za kolejne wywołanie modelu, spróbuj poprawek deterministycznych. Dopiero potem sięgasz po turę naprawczą.',
+              en: 'Before paying for another model call, try the deterministic fixes. Only then reach for a repair turn.'
+            }
+          },
+          {
+            svg: repairFrame('1 of 2',
+              repairRaw(
+                'parsed object: title, priority, estimateHours',
+                'priority: urgent - a value the enum does not allow',
+                'var(--warn)'
+              ) +
+              repairStep(20, 'JSON.parse', 'ok', 'var(--ok)', 'var(--ok)') +
+              repairStep(330, 'schema.safeParse', 'success: false', 'var(--err)', 'var(--err)') +
+              repairOut('issue at path priority: expected low | normal | high', 'var(--warn)', 'var(--warn)') +
+              repairFoot(
+                'Parsing is not validating',
+                'Valid JSON with a wrong enum value would happily crash the code downstream.',
+                'var(--warn)'
+              )
+            ),
+            label: { pl: '3. Walidacja wyłapuje błąd', en: '3. Validation catches it' },
+            note: {
+              pl: 'JSON jest poprawny składniowo, ale kontrakt złamany. Zod zwraca ścieżkę i oczekiwaną wartość - to gotowy materiał na komunikat naprawczy.',
+              en: 'The JSON is syntactically fine but the contract is broken. Zod returns the path and the expected values - ready-made material for the repair message.'
+            }
+          },
+          {
+            svg: repairFrame('2 of 2',
+              repairRaw(
+                'repair turn sent back to the model',
+                'the exact zod issues, plus the schema again - not the words try again',
+                'var(--accent)'
+              ) +
+              repairStep(20, 'JSON.parse', 'rerun on the new reply', 'var(--accent)', 'var(--accent)') +
+              repairStep(330, 'schema.safeParse', 'rerun on the new reply', 'var(--accent)', 'var(--accent)') +
+              repairOut('second and last attempt', 'var(--accent)', 'var(--accent)') +
+              repairFoot(
+                'Feed the error back as data',
+                'A concrete path and expectation repairs far more often than a vague complaint.',
+                'var(--accent)'
+              )
+            ),
+            label: { pl: '4. Tura naprawcza', en: '4. The repair turn' },
+            note: {
+              pl: 'Do modelu wraca dokładny opis problemu: ścieżka pola, dozwolone wartości i schemat. Licznik prób idzie w górę.',
+              en: 'The model gets the exact problem back: field path, allowed values and the schema. The attempt counter goes up.'
+            }
+          },
+          {
+            svg: repairFrame('2 of 2',
+              repairRaw(
+                'second reply: priority set to high',
+                'no fence, no prose, just the object',
+                'var(--ok)'
+              ) +
+              repairStep(20, 'JSON.parse', 'ok', 'var(--ok)', 'var(--ok)') +
+              repairStep(330, 'schema.safeParse', 'success: true', 'var(--ok)', 'var(--ok)') +
+              repairOut('typed object, safe to hand to the rest of the app', 'var(--ok)', 'var(--ok)') +
+              repairFoot(
+                'Only validated data crosses the boundary',
+                'Everything past this line can assume the type is real, exactly like after a zod parse at an API edge.',
+                'var(--ok)'
+              )
+            ),
+            label: { pl: '5. Kontrakt spełniony', en: '5. Contract satisfied' },
+            note: {
+              pl: 'Dopiero teraz obiekt wchodzi do aplikacji. Warto zalogować, że potrzebna była naprawa - to metryka jakości promptu.',
+              en: 'Only now does the object enter the app. Log that a repair was needed - that number is a quality metric for your prompt.'
+            }
+          },
+          {
+            svg: repairFrame('2 of 2',
+              repairRaw(
+                'alternative ending: the second reply is broken too',
+                'the same enum error, or a brand new one',
+                'var(--err)'
+              ) +
+              repairStep(20, 'JSON.parse', 'ok', 'var(--ok)', 'var(--ok)') +
+              repairStep(330, 'schema.safeParse', 'success: false again', 'var(--err)', 'var(--err)') +
+              repairOut('stop: budget spent, log the raw output, fall back', 'var(--err)', 'var(--err)') +
+              repairFoot(
+                'The budget is the whole design',
+                'An unbounded repair loop is an invoice and a hanging request, never a feature.',
+                'var(--err)'
+              )
+            ),
+            label: { pl: '6. Kontrolowana porażka', en: '6. Controlled failure' },
+            note: {
+              pl: 'Po dwóch próbach kończysz głośno: log z surową odpowiedzią, metryka błędu i fallback dla użytkownika. Nigdy pętla bez końca.',
+              en: 'After two attempts you stop loudly: log the raw output, bump the failure metric, show a fallback. Never an endless loop.'
+            }
+          }
+        ]
+      },
       levels: {
         eli5: {
           pl: '<p>Wyobraź sobie, że wysyłasz stażystę po zakupy z listą. Wraca, a w siatce brakuje mleka i zamiast masła jest margaryna. Masz trzy wyjścia.</p><p>Pierwsze: krzyknąć "źle!" i odesłać go bez wyjaśnienia. Wróci z czymś równie losowym. Drugie: powiedzieć dokładnie "brakuje mleka, a margarynę zamień na masło". Wtedy zwykle wraca z tym, o co chodziło. Trzecie: odsyłać go w kółko, aż zamkną sklep - to najgorsze wyjście, bo tracisz cały dzień.</p><p>Z modelem jest tak samo. Kiedy odpowiedź nie pasuje do twojego formularza, nie mów mu "błąd". Powiedz, <strong>które pole</strong> jest złe i <strong>dlaczego</strong>. I ustal z góry, że dajesz mu najwyżej dwie szanse. Po drugiej odpuszczasz, zapisujesz co się stało i pokazujesz człowiekowi uprzejmy komunikat zamiast kręcić się w kółko.</p>',
@@ -422,6 +641,128 @@ export default {
           pl: 'Pętla tool callingu: model prosi o narzędzie, twój kod je wykonuje, wynik wraca do kontekstu, model kontynuuje. Błędy odsyłasz jako dane.',
           en: 'The tool-calling loop: the model requests a tool, your code executes it, the result goes back into context, the model continues. Errors go back as data.'
         }
+      },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Jedno pełne okrążenie pętli: prośba o narzędzie, wykonanie po twojej stronie, wynik z powrotem w kontekście i odpowiedź - plus wariant z błędem.',
+          en: 'One full lap of the loop: the tool request, execution on your side, the result back in context and the answer - plus the error variant.'
+        },
+        frames: [
+          {
+            svg: loopFrame(
+              loopBox(20, 58, 252, 86, 'Model', 'reads the tool schemas', 'var(--accent)') +
+              loopBox(368, 58, 252, 86, 'Your backend', 'idle', 'var(--border)') +
+              loopBox(368, 186, 252, 76, 'Weather API', 'idle', 'var(--border)') +
+              loopLog(
+                'messages: [ user: what is the weather in Warsaw? ]',
+                'tools: [ get_weather { city: string, unit?: c | f } ]',
+                'The schema is part of the prompt - name and description do the teaching.',
+                'var(--muted)'
+              )
+            ),
+            label: { pl: '1. Wysyłasz narzędzia', en: '1. You send the tools' },
+            note: {
+              pl: 'Narzędzie to opis w JSON Schema, a nie kod wysłany do modelu. Model widzi tylko nazwę, opis i kształt argumentów.',
+              en: 'A tool is a JSON Schema description, not code shipped to the model. All the model sees is the name, the description and the argument shape.'
+            }
+          },
+          {
+            svg: loopFrame(
+              loopBox(20, 58, 252, 86, 'Model', 'stop_reason: tool_use', 'var(--accent)') +
+              loopBox(368, 58, 252, 86, 'Your backend', 'receives the request', 'var(--accent2)') +
+              loopBox(368, 186, 252, 76, 'Weather API', 'idle', 'var(--border)') +
+              loopSend('tool_use get_weather', 'var(--accent)') +
+              loopLog(
+                'assistant: tool_use id tu_01, name get_weather',
+                'input: { city: Warsaw, unit: c }',
+                'The turn ends here. Nothing was executed - the model only asked.',
+                'var(--accent)'
+              )
+            ),
+            label: { pl: '2. Model prosi o narzędzie', en: '2. The model asks' },
+            note: {
+              pl: 'Zamiast tekstu dostajesz blok tool_use z nazwą i argumentami. Model zatrzymuje generowanie i czeka na wynik.',
+              en: 'Instead of text you get a tool_use block with a name and arguments. The model stops generating and waits for a result.'
+            }
+          },
+          {
+            svg: loopFrame(
+              loopBox(20, 58, 252, 86, 'Model', 'waiting', 'var(--border)') +
+              loopBox(368, 58, 252, 86, 'Your backend', 'zod parse of the arguments', 'var(--accent2)') +
+              loopBox(368, 186, 252, 76, 'Weather API', 'GET /forecast?city=Warsaw', 'var(--accent2)') +
+              loopCall('var(--accent2)') +
+              loopLog(
+                'validate args, check permissions, then call the real system',
+                'timeout, retry policy and rate limits live here, not in the prompt',
+                'This is the only place where anything actually happens.',
+                'var(--accent2)'
+              )
+            ),
+            label: { pl: '3. Twój kod wykonuje', en: '3. Your code executes' },
+            note: {
+              pl: 'Argumenty od modelu traktujesz jak dane z formularza: walidacja zodem, sprawdzenie uprawnień, dopiero potem prawdziwe wywołanie.',
+              en: 'Treat the arguments like form input: validate with zod, check permissions, and only then make the real call.'
+            }
+          },
+          {
+            svg: loopFrame(
+              loopBox(20, 58, 252, 86, 'Model', 'gets the full history again', 'var(--accent)') +
+              loopBox(368, 58, 252, 86, 'Your backend', 'appends tool_result', 'var(--ok)') +
+              loopBox(368, 186, 252, 76, 'Weather API', '4 C, wind 12 km/h', 'var(--ok)') +
+              loopReturn('tool_result tu_01', 'var(--ok)') +
+              loopLog(
+                'messages: [ user, assistant tool_use, user tool_result ]',
+                'the result is matched to the request by tool_use id',
+                'The API is stateless - you resend the whole conversation every lap.',
+                'var(--ok)'
+              )
+            ),
+            label: { pl: '4. Wynik wraca do kontekstu', en: '4. The result goes back' },
+            note: {
+              pl: 'Wynik dopisujesz jako tool_result z tym samym id i wysyłasz całą historię jeszcze raz. Model nie pamięta nic między wywołaniami.',
+              en: 'You append the result as a tool_result with the same id and send the whole history again. The model remembers nothing between calls.'
+            }
+          },
+          {
+            svg: loopFrame(
+              loopBox(20, 58, 252, 86, 'Model', 'stop_reason: end_turn', 'var(--ok)') +
+              loopBox(368, 58, 252, 86, 'Your backend', 'streams the answer to the UI', 'var(--border)') +
+              loopBox(368, 186, 252, 76, 'Weather API', 'done', 'var(--border)') +
+              loopSend('final text', 'var(--ok)') +
+              loopLog(
+                'assistant: it is 4 C in Warsaw right now, with a light wind',
+                'or another tool_use block - then the loop simply runs again',
+                'Cap the number of laps: an agent without a limit is an open tab on your card.',
+                'var(--ok)'
+              )
+            ),
+            label: { pl: '5. Model odpowiada', en: '5. The model answers' },
+            note: {
+              pl: 'Mając wynik, model kończy turę tekstem albo prosi o kolejne narzędzie. Ta sama pętla obsługuje jedno i drugie.',
+              en: 'With the result in hand the model finishes the turn with text, or asks for another tool. The same loop covers both.'
+            }
+          },
+          {
+            svg: loopFrame(
+              loopBox(20, 58, 252, 86, 'Model', 'reads the error and adapts', 'var(--accent)') +
+              loopBox(368, 58, 252, 86, 'Your backend', 'catches, does not throw', 'var(--warn)') +
+              loopBox(368, 186, 252, 76, 'Weather API', '404 unknown city', 'var(--err)') +
+              loopReturn('tool_result: error payload', 'var(--warn)') +
+              loopLog(
+                'tool_result: { error: unknown_city, hint: ask the user to confirm }',
+                'is_error: true - a normal message, not an exception in your process',
+                'Errors are data: the model can retry with a fix or ask the user.',
+                'var(--warn)'
+              )
+            ),
+            label: { pl: '6. Błąd jako dane', en: '6. Errors as data' },
+            note: {
+              pl: 'Wyjątek po twojej stronie zabija pętlę. Zamiast tego odsyłasz opis błędu i podpowiedź - model potrafi się z tego pozbierać.',
+              en: 'An exception on your side kills the loop. Send back a described error plus a hint instead, and the model can recover from it.'
+            }
+          }
+        ]
       },
       levels: {
         eli5: {

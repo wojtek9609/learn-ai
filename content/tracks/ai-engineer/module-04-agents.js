@@ -40,6 +40,169 @@ export default {
           en: 'An agent is a loop: the model picks a step, you execute it, the result goes back. The loop ends when the model is done or a limit is hit.'
         }
       },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Dwa obroty petli agenta i rosnacy kontekst obok - widac, ze pamiec agenta to po prostu doklejana historia.',
+          en: 'Two turns of the agent loop with the growing context beside it - the agent memory is simply an appended history.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="ag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Turn 1 - the goal arrives</text>' +
+              '<rect x="30" y="36" width="330" height="48" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="195" y="66" text-anchor="middle" font-size="15" fill="var(--text)">Goal: refund order 4471</text>' +
+              '<rect x="30" y="104" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="136" text-anchor="middle" font-size="15" fill="var(--muted)">Model decides next step</text>' +
+              '<rect x="30" y="176" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="208" text-anchor="middle" font-size="15" fill="var(--muted)">Run one tool</text>' +
+              '<rect x="30" y="248" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="280" text-anchor="middle" font-size="15" fill="var(--muted)">Observation</text>' +
+              '<path d="M360 274 L405 274 L405 130 L368 130" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<rect x="430" y="36" width="190" height="310" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="525" y="60" text-anchor="middle" font-size="14" fill="var(--muted)">Context</text>' +
+              '<rect x="444" y="72" width="162" height="24" rx="6" fill="none" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="456" y="89" font-size="13" fill="var(--text)">user: refund 4471</text>' +
+              '<text x="195" y="330" text-anchor="middle" font-size="14" fill="var(--muted)">no answer yet</text>' +
+              '<text x="20" y="386" font-size="13" fill="var(--muted)">stop on: done, max steps, budget, error</text>' +
+              '</svg>',
+            label: { pl: 'Cel wchodzi do petli', en: 'The goal enters the loop' },
+            note: {
+              pl: 'Agent dostaje cel, a nie liste krokow. Kontekst ma na razie jedna wiadomosc.',
+              en: 'The agent gets a goal, not a list of steps. The context holds a single message so far.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="ag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Turn 1 - the model picks a tool</text>' +
+              '<rect x="30" y="36" width="330" height="48" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="66" text-anchor="middle" font-size="15" fill="var(--text)">Goal: refund order 4471</text>' +
+              '<rect x="30" y="104" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="195" y="136" text-anchor="middle" font-size="15" fill="var(--text)">Model: call get_order(4471)</text>' +
+              '<rect x="30" y="176" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="208" text-anchor="middle" font-size="15" fill="var(--muted)">Run one tool</text>' +
+              '<rect x="30" y="248" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="280" text-anchor="middle" font-size="15" fill="var(--muted)">Observation</text>' +
+              '<path d="M360 274 L405 274 L405 130 L368 130" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<rect x="430" y="36" width="190" height="310" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="525" y="60" text-anchor="middle" font-size="14" fill="var(--muted)">Context</text>' +
+              '<rect x="444" y="72" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="89" font-size="13" fill="var(--muted)">user: refund 4471</text>' +
+              '<rect x="444" y="104" width="162" height="24" rx="6" fill="none" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="456" y="121" font-size="13" fill="var(--text)">call: get_order</text>' +
+              '<text x="195" y="330" text-anchor="middle" font-size="14" fill="var(--muted)">no answer yet</text>' +
+              '<text x="20" y="386" font-size="13" fill="var(--muted)">stop on: done, max steps, budget, error</text>' +
+              '</svg>',
+            label: { pl: 'Model wybiera narzedzie', en: 'The model picks a tool' },
+            note: {
+              pl: 'Model nie wykonuje niczego sam - zwraca tylko prosbe o wywolanie narzedzia, ktora dopisujemy do kontekstu.',
+              en: 'The model executes nothing itself - it only returns a tool call request, which we append to the context.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="ag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Turn 1 - your code runs the tool</text>' +
+              '<rect x="30" y="36" width="330" height="48" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="66" text-anchor="middle" font-size="15" fill="var(--text)">Goal: refund order 4471</text>' +
+              '<rect x="30" y="104" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="136" text-anchor="middle" font-size="15" fill="var(--muted)">Model: call get_order(4471)</text>' +
+              '<rect x="30" y="176" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="195" y="208" text-anchor="middle" font-size="15" fill="var(--text)">Your code runs get_order</text>' +
+              '<rect x="30" y="248" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="195" y="280" text-anchor="middle" font-size="15" fill="var(--text)">Observation: paid, 249 PLN</text>' +
+              '<path d="M360 274 L405 274 L405 130 L368 130" fill="none" stroke="var(--accent2)" stroke-width="2" marker-end="url(#ag1i-a)"/>' +
+              '<rect x="430" y="36" width="190" height="310" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="525" y="60" text-anchor="middle" font-size="14" fill="var(--muted)">Context</text>' +
+              '<rect x="444" y="72" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="89" font-size="13" fill="var(--muted)">user: refund 4471</text>' +
+              '<rect x="444" y="104" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="121" font-size="13" fill="var(--muted)">call: get_order</text>' +
+              '<rect x="444" y="136" width="162" height="24" rx="6" fill="none" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="456" y="153" font-size="13" fill="var(--text)">result: paid 249</text>' +
+              '<text x="195" y="330" text-anchor="middle" font-size="14" fill="var(--muted)">loop continues</text>' +
+              '<text x="20" y="386" font-size="13" fill="var(--muted)">stop on: done, max steps, budget, error</text>' +
+              '</svg>',
+            label: { pl: 'Narzedzie i obserwacja', en: 'Tool run and observation' },
+            note: {
+              pl: 'Twoj kod wykonuje narzedzie i wklada wynik z powrotem do kontekstu. To jedyny moment, w ktorym cokolwiek naprawde sie dzieje.',
+              en: 'Your code executes the tool and puts the result back into the context. This is the only moment when anything real happens.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="ag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Turn 2 - the model reacts to what it saw</text>' +
+              '<rect x="30" y="36" width="330" height="48" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="66" text-anchor="middle" font-size="15" fill="var(--text)">Goal: refund order 4471</text>' +
+              '<rect x="30" y="104" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="195" y="136" text-anchor="middle" font-size="15" fill="var(--text)">Model: call refund(4471, 249)</text>' +
+              '<rect x="30" y="176" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="195" y="208" text-anchor="middle" font-size="15" fill="var(--text)">Your code runs refund</text>' +
+              '<rect x="30" y="248" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="195" y="280" text-anchor="middle" font-size="15" fill="var(--text)">Observation: refund ok</text>' +
+              '<path d="M360 274 L405 274 L405 130 L368 130" fill="none" stroke="var(--accent2)" stroke-width="2" marker-end="url(#ag1i-a)"/>' +
+              '<rect x="430" y="36" width="190" height="310" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="525" y="60" text-anchor="middle" font-size="14" fill="var(--muted)">Context</text>' +
+              '<rect x="444" y="72" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="89" font-size="13" fill="var(--muted)">user: refund 4471</text>' +
+              '<rect x="444" y="104" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="121" font-size="13" fill="var(--muted)">call: get_order</text>' +
+              '<rect x="444" y="136" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="153" font-size="13" fill="var(--muted)">result: paid 249</text>' +
+              '<rect x="444" y="168" width="162" height="24" rx="6" fill="none" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="456" y="185" font-size="13" fill="var(--text)">call: refund</text>' +
+              '<rect x="444" y="200" width="162" height="24" rx="6" fill="none" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="456" y="217" font-size="13" fill="var(--text)">result: refund ok</text>' +
+              '<text x="195" y="330" text-anchor="middle" font-size="14" fill="var(--muted)">second pass through the loop</text>' +
+              '<text x="20" y="386" font-size="13" fill="var(--muted)">stop on: done, max steps, budget, error</text>' +
+              '</svg>',
+            label: { pl: 'Drugi obrot petli', en: 'Second turn of the loop' },
+            note: {
+              pl: 'Ta sama petla leci drugi raz, ale model widzi juz wynik pierwszego kroku. Tu konczy sie staly workflow, a zaczyna autonomia.',
+              en: 'The same loop runs again, but now the model can see the first result. This is where a fixed workflow ends and autonomy begins.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="ag1i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>' +
+              '<text x="20" y="22" font-size="14" fill="var(--muted)">Turn 3 - no tool needed, the loop exits</text>' +
+              '<rect x="30" y="36" width="330" height="48" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="66" text-anchor="middle" font-size="15" fill="var(--text)">Goal: refund order 4471</text>' +
+              '<rect x="30" y="104" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="195" y="136" text-anchor="middle" font-size="15" fill="var(--text)">Model: no tool needed</text>' +
+              '<rect x="30" y="176" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="195" y="208" text-anchor="middle" font-size="15" fill="var(--muted)">Run one tool</text>' +
+              '<rect x="30" y="248" width="330" height="52" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="195" y="280" text-anchor="middle" font-size="15" fill="var(--text)">Answer: refunded 249 PLN</text>' +
+              '<path d="M360 274 L405 274 L405 130 L368 130" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="5 5"/>' +
+              '<rect x="430" y="36" width="190" height="310" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="525" y="60" text-anchor="middle" font-size="14" fill="var(--muted)">Context</text>' +
+              '<rect x="444" y="72" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="89" font-size="13" fill="var(--muted)">user: refund 4471</text>' +
+              '<rect x="444" y="104" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="121" font-size="13" fill="var(--muted)">call: get_order</text>' +
+              '<rect x="444" y="136" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="153" font-size="13" fill="var(--muted)">result: paid 249</text>' +
+              '<rect x="444" y="168" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="185" font-size="13" fill="var(--muted)">call: refund</text>' +
+              '<rect x="444" y="200" width="162" height="24" rx="6" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="456" y="217" font-size="13" fill="var(--muted)">result: refund ok</text>' +
+              '<rect x="444" y="232" width="162" height="24" rx="6" fill="none" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="456" y="249" font-size="13" fill="var(--text)">final answer</text>' +
+              '<text x="195" y="330" text-anchor="middle" font-size="14" fill="var(--ok)">loop ends</text>' +
+              '<text x="20" y="386" font-size="13" fill="var(--muted)">every turn re-sends the whole context - that is the cost</text>' +
+              '</svg>',
+            label: { pl: 'Petla sie konczy', en: 'The loop ends' },
+            note: {
+              pl: 'Gdy model nie prosi o zadne narzedzie, petla sie konczy. Kazdy obrot wysyla caly kontekst od nowa - stad rosnacy koszt.',
+              en: 'When the model asks for no tool, the loop ends. Every turn re-sends the whole context, which is where the cost comes from.'
+            }
+          }
+        ]
+      },
       levels: {
         eli5: {
           pl: '<p>Wyobraz sobie, ze wysylasz kolege po zakupy. Masz dwie opcje.</p><p>Pierwsza: dajesz mu dokladna liste. Mleko, chleb, jajka, w tej kolejnosci, w tym sklepie. To jest <strong>zwykly program</strong>. Wiesz z gory, co sie stanie.</p><p>Druga: mowisz "zrob nam kolacje na cztery osoby, masz 100 zlotych". Teraz kolega sam decyduje: idzie do sklepu, patrzy co jest, moze zmieni plan, bo nie ma lososia, moze zadzwoni i zapyta. To jest <strong>agent</strong>.</p><p>Agent dostaje cel, a nie liste krokow. Ma do dyspozycji narzedzia (czyli rzeczy, ktore moze zrobic: poszukac, przeczytac plik, wyslac zapytanie) i sam wybiera, ktorego uzyc. Po kazdym ruchu patrzy na wynik i decyduje, co dalej.</p><p>To jest silne i ryzykowne naraz. Kolega z lista nigdy nie kupi czegos dziwnego. Kolega z celem czasem wroci z genialna kolacja, a czasem z dwoma kilogramami sera i pusta kieszenia.</p>',
@@ -366,6 +529,135 @@ export default {
           pl: 'Kontekst agenta zapycha sie wynikami narzedzi. Kompaktowanie zamienia stara historie w streszczenie plus fakty i odzyskuje miejsce, nie ruszajac cachowanego prefiksu.',
           en: 'An agent context fills up with tool results. Compaction turns old history into a summary plus facts and reclaims headroom without touching the cached prefix.'
         }
+      },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Jedno okno kontekstu w czasie: zapycha sie wynikami narzedzi, kompaktowanie odzyskuje miejsce.',
+          en: 'One context window over time: it fills up with tool results, then compaction reclaims the room.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Step 2 - plenty of room</text>' +
+              '<text x="320" y="42" text-anchor="middle" font-size="14" fill="var(--muted)">context window, 200k tokens</text>' +
+              '<rect x="200" y="50" width="240" height="48" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="14" fill="var(--text)">system + tools</text>' +
+              '<rect x="200" y="98" width="240" height="40" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="320" y="124" text-anchor="middle" font-size="14" fill="var(--text)">history</text>' +
+              '<rect x="200" y="138" width="240" height="212" fill="var(--surface)" stroke="var(--ok)" stroke-width="2" stroke-dasharray="6 4"/>' +
+              '<text x="320" y="250" text-anchor="middle" font-size="14" fill="var(--ok)">headroom</text>' +
+              '<text x="470" y="80" font-size="13" fill="var(--muted)">used: 14k</text>' +
+              '<text x="470" y="104" font-size="13" fill="var(--muted)">left: 186k</text>' +
+              '<text x="470" y="128" font-size="13" fill="var(--muted)">cached prefix: yes</text>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">The system prompt and tool schemas never move - they stay cacheable.</text>' +
+              '</svg>',
+            label: { pl: 'Start: duzo miejsca', en: 'Start: plenty of room' },
+            note: {
+              pl: 'Na poczatku kontekst to prawie sam prefiks: system i schematy narzedzi. Reszta okna stoi pusta.',
+              en: 'Early on the context is almost only the prefix: system prompt and tool schemas. The rest of the window is empty.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Step 6 - tool results start piling up</text>' +
+              '<text x="320" y="42" text-anchor="middle" font-size="14" fill="var(--muted)">context window, 200k tokens</text>' +
+              '<rect x="200" y="50" width="240" height="48" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="14" fill="var(--text)">system + tools</text>' +
+              '<rect x="200" y="98" width="240" height="48" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="320" y="128" text-anchor="middle" font-size="14" fill="var(--text)">early history</text>' +
+              '<rect x="200" y="146" width="240" height="104" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="320" y="192" text-anchor="middle" font-size="14" fill="var(--text)">tool results</text>' +
+              '<text x="320" y="214" text-anchor="middle" font-size="14" fill="var(--muted)">raw JSON dumps</text>' +
+              '<rect x="200" y="250" width="240" height="100" fill="var(--surface)" stroke="var(--ok)" stroke-width="2" stroke-dasharray="6 4"/>' +
+              '<text x="320" y="304" text-anchor="middle" font-size="14" fill="var(--ok)">headroom</text>' +
+              '<text x="470" y="80" font-size="13" fill="var(--muted)">used: 96k</text>' +
+              '<text x="470" y="104" font-size="13" fill="var(--muted)">left: 104k</text>' +
+              '<text x="470" y="128" font-size="13" fill="var(--muted)">cached prefix: yes</text>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">One verbose tool result can cost more than the whole system prompt.</text>' +
+              '</svg>',
+            label: { pl: 'Wyniki narzedzi rosna', en: 'Tool results pile up' },
+            note: {
+              pl: 'Kazdy obrot petli doklada surowy wynik narzedzia. To one, a nie rozmowa, zjadaja wieksza czesc okna.',
+              en: 'Every turn appends a raw tool result. These, not the conversation, eat most of the window.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Step 12 - no headroom left</text>' +
+              '<text x="320" y="42" text-anchor="middle" font-size="14" fill="var(--muted)">context window, 200k tokens</text>' +
+              '<rect x="200" y="50" width="240" height="48" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="14" fill="var(--text)">system + tools</text>' +
+              '<rect x="200" y="98" width="240" height="48" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="320" y="128" text-anchor="middle" font-size="14" fill="var(--text)">early history</text>' +
+              '<rect x="200" y="146" width="240" height="192" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="320" y="234" text-anchor="middle" font-size="14" fill="var(--text)">tool results</text>' +
+              '<text x="320" y="256" text-anchor="middle" font-size="14" fill="var(--muted)">(the swamp)</text>' +
+              '<rect x="200" y="338" width="240" height="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="470" y="80" font-size="13" fill="var(--err)">used: 194k</text>' +
+              '<text x="470" y="104" font-size="13" fill="var(--err)">left: 6k</text>' +
+              '<text x="470" y="128" font-size="13" fill="var(--muted)">cached prefix: yes</text>' +
+              '<text x="470" y="160" font-size="13" fill="var(--err)">quality drops</text>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">Long before the hard limit, the middle of the context stops being read well.</text>' +
+              '</svg>',
+            label: { pl: 'Brak zapasu', en: 'No headroom' },
+            note: {
+              pl: 'Na dwunastym kroku okno jest praktycznie pelne. Jakosc spada wczesniej niz twardy limit - srodek kontekstu przestaje byc czytany.',
+              en: 'By step twelve the window is effectively full. Quality drops before the hard limit, because the middle of the context stops being read.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="ag4i-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ok)"/></marker></defs>' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Compaction - summarize steps 1 to 9</text>' +
+              '<text x="320" y="42" text-anchor="middle" font-size="14" fill="var(--muted)">context window, 200k tokens</text>' +
+              '<rect x="200" y="50" width="240" height="48" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="14" fill="var(--text)">system + tools (untouched)</text>' +
+              '<rect x="200" y="98" width="240" height="48" fill="var(--surface)" stroke="var(--ok)" stroke-width="2" stroke-dasharray="6 4"/>' +
+              '<text x="320" y="128" text-anchor="middle" font-size="14" fill="var(--ok)">early history</text>' +
+              '<rect x="200" y="146" width="240" height="192" fill="var(--surface)" stroke="var(--ok)" stroke-width="2" stroke-dasharray="6 4"/>' +
+              '<text x="320" y="234" text-anchor="middle" font-size="14" fill="var(--ok)">tool results</text>' +
+              '<text x="320" y="256" text-anchor="middle" font-size="14" fill="var(--muted)">being summarized</text>' +
+              '<rect x="200" y="338" width="240" height="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<path d="M196,220 L120,220" stroke="var(--ok)" stroke-width="2" marker-end="url(#ag4i-a)"/>' +
+              '<text x="110" y="204" text-anchor="end" font-size="13" fill="var(--ok)">summary</text>' +
+              '<text x="110" y="226" text-anchor="end" font-size="13" fill="var(--muted)">+ hard facts</text>' +
+              '<text x="110" y="248" text-anchor="end" font-size="13" fill="var(--muted)">+ open questions</text>' +
+              '<text x="470" y="80" font-size="13" fill="var(--muted)">used: 194k</text>' +
+              '<text x="470" y="104" font-size="13" fill="var(--muted)">left: 6k</text>' +
+              '<text x="470" y="128" font-size="13" fill="var(--ok)">prefix kept, cache safe</text>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">Compact the middle, never the prefix - rewriting it invalidates the cache.</text>' +
+              '</svg>',
+            label: { pl: 'Kompaktowanie', en: 'Compaction runs' },
+            note: {
+              pl: 'Stara historia i wyniki narzedzi ida do streszczenia: fakty, decyzje, otwarte pytania. Prefiks zostaje nietkniety, wiec cache dalej dziala.',
+              en: 'Old history and tool results go into a summary: facts, decisions, open questions. The prefix stays untouched so the cache still hits.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="24" font-size="14" fill="var(--muted)">Step 13 - the agent can keep going</text>' +
+              '<text x="320" y="42" text-anchor="middle" font-size="14" fill="var(--muted)">context window, 200k tokens</text>' +
+              '<rect x="200" y="50" width="240" height="48" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="80" text-anchor="middle" font-size="14" fill="var(--text)">system + tools</text>' +
+              '<rect x="200" y="98" width="240" height="48" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="320" y="128" text-anchor="middle" font-size="14" fill="var(--text)">summary + facts</text>' +
+              '<rect x="200" y="146" width="240" height="60" fill="var(--surface)" stroke="var(--accent2)" stroke-width="2"/>' +
+              '<text x="320" y="182" text-anchor="middle" font-size="14" fill="var(--text)">last 3 steps, verbatim</text>' +
+              '<rect x="200" y="206" width="240" height="144" fill="var(--surface)" stroke="var(--ok)" stroke-width="2" stroke-dasharray="6 4"/>' +
+              '<text x="320" y="282" text-anchor="middle" font-size="14" fill="var(--ok)">headroom</text>' +
+              '<text x="470" y="80" font-size="13" fill="var(--muted)">used: 38k</text>' +
+              '<text x="470" y="104" font-size="13" fill="var(--ok)">left: 162k</text>' +
+              '<text x="470" y="128" font-size="13" fill="var(--ok)">cache still hits</text>' +
+              '<text x="20" y="384" font-size="13" fill="var(--muted)">Budget rule: compact at ~70 percent, keep the last few steps verbatim.</text>' +
+              '</svg>',
+            label: { pl: 'Zapas odzyskany', en: 'Headroom reclaimed' },
+            note: {
+              pl: 'Po kompaktowaniu zostaje streszczenie plus kilka ostatnich krokow w calosci. Praktyczna regula: kompaktuj przy okolo 70 procentach okna.',
+              en: 'After compaction you keep a summary plus the last few steps verbatim. Practical rule: compact at around 70 percent of the window.'
+            }
+          }
+        ]
       },
       levels: {
         eli5: {

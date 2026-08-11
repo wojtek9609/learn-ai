@@ -294,6 +294,169 @@ export default {
           en: 'Three API calls: concurrent via asyncio takes one second, sequential via blocking requests takes three.'
         }
       },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Przewiń zegar sekunda po sekundzie i zobacz, co robi pętla zdarzeń - łącznie z klasyczną pułapką blokującego wywołania w async def.',
+          en: 'Scrub the clock second by second and watch what the event loop does - including the classic blocking-call-inside-async-def trap.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="30" font-size="15" fill="var(--text)">Blocking client (requests)</text>' +
+              '<text x="620" y="30" text-anchor="end" font-size="14" fill="var(--accent)">t = 0 s</text>' +
+              '<text x="20" y="72" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="114" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="156" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="50" width="170" height="32" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<rect x="280" y="92" width="170" height="32" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<rect x="450" y="134" width="170" height="32" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="20" y="210" font-size="15" fill="var(--text)">asyncio + httpx (gather)</text>' +
+              '<text x="20" y="246" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="288" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="330" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="224" width="170" height="32" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<rect x="110" y="266" width="170" height="32" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<rect x="110" y="308" width="170" height="32" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<line x1="110" y1="44" x2="110" y2="352" stroke="var(--accent)" stroke-width="2"/>' +
+              '<line x1="110" y1="356" x2="620" y2="356" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">0 s</text>' +
+              '<text x="280" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">1 s</text>' +
+              '<text x="450" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">2 s</text>' +
+              '<text x="620" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">3 s</text>' +
+              '</svg>',
+            label: { pl: 'Start, zegar na zerze', en: 'Start, clock at zero' },
+            note: {
+              pl: 'Trzy identyczne żądania po jednej sekundzie każde. Na górze klient blokujący, na dole ten sam kod na asyncio.',
+              en: 'Three identical requests, one second each. Blocking client on top, the same work on asyncio below.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="30" font-size="15" fill="var(--text)">Blocking client (requests)</text>' +
+              '<text x="620" y="30" text-anchor="end" font-size="14" fill="var(--accent)">t = 1 s</text>' +
+              '<text x="20" y="72" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="114" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="156" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="50" width="170" height="32" rx="8" fill="var(--warn)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<rect x="280" y="92" width="170" height="32" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<rect x="450" y="134" width="170" height="32" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="20" y="210" font-size="15" fill="var(--text)">asyncio + httpx (gather)</text>' +
+              '<text x="20" y="246" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="288" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="330" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="224" width="170" height="32" rx="8" fill="var(--ok)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<rect x="110" y="266" width="170" height="32" rx="8" fill="var(--ok)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<rect x="110" y="308" width="170" height="32" rx="8" fill="var(--ok)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="300" y="288" font-size="14" fill="var(--ok)">gather() done</text>' +
+              '<line x1="280" y1="44" x2="280" y2="352" stroke="var(--accent)" stroke-width="2"/>' +
+              '<line x1="110" y1="356" x2="620" y2="356" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">0 s</text>' +
+              '<text x="280" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">1 s</text>' +
+              '<text x="450" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">2 s</text>' +
+              '<text x="620" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">3 s</text>' +
+              '</svg>',
+            label: { pl: 'Sekunda pierwsza', en: 'Second one' },
+            note: {
+              pl: 'asyncio wystartowało wszystkie trzy żądania naraz i już ma komplet odpowiedzi. Klient blokujący dopiero domknął pierwsze.',
+              en: 'asyncio started all three requests at once and already has every response. The blocking client has only just finished the first.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="30" font-size="15" fill="var(--text)">Blocking client (requests)</text>' +
+              '<text x="620" y="30" text-anchor="end" font-size="14" fill="var(--accent)">t = 2 s</text>' +
+              '<text x="20" y="72" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="114" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="156" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="50" width="170" height="32" rx="8" fill="var(--warn)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<rect x="280" y="92" width="170" height="32" rx="8" fill="var(--warn)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<rect x="450" y="134" width="170" height="32" rx="8" fill="none" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="20" y="210" font-size="15" fill="var(--text)">asyncio + httpx (gather)</text>' +
+              '<text x="20" y="246" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="288" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="330" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="224" width="170" height="32" rx="8" fill="var(--ok)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<rect x="110" y="266" width="170" height="32" rx="8" fill="var(--ok)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<rect x="110" y="308" width="170" height="32" rx="8" fill="var(--ok)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="300" y="288" font-size="14" fill="var(--ok)">idle, results ready</text>' +
+              '<line x1="450" y1="44" x2="450" y2="352" stroke="var(--accent)" stroke-width="2"/>' +
+              '<line x1="110" y1="356" x2="620" y2="356" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">0 s</text>' +
+              '<text x="280" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">1 s</text>' +
+              '<text x="450" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">2 s</text>' +
+              '<text x="620" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">3 s</text>' +
+              '</svg>',
+            label: { pl: 'Sekunda druga', en: 'Second two' },
+            note: {
+              pl: 'Blokujący klient stoi przy każdym żądaniu po kolei. To nie sieć jest wolna - to jeden wątek czeka bezczynnie.',
+              en: 'The blocking client waits at each request in turn. The network is not slow, a single thread is simply idling.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="30" font-size="15" fill="var(--text)">Blocking client (requests)</text>' +
+              '<text x="620" y="30" text-anchor="end" font-size="14" fill="var(--accent)">t = 3 s</text>' +
+              '<text x="20" y="72" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="114" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="156" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="50" width="170" height="32" rx="8" fill="var(--warn)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<rect x="280" y="92" width="170" height="32" rx="8" fill="var(--warn)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<rect x="450" y="134" width="170" height="32" rx="8" fill="var(--warn)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="20" y="210" font-size="15" fill="var(--text)">asyncio + httpx (gather)</text>' +
+              '<text x="20" y="246" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="288" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="330" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="224" width="170" height="32" rx="8" fill="var(--ok)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<rect x="110" y="266" width="170" height="32" rx="8" fill="var(--ok)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<rect x="110" y="308" width="170" height="32" rx="8" fill="var(--ok)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="300" y="288" font-size="14" fill="var(--ok)">3x faster wall clock</text>' +
+              '<line x1="620" y1="44" x2="620" y2="352" stroke="var(--accent)" stroke-width="2"/>' +
+              '<line x1="110" y1="356" x2="620" y2="356" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">0 s</text>' +
+              '<text x="280" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">1 s</text>' +
+              '<text x="450" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">2 s</text>' +
+              '<text x="620" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">3 s</text>' +
+              '</svg>',
+            label: { pl: 'Sekunda trzecia', en: 'Second three' },
+            note: {
+              pl: 'Ta sama sieć, ten sam kształt kodu, trzykrotnie inny czas ściany. Różni je tylko to, czy oddajesz sterowanie pętli zdarzeń.',
+              en: 'Same network, same code shape, three times the wall clock. The only difference is whether you hand control back to the event loop.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<text x="20" y="30" font-size="15" fill="var(--text)">Blocking client (requests)</text>' +
+              '<text x="620" y="30" text-anchor="end" font-size="14" fill="var(--err)">the gotcha</text>' +
+              '<text x="20" y="72" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="114" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="156" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="50" width="170" height="32" rx="8" fill="var(--warn)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<rect x="280" y="92" width="170" height="32" rx="8" fill="var(--warn)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<rect x="450" y="134" width="170" height="32" rx="8" fill="var(--warn)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="20" y="210" font-size="15" fill="var(--text)">async def with requests.get inside</text>' +
+              '<text x="20" y="246" font-size="13" fill="var(--muted)">GET /a</text>' +
+              '<text x="20" y="288" font-size="13" fill="var(--muted)">GET /b</text>' +
+              '<text x="20" y="330" font-size="13" fill="var(--muted)">GET /c</text>' +
+              '<rect x="110" y="224" width="170" height="32" rx="8" fill="var(--err)" stroke="var(--err)" stroke-width="2"/>' +
+              '<rect x="280" y="266" width="170" height="32" rx="8" fill="var(--err)" stroke="var(--err)" stroke-width="2"/>' +
+              '<rect x="450" y="308" width="170" height="32" rx="8" fill="var(--err)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="180" y="288" font-size="14" fill="var(--err)">loop frozen: no await point</text>' +
+              '<line x1="620" y1="44" x2="620" y2="352" stroke="var(--accent)" stroke-width="2"/>' +
+              '<line x1="110" y1="356" x2="620" y2="356" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">0 s</text>' +
+              '<text x="280" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">1 s</text>' +
+              '<text x="450" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">2 s</text>' +
+              '<text x="620" y="378" text-anchor="middle" font-size="13" fill="var(--muted)">3 s</text>' +
+              '</svg>',
+            label: { pl: 'Pułapka: blokada w async def', en: 'The trap: blocking inside async def' },
+            note: {
+              pl: 'Jedno synchroniczne requests.get w korutynie zatrzymuje całą pętlę i asyncio znów jest sekwencyjne. Ratunek: httpx.AsyncClient albo asyncio.to_thread.',
+              en: 'A single synchronous requests.get inside a coroutine stalls the whole loop and asyncio goes sequential again. The fix: httpx.AsyncClient or asyncio.to_thread.'
+            }
+          }
+        ]
+      },
       levels: {
         eli5: {
           pl: '<p>Wyobraź sobie kelnera w restauracji. Przyjmuje zamówienie od stolika pierwszego, niesie je do kuchni i... staje przy piecu, patrząc, jak się smaży. Dziesięć minut. Reszta sali czeka, bo kelner jest zajęty gapieniem się.</p><p>Tak działa zwykłe pobieranie danych z internetu. Program prosi o odpowiedź i stoi jak wryty, aż przyjdzie.</p><p>Dobry kelner robi inaczej: oddaje zamówienie kucharzowi i natychmiast idzie do kolejnego stolika. Wraca dopiero, gdy z kuchni dzwoni dzwonek. Jeden kelner, ta sama prędkość nóg, a obsłużonych stolików dziesięć razy więcej.</p><p>To właśnie asyncio. Nie dodaje kucharzy, tylko przestaje marnować czas kelnera na czekanie. Znasz to doskonale z przeglądarki, gdzie jeden wątek obsługuje dziesiątki żądań naraz. Python nauczył się tego samego triku, tylko musisz mu wyraźnie powiedzieć, kiedy wolno odejść od pieca.</p>',
@@ -412,6 +575,132 @@ export default {
           pl: 'Jeden model pydantic pełni trzy role: waliduje odpowiedź, konwertuje typy i generuje JSON Schema dla tool callingu.',
           en: 'One pydantic model plays three roles: it validates the response, coerces types and generates the JSON Schema for tool calling.'
         }
+      },
+      interactive: {
+        kind: 'frames',
+        caption: {
+          pl: 'Pętla walidacji pydantic klatka po klatce: surowy JSON, koercja typów, ValidationError ze ścieżką pola i naprawa przez ponowny prompt.',
+          en: 'The pydantic validation loop frame by frame: raw JSON, type coercion, a ValidationError with a field path, and repair through a second prompt.'
+        },
+        frames: [
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="pyf1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/></marker></defs>' +
+              '<rect x="20" y="50" width="180" height="90" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="110" y="82" text-anchor="middle" font-size="15" fill="var(--text)">Model output</text>' +
+              '<text x="110" y="106" text-anchor="middle" font-size="13" fill="var(--accent)">total: "12.50"</text>' +
+              '<text x="110" y="126" text-anchor="middle" font-size="13" fill="var(--accent)">due: "2026-03-01"</text>' +
+              '<line x1="202" y1="95" x2="226" y2="95" stroke="var(--accent)" stroke-width="2" marker-end="url(#pyf1)"/>' +
+              '<rect x="230" y="50" width="180" height="90" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="90" text-anchor="middle" font-size="15" fill="var(--text)">Invoice</text>' +
+              '<text x="320" y="112" text-anchor="middle" font-size="13" fill="var(--muted)">.model_validate()</text>' +
+              '<rect x="440" y="30" width="180" height="80" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="62" text-anchor="middle" font-size="15" fill="var(--text)">Typed Invoice</text>' +
+              '<text x="530" y="84" text-anchor="middle" font-size="13" fill="var(--muted)">not yet</text>' +
+              '<rect x="440" y="150" width="180" height="80" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="182" text-anchor="middle" font-size="15" fill="var(--text)">ValidationError</text>' +
+              '<text x="530" y="204" text-anchor="middle" font-size="13" fill="var(--muted)">not yet</text>' +
+              '<rect x="230" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Repair prompt</text>' +
+              '<text x="320" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">unused</text>' +
+              '<text x="320" y="378" text-anchor="middle" font-size="14" fill="var(--muted)">Step 1: the LLM returns strings, always</text>' +
+              '</svg>',
+            label: { pl: 'Surowy JSON', en: 'Raw JSON' },
+            note: {
+              pl: 'Model zwraca JSON, w którym kwota i data to zwykłe stringi. Bez walidacji ten kształt rozjedzie się dopiero głęboko w kodzie.',
+              en: 'The model returns JSON where the amount and the date are plain strings. Without validation this shape breaks much later, deep in your code.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="pyf2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--ok)"/></marker></defs>' +
+              '<rect x="20" y="50" width="180" height="90" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="110" y="82" text-anchor="middle" font-size="15" fill="var(--text)">Model output</text>' +
+              '<text x="110" y="106" text-anchor="middle" font-size="13" fill="var(--muted)">total: "12.50"</text>' +
+              '<text x="110" y="126" text-anchor="middle" font-size="13" fill="var(--muted)">due: "2026-03-01"</text>' +
+              '<rect x="230" y="50" width="180" height="90" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="82" text-anchor="middle" font-size="15" fill="var(--accent)">Invoice</text>' +
+              '<text x="320" y="104" text-anchor="middle" font-size="13" fill="var(--accent)">.model_validate()</text>' +
+              '<text x="320" y="126" text-anchor="middle" font-size="13" fill="var(--muted)">coercing types</text>' +
+              '<path d="M 412 80 C 428 80 424 70 436 70" fill="none" stroke="var(--ok)" stroke-width="2" marker-end="url(#pyf2)"/>' +
+              '<rect x="440" y="30" width="180" height="80" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="530" y="62" text-anchor="middle" font-size="15" fill="var(--ok)">Typed Invoice</text>' +
+              '<text x="530" y="84" text-anchor="middle" font-size="13" fill="var(--ok)">Decimal, date</text>' +
+              '<rect x="440" y="150" width="180" height="80" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="182" text-anchor="middle" font-size="15" fill="var(--text)">ValidationError</text>' +
+              '<text x="530" y="204" text-anchor="middle" font-size="13" fill="var(--muted)">not raised</text>' +
+              '<rect x="230" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Repair prompt</text>' +
+              '<text x="320" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">unused</text>' +
+              '<text x="320" y="378" text-anchor="middle" font-size="14" fill="var(--muted)">Step 2: happy path - parse, coerce, done</text>' +
+              '</svg>',
+            label: { pl: 'Koercja typów', en: 'Type coercion' },
+            note: {
+              pl: 'pydantic zamienia string na Decimal i na date, a potem oddaje obiekt z prawdziwymi typami. To dokładnie rola parse w zod.',
+              en: 'pydantic turns the strings into a Decimal and a date, then hands back an object with real types. Exactly the role of parse in zod.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="pyf3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--err)"/></marker></defs>' +
+              '<rect x="20" y="50" width="180" height="90" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="110" y="82" text-anchor="middle" font-size="15" fill="var(--text)">Next response</text>' +
+              '<text x="110" y="106" text-anchor="middle" font-size="13" fill="var(--warn)">total: missing</text>' +
+              '<text x="110" y="126" text-anchor="middle" font-size="13" fill="var(--warn)">due: "soon"</text>' +
+              '<rect x="230" y="50" width="180" height="90" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="82" text-anchor="middle" font-size="15" fill="var(--accent)">Invoice</text>' +
+              '<text x="320" y="104" text-anchor="middle" font-size="13" fill="var(--accent)">.model_validate()</text>' +
+              '<text x="320" y="126" text-anchor="middle" font-size="13" fill="var(--muted)">raises</text>' +
+              '<rect x="440" y="30" width="180" height="80" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="530" y="62" text-anchor="middle" font-size="15" fill="var(--text)">Typed Invoice</text>' +
+              '<text x="530" y="84" text-anchor="middle" font-size="13" fill="var(--muted)">never built</text>' +
+              '<path d="M 412 112 C 428 112 424 190 436 190" fill="none" stroke="var(--err)" stroke-width="2" marker-end="url(#pyf3)"/>' +
+              '<rect x="440" y="150" width="180" height="80" rx="12" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
+              '<text x="530" y="176" text-anchor="middle" font-size="15" fill="var(--err)">ValidationError</text>' +
+              '<text x="530" y="198" text-anchor="middle" font-size="13" fill="var(--err)">total: field required</text>' +
+              '<text x="530" y="218" text-anchor="middle" font-size="13" fill="var(--err)">due: invalid date</text>' +
+              '<rect x="230" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
+              '<text x="320" y="300" text-anchor="middle" font-size="15" fill="var(--text)">Repair prompt</text>' +
+              '<text x="320" y="322" text-anchor="middle" font-size="13" fill="var(--muted)">about to run</text>' +
+              '<text x="320" y="378" text-anchor="middle" font-size="14" fill="var(--muted)">Step 3: the error names the field and the reason</text>' +
+              '</svg>',
+            label: { pl: 'ValidationError', en: 'ValidationError' },
+            note: {
+              pl: 'Błąd jest ustrukturyzowany: ścieżka pola plus powód. Odrzucasz odpowiedź na granicy systemu, a nie trzy warstwy dalej.',
+              en: 'The error is structured: a field path plus a reason. You reject the response at the system boundary, not three layers downstream.'
+            }
+          },
+          {
+            svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+              '<defs><marker id="pyf4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--warn)"/></marker><marker id="pyf4b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--ok)"/></marker></defs>' +
+              '<rect x="20" y="50" width="180" height="90" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="110" y="82" text-anchor="middle" font-size="15" fill="var(--text)">Retry attempt</text>' +
+              '<text x="110" y="106" text-anchor="middle" font-size="13" fill="var(--warn)">total: "18.00"</text>' +
+              '<text x="110" y="126" text-anchor="middle" font-size="13" fill="var(--warn)">due: "2026-04-10"</text>' +
+              '<rect x="230" y="50" width="180" height="90" rx="12" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>' +
+              '<text x="320" y="90" text-anchor="middle" font-size="15" fill="var(--accent)">Invoice</text>' +
+              '<text x="320" y="112" text-anchor="middle" font-size="13" fill="var(--accent)">.model_validate()</text>' +
+              '<path d="M 412 80 C 428 80 424 70 436 70" fill="none" stroke="var(--ok)" stroke-width="2" marker-end="url(#pyf4b)"/>' +
+              '<rect x="440" y="30" width="180" height="80" rx="12" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
+              '<text x="530" y="62" text-anchor="middle" font-size="15" fill="var(--ok)">Typed Invoice</text>' +
+              '<text x="530" y="84" text-anchor="middle" font-size="13" fill="var(--ok)">valid on attempt 2</text>' +
+              '<rect x="440" y="150" width="180" height="80" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="530" y="182" text-anchor="middle" font-size="15" fill="var(--warn)">ValidationError</text>' +
+              '<text x="530" y="204" text-anchor="middle" font-size="13" fill="var(--muted)">errors() fed back</text>' +
+              '<path d="M 530 232 L 530 305 L 414 305" fill="none" stroke="var(--warn)" stroke-width="2" marker-end="url(#pyf4)"/>' +
+              '<rect x="230" y="270" width="180" height="70" rx="12" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
+              '<text x="320" y="298" text-anchor="middle" font-size="15" fill="var(--warn)">Repair prompt</text>' +
+              '<text x="320" y="320" text-anchor="middle" font-size="13" fill="var(--muted)">max 1-2 retries</text>' +
+              '<path d="M 228 305 L 110 305 L 110 146" fill="none" stroke="var(--warn)" stroke-width="2" marker-end="url(#pyf4)"/>' +
+              '<text x="320" y="378" text-anchor="middle" font-size="14" fill="var(--muted)">Step 4: errors go back to the model as data</text>' +
+              '</svg>',
+            label: { pl: 'Naprawa i ponowna próba', en: 'Repair and retry' },
+            note: {
+              pl: 'Lista z errors() wraca do modelu jako konkretna instrukcja poprawki. Limit prób jest twardy, bo trzecia próba zwykle kosztuje więcej, niż jest warta.',
+              en: 'The list from errors() goes back to the model as a concrete fix instruction. Cap the retries, because a third attempt usually costs more than it is worth.'
+            }
+          }
+        ]
       },
       levels: {
         eli5: {
