@@ -689,6 +689,177 @@ pre code {
   text-align: center;
 }
 
+/* ------------------------------------------ interactive frames player ---- */
+
+.player {
+  margin: 0 0 20px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.player-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.player-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.player-step {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.player-stage {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  touch-action: pan-y;
+}
+.player-stage svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  font-family: var(--font);
+  animation: fade-in 0.24s var(--ease) both;
+}
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.player-btn {
+  flex: 0 0 auto;
+  width: var(--tap);
+  height: var(--tap);
+  min-width: var(--tap);
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.35rem;
+  line-height: 1;
+  transition: transform 0.16s var(--ease), border-color 0.2s var(--ease),
+              box-shadow 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+.player-btn:hover:not(:disabled) {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+.player-btn:active:not(:disabled) { transform: scale(0.94); }
+.player-btn:disabled { opacity: 0.4; }
+
+.player-range {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--tap);
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.player-range:focus { outline: none; }
+.player-range:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.player-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.player-range::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.player-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -9px;
+  border-radius: 999px;
+  border: 2px solid var(--surface);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.player-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 2px solid var(--surface);
+  background: var(--accent);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+
+.player-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+.player-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border-strong);
+  transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.player-dot.is-on {
+  background: var(--accent);
+  transform: scale(1.5);
+}
+
+.player-info {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+}
+.player-label {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+.player-note {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.player-note:empty { display: none; }
+.player figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: center;
+}
+.player-hint {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-align: center;
+}
+
 .prose {
   padding: 18px;
   background: var(--surface);
@@ -954,7 +1125,7 @@ pre code {
   body { font-size: 17px; }
   .app-main { padding-top: 32px; }
   .card-list { gap: 14px; }
-  .module-card, .prose, .quiz, .diagram { padding: 20px; }
+  .module-card, .prose, .quiz, .diagram, .player { padding: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -967,5 +1138,6 @@ pre code {
 }
 
 @media print {
-  .app-header, .tabs, .quiz, .lesson-nav, .app-footer { display: none !important; }
+  .app-header, .tabs, .quiz, .lesson-nav, .app-footer,
+  .player-controls, .player-dots, .player-hint { display: none !important; }
 }

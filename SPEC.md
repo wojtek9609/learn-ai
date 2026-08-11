@@ -362,6 +362,123 @@ versions on the phone before releasing.
 - README gets an "Install on Android" section covering both channels
   (Chrome menu -> "Add to Home screen" / "Install app").
 
+## v4 - Three full frontend tracks + interactive diagrams
+
+The react-vs-vue track was removed (merged conceptually into the react track).
+The remaining three mock tracks become FULL courses with the same lesson schema
+as ai-engineer. Orders: react 2, vue 3, frontend-architecture 4; all flip to
+`status: 'available'`, `planned: []`.
+
+### Interactive diagram widget (new, optional per lesson)
+
+Some concepts are better shown in motion. A lesson MAY have, in addition to the
+required static `diagram`, an `interactive` field:
+
+```js
+interactive: {
+  kind: 'frames',                    // the only supported kind
+  caption: { pl: '...', en: '...' }, // what the player shows
+  frames: [                          // 3-8 frames, a step-through animation
+    {
+      svg: '<svg viewBox="0 0 640 400">...</svg>',  // SAME viewBox across all frames
+      label: { pl: '...', en: '...' },              // short frame title
+      note:  { pl: '...', en: '...' }               // 1-2 sentence explanation
+    }
+  ]
+}
+```
+
+- Frames follow the exact same SVG rules as `diagram` (CSS variables only,
+  640-wide viewBox, legible on a phone). Consecutive frames should look like
+  steps of one animation: same layout, elements move/appear/highlight.
+- app.js renders a player: the current frame, a range slider (one tick per
+  frame), prev/next buttons (44px), the frame label + note below, all bilingual.
+  Swiping between frames is a bonus, arrow keys work on desktop. The player sits
+  directly under the static diagram.
+- Use it where motion genuinely helps (data flowing through a system, steps of
+  an algorithm, before/after states) - target 1-2 interactive lessons per
+  module, not every lesson.
+
+### Track react - "React (dla znajacych Vue)" (6 modules, 33 lessons)
+
+Files: `content/tracks/react/module-01-mental-model.js` ... `module-06-perf-testing-migration.js`.
+EVERY lesson teaches the React concept side-by-side with its Vue equivalent
+(short Vue snippet vs React snippet in school/pro levels; the learner is a
+senior Vue dev).
+
+1. `mental-model` (6): thinking-in-react, jsx-vs-templates, components-and-props,
+   rendering-and-rerenders (re-render model vs fine-grained reactivity),
+   reconciliation-keys, react19-landscape (compiler, what changed).
+2. `hooks-vs-composition` (6): usestate-vs-ref, useeffect-vs-watchers,
+   derived-state-usememo-vs-computed, usecallback-stable-references,
+   custom-hooks-vs-composables, useref-and-dom.
+3. `component-patterns` (5): children-vs-slots, context-vs-provide-inject,
+   controlled-vs-vmodel, compound-components-render-props,
+   error-boundaries-suspense.
+4. `state-and-data` (5): state-colocation-lifting, zustand-vs-pinia,
+   tanstack-query-server-state, forms-react-hook-form (vs vee-validate),
+   url-state-routing-state.
+5. `frameworks-rsc` (5): react-router-vs-vue-router, nextjs-vs-nuxt,
+   server-components-rsc, data-fetching-patterns-next, choosing-spa-vs-meta.
+6. `perf-testing-migration` (6): rerender-profiling, memoization-and-compiler,
+   lists-virtualization, code-splitting, testing-library-vs-vue-test-utils,
+   vue-to-react-cheatsheet (the migration playbook).
+
+### Track vue - "Vue 3 w praktyce" (6 modules, 33 lessons)
+
+Files: `content/tracks/vue/module-01-reactivity-fundamentals.js` ...
+`module-06-performance-testing.js`. The learner already works in Vue daily -
+aim DEEP (internals, patterns, edge cases), not introductory.
+
+1. `reactivity-fundamentals` (6): reactivity-mental-model (proxies),
+   ref-vs-reactive, computed-in-depth, watch-vs-watcheffect,
+   template-directives-essentials, sfc-script-setup.
+2. `composition-api-mastery` (5): options-to-composition, composables-design-patterns,
+   lifecycle-in-composition, provide-inject-patterns, macros-defineprops-definemodel.
+3. `components-in-depth` (6): props-events-vmodel-advanced, slots-scoped-slots,
+   dynamic-async-components, teleport-transitions, typed-generic-components,
+   renderless-headless.
+4. `reactivity-internals` (5): proxies-track-trigger, effects-and-scheduler,
+   shallow-apis-markraw, reactivity-pitfalls, render-functions-and-jsx.
+5. `state-routing-nuxt` (5): pinia-fundamentals, pinia-advanced-plugins,
+   vue-router-essentials, navigation-guards-data, nuxt3-overview.
+6. `performance-testing` (6): rendering-optimization-vmemo, bundle-and-lazy,
+   vue-test-utils-and-testing-library, component-testing-patterns,
+   e2e-playwright, vapor-mode-future.
+
+### Track frontend-architecture - "Architektura Frontendu" (6 modules, 32 lessons)
+
+Files: `content/tracks/frontend-architecture/module-01-architecture-thinking.js`
+... `module-06-quality-delivery-leadership.js`. Aim at senior -> principal level;
+the learner maintains a design system (CHI) at a large telco.
+
+1. `architecture-thinking` (5): what-is-frontend-architecture,
+   boundaries-coupling-cohesion, adrs-and-rfcs, conways-law-team-topologies,
+   build-vs-buy-decisions.
+2. `design-systems-at-scale` (6): design-tokens-theming, component-api-design,
+   versioning-and-breaking-changes, docs-storybook-playgrounds,
+   testing-visual-regression, governance-contribution-model.
+3. `state-and-data-architecture` (5): state-taxonomy (server/client/url/form),
+   data-fetching-layer, realtime-and-optimistic-ui, offline-first-pwa,
+   api-contracts-bff.
+4. `scaling-codebases` (5): monorepos-tooling (nx, turborepo, pnpm),
+   micro-frontends-tradeoffs, shared-libs-boundaries, feature-flags-experiments,
+   dependency-upgrades-strategy.
+5. `performance-architecture` (5): web-vitals-budgets, rendering-strategies
+   (CSR/SSR/SSG/ISR/streaming), asset-strategy-fonts-images,
+   runtime-patterns-virtualization, rum-monitoring.
+6. `quality-delivery-leadership` (6): testing-strategy, frontend-ci-cd,
+   error-observability, frontend-security (XSS, CSP, supply chain),
+   code-review-culture, principal-track-case-studies.
+
+### Wiring
+
+- Each track's `index.js` imports its 6 module files, `status: 'available'`,
+  `planned: []`, bilingual title/description kept.
+- `sw.js` precache list is REGENERATED from disk to include every
+  `content/**/*.js` file (old removed react-vs-vue entry must stay gone).
+- README curriculum section updated: 4 available tracks, ~142 lessons total.
+
 ## Definition of done
 
 - Every JS file passes `node --check`.

@@ -74,6 +74,12 @@ const I18N = {
     updateAction: 'Odswiez',
     versionLabel: (v) => `wersja ${v}`,
     versionDev: 'wersja dev',
+    interactiveTitle: 'Krok po kroku',
+    interactiveHint: 'Przewijaj suwakiem lub strzalkami, zeby zobaczyc kolejne kroki.',
+    frameOf: (i, n) => `Krok ${i} z ${n}`,
+    framePrev: 'Poprzedni krok',
+    frameNext: 'Nastepny krok',
+    frameSlider: 'Wybierz krok animacji',
   },
   en: {
     appTitle: 'Learn AI',
@@ -131,6 +137,12 @@ const I18N = {
     updateAction: 'Refresh',
     versionLabel: (v) => `version ${v}`,
     versionDev: 'dev version',
+    interactiveTitle: 'Step by step',
+    interactiveHint: 'Drag the slider or use the arrow keys to walk through the steps.',
+    frameOf: (i, n) => `Step ${i} of ${n}`,
+    framePrev: 'Previous step',
+    frameNext: 'Next step',
+    frameSlider: 'Pick an animation step',
   },
 };
 
@@ -676,6 +688,8 @@ function viewLesson(trackId, moduleId, lessonId) {
 
       ${renderDiagram(lesson)}
 
+      ${renderInteractive(lesson)}
+
       <article class="prose" id="level-panel" role="tabpanel" aria-labelledby="tab-${level}">
         ${levelHtml(lesson, level)}
       </article>
@@ -719,6 +733,150 @@ function renderDiagram(lesson) {
       <div class="diagram-svg">${d.svg}</div>
       ${caption ? `<figcaption>${esc(caption)}</figcaption>` : ''}
     </figure>`;
+}
+
+/* --------------------------------------------- interactive frames player -- */
+
+// Returns the frames of a valid `interactive` block, or [] when the lesson has
+// none / it is malformed. Keeps every consumer below free of defensive checks.
+function interactiveFrames(lesson) {
+  const it = lesson && lesson.interactive;
+  if (!it || it.kind !== 'frames' || !Array.isArray(it.frames)) return [];
+  return it.frames.filter(
+    (f) => f && typeof f.svg === 'string' && f.svg.trim().startsWith('<svg')
+  );
+}
+
+function renderInteractive(lesson) {
+  const L = t();
+  const frames = interactiveFrames(lesson);
+  if (frames.length < 2) return '';
+  const caption = tr(lesson.interactive.caption);
+  const last = frames.length - 1;
+
+  return `
+    <figure class="player" data-player>
+      <div class="player-head">
+        <h2 class="player-title">${esc(L.interactiveTitle)}</h2>
+        <span class="player-step" data-player-step>${esc(L.frameOf(1, frames.length))}</span>
+      </div>
+
+      <div class="player-stage" data-player-stage aria-live="polite">${frames[0].svg}</div>
+
+      <div class="player-controls">
+        <button type="button" class="player-btn" data-player-nav="-1"
+          aria-label="${esc(L.framePrev)}" title="${esc(L.framePrev)}" disabled>‹</button>
+        <input class="player-range" type="range" min="0" max="${last}" step="1" value="0"
+          data-player-range aria-label="${esc(L.frameSlider)}">
+        <button type="button" class="player-btn" data-player-nav="1"
+          aria-label="${esc(L.frameNext)}" title="${esc(L.frameNext)}">›</button>
+      </div>
+
+      <div class="player-dots" aria-hidden="true">${frames
+        .map((_, i) => `<span class="player-dot${i === 0 ? ' is-on' : ''}" data-player-dot="${i}"></span>`)
+        .join('')}</div>
+
+      <div class="player-info">
+        <p class="player-label" data-player-label>${esc(tr(frames[0].label))}</p>
+        <p class="player-note" data-player-note>${esc(tr(frames[0].note))}</p>
+      </div>
+
+      ${caption ? `<figcaption>${esc(caption)}</figcaption>` : ''}
+      <p class="player-hint">${esc(L.interactiveHint)}</p>
+    </figure>`;
+}
+
+// Binds the player that render() just wrote into #main. Every listener lives on
+// nodes inside that subtree, so the next innerHTML swap drops them with the DOM
+// (no manual teardown, no leaks) - same lifecycle as the quiz binding.
+function bindInteractive(lesson) {
+  const root = $('[data-player]');
+  if (!root) return;
+  const frames = interactiveFrames(lesson);
+  if (frames.length < 2) return;
+
+  const L = t();
+  const last = frames.length - 1;
+  const stage = $('[data-player-stage]', root);
+  const range = $('[data-player-range]', root);
+  const stepEl = $('[data-player-step]', root);
+  const labelEl = $('[data-player-label]', root);
+  const noteEl = $('[data-player-note]', root);
+  const dots = $$('[data-player-dot]', root);
+  let index = 0;
+
+  function show(next) {
+    const i = clamp(Math.round(Number(next) || 0), 0, last);
+    if (i === index && stage.dataset.frame === String(i)) return;
+    index = i;
+    const frame = frames[i];
+    stage.dataset.frame = String(i);
+    stage.innerHTML = frame.svg;
+    if (labelEl) labelEl.textContent = tr(frame.label);
+    if (noteEl) noteEl.textContent = tr(frame.note);
+    if (stepEl) stepEl.textContent = L.frameOf(i + 1, frames.length);
+    if (range && Number(range.value) !== i) range.value = String(i);
+    dots.forEach((d, di) => d.classList.toggle('is-on', di === i));
+    $$('[data-player-nav]', root).forEach((btn) => {
+      const dir = Number(btn.dataset.playerNav);
+      btn.disabled = dir < 0 ? i === 0 : i === last;
+    });
+  }
+
+  show(0);
+
+  root.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('[data-player-nav]');
+    if (!btn || btn.disabled) return;
+    show(index + Number(btn.dataset.playerNav));
+  });
+
+  if (range) {
+    range.addEventListener('input', () => show(range.value));
+  }
+
+  // Arrow keys work whenever focus is inside the player (buttons, slider, stage).
+  root.addEventListener('keydown', (ev) => {
+    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') {
+      if (ev.target === range) return; // the range input handles those natively
+      ev.preventDefault();
+      show(index + (ev.key === 'ArrowLeft' ? -1 : 1));
+    } else if (ev.key === 'Home') {
+      ev.preventDefault();
+      show(0);
+    } else if (ev.key === 'End') {
+      ev.preventDefault();
+      show(last);
+    }
+  });
+
+  // Bonus: horizontal swipe on the stage.
+  let startX = null;
+  let startY = null;
+  stage.addEventListener(
+    'touchstart',
+    (ev) => {
+      const touch = ev.touches && ev.touches[0];
+      startX = touch ? touch.clientX : null;
+      startY = touch ? touch.clientY : null;
+    },
+    { passive: true }
+  );
+  stage.addEventListener(
+    'touchend',
+    (ev) => {
+      if (startX == null) return;
+      const touch = ev.changedTouches && ev.changedTouches[0];
+      if (!touch) return;
+      const dx = touch.clientX - startX;
+      const dy = touch.clientY - startY;
+      startX = null;
+      startY = null;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+      show(index + (dx < 0 ? 1 : -1));
+    },
+    { passive: true }
+  );
 }
 
 function viewNotFound() {
@@ -825,6 +983,8 @@ function bindLesson(trackId, moduleId, lessonId) {
       }
     });
   });
+
+  bindInteractive(lesson);
 
   const quizEl = $('[data-quiz]');
   if (!quizEl) return;
