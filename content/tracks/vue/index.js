@@ -20,7 +20,7 @@ export default {
   status: 'available',
   title: { pl: 'Vue 3 w praktyce', en: 'Vue 3 in practice' },
   description: {
-    pl: 'Composition API, reaktywnosc od srodka, wzorce komponentow, Pinia, Nuxt i testy - Vue 3 tak, jak pisze sie je w duzych produktach, z naciskiem na przypadki brzegowe.',
+    pl: 'Composition API, reaktywność od środka, wzorce komponentów, Pinia, Nuxt i testy - Vue 3 tak, jak pisze się je w dużych produktach, z naciskiem na przypadki brzegowe.',
     en: 'Composition API, reactivity internals, component patterns, Pinia, Nuxt and testing - Vue 3 the way it is written in large products, edge cases included.',
   },
   modules,

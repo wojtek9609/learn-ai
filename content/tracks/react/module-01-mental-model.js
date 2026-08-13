@@ -10,7 +10,7 @@ export default {
     en: 'The React mental model'
   },
   description: {
-    pl: 'Jak myslec o UI w Reactcie, gdy masz w glowie Vue: JSX zamiast template, re-render zamiast reaktywnosci, klucze zamiast trackowania zaleznosci.',
+    pl: 'Jak myśleć o UI w Reactcie, gdy masz w głowie Vue: JSX zamiast template, re-render zamiast reaktywności, klucze zamiast trackowania zależności.',
     en: 'How to think about UI in React when your head is full of Vue: JSX instead of templates, re-renders instead of fine-grained reactivity, keys instead of dependency tracking.'
   },
   lessons: [
@@ -18,7 +18,7 @@ export default {
     {
       id: 'thinking-in-react',
       title: {
-        pl: 'Myslenie w Reactcie',
+        pl: 'Myślenie w Reactcie',
         en: 'Thinking in React'
       },
       minutes: 8,
@@ -26,35 +26,35 @@ export default {
         {
           term: { pl: 'Lifting state up', en: 'Lifting state up' },
           def: {
-            pl: 'Przeniesienie stanu do najblizszego wspolnego rodzica komponentow, ktore go czytaja. Daje jedno zrodlo prawdy zamiast dwoch kopii synchronizowanych efektem.',
+            pl: 'Przeniesienie stanu do najbliższego wspólnego rodzica komponentów, które go czytają. Daje jedno źródło prawdy zamiast dwóch kopii synchronizowanych efektem.',
             en: 'Moving state up to the closest common parent of the components that read it. Gives one source of truth instead of two copies synced by an effect.'
           }
         },
         {
-          term: { pl: 'Wartosc pochodna', en: 'Derived value' },
+          term: { pl: 'Wartość pochodna', en: 'Derived value' },
           def: {
-            pl: 'Wszystko, co da sie policzyc podczas renderu z innych danych - jak <code>computed</code> w Vue. Przefiltrowana lista <strong>nie</strong> jest stanem.',
+            pl: 'Wszystko, co da się policzyć podczas renderu z innych danych - jak <code>computed</code> w Vue. Przefiltrowana lista <strong>nie</strong> jest stanem.',
             en: 'Anything computable during render from other data - the <code>computed</code> of Vue. A filtered list is <strong>not</strong> state.'
           }
         },
         {
-          term: { pl: 'Jedno zrodlo prawdy', en: 'Single source of truth' },
+          term: { pl: 'Jedno źródło prawdy', en: 'Single source of truth' },
           def: {
-            pl: 'Zasada: jedna wartosc ma jednego wlasciciela i jedna funkcje aktualizujaca. Kopia propsa w <code>useState</code> lamie ten kontrakt i sie rozjezdza.',
+            pl: 'Zasada: jedna wartość ma jednego właściciela i jedną funkcję aktualizującą. Kopia propsa w <code>useState</code> łamie ten kontrakt i się rozjeżdża.',
             en: 'The rule: one value has one owner and one updater. Copying a prop into <code>useState</code> breaks the contract and drifts out of sync.'
           }
         },
         {
           term: { pl: 'Controlled component', en: 'Controlled component' },
           def: {
-            pl: 'Komponent, ktory dostaje <code>value</code> w dol i <code>onChange</code> w gore zamiast trzymac wlasny stan. Reactowy odpowiednik rozlozonego na czesci <code>v-model</code>.',
+            pl: 'Komponent, który dostaje <code>value</code> w dół i <code>onChange</code> w górę zamiast trzymać własny stan. Reactowy odpowiednik rozłożonego na części <code>v-model</code>.',
             en: 'A component that receives <code>value</code> down and <code>onChange</code> up instead of holding its own state. The React equivalent of <code>v-model</code> taken apart.'
           }
         },
         {
           term: { pl: 'Kolokacja stanu', en: 'State colocation' },
           def: {
-            pl: 'Trzymanie stanu tak nisko w drzewie, jak sie da. Stan w korzeniu renderuje cale poddrzewo na kazde nacisniecie klawisza.',
+            pl: 'Trzymanie stanu tak nisko w drzewie, jak się da. Stan w korzeniu renderuje całe poddrzewo na każde naciśnięcie klawisza.',
             en: 'Keeping state as low in the tree as possible. Root-level state re-renders the whole subtree on every keystroke.'
           }
         }
@@ -87,35 +87,35 @@ export default {
           '<text x="320" y="354" text-anchor="middle" font-size="13" fill="var(--ok)">UI = f(state)</text>' +
           '</svg>',
         caption: {
-          pl: 'Droga od makiety do drzewa komponentow: dzielisz UI na czesci, stan trzymasz w najblizszym wspolnym rodzicu, w dol leca propsy, w gore zdarzenia.',
+          pl: 'Droga od makiety do drzewa komponentów: dzielisz UI na części, stan trzymasz w najbliższym wspólnym rodzicu, w dół lecą propsy, w górę zdarzenia.',
           en: 'From mockup to component tree: split the UI, keep state in the closest common parent, send props down and events up.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie, ze budujesz makiete miasta z klockow. Kazdy budynek to osobny klocek, ktory sam w sobie nic nie wie - dostaje karteczke z opisem: ile ma pieter, jaki kolor dachu. Klocek nigdy nie zmienia swojej karteczki. Jesli cos ma sie zmienic, mowi o tym glosno osobie, ktora trzyma pudelko z karteczkami.</p>' +
-            '<p>React dziala tak samo. Ekran jest podzielony na male kawalki, a kazdy kawalek to funkcja, ktora dostaje dane i zwraca obrazek. Zadne dziecko nie poprawia danych rodzica. Krzyczy tylko: <em>ktos kliknal!</em> - a rodzic decyduje, co z tym zrobic.</p>' +
-            '<p>Najwazniejsza zasada brzmi: <strong>to, co widzisz, to zawsze wynik danych</strong>. Zmieniasz dane - ekran sam sie przerysowuje. Nigdy nie chodzisz z pedzelkiem i nie poprawiasz pojedynczych pikseli.</p>',
+          pl: '<p>Wyobraź sobie, że budujesz makietę miasta z klocków. Każdy budynek to osobny klocek, który sam w sobie nic nie wie - dostaje karteczkę z opisem: ile ma pięter, jaki kolor dachu. Klocek nigdy nie zmienia swojej karteczki. Jeśli coś ma się zmienić, mówi o tym głośno osobie, która trzyma pudełko z karteczkami.</p>' +
+            '<p>React działa tak samo. Ekran jest podzielony na małe kawałki, a każdy kawałek to funkcja, która dostaje dane i zwraca obrazek. Żadne dziecko nie poprawia danych rodzica. Krzyczy tylko: <em>ktoś kliknął!</em> - a rodzic decyduje, co z tym zrobić.</p>' +
+            '<p>Najważniejsza zasada brzmi: <strong>to, co widzisz, to zawsze wynik danych</strong>. Zmieniasz dane - ekran sam się przerysowuje. Nigdy nie chodzisz z pędzelkiem i nie poprawiasz pojedynczych pikseli.</p>',
           en: '<p>Picture building a toy city out of blocks. Each building is its own block that knows nothing by itself - it gets a little card describing it: how many floors, what colour the roof is. The block never edits its own card. If something should change, it shouts to the person holding the box of cards.</p>' +
             '<p>React works the same way. The screen is chopped into small pieces, and each piece is a function that takes data and gives back a picture. No child fixes the parent data. It only shouts: <em>somebody clicked!</em> - and the parent decides what to do about it.</p>' +
             '<p>The golden rule: <strong>what you see is always a result of the data</strong>. Change the data and the screen redraws itself. You never walk around with a brush touching up individual pixels.</p>'
         },
         school: {
-          pl: '<p>Jako osoba piszaca w Vue juz znasz wiekszosc tej filozofii: komponenty, jednokierunkowy przeplyw propsow, zdarzenia w gore. React idzie tylko dalej i robi z tego regule bez wyjatkow.</p>' +
-            '<h4>W Vue robiles tak</h4>' +
+          pl: '<p>Jako osoba pisząca w Vue już znasz większość tej filozofii: komponenty, jednokierunkowy przepływ propsów, zdarzenia w górę. React idzie tylko dalej i robi z tego regułę bez wyjątków.</p>' +
+            '<h4>W Vue robiłeś tak</h4>' +
             '<pre><code>&lt;script setup&gt;\nconst query = ref("")\n&lt;/script&gt;\n&lt;template&gt;\n  &lt;SearchBar v-model="query" /&gt;\n  &lt;ProductList :query="query" /&gt;\n&lt;/template&gt;</code></pre>' +
             '<h4>W Reactcie robisz tak</h4>' +
             '<pre><code>function App() {\n  const [query, setQuery] = useState("")\n  return (\n    &lt;&gt;\n      &lt;SearchBar value={query} onChange={setQuery} /&gt;\n      &lt;ProductList query={query} /&gt;\n    &lt;/&gt;\n  )\n}</code></pre>' +
-            '<p>Roznica jest jedna, ale zasadnicza: <strong>w Vue miales <code>v-model</code>, czyli lukier na parze props + emit. W Reactcie tego lukru nie ma</strong> - zawsze przekazujesz wartosc w dol i funkcje zwrotna w gore. Dlaczego? Bo React chce, zeby w kodzie bylo widac, kto jest wlascicielem danych. Brak magii to tutaj cecha, nie brak.</p>' +
-            '<p>Praktyczna procedura, gdy dostajesz makiete:</p>' +
+            '<p>Różnica jest jedna, ale zasadnicza: <strong>w Vue miałeś <code>v-model</code>, czyli lukier na parze props + emit. W Reactcie tego lukru nie ma</strong> - zawsze przekazujesz wartość w dół i funkcję zwrotną w górę. Dlaczego? Bo React chce, żeby w kodzie było widać, kto jest właścicielem danych. Brak magii to tutaj cecha, nie brak.</p>' +
+            '<p>Praktyczna procedura, gdy dostajesz makietę:</p>' +
             '<ol>' +
-            '<li>Narysuj ramki wokol kazdego kawalka UI - to sa komponenty.</li>' +
-            '<li>Zbuduj wersje calkowicie bez stanu, tylko na propsach.</li>' +
-            '<li>Znajdz minimalny zestaw stanu - wszystko, co da sie policzyc z czegos innego, <em>nie</em> jest stanem.</li>' +
-            '<li>Umiesc kazdy kawalek stanu w najblizszym wspolnym rodzicu tych komponentow, ktore go czytaja.</li>' +
-            '<li>Dodaj przeplyw w gore: przekaz funkcje typu <code>onChange</code> zamiast emitowac zdarzenie.</li>' +
+            '<li>Narysuj ramki wokół każdego kawałka UI - to są komponenty.</li>' +
+            '<li>Zbuduj wersję całkowicie bez stanu, tylko na propsach.</li>' +
+            '<li>Znajdź minimalny zestaw stanu - wszystko, co da się policzyć z czegoś innego, <em>nie</em> jest stanem.</li>' +
+            '<li>Umieść każdy kawałek stanu w najbliższym wspólnym rodzicu tych komponentów, które go czytają.</li>' +
+            '<li>Dodaj przepływ w górę: przekaż funkcję typu <code>onChange</code> zamiast emitować zdarzenie.</li>' +
             '</ol>' +
-            '<p>Punkt trzeci jest najczestszym zrodlem bledow migracji: filtrowana lista to nie stan, tylko wyliczenie z listy i zapytania - dokladnie tak, jak w Vue nie robiles <code>ref</code> na to, co powinno byc <code>computed</code>.</p>',
+            '<p>Punkt trzeci jest najczęstszym źródłem błędów migracji: filtrowana lista to nie stan, tylko wyliczenie z listy i zapytania - dokładnie tak, jak w Vue nie robiłeś <code>ref</code> na to, co powinno być <code>computed</code>.</p>',
           en: '<p>Coming from Vue you already own most of this philosophy: components, one-way props, events going up. React simply pushes it further and turns it into a rule without exceptions.</p>' +
             '<h4>In Vue you did this</h4>' +
             '<pre><code>&lt;script setup&gt;\nconst query = ref("")\n&lt;/script&gt;\n&lt;template&gt;\n  &lt;SearchBar v-model="query" /&gt;\n  &lt;ProductList :query="query" /&gt;\n&lt;/template&gt;</code></pre>' +
@@ -133,19 +133,19 @@ export default {
             '<p>Step three is the classic migration bug: a filtered list is not state, it is a computation over the list and the query - exactly like you would never wrap a <code>computed</code> value in a <code>ref</code> in Vue.</p>'
         },
         pro: {
-          pl: '<p>Roznica miedzy Vue a Reactem nie lezy w skladni, tylko w tym, <strong>kto jest odpowiedzialny za synchronizacje</strong>. W Vue framework sledzi zaleznosci przez proxy i sam wie, ktory efekt odswiezyc. W Reactcie ty deklarujesz cala funkcje widoku, a framework porownuje wynik. To przenosi ciezar decyzji na twoja architekture danych.</p>' +
-            '<h4>Wlascicielstwo stanu jako kontrakt</h4>' +
-            '<p>W Vue kusi, zeby komponent mial wlasny <code>ref</code> i dodatkowo <code>watch</code> synchronizujacy go z propsem. To dziala, ale tworzy dwa zrodla prawdy. React nie pozwala tego zrobic po cichu: props jest niemutowalny, a probe trzymania kopii widac od razu jako <code>useState(props.x)</code>, ktory nie odswiezy sie po zmianie propsa. To celowe. Kontrakt brzmi: <strong>jedna wartosc, jeden wlasciciel, jedna funkcja aktualizujaca</strong>.</p>' +
-            '<pre><code>// Vue: dwa zrodla prawdy, latwo o desync\nconst local = ref(props.value)\nwatch(() =&gt; props.value, v =&gt; local.value = v)\n\n// React: albo kontrolowany, albo w pelni niekontrolowany\nfunction Field({ value, onChange }) {\n  return &lt;input value={value} onChange={e =&gt; onChange(e.target.value)} /&gt;\n}</code></pre>' +
+          pl: '<p>Różnica między Vue a Reactem nie leży w składni, tylko w tym, <strong>kto jest odpowiedzialny za synchronizację</strong>. W Vue framework śledzi zależności przez proxy i sam wie, który efekt odświeżyć. W Reactcie ty deklarujesz całą funkcję widoku, a framework porównuje wynik. To przenosi ciężar decyzji na twoją architekturę danych.</p>' +
+            '<h4>Właścicielstwo stanu jako kontrakt</h4>' +
+            '<p>W Vue kusi, żeby komponent miał własny <code>ref</code> i dodatkowo <code>watch</code> synchronizujący go z propsem. To działa, ale tworzy dwa źródła prawdy. React nie pozwala tego zrobić po cichu: props jest niemutowalny, a próbę trzymania kopii widać od razu jako <code>useState(props.x)</code>, który nie odświeży się po zmianie propsa. To celowe. Kontrakt brzmi: <strong>jedna wartość, jeden właściciel, jedna funkcja aktualizująca</strong>.</p>' +
+            '<pre><code>// Vue: dwa źródła prawdy, łatwo o desync\nconst local = ref(props.value)\nwatch(() =&gt; props.value, v =&gt; local.value = v)\n\n// React: albo kontrolowany, albo w pełni niekontrolowany\nfunction Field({ value, onChange }) {\n  return &lt;input value={value} onChange={e =&gt; onChange(e.target.value)} /&gt;\n}</code></pre>' +
             '<h4>Kolokacja stanu</h4>' +
-            '<p>Domyslna heurystyka: stan trzymaj tak nisko w drzewie, jak sie da, i podnos dopiero wtedy, gdy dwa rodzenstwa go potrzebuja. Podniesienie stanu do korzenia jest w Reactcie kosztowne, bo powoduje re-render calego poddrzewa - w Vue analogiczny <code>ref</code> w korzeniu odswiezylby tylko te komponenty, ktore realnie go czytaja. To nie jest teoria: w duzych formularzach roznica miedzy stanem w polu a stanem w formularzu to setki niepotrzebnych wywolan funkcji renderujacych na kazde nacisniecie klawisza.</p>' +
-            '<h4>Co pytaja na rozmowie</h4>' +
+            '<p>Domyślna heurystyka: stan trzymaj tak nisko w drzewie, jak się da, i podnoś dopiero wtedy, gdy dwa rodzeństwa go potrzebują. Podniesienie stanu do korzenia jest w Reactcie kosztowne, bo powoduje re-render całego poddrzewa - w Vue analogiczny <code>ref</code> w korzeniu odświeżyłby tylko te komponenty, które realnie go czytają. To nie jest teoria: w dużych formularzach różnica między stanem w polu a stanem w formularzu to setki niepotrzebnych wywołań funkcji renderujących na każde naciśnięcie klawisza.</p>' +
+            '<h4>Co pytają na rozmowie</h4>' +
             '<ul>' +
-            '<li>Czym rozni sie stan od wartosci pochodnej i jak to rozpoznac (test: czy da sie to policzyc w czasie renderu z innych danych).</li>' +
-            '<li>Dlaczego React nie ma <code>v-model</code> i jak wyglada wzorzec controlled component.</li>' +
-            '<li>Kiedy podniesc stan, a kiedy siegnac po Context lub Zustand (odpowiedz: gdy przekazujesz props przez wiecej niz dwa poziomy tylko po to, by go przekazac dalej).</li>' +
+            '<li>Czym różni się stan od wartości pochodnej i jak to rozpoznać (test: czy da się to policzyć w czasie renderu z innych danych).</li>' +
+            '<li>Dlaczego React nie ma <code>v-model</code> i jak wygląda wzorzec controlled component.</li>' +
+            '<li>Kiedy podnieść stan, a kiedy sięgnąć po Context lub Zustand (odpowiedź: gdy przekazujesz props przez więcej niż dwa poziomy tylko po to, by go przekazać dalej).</li>' +
             '</ul>' +
-            '<p>Uwaga migracyjna: w projekcie Vue czesto porzadek wymusza Pinia. W Reactcie 80 procent tego, co ladowalo w Pinia, to stan serwera i powinno trafic do TanStack Query, a nie do globalnego store. Rozdzielenie stanu serwera od stanu klienta jest najwiekszym pojedynczym ulepszeniem architektury przy przesiadce.</p>',
+            '<p>Uwaga migracyjna: w projekcie Vue często porządek wymusza Pinia. W Reactcie 80 procent tego, co lądowało w Pinia, to stan serwera i powinno trafić do TanStack Query, a nie do globalnego store. Rozdzielenie stanu serwera od stanu klienta jest największym pojedynczym ulepszeniem architektury przy przesiadce.</p>',
           en: '<p>The gap between Vue and React is not syntax, it is <strong>who is responsible for synchronisation</strong>. Vue tracks dependencies through proxies and knows exactly which effect to rerun. React has you declare the whole view function and then diffs the result. That shifts the decision weight onto your data architecture.</p>' +
             '<h4>State ownership as a contract</h4>' +
             '<p>In Vue it is tempting to give a component its own <code>ref</code> plus a <code>watch</code> that syncs it with a prop. It works, and it creates two sources of truth. React does not let you do that quietly: props are immutable, and an attempt to keep a copy shows up immediately as <code>useState(props.x)</code> that never refreshes when the prop changes. That is deliberate. The contract is: <strong>one value, one owner, one updater</strong>.</p>' +
@@ -164,69 +164,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Gdzie w Reactcie powinien mieszkac stan czytany przez dwa komponenty rodzenstwa?',
+            pl: 'Gdzie w Reactcie powinien mieszkać stan czytany przez dwa komponenty rodzeństwa?',
             en: 'Where should state read by two sibling components live in React?'
           },
           options: [
-            { pl: 'W najblizszym wspolnym rodzicu', en: 'In the closest common parent' },
+            { pl: 'W najbliższym wspólnym rodzicu', en: 'In the closest common parent' },
             { pl: 'Zawsze w globalnym store', en: 'Always in a global store' },
             { pl: 'W obu komponentach, zsynchronizowany efektem', en: 'In both components, synced with an effect' },
-            { pl: 'W module poza drzewem komponentow', en: 'In a module outside the component tree' }
+            { pl: 'W module poza drzewem komponentów', en: 'In a module outside the component tree' }
           ],
           correct: 0,
           explain: {
-            pl: 'Lifting state up to najblizszy wspolny rodzic daje jedno zrodlo prawdy. Kopie synchronizowane efektem to gotowy przepis na desync - tak samo jak w Vue duplikat propsa w ref.',
+            pl: 'Lifting state up to najbliższy wspólny rodzic daje jedno źródło prawdy. Kopie synchronizowane efektem to gotowy przepis na desync - tak samo jak w Vue duplikat propsa w ref.',
             en: 'Lifting state to the closest common parent gives one source of truth. Effect-synced copies are a recipe for desync, exactly like duplicating a prop into a ref in Vue.'
           }
         },
         {
           q: {
-            pl: 'Masz liste produktow i pole wyszukiwania. Czym jest lista przefiltrowana?',
+            pl: 'Masz listę produktów i pole wyszukiwania. Czym jest lista przefiltrowana?',
             en: 'You have a product list and a search field. What is the filtered list?'
           },
           options: [
             { pl: 'Osobnym stanem trzymanym w useState', en: 'Separate state held in useState' },
-            { pl: 'Wartoscia pochodna liczona podczas renderu', en: 'Derived data computed during render' },
-            { pl: 'Efektem ubocznym wymagajacym useEffect', en: 'A side effect requiring useEffect' },
-            { pl: 'Refem, zeby uniknac re-renderu', en: 'A ref, to avoid a re-render' }
+            { pl: 'Wartością pochodną liczoną podczas renderu', en: 'Derived data computed during render' },
+            { pl: 'Efektem ubocznym wymagającym useEffect', en: 'A side effect requiring useEffect' },
+            { pl: 'Refem, żeby uniknąć re-renderu', en: 'A ref, to avoid a re-render' }
           ],
           correct: 1,
           explain: {
-            pl: 'Wszystko, co da sie policzyc z innych danych, nie jest stanem. To ta sama zasada, ktora w Vue kaze uzyc computed zamiast ref plus watch.',
+            pl: 'Wszystko, co da się policzyć z innych danych, nie jest stanem. To ta sama zasada, która w Vue każe użyć computed zamiast ref plus watch.',
             en: 'Anything computable from other data is not state. Same principle that makes you reach for computed instead of ref plus watch in Vue.'
           }
         },
         {
           q: {
-            pl: 'Dlaczego w Reactcie nie ma odpowiednika v-model wbudowanego w jezyk?',
+            pl: 'Dlaczego w Reactcie nie ma odpowiednika v-model wbudowanego w język?',
             en: 'Why does React have no built-in v-model equivalent?'
           },
           options: [
-            { pl: 'Bo JSX nie obsluguje dyrektyw technicznie', en: 'Because JSX technically cannot support directives' },
-            { pl: 'Bo dwukierunkowe wiazanie jest wolniejsze', en: 'Because two-way binding is slower' },
-            { pl: 'Bo React chce, by wlascicielstwo danych bylo jawne w kodzie', en: 'Because React wants data ownership to be explicit in code' },
-            { pl: 'Bo formularze w Reactcie sa zawsze niekontrolowane', en: 'Because React forms are always uncontrolled' }
+            { pl: 'Bo JSX nie obsługuje dyrektyw technicznie', en: 'Because JSX technically cannot support directives' },
+            { pl: 'Bo dwukierunkowe wiązanie jest wolniejsze', en: 'Because two-way binding is slower' },
+            { pl: 'Bo React chce, by właścicielstwo danych było jawne w kodzie', en: 'Because React wants data ownership to be explicit in code' },
+            { pl: 'Bo formularze w Reactcie są zawsze niekontrolowane', en: 'Because React forms are always uncontrolled' }
           ],
           correct: 2,
           explain: {
-            pl: 'v-model to lukier na props plus emit. React celowo go nie dodaje, bo chce, zeby z kodu bylo widac, kto trzyma wartosc i kto ja zmienia.',
+            pl: 'v-model to lukier na props plus emit. React celowo go nie dodaje, bo chce, żeby z kodu było widać, kto trzyma wartość i kto ją zmienia.',
             en: 'v-model is sugar over props plus emit. React deliberately skips it so the code shows who owns the value and who changes it.'
           }
         },
         {
           q: {
-            pl: 'Migrujesz duzy formularz z Vue. Trzymasz caly stan w komponencie formularza i przy kazdym klawiszu widac zacinanie. Najsensowniejszy pierwszy ruch?',
+            pl: 'Migrujesz duży formularz z Vue. Trzymasz cały stan w komponencie formularza i przy każdym klawiszu widać zacinanie. Najsensowniejszy pierwszy ruch?',
             en: 'You are migrating a large Vue form. All state sits in the form component and every keystroke stutters. Most sensible first move?'
           },
           options: [
-            { pl: 'Owinac wszystkie pola w React.memo i zostawic stan tam, gdzie jest', en: 'Wrap every field in React.memo and leave the state where it is' },
-            { pl: 'Przeniesc stan do Contextu na poziomie aplikacji', en: 'Move the state into an app-level Context' },
-            { pl: 'Zamienic stan na ref, zeby nie bylo renderow', en: 'Swap state for a ref so no renders happen' },
-            { pl: 'Skolokowac stan w polach, a w gore podnosic tylko to, co realnie wspoldzielone', en: 'Colocate state in the fields and lift only what is genuinely shared' }
+            { pl: 'Owinąć wszystkie pola w React.memo i zostawić stan tam, gdzie jest', en: 'Wrap every field in React.memo and leave the state where it is' },
+            { pl: 'Przenieść stan do Contextu na poziomie aplikacji', en: 'Move the state into an app-level Context' },
+            { pl: 'Zamienić stan na ref, żeby nie było renderów', en: 'Swap state for a ref so no renders happen' },
+            { pl: 'Skolokować stan w polach, a w górę podnosić tylko to, co realnie współdzielone', en: 'Colocate state in the fields and lift only what is genuinely shared' }
           ],
           correct: 3,
           explain: {
-            pl: 'Kolokacja rozwiazuje przyczyne: stan wysoko w drzewie renderuje cale poddrzewo. memo lagodzi objaw i doklada koszt porownan, a Context na gorze pogarsza sprawe.',
+            pl: 'Kolokacja rozwiązuje przyczynę: stan wysoko w drzewie renderuje całe poddrzewo. memo łagodzi objaw i dokłada koszt porównań, a Context na górze pogarsza sprawę.',
             en: 'Colocation fixes the cause: high state re-renders the whole subtree. memo only masks the symptom and adds comparison cost, and app-level Context makes it worse.'
           }
         }
@@ -244,21 +244,21 @@ export default {
         {
           term: { pl: 'JSX', en: 'JSX' },
           def: {
-            pl: 'Cukier skladniowy nad wywolaniem funkcji: <code>&lt;Card /&gt;</code> kompiluje sie do <code>jsx(Card, props)</code>. Element JSX to zwykla wartosc JavaScriptu.',
+            pl: 'Cukier składniowy nad wywołaniem funkcji: <code>&lt;Card /&gt;</code> kompiluje się do <code>jsx(Card, props)</code>. Element JSX to zwykła wartość JavaScriptu.',
             en: 'Syntax sugar over a function call: <code>&lt;Card /&gt;</code> compiles to <code>jsx(Card, props)</code>. A JSX element is an ordinary JavaScript value.'
           }
         },
         {
           term: { pl: 'Fragment', en: 'Fragment' },
           def: {
-            pl: 'Zapis <code>&lt;&gt;...&lt;/&gt;</code> pozwalajacy zwrocic kilka wezlow bez dodatkowego <code>div</code> w DOM.',
+            pl: 'Zapis <code>&lt;&gt;...&lt;/&gt;</code> pozwalający zwrócić kilka węzłów bez dodatkowego <code>div</code> w DOM.',
             en: 'The <code>&lt;&gt;...&lt;/&gt;</code> form that lets a component return several nodes without an extra <code>div</code> in the DOM.'
           }
         },
         {
           term: { pl: 'Patch flags', en: 'Patch flags' },
           def: {
-            pl: 'Znaczniki, ktorymi kompilator Vue oznacza dynamiczne fragmenty szablonu, zeby runtime porownywal tylko je. JSX nie da sie tak analizowac statycznie.',
+            pl: 'Znaczniki, którymi kompilator Vue oznacza dynamiczne fragmenty szablonu, żeby runtime porównywał tylko je. JSX nie da się tak analizować statycznie.',
             en: 'Markers the Vue compiler puts on the dynamic parts of a template so the runtime only diffs those. JSX cannot be analysed statically that way.'
           }
         },
@@ -307,34 +307,34 @@ export default {
           '<text x="320" y="368" text-anchor="middle" font-size="13" fill="var(--muted)">same destination, different amount of compiler help</text>' +
           '</svg>',
         caption: {
-          pl: 'Oba swiaty koncza w funkcji renderujacej i VDOM. Roznica: kompilator Vue wie z gory, co moze sie zmienic, JSX to zwykly JavaScript, wiec tej wiedzy nie ma.',
+          pl: 'Oba światy kończą w funkcji renderującej i VDOM. Różnica: kompilator Vue wie z góry, co może się zmienić, JSX to zwykły JavaScript, więc tej wiedzy nie ma.',
           en: 'Both worlds end in a render function and a VDOM. The difference: the Vue compiler knows up front what can change, while JSX is plain JavaScript with no such knowledge.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Template w Vue to formularz do wypelnienia: pola sa z gory narysowane, ty wpisujesz tylko wartosci. Ktos, kto patrzy na taki formularz, od razu widzi, gdzie sa puste miejsca.</p>' +
-            '<p>JSX to raczej list pisany odrecznie. Mozesz w nim wszystko: wstawic obliczenie, petle, warunek. Nikt cie nie ogranicza, ale tez nikt z gory nie wie, gdzie beda zmiany - trzeba przeczytac caly list od nowa.</p>' +
-            '<p>Dlatego w Vue piszesz <code>v-if</code> i <code>v-for</code>, czyli specjalne slowa frameworka, a w Reactcie piszesz zwyklego ifa i zwykla petle, bo to po prostu kod. Jedno jest bardziej uporzadkowane, drugie bardziej swobodne. Oba na koncu rysuja ten sam ekran.</p>',
+          pl: '<p>Template w Vue to formularz do wypełnienia: pola są z góry narysowane, ty wpisujesz tylko wartości. Ktoś, kto patrzy na taki formularz, od razu widzi, gdzie są puste miejsca.</p>' +
+            '<p>JSX to raczej list pisany odręcznie. Możesz w nim wszystko: wstawić obliczenie, pętlę, warunek. Nikt cię nie ogranicza, ale też nikt z góry nie wie, gdzie będą zmiany - trzeba przeczytać cały list od nowa.</p>' +
+            '<p>Dlatego w Vue piszesz <code>v-if</code> i <code>v-for</code>, czyli specjalne słowa frameworka, a w Reactcie piszesz zwykłego ifa i zwykłą pętlę, bo to po prostu kod. Jedno jest bardziej uporządkowane, drugie bardziej swobodne. Oba na końcu rysują ten sam ekran.</p>',
           en: '<p>A Vue template is a form to fill in: the fields are drawn in advance and you only type the values. Anyone looking at the form sees immediately where the blanks are.</p>' +
             '<p>JSX is more like a handwritten letter. You can put anything in it: a calculation, a loop, a condition. Nobody restricts you, but nobody knows in advance where the changes will be either - you have to read the whole letter again.</p>' +
             '<p>That is why Vue gives you <code>v-if</code> and <code>v-for</code>, special framework words, while React lets you write an ordinary if and an ordinary loop, because it is just code. One is tidier, the other freer. Both draw the same screen in the end.</p>'
         },
         school: {
-          pl: '<p>JSX to nie jezyk szablonow. To cukier skladniowy nad wywolaniem funkcji - Babel albo SWC zamienia <code>&lt;Card title="x" /&gt;</code> na <code>jsx(Card, { title: "x" })</code>. Kazde wyrazenie JSX jest wartoscia, ktora mozesz przypisac do zmiennej, wrzucic do tablicy albo zwrocic z funkcji.</p>' +
+          pl: '<p>JSX to nie język szablonów. To cukier składniowy nad wywołaniem funkcji - Babel albo SWC zamienia <code>&lt;Card title="x" /&gt;</code> na <code>jsx(Card, { title: "x" })</code>. Każde wyrażenie JSX jest wartością, którą możesz przypisać do zmiennej, wrzucić do tablicy albo zwrócić z funkcji.</p>' +
             '<h4>Warunki i listy</h4>' +
             '<pre><code>&lt;!-- Vue --&gt;\n&lt;p v-if="user"&gt;Hi {{ user.name }}&lt;/p&gt;\n&lt;li v-for="t in todos" :key="t.id"&gt;{{ t.text }}&lt;/li&gt;</code></pre>' +
             '<pre><code>// React\n{user &amp;&amp; &lt;p&gt;Hi {user.name}&lt;/p&gt;}\n{todos.map(t =&gt; &lt;li key={t.id}&gt;{t.text}&lt;/li&gt;)}</code></pre>' +
-            '<p><strong>W Vue uzywales dyrektyw, w Reactcie uzywasz wyrazen JavaScriptu</strong>, bo JSX zyje w srodku funkcji, a nie w osobnej sekcji pliku. Wniosek praktyczny: jesli cos da sie zrobic w JS, da sie to zrobic w JSX - i odwrotnie, nie ma zadnego dodatkowego API do nauczenia.</p>' +
-            '<h4>Drobne pulapki dnia pierwszego</h4>' +
+            '<p><strong>W Vue używałeś dyrektyw, w Reactcie używasz wyrażeń JavaScriptu</strong>, bo JSX żyje w środku funkcji, a nie w osobnej sekcji pliku. Wniosek praktyczny: jeśli coś da się zrobić w JS, da się to zrobić w JSX - i odwrotnie, nie ma żadnego dodatkowego API do nauczenia.</p>' +
+            '<h4>Drobne pułapki dnia pierwszego</h4>' +
             '<ul>' +
             '<li><code>class</code> to <code>className</code>, a <code>for</code> to <code>htmlFor</code>, bo to obiekt JS, a nie HTML.</li>' +
-            '<li>Atrybuty sa camelCase: <code>onClick</code>, <code>tabIndex</code>, <code>strokeWidth</code>.</li>' +
-            '<li>Komponent musi zwrocic jeden wezel - stad fragment <code>&lt;&gt;...&lt;/&gt;</code>, odpowiednik braku wrappera w Vue 3.</li>' +
-            '<li><code>{count &amp;&amp; &lt;Badge /&gt;}</code> przy <code>count === 0</code> wyrenderuje zero na ekranie. Uzywaj <code>count &gt; 0 &amp;&amp; ...</code>.</li>' +
+            '<li>Atrybuty są camelCase: <code>onClick</code>, <code>tabIndex</code>, <code>strokeWidth</code>.</li>' +
+            '<li>Komponent musi zwrócić jeden węzeł - stąd fragment <code>&lt;&gt;...&lt;/&gt;</code>, odpowiednik braku wrappera w Vue 3.</li>' +
+            '<li><code>{count &amp;&amp; &lt;Badge /&gt;}</code> przy <code>count === 0</code> wyrenderuje zero na ekranie. Używaj <code>count &gt; 0 &amp;&amp; ...</code>.</li>' +
             '<li>Styl inline to obiekt: <code>style={{ marginTop: 8 }}</code>.</li>' +
             '</ul>' +
-            '<p>Za to dostajesz cos, czego w template nie ma: komponent jest zwykla wartoscia. Mozesz go trzymac w mapie, przekazac w propsie, wybrac warunkowo - bez <code>component :is</code> i bez rejestrowania czegokolwiek.</p>',
+            '<p>Za to dostajesz coś, czego w template nie ma: komponent jest zwykłą wartością. Możesz go trzymać w mapie, przekazać w propsie, wybrać warunkowo - bez <code>component :is</code> i bez rejestrowania czegokolwiek.</p>',
           en: '<p>JSX is not a template language. It is syntax sugar over a function call - Babel or SWC turns <code>&lt;Card title="x" /&gt;</code> into <code>jsx(Card, { title: "x" })</code>. Every JSX expression is a value you can assign to a variable, push into an array, or return from a function.</p>' +
             '<h4>Conditions and lists</h4>' +
             '<pre><code>&lt;!-- Vue --&gt;\n&lt;p v-if="user"&gt;Hi {{ user.name }}&lt;/p&gt;\n&lt;li v-for="t in todos" :key="t.id"&gt;{{ t.text }}&lt;/li&gt;</code></pre>' +
@@ -351,19 +351,19 @@ export default {
             '<p>In exchange you get something templates cannot offer: a component is an ordinary value. Keep it in a map, pass it as a prop, pick it conditionally - no <code>component :is</code>, no registration.</p>'
         },
         pro: {
-          pl: '<p>Kluczowa konsekwencja architektoniczna jest taka: <strong>template Vue jest analizowalny statycznie, JSX nie</strong>. Kompilator Vue widzi, ze <code>&lt;div class="card"&gt;</code> nigdy sie nie zmieni, wiec hoistuje ten wezel poza funkcje renderujaca i oznacza dynamiczne fragmenty patch flagami. Runtime porownuje wtedy tylko to, co moze sie roznic. W Reactcie kazde wywolanie funkcji komponentu buduje caly obiekt elementow od nowa i diff idzie po calym poddrzewie.</p>' +
-            '<pre><code>// Vue - kompilator generuje mniej wiecej to\nconst _hoisted = createElementVNode("div", { class: "card" })\n// plus patchFlag: TEXT dla dynamicznego fragmentu\n\n// React - kazdy render tworzy nowe obiekty\nfunction Card({ title }) {\n  return jsx("div", { className: "card", children: title })\n}</code></pre>' +
+          pl: '<p>Kluczowa konsekwencja architektoniczna jest taka: <strong>template Vue jest analizowalny statycznie, JSX nie</strong>. Kompilator Vue widzi, że <code>&lt;div class="card"&gt;</code> nigdy się nie zmieni, więc hoistuje ten węzeł poza funkcję renderującą i oznacza dynamiczne fragmenty patch flagami. Runtime porównuje wtedy tylko to, co może się różnić. W Reactcie każde wywołanie funkcji komponentu buduje cały obiekt elementów od nowa i diff idzie po całym poddrzewie.</p>' +
+            '<pre><code>// Vue - kompilator generuje mniej więcej to\nconst _hoisted = createElementVNode("div", { class: "card" })\n// plus patchFlag: TEXT dla dynamicznego fragmentu\n\n// React - każdy render tworzy nowe obiekty\nfunction Card({ title }) {\n  return jsx("div", { className: "card", children: title })\n}</code></pre>' +
             '<h4>Kompozycja zamiast dyrektyw</h4>' +
-            '<p>Brak dyrektyw wymusza inne wzorce. Zamiast <code>v-permission</code> piszesz komponent <code>&lt;Can do="edit"&gt;</code> albo hooka <code>usePermission()</code>. Zamiast <code>v-focus</code> - <code>useEffect</code> z refem albo gotowy hook. W praktyce jest to bardziej typowalne w TypeScripcie: dyrektywy Vue nie maja sensownej sygnatury typu, komponent i hook maja.</p>' +
-            '<h4>Typy i narzedzia</h4>' +
-            '<p>JSX to zwykly TS, wiec generyki, zwezanie typow i inference dzialaja normalnie w calym widoku. W Vue trzeba do tego <code>defineComponent</code>, generycznych SFC (od 3.3) i wsparcia Volar. Za to Vue wygrywa w narzedziach kompilacyjnych - dostajesz optymalizacje za darmo, podczas gdy React do 18 wlacznie wymagal recznego <code>memo</code> i <code>useMemo</code> (React Compiler w 19 to zmienia, wiecej w lekcji o krajobrazie 19).</p>' +
-            '<h4>Pulapki produkcyjne</h4>' +
+            '<p>Brak dyrektyw wymusza inne wzorce. Zamiast <code>v-permission</code> piszesz komponent <code>&lt;Can do="edit"&gt;</code> albo hooka <code>usePermission()</code>. Zamiast <code>v-focus</code> - <code>useEffect</code> z refem albo gotowy hook. W praktyce jest to bardziej typowalne w TypeScripcie: dyrektywy Vue nie mają sensownej sygnatury typu, komponent i hook mają.</p>' +
+            '<h4>Typy i narzędzia</h4>' +
+            '<p>JSX to zwykły TS, więc generyki, zwężanie typów i inference działają normalnie w całym widoku. W Vue trzeba do tego <code>defineComponent</code>, generycznych SFC (od 3.3) i wsparcia Volar. Za to Vue wygrywa w narzędziach kompilacyjnych - dostajesz optymalizacje za darmo, podczas gdy React do 18 włącznie wymagał ręcznego <code>memo</code> i <code>useMemo</code> (React Compiler w 19 to zmienia, więcej w lekcji o krajobrazie 19).</p>' +
+            '<h4>Pułapki produkcyjne</h4>' +
             '<ul>' +
-            '<li>Definiowanie komponentu wewnatrz komponentu tworzy nowy typ przy kazdym renderze i kasuje stan poddrzewa. To odpowiednik zmiany <code>:is</code> na kazdy render.</li>' +
-            '<li>Inline obiekty i funkcje w propsach lamia <code>React.memo</code>, bo referencja rozni sie za kazdym razem.</li>' +
+            '<li>Definiowanie komponentu wewnątrz komponentu tworzy nowy typ przy każdym renderze i kasuje stan poddrzewa. To odpowiednik zmiany <code>:is</code> na każdy render.</li>' +
+            '<li>Inline obiekty i funkcje w propsach łamią <code>React.memo</code>, bo referencja różni się za każdym razem.</li>' +
             '<li><code>dangerouslySetInnerHTML</code> to odpowiednik <code>v-html</code> i tak samo wymaga sanityzacji.</li>' +
             '</ul>' +
-            '<p>Na rozmowie warto umiec powiedziec jednym zdaniem: JSX kompiluje sie do wywolan funkcji, wiec React placi w runtime za elastycznosc, ktora Vue rozwiazuje w kompilatorze. Warto dodac drugie zdanie o kompromisie: ta elastycznosc daje w zamian pelna kompozycyjnosc widoku, bo fragment JSX mozna przekazac dalej jak kazda inna wartosc, czego stringowy template nie potrafi bez dodatkowego API.</p>',
+            '<p>Na rozmowie warto umieć powiedzieć jednym zdaniem: JSX kompiluje się do wywołań funkcji, więc React płaci w runtime za elastyczność, którą Vue rozwiązuje w kompilatorze. Warto dodać drugie zdanie o kompromisie: ta elastyczność daje w zamian pełną kompozycyjność widoku, bo fragment JSX można przekazać dalej jak każdą inną wartość, czego stringowy template nie potrafi bez dodatkowego API.</p>',
           en: '<p>The architectural consequence: <strong>a Vue template is statically analysable, JSX is not</strong>. The Vue compiler sees that <code>&lt;div class="card"&gt;</code> can never change, hoists that node out of the render function and tags dynamic parts with patch flags. The runtime then compares only what could differ. In React every component call rebuilds the whole element object and the diff walks the entire subtree.</p>' +
             '<pre><code>// Vue - the compiler emits roughly this\nconst _hoisted = createElementVNode("div", { class: "card" })\n// plus patchFlag: TEXT for the dynamic part\n\n// React - every render allocates new objects\nfunction Card({ title }) {\n  return jsx("div", { className: "card", children: title })\n}</code></pre>' +
             '<h4>Composition instead of directives</h4>' +
@@ -387,64 +387,64 @@ export default {
           },
           options: [
             { pl: 'Stringiem HTML wstawianym przez innerHTML', en: 'An HTML string injected via innerHTML' },
-            { pl: 'Wywolaniami funkcji tworzacymi obiekty elementow', en: 'Function calls creating element objects' },
-            { pl: 'Osobnym jezykiem szablonow interpretowanym w runtime', en: 'A separate template language interpreted at runtime' },
+            { pl: 'Wywołaniami funkcji tworzącymi obiekty elementów', en: 'Function calls creating element objects' },
+            { pl: 'Osobnym językiem szablonów interpretowanym w runtime', en: 'A separate template language interpreted at runtime' },
             { pl: 'Dyrektywami rejestrowanymi w aplikacji', en: 'Directives registered on the app' }
           ],
           correct: 1,
           explain: {
-            pl: 'Babel lub SWC zamienia JSX na wywolania jsx(type, props). Dlatego element JSX jest zwykla wartoscia JavaScriptu.',
+            pl: 'Babel lub SWC zamienia JSX na wywołania jsx(type, props). Dlatego element JSX jest zwykłą wartością JavaScriptu.',
             en: 'Babel or SWC turns JSX into jsx(type, props) calls. That is why a JSX element is an ordinary JavaScript value.'
           }
         },
         {
           q: {
-            pl: 'Jak wyglada odpowiednik v-for z kluczem w Reactcie?',
+            pl: 'Jak wygląda odpowiednik v-for z kluczem w Reactcie?',
             en: 'What is the React equivalent of v-for with a key?'
           },
           options: [
             { pl: 'Dyrektywa forEach na elemencie', en: 'A forEach directive on the element' },
             { pl: 'Specjalny komponent React.List', en: 'A special React.List component' },
             { pl: 'items.map z propem key na zwracanym elemencie', en: 'items.map with a key prop on the returned element' },
-            { pl: 'Petla for w ciele komponentu bez klucza', en: 'A for loop in the component body with no key' }
+            { pl: 'Pętla for w ciele komponentu bez klucza', en: 'A for loop in the component body with no key' }
           ],
           correct: 2,
           explain: {
-            pl: 'Listy buduje sie zwyklym map, a key jest propem specjalnym - tak samo jak :key w Vue, bo oba runtime potrzebuja tozsamosci elementu.',
+            pl: 'Listy buduje się zwykłym map, a key jest propem specjalnym - tak samo jak :key w Vue, bo oba runtime potrzebują tożsamości elementu.',
             en: 'Lists are built with plain map, and key is a special prop - just like :key in Vue, since both runtimes need element identity.'
           }
         },
         {
           q: {
-            pl: 'Dlaczego kompilator Vue moze zoptymalizowac wiecej niz React bez kompilatora?',
+            pl: 'Dlaczego kompilator Vue może zoptymalizować więcej niż React bez kompilatora?',
             en: 'Why can the Vue compiler optimise more than React without a compiler?'
           },
           options: [
             { pl: 'Bo template jest statycznie analizowalny i wiadomo, co jest dynamiczne', en: 'Because the template is statically analysable so dynamic parts are known' },
-            { pl: 'Bo Vue nie uzywa wirtualnego DOM', en: 'Because Vue does not use a virtual DOM' },
+            { pl: 'Bo Vue nie używa wirtualnego DOM', en: 'Because Vue does not use a virtual DOM' },
             { pl: 'Bo React zawsze renderuje na serwerze', en: 'Because React always renders on the server' },
             { pl: 'Bo Vue trzyma komponenty w globalnym rejestrze', en: 'Because Vue keeps components in a global registry' }
           ],
           correct: 0,
           explain: {
-            pl: 'Statyczne wezly sa hoistowane, a dynamiczne dostaja patch flagi. JSX to dowolny JavaScript, wiec takich gwarancji nie ma.',
+            pl: 'Statyczne węzły są hoistowane, a dynamiczne dostają patch flagi. JSX to dowolny JavaScript, więc takich gwarancji nie ma.',
             en: 'Static nodes get hoisted and dynamic ones get patch flags. JSX is arbitrary JavaScript, so no such guarantees exist.'
           }
         },
         {
           q: {
-            pl: 'Widzisz na ekranie samotne 0 tam, gdzie mial byc badge. Najbardziej prawdopodobna przyczyna?',
+            pl: 'Widzisz na ekranie samotne 0 tam, gdzie miał być badge. Najbardziej prawdopodobna przyczyna?',
             en: 'A lone 0 shows up on screen where a badge should be. Most likely cause?'
           },
           options: [
             { pl: 'Brak propa key na elemencie', en: 'A missing key prop on the element' },
-            { pl: 'Uzycie className zamiast class', en: 'Using className instead of class' },
-            { pl: 'Zwrocenie dwoch wezlow bez fragmentu', en: 'Returning two nodes without a fragment' },
-            { pl: 'Warunek count && <Badge /> przy count rownym 0', en: 'A count && <Badge /> guard when count is 0' }
+            { pl: 'Użycie className zamiast class', en: 'Using className instead of class' },
+            { pl: 'Zwrócenie dwóch węzłów bez fragmentu', en: 'Returning two nodes without a fragment' },
+            { pl: 'Warunek count && <Badge /> przy count równym 0', en: 'A count && <Badge /> guard when count is 0' }
           ],
           correct: 3,
           explain: {
-            pl: 'Operator && zwraca lewa strone, a React renderuje liczbe 0 jako tekst. W Vue v-if traktowalo to jako falsy i nic nie rysowalo - stad zaskoczenie.',
+            pl: 'Operator && zwraca lewą stronę, a React renderuje liczbę 0 jako tekst. W Vue v-if traktowało to jako falsy i nic nie rysowało - stąd zaskoczenie.',
             en: 'The && operator returns the left side and React renders the number 0 as text. Vue v-if treated it as falsy and drew nothing, hence the surprise.'
           }
         }
@@ -462,35 +462,35 @@ export default {
         {
           term: { pl: 'Props', en: 'Props' },
           def: {
-            pl: 'Argument funkcji komponentu, tylko do odczytu. Mutacja obiektu propsow lamie zalozenia reconcilera i porownania w <code>React.memo</code>.',
+            pl: 'Argument funkcji komponentu, tylko do odczytu. Mutacja obiektu propsów łamie założenia reconcilera i porównania w <code>React.memo</code>.',
             en: 'The read-only argument of a component function. Mutating the props object breaks reconciler assumptions and <code>React.memo</code> comparisons.'
           }
         },
         {
           term: { pl: 'children', en: 'children' },
           def: {
-            pl: 'Prop, do ktorego trafia JSX zapisany miedzy tagami komponentu. Odpowiednik slotu domyslnego z Vue.',
+            pl: 'Prop, do którego trafia JSX zapisany między tagami komponentu. Odpowiednik slotu domyślnego z Vue.',
             en: 'The prop that receives the JSX written between a component tags. The equivalent of the Vue default slot.'
           }
         },
         {
           term: { pl: 'Render prop', en: 'Render prop' },
           def: {
-            pl: 'Prop bedacy funkcja zwracajaca JSX, np. <code>renderItem={(item) =&gt; ...}</code>. Reactowy odpowiednik scoped slota, w pelni typowany.',
+            pl: 'Prop będący funkcją zwracającą JSX, np. <code>renderItem={(item) =&gt; ...}</code>. Reactowy odpowiednik scoped slota, w pełni typowany.',
             en: 'A prop that is a function returning JSX, e.g. <code>renderItem={(item) =&gt; ...}</code>. The React equivalent of a scoped slot, fully typed.'
           }
         },
         {
           term: { pl: 'Callback prop', en: 'Callback prop' },
           def: {
-            pl: 'Funkcja przekazana w propsie z prefiksem <code>on</code> (<code>onChange</code>, <code>onSelect</code>). Zastepuje <code>emit</code>, bo React nie ma systemu zdarzen komponentowych.',
+            pl: 'Funkcja przekazana w propsie z prefiksem <code>on</code> (<code>onChange</code>, <code>onSelect</code>). Zastępuje <code>emit</code>, bo React nie ma systemu zdarzeń komponentowych.',
             en: 'A function passed as an <code>on</code>-prefixed prop (<code>onChange</code>, <code>onSelect</code>). It replaces <code>emit</code>, because React has no component event system.'
           }
         },
         {
           term: { pl: 'ComponentPropsWithoutRef', en: 'ComponentPropsWithoutRef' },
           def: {
-            pl: 'Typ pomocniczy do rozszerzania natywnych atrybutow elementu, np. <code>ComponentPropsWithoutRef&lt;"button"&gt;</code>. Jawny odpowiednik <code>attrs</code> i <code>inheritAttrs</code>.',
+            pl: 'Typ pomocniczy do rozszerzania natywnych atrybutów elementu, np. <code>ComponentPropsWithoutRef&lt;"button"&gt;</code>. Jawny odpowiednik <code>attrs</code> i <code>inheritAttrs</code>.',
             en: 'A helper type for extending native element attributes, e.g. <code>ComponentPropsWithoutRef&lt;"button"&gt;</code>. The explicit counterpart of <code>attrs</code> and <code>inheritAttrs</code>.'
           }
         }
@@ -519,33 +519,33 @@ export default {
           '<text x="320" y="358" text-anchor="middle" font-size="13" fill="var(--muted)">children in React = the default slot in Vue</text>' +
           '</svg>',
         caption: {
-          pl: 'Propsy w dol, funkcje zwrotne w gore. Gdzie w Vue emitowales zdarzenie, w Reactcie wolasz funkcje otrzymana w propsie.',
+          pl: 'Propsy w dół, funkcje zwrotne w górę. Gdzie w Vue emitowałeś zdarzenie, w Reactcie wołasz funkcję otrzymaną w propsie.',
           en: 'Props down, callbacks up. Where Vue emits an event, React calls a function it received as a prop.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Komponent to maszynka do robienia obrazkow. Wrzucasz do niej skladniki, a ona zwraca gotowy kawalek ekranu. Skladniki to propsy.</p>' +
-            '<p>Wazna zasada: maszynka nie moze zjesc swoich skladnikow i podmienic ich na inne. Dostala marchewke - robi z niej sok marchewkowy. Jesli chce buraka, musi poprosic tego, kto podaje skladniki.</p>' +
-            '<p>Jak prosi? Dostaje razem ze skladnikami maly dzwonek - funkcje. Dzwoni nim i mowi: <em>chcialabym burak</em>. Osoba na zewnatrz decyduje, czy zmienic skladnik. Wtedy maszynka dostanie nowe skladniki i zrobi nowy obrazek.</p>' +
-            '<p>Dzieki temu zawsze wiadomo, kto za co odpowiada. Nikt nie grzebie w cudzych skladnikach po cichu, a jak cos wyjdzie nie tak, od razu wiadomo, gdzie szukac winnego: u tego, kto trzyma skladniki.</p>' +
-            '<p>Jest jeszcze jedna wygodna rzecz. Do maszynki mozesz wlozyc nie tylko liczby i napisy, ale tez gotowy kawalek innego obrazka. Wtedy maszynka opakowuje go w swoja ramke i oddaje dalej - i wlasnie tak buduje sie z malych czesci cale duze ekrany.</p>',
+          pl: '<p>Komponent to maszynka do robienia obrazków. Wrzucasz do niej składniki, a ona zwraca gotowy kawałek ekranu. Składniki to propsy.</p>' +
+            '<p>Ważna zasada: maszynka nie może zjeść swoich składników i podmienić ich na inne. Dostała marchewkę - robi z niej sok marchewkowy. Jeśli chce buraka, musi poprosić tego, kto podaje składniki.</p>' +
+            '<p>Jak prosi? Dostaje razem ze składnikami mały dzwonek - funkcję. Dzwoni nim i mówi: <em>chciałabym burak</em>. Osoba na zewnątrz decyduje, czy zmienić składnik. Wtedy maszynka dostanie nowe składniki i zrobi nowy obrazek.</p>' +
+            '<p>Dzięki temu zawsze wiadomo, kto za co odpowiada. Nikt nie grzebie w cudzych składnikach po cichu, a jak coś wyjdzie nie tak, od razu wiadomo, gdzie szukać winnego: u tego, kto trzyma składniki.</p>' +
+            '<p>Jest jeszcze jedna wygodna rzecz. Do maszynki możesz włożyć nie tylko liczby i napisy, ale też gotowy kawałek innego obrazka. Wtedy maszynka opakowuje go w swoją ramkę i oddaje dalej - i właśnie tak buduje się z małych części całe duże ekrany.</p>',
           en: '<p>A component is a little machine that makes pictures. You drop ingredients in and it hands back a finished piece of screen. The ingredients are props.</p>' +
             '<p>Important rule: the machine cannot eat its ingredients and swap them for different ones. It got a carrot, so it makes carrot juice. If it wants beetroot, it has to ask whoever hands out ingredients.</p>' +
             '<p>How does it ask? Along with the ingredients it receives a small bell - a function. It rings it and says: <em>beetroot please</em>. The person outside decides whether to change the ingredient. Then the machine gets new ingredients and makes a new picture.</p>' +
             '<p>This way it is always clear who is responsible for what. Nobody quietly rummages through somebody else ingredients.</p>'
         },
         school: {
-          pl: '<p>Komponent Reacta to funkcja: bierze obiekt propsow i zwraca JSX. Nie ma sekcji <code>script</code>, <code>template</code> i <code>style</code> - jest jedna funkcja i tyle.</p>' +
+          pl: '<p>Komponent Reacta to funkcja: bierze obiekt propsów i zwraca JSX. Nie ma sekcji <code>script</code>, <code>template</code> i <code>style</code> - jest jedna funkcja i tyle.</p>' +
             '<h4>Vue</h4>' +
             '<pre><code>&lt;script setup lang="ts"&gt;\nconst props = defineProps&lt;{ label: string; count: number }&gt;()\nconst emit = defineEmits&lt;{ inc: [n: number] }&gt;()\n&lt;/script&gt;\n&lt;template&gt;\n  &lt;button @click="emit(\\u0027inc\\u0027, props.count + 1)"&gt;{{ label }}&lt;/button&gt;\n&lt;/template&gt;</code></pre>' +
             '<h4>React</h4>' +
             '<pre><code>type Props = { label: string; count: number; onInc: (n: number) =&gt; void }\n\nfunction Counter({ label, count, onInc }: Props) {\n  return &lt;button onClick={() =&gt; onInc(count + 1)}&gt;{label}&lt;/button&gt;\n}</code></pre>' +
-            '<p><strong>W Vue deklarowales propsy makrem i emitowales zdarzenia, w Reactcie propsy to zwykly argument funkcji, a zdarzenia to funkcje przekazane w propsie</strong> - bo React nie ma osobnego systemu zdarzen komponentowych. Wszystko jest wywolaniem funkcji, wiec TypeScript typuje to bez zadnych makr.</p>' +
-            '<h4>Dzieci zamiast slotow</h4>' +
+            '<p><strong>W Vue deklarowałeś propsy makrem i emitowałeś zdarzenia, w Reactcie propsy to zwykły argument funkcji, a zdarzenia to funkcje przekazane w propsie</strong> - bo React nie ma osobnego systemu zdarzeń komponentowych. Wszystko jest wywołaniem funkcji, więc TypeScript typuje to bez żadnych makr.</p>' +
+            '<h4>Dzieci zamiast slotów</h4>' +
             '<pre><code>// Vue:  &lt;Card&gt;&lt;p&gt;tresc&lt;/p&gt;&lt;/Card&gt;  + &lt;slot /&gt;\n// React:\nfunction Card({ children }) {\n  return &lt;div className="card"&gt;{children}&lt;/div&gt;\n}</code></pre>' +
-            '<p>Slot domyslny to prop <code>children</code>. Sloty nazwane to po prostu kolejne propsy przyjmujace JSX, na przyklad <code>&lt;Card header={&lt;h2&gt;Tytul&lt;/h2&gt;} /&gt;</code>. Nie ma tu nowego mechanizmu - jest ten sam mechanizm co zawsze, uzyty do innego celu.</p>' +
-            '<p>Wartosci domyslne robisz destrukturyzacja: <code>function Card({ size = "md" })</code>. Odpowiednika <code>withDefaults</code> nie potrzebujesz.</p>',
+            '<p>Slot domyślny to prop <code>children</code>. Sloty nazwane to po prostu kolejne propsy przyjmujące JSX, na przykład <code>&lt;Card header={&lt;h2&gt;Tytul&lt;/h2&gt;} /&gt;</code>. Nie ma tu nowego mechanizmu - jest ten sam mechanizm co zawsze, użyty do innego celu.</p>' +
+            '<p>Wartości domyślne robisz destrukturyzacją: <code>function Card({ size = "md" })</code>. Odpowiednika <code>withDefaults</code> nie potrzebujesz.</p>',
           en: '<p>A React component is a function: it takes a props object and returns JSX. There is no <code>script</code> / <code>template</code> / <code>style</code> split - there is one function and that is it.</p>' +
             '<h4>Vue</h4>' +
             '<pre><code>&lt;script setup lang="ts"&gt;\nconst props = defineProps&lt;{ label: string; count: number }&gt;()\nconst emit = defineEmits&lt;{ inc: [n: number] }&gt;()\n&lt;/script&gt;\n&lt;template&gt;\n  &lt;button @click="emit(\\u0027inc\\u0027, props.count + 1)"&gt;{{ label }}&lt;/button&gt;\n&lt;/template&gt;</code></pre>' +
@@ -558,23 +558,23 @@ export default {
             '<p>Defaults come from destructuring: <code>function Card({ size = "md" })</code>. You never need a <code>withDefaults</code> equivalent.</p>'
         },
         pro: {
-          pl: '<p>Props w Reactcie jest niemutowalny nie tylko przez konwencje - mutacja obiektu propsow lamie zalozenia reconcilera i wywolania <code>React.memo</code>, ktore porownuja referencje. W Vue mutowanie propsa tez jest zakazane, ale runtime ostrzega, a reaktywnosc czesto i tak zadziala. W Reactcie nic sie po prostu nie przerysuje, bo nikt nie sledzi obiektow.</p>' +
+          pl: '<p>Props w Reactcie jest niemutowalny nie tylko przez konwencję - mutacja obiektu propsów łamie założenia reconcilera i wywołania <code>React.memo</code>, które porównują referencje. W Vue mutowanie propsa też jest zakazane, ale runtime ostrzega, a reaktywność często i tak zadziała. W Reactcie nic się po prostu nie przerysuje, bo nikt nie śledzi obiektów.</p>' +
             '<h4>Projektowanie API komponentu</h4>' +
             '<ul>' +
-            '<li><strong>Nazewnictwo</strong>: props wejsciowe rzeczownikowo (<code>value</code>, <code>items</code>), wyjsciowe z prefiksem <code>on</code> (<code>onChange</code>, <code>onSelect</code>). To odpowiednik konwencji <code>update:modelValue</code> w Vue.</li>' +
-            '<li><strong>Sloty jako propsy</strong>: <code>renderItem={(item) =&gt; &lt;Row {...item} /&gt;}</code> to dokladny odpowiednik scoped slot. Roznica: typ funkcji renderujacej jest w pelni wyprowadzany przez TypeScript, czego scoped sloty dlugo nie mialy.</li>' +
-            '<li><strong>Rozszerzanie natywnych atrybutow</strong>: <code>type Props = ComponentPropsWithoutRef&lt;"button"&gt; &amp; { tone?: "danger" }</code>. To zastepuje <code>attrs</code> i <code>inheritAttrs</code>, tylko jawnie - musisz sam zrobic <code>{...rest}</code>.</li>' +
+            '<li><strong>Nazewnictwo</strong>: props wejściowe rzeczownikowo (<code>value</code>, <code>items</code>), wyjściowe z prefiksem <code>on</code> (<code>onChange</code>, <code>onSelect</code>). To odpowiednik konwencji <code>update:modelValue</code> w Vue.</li>' +
+            '<li><strong>Sloty jako propsy</strong>: <code>renderItem={(item) =&gt; &lt;Row {...item} /&gt;}</code> to dokładny odpowiednik scoped slot. Różnica: typ funkcji renderującej jest w pełni wyprowadzany przez TypeScript, czego scoped sloty długo nie miały.</li>' +
+            '<li><strong>Rozszerzanie natywnych atrybutów</strong>: <code>type Props = ComponentPropsWithoutRef&lt;"button"&gt; &amp; { tone?: "danger" }</code>. To zastępuje <code>attrs</code> i <code>inheritAttrs</code>, tylko jawnie - musisz sam zrobić <code>{...rest}</code>.</li>' +
             '</ul>' +
             '<pre><code>function Button({ tone = "default", ...rest }: Props) {\n  return &lt;button data-tone={tone} {...rest} /&gt;\n}</code></pre>' +
             '<h4>Praktyka z design systemu</h4>' +
-            '<p>Przy komponentach biblioteki (jak CHI) najwazniejsza roznica jest taka: w Vue duza czesc kontraktu jest opisana runtime w <code>defineProps</code> i widoczna w devtools. W Reactcie kontrakt zyje wylacznie w typach i znika po kompilacji. Dlatego waliduj granice danych osobno (zod na wejsciu z API), a w komponentach polegaj na typach i testach.</p>' +
-            '<p>Dwie pulapki, ktore realnie boli w produkcji:</p>' +
+            '<p>Przy komponentach biblioteki (jak CHI) najważniejsza różnica jest taka: w Vue duża część kontraktu jest opisana runtime w <code>defineProps</code> i widoczna w devtools. W Reactcie kontrakt żyje wyłącznie w typach i znika po kompilacji. Dlatego waliduj granice danych osobno (zod na wejściu z API), a w komponentach polegaj na typach i testach.</p>' +
+            '<p>Dwie pułapki, które realnie bolą w produkcji:</p>' +
             '<ol>' +
-            '<li>Przekazywanie inline obiektu <code>style={{...}}</code> lub swiezej funkcji do zmemoizowanego dziecka niweczy memo. W Vue nie bylo to problemem, bo aktualizacja szla po zaleznosciach, a nie po referencjach propsow.</li>' +
-            '<li>Spread niezaufanych propsow na element DOM przepuszcza dowolne atrybuty. Filtruj, jesli komponent jest publicznym API biblioteki.</li>' +
+            '<li>Przekazywanie inline obiektu <code>style={{...}}</code> lub świeżej funkcji do zmemoizowanego dziecka niweczy memo. W Vue nie było to problemem, bo aktualizacja szła po zależnościach, a nie po referencjach propsów.</li>' +
+            '<li>Spread niezaufanych propsów na element DOM przepuszcza dowolne atrybuty. Filtruj, jeśli komponent jest publicznym API biblioteki.</li>' +
             '</ol>' +
-            '<p>Na rozmowie czesto pada: jak zrobic scoped slot w Reactcie. Odpowiedz brzmi: prop bedacy funkcja zwracajaca JSX, czyli render prop - i warto dodac, ze <code>children</code> tez moze byc funkcja.</p>' +
-            '<p>Ostatnia rzecz z praktyki zespolowej: skoro kontrakt komponentu to typ, warto go trzymac jako nazwany, eksportowany typ obok komponentu. Konsumenci moga wtedy budowac wlasne wrappery przez <code>Omit</code> i <code>Pick</code> zamiast kopiowac liste propsow, a zmiana kontraktu zapala sie w kompilacji u wszystkich naraz - to jest przewaga, ktorej runtime <code>defineProps</code> nie daje.</p>',
+            '<p>Na rozmowie często pada: jak zrobić scoped slot w Reactcie. Odpowiedź brzmi: prop będący funkcją zwracającą JSX, czyli render prop - i warto dodać, że <code>children</code> też może być funkcją.</p>' +
+            '<p>Ostatnia rzecz z praktyki zespołowej: skoro kontrakt komponentu to typ, warto go trzymać jako nazwany, eksportowany typ obok komponentu. Konsumenci mogą wtedy budować własne wrappery przez <code>Omit</code> i <code>Pick</code> zamiast kopiować listę propsów, a zmiana kontraktu zapala się w kompilacji u wszystkich naraz - to jest przewaga, której runtime <code>defineProps</code> nie daje.</p>',
           en: '<p>Props in React are immutable not merely by convention - mutating the props object breaks reconciler assumptions and any <code>React.memo</code> comparison, which is reference based. Vue also forbids mutating props, but its runtime warns and reactivity often works anyway. In React nothing repaints at all, because nobody is tracking objects.</p>' +
             '<h4>Designing a component API</h4>' +
             '<ul>' +
@@ -596,7 +596,7 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Co jest odpowiednikiem slotu domyslnego z Vue?',
+            pl: 'Co jest odpowiednikiem slotu domyślnego z Vue?',
             en: 'What is the equivalent of the Vue default slot?'
           },
           options: [
@@ -607,7 +607,7 @@ export default {
           ],
           correct: 0,
           explain: {
-            pl: 'Wszystko, co wpiszesz miedzy tagami komponentu, laduje w propsie children. Sloty nazwane to po prostu kolejne propsy przyjmujace JSX.',
+            pl: 'Wszystko, co wpiszesz między tagami komponentu, ląduje w propsie children. Sloty nazwane to po prostu kolejne propsy przyjmujące JSX.',
             en: 'Whatever you put between the component tags arrives as the children prop. Named slots are simply extra props that accept JSX.'
           }
         },
@@ -619,46 +619,46 @@ export default {
           options: [
             { pl: 'Emituje zdarzenie przez emit', en: 'It emits an event with emit' },
             { pl: 'Mutuje otrzymany props', en: 'It mutates the prop it received' },
-            { pl: 'Wywoluje funkcje otrzymana w propsie', en: 'It calls a function it received as a prop' },
-            { pl: 'Wysyla CustomEvent w DOM', en: 'It dispatches a DOM CustomEvent' }
+            { pl: 'Wywołuje funkcję otrzymaną w propsie', en: 'It calls a function it received as a prop' },
+            { pl: 'Wysyła CustomEvent w DOM', en: 'It dispatches a DOM CustomEvent' }
           ],
           correct: 2,
           explain: {
-            pl: 'React nie ma systemu zdarzen komponentowych. Zamiast emit dostajesz funkcje w propsie i po prostu ja wolasz - to zwykle wywolanie funkcji.',
+            pl: 'React nie ma systemu zdarzeń komponentowych. Zamiast emit dostajesz funkcję w propsie i po prostu ją wołasz - to zwykłe wywołanie funkcji.',
             en: 'React has no component event system. Instead of emit you receive a function prop and call it - a plain function call.'
           }
         },
         {
           q: {
-            pl: 'Jaki jest odpowiednik scoped slotu, gdy dziecko musi przekazac dane do renderowanej tresci?',
+            pl: 'Jaki jest odpowiednik scoped slotu, gdy dziecko musi przekazać dane do renderowanej treści?',
             en: 'What replaces a scoped slot when the child must hand data to the rendered content?'
           },
           options: [
             { pl: 'Context', en: 'Context' },
-            { pl: 'Prop bedacy funkcja zwracajaca JSX (render prop)', en: 'A prop that is a function returning JSX (a render prop)' },
+            { pl: 'Prop będący funkcją zwracającą JSX (render prop)', en: 'A prop that is a function returning JSX (a render prop)' },
             { pl: 'forwardRef', en: 'forwardRef' },
             { pl: 'Portal', en: 'A portal' }
           ],
           correct: 1,
           explain: {
-            pl: 'Render prop, np. renderItem={(item) => ...}, daje dokladnie to samo co scoped slot i dodatkowo w pelni typuje sie w TypeScripcie.',
+            pl: 'Render prop, np. renderItem={(item) => ...}, daje dokładnie to samo co scoped slot i dodatkowo w pełni typuje się w TypeScripcie.',
             en: 'A render prop such as renderItem={(item) => ...} gives exactly what a scoped slot gave, and additionally types cleanly in TypeScript.'
           }
         },
         {
           q: {
-            pl: 'Budujesz Button w design systemie i chcesz przepuscic natywne atrybuty przycisku. Co odpowiada mechanizmowi attrs z Vue?',
+            pl: 'Budujesz Button w design systemie i chcesz przepuścić natywne atrybuty przycisku. Co odpowiada mechanizmowi attrs z Vue?',
             en: 'You are building a design-system Button and want native button attributes to pass through. What matches Vue attrs?'
           },
           options: [
             { pl: 'Nic - React przepuszcza atrybuty automatycznie', en: 'Nothing - React forwards attributes automatically' },
             { pl: 'Ustawienie inheritAttrs na true', en: 'Setting inheritAttrs to true' },
-            { pl: 'Typ ComponentPropsWithoutRef plus jawny spread reszty propsow', en: 'A ComponentPropsWithoutRef type plus an explicit spread of the rest' },
-            { pl: 'Uzycie dangerouslySetInnerHTML', en: 'Using dangerouslySetInnerHTML' }
+            { pl: 'Typ ComponentPropsWithoutRef plus jawny spread reszty propsów', en: 'A ComponentPropsWithoutRef type plus an explicit spread of the rest' },
+            { pl: 'Użycie dangerouslySetInnerHTML', en: 'Using dangerouslySetInnerHTML' }
           ],
           correct: 2,
           explain: {
-            pl: 'React nie ma automatycznego dziedziczenia atrybutow. Typujesz propsy przez ComponentPropsWithoutRef i sam robisz spread reszty na element.',
+            pl: 'React nie ma automatycznego dziedziczenia atrybutów. Typujesz propsy przez ComponentPropsWithoutRef i sam robisz spread reszty na element.',
             en: 'React has no automatic attribute inheritance. You type props with ComponentPropsWithoutRef and spread the rest onto the element yourself.'
           }
         }
@@ -676,35 +676,35 @@ export default {
         {
           term: { pl: 'Faza render', en: 'Render phase' },
           def: {
-            pl: 'Wywolanie funkcji komponentu, ktore buduje elementy. Musi byc czysta, bo React moze ja przerwac i powtorzyc.',
+            pl: 'Wywołanie funkcji komponentu, które buduje elementy. Musi być czysta, bo React może ją przerwać i powtórzyć.',
             en: 'The component function call that builds elements. It must be pure, because React may interrupt and replay it.'
           }
         },
         {
           term: { pl: 'Faza commit', en: 'Commit phase' },
           def: {
-            pl: 'Moment, w ktorym React nanosi obliczone zmiany na DOM i odpala efekty. Dlugi profil renderu, a nie commitu, wskazuje na zbyt wysoko trzymany stan.',
+            pl: 'Moment, w którym React nanosi obliczone zmiany na DOM i odpala efekty. Długi profil renderu, a nie commitu, wskazuje na zbyt wysoko trzymany stan.',
             en: 'The point where React applies the computed changes to the DOM and runs effects. A long render profile rather than commit points to state held too high.'
           }
         },
         {
           term: { pl: 'StrictMode', en: 'StrictMode' },
           def: {
-            pl: 'Tryb deweloperski, ktory montuje i renderuje komponent dwa razy, zeby ujawnic efekty uboczne i brakujace cleanupy.',
+            pl: 'Tryb deweloperski, który montuje i renderuje komponent dwa razy, żeby ujawnić efekty uboczne i brakujące cleanupy.',
             en: 'A development mode that mounts and renders a component twice to expose side effects and missing cleanups.'
           }
         },
         {
           term: { pl: 'Children jako props', en: 'Children as props' },
           def: {
-            pl: 'Trik wydajnosciowy: ciezkie poddrzewo tworzy komponent nadrzedny i przekazuje jako <code>children</code>, wiec zmiana stanu wrappera go nie renderuje. Dziala bez <code>memo</code>.',
+            pl: 'Trik wydajnościowy: ciężkie poddrzewo tworzy komponent nadrzędny i przekazuje jako <code>children</code>, więc zmiana stanu wrappera go nie renderuje. Działa bez <code>memo</code>.',
             en: 'A performance trick: the heavy subtree is created by the outer component and passed as <code>children</code>, so wrapper state changes do not re-render it. Works without <code>memo</code>.'
           }
         },
         {
           term: { pl: 'useTransition', en: 'useTransition' },
           def: {
-            pl: 'Hook oznaczajacy aktualizacje jako niepilna, zeby wpisywanie zostalo plynne mimo ciezkiego renderu. Blizniaczy <code>useDeferredValue</code> robi to dla samej wartosci.',
+            pl: 'Hook oznaczający aktualizację jako niepilną, żeby wpisywanie zostało płynne mimo ciężkiego renderu. Bliźniaczy <code>useDeferredValue</code> robi to dla samej wartości.',
             en: 'A hook that marks an update as non-urgent so typing stays smooth despite a heavy render. Its twin <code>useDeferredValue</code> does the same for a single value.'
           }
         }
@@ -743,14 +743,14 @@ export default {
           '<text x="320" y="352" text-anchor="middle" font-size="13" fill="var(--muted)">it does not mean the DOM was touched</text>' +
           '</svg>',
         caption: {
-          pl: 'Vue odswieza tylko efekty, ktore czytaly zmieniona wartosc. React uruchamia ponownie cala funkcje komponentu i jego dzieci, a dopiero diff decyduje, co dotknie DOM.',
+          pl: 'Vue odświeża tylko efekty, które czytały zmienioną wartość. React uruchamia ponownie całą funkcję komponentu i jego dzieci, a dopiero diff decyduje, co dotknie DOM.',
           en: 'Vue reruns only the effects that read the changed value. React re-runs the whole component function and its children, and only the diff decides what touches the DOM.'
         }
       },
       interactive: {
         kind: 'frames',
         caption: {
-          pl: 'Krok po kroku: co dzieje sie od klikniecia do zmiany piksela w Reactcie.',
+          pl: 'Krok po kroku: co dzieje się od kliknięcia do zmiany piksela w Reactcie.',
           en: 'Step by step: what happens from a click to a changed pixel in React.'
         },
         frames: [
@@ -772,7 +772,7 @@ export default {
               '</svg>',
             label: { pl: 'Stan spoczynku', en: 'Idle state' },
             note: {
-              pl: 'Drzewo jest wyrenderowane, count wynosi 0. Nic sie nie dzieje, dopoki nie zawolasz settera.',
+              pl: 'Drzewo jest wyrenderowane, count wynosi 0. Nic się nie dzieje, dopóki nie zawołasz settera.',
               en: 'The tree is rendered and count is 0. Nothing happens until you call the setter.'
             }
           },
@@ -792,9 +792,9 @@ export default {
               '<rect x="60" y="278" width="520" height="52" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
               '<text x="320" y="309" text-anchor="middle" font-size="14" fill="var(--ok)">click: state is queued, render is scheduled</text>' +
               '</svg>',
-            label: { pl: 'Klikniecie i kolejka', en: 'Click and queue' },
+            label: { pl: 'Kliknięcie i kolejka', en: 'Click and queue' },
             note: {
-              pl: 'setState nie zmienia zmiennej od razu - dopisuje aktualizacje do kolejki i planuje render. Dlatego zaraz po nim count nadal ma stara wartosc.',
+              pl: 'setState nie zmienia zmiennej od razu - dopisuje aktualizację do kolejki i planuje render. Dlatego zaraz po nim count nadal ma starą wartość.',
               en: 'setState does not mutate a variable on the spot - it queues the update and schedules a render. That is why count still reads the old value right after the call.'
             }
           },
@@ -814,9 +814,9 @@ export default {
               '<rect x="60" y="278" width="520" height="52" rx="10" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
               '<text x="320" y="309" text-anchor="middle" font-size="14" fill="var(--warn)">render: every function in the subtree re-runs</text>' +
               '</svg>',
-            label: { pl: 'Render calego poddrzewa', en: 'Whole subtree renders' },
+            label: { pl: 'Render całego poddrzewa', en: 'Whole subtree renders' },
             note: {
-              pl: 'React wywoluje funkcje App i wszystkich jej dzieci, nawet tych, ktore nie czytaja count. W Vue odpalilby sie tylko efekt renderujacy Label.',
+              pl: 'React wywołuje funkcję App i wszystkich jej dzieci, nawet tych, które nie czytają count. W Vue odpaliłby się tylko efekt renderujący Label.',
               en: 'React calls App and all of its children, even those that never read count. In Vue only the render effect for Label would rerun.'
             }
           },
@@ -838,7 +838,7 @@ export default {
               '</svg>',
             label: { pl: 'Commit do DOM', en: 'Commit to the DOM' },
             note: {
-              pl: 'Diff porownuje nowe elementy ze starymi i dotyka tylko jednego wezla tekstowego. Duzo renderow nie oznacza duzo pracy DOM - ale oznacza prace CPU.',
+              pl: 'Diff porównuje nowe elementy ze starymi i dotyka tylko jednego węzła tekstowego. Dużo renderów nie oznacza dużo pracy DOM - ale oznacza pracę CPU.',
               en: 'The diff compares new elements with old ones and touches a single text node. Many renders do not mean much DOM work - but they do mean CPU work.'
             }
           },
@@ -859,9 +859,9 @@ export default {
               '<rect x="60" y="278" width="520" height="52" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
               '<text x="320" y="309" text-anchor="middle" font-size="14" fill="var(--ok)">memo or colocation cuts the branch off</text>' +
               '</svg>',
-            label: { pl: 'Odcinanie galezi', en: 'Cutting the branch' },
+            label: { pl: 'Odcinanie gałęzi', en: 'Cutting the branch' },
             note: {
-              pl: 'React.memo albo przeniesienie stanu nizej sprawia, ze galaz bez zaleznosci nie jest w ogole wywolywana. To reczny odpowiednik tego, co Vue robi automatycznie.',
+              pl: 'React.memo albo przeniesienie stanu niżej sprawia, że gałąź bez zależności nie jest w ogóle wywoływana. To ręczny odpowiednik tego, co Vue robi automatycznie.',
               en: 'React.memo or moving the state lower stops an unrelated branch from being called at all. It is the manual version of what Vue does automatically.'
             }
           }
@@ -869,29 +869,29 @@ export default {
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie kucharza, ktory na kazde zamowienie pisze od nowa cale menu na kartce. Zmienila sie jedna cena? Kartka i tak powstaje od poczatku.</p>' +
-            '<p>Brzmi jak marnotrawstwo, ale jest sztuczka: zanim kelner poniesie kartke na sale, ktos porownuje nowa wersje ze stara i przepisuje na tablicy tylko te jedna cyfre. Reszta zostaje bez ruchu.</p>' +
-            '<p>Vue robi to inaczej: pilnuje, kto o co pytal. Skoro tylko jedno danie interesowalo sie cena, tylko ono dostaje powiadomienie. Zadnego przepisywania calego menu.</p>' +
-            '<p>Oba sposoby daja ten sam wynik na tablicy. Roznica jest w tym, ile pracy idzie w kartke, ktorej i tak nikt nie zobaczy. Dlatego w Reactcie warto wiedziec, kiedy kucharz pisze za duzo.</p>',
+          pl: '<p>Wyobraź sobie kucharza, który na każde zamówienie pisze od nowa całe menu na kartce. Zmieniła się jedna cena? Kartka i tak powstaje od początku.</p>' +
+            '<p>Brzmi jak marnotrawstwo, ale jest sztuczka: zanim kelner poniesie kartkę na salę, ktoś porównuje nową wersję ze starą i przepisuje na tablicy tylko tę jedną cyfrę. Reszta zostaje bez ruchu.</p>' +
+            '<p>Vue robi to inaczej: pilnuje, kto o co pytał. Skoro tylko jedno danie interesowało się ceną, tylko ono dostaje powiadomienie. Żadnego przepisywania całego menu.</p>' +
+            '<p>Oba sposoby dają ten sam wynik na tablicy. Różnica jest w tym, ile pracy idzie w kartkę, której i tak nikt nie zobaczy. Dlatego w Reactcie warto wiedzieć, kiedy kucharz pisze za dużo.</p>',
           en: '<p>Picture a chef who rewrites the entire menu on a sheet of paper for every single order. One price changed? The sheet gets written from scratch anyway.</p>' +
             '<p>Sounds wasteful, but there is a trick: before the waiter carries it out, somebody compares the new sheet with the old one and rewrites only that one digit on the board. Everything else stays untouched.</p>' +
             '<p>Vue does it differently: it keeps track of who asked about what. Since only one dish cared about the price, only that dish gets notified. No rewriting of the whole menu.</p>' +
             '<p>Both approaches put the same thing on the board. The difference is how much effort goes into a sheet nobody will ever see. So in React it pays to know when the chef is writing too much.</p>'
         },
         school: {
-          pl: '<p>To jest ta lekcja, po ktorej wszystko inne w Reactcie zaczyna miec sens. <strong>W Vue funkcja setup uruchamia sie raz, a potem reaktywnosc odswieza tylko te fragmenty, ktore czytaly zmieniona wartosc. W Reactcie cala funkcja komponentu wykonuje sie od nowa przy kazdej zmianie stanu</strong> - bo React nie sledzi, co czytales.</p>' +
+          pl: '<p>To jest ta lekcja, po której wszystko inne w Reactcie zaczyna mieć sens. <strong>W Vue funkcja setup uruchamia się raz, a potem reaktywność odświeża tylko te fragmenty, które czytały zmienioną wartość. W Reactcie cała funkcja komponentu wykonuje się od nowa przy każdej zmianie stanu</strong> - bo React nie śledzi, co czytałeś.</p>' +
             '<h4>Vue</h4>' +
-            '<pre><code>&lt;script setup&gt;\nconst count = ref(0)\nconsole.log("setup")   // wypisze sie RAZ\n&lt;/script&gt;\n&lt;template&gt;&lt;button @click="count++"&gt;{{ count }}&lt;/button&gt;&lt;/template&gt;</code></pre>' +
+            '<pre><code>&lt;script setup&gt;\nconst count = ref(0)\nconsole.log("setup")   // wypisze się RAZ\n&lt;/script&gt;\n&lt;template&gt;&lt;button @click="count++"&gt;{{ count }}&lt;/button&gt;&lt;/template&gt;</code></pre>' +
             '<h4>React</h4>' +
-            '<pre><code>function Counter() {\n  const [count, setCount] = useState(0)\n  console.log("render")  // wypisze sie przy KAZDYM klikniecie\n  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;\n}</code></pre>' +
-            '<p>Trzy wnioski, ktore trzeba zapamietac na zawsze:</p>' +
+            '<pre><code>function Counter() {\n  const [count, setCount] = useState(0)\n  console.log("render")  // wypisze się przy KAŻDYM kliknięciu\n  return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;\n}</code></pre>' +
+            '<p>Trzy wnioski, które trzeba zapamiętać na zawsze:</p>' +
             '<ol>' +
-            '<li>Zwykla zmienna zadeklarowana w ciele komponentu ginie przy kazdym renderze. Dlatego stan musi mieszkac w <code>useState</code>, a nie w <code>let</code>.</li>' +
-            '<li><code>setCount</code> nie zmienia zmiennej natychmiast. Kolejkuje aktualizacje; <code>count</code> w biezacym renderze pozostaje stary. Jesli nowa wartosc zalezy od poprzedniej, uzywaj wersji funkcyjnej: <code>setCount(c =&gt; c + 1)</code>.</li>' +
-            '<li>Re-render nie oznacza dotkniecia DOM. React porownuje wynik ze starym drzewem i patchuje tylko roznice.</li>' +
+            '<li>Zwykła zmienna zadeklarowana w ciele komponentu ginie przy każdym renderze. Dlatego stan musi mieszkać w <code>useState</code>, a nie w <code>let</code>.</li>' +
+            '<li><code>setCount</code> nie zmienia zmiennej natychmiast. Kolejkuje aktualizację; <code>count</code> w bieżącym renderze pozostaje stary. Jeśli nowa wartość zależy od poprzedniej, używaj wersji funkcyjnej: <code>setCount(c =&gt; c + 1)</code>.</li>' +
+            '<li>Re-render nie oznacza dotknięcia DOM. React porównuje wynik ze starym drzewem i patchuje tylko różnice.</li>' +
             '</ol>' +
-            '<p>Wazna konsekwencja: stan jest niemutowalny. Gdzie w Vue robiles <code>state.items.push(x)</code>, w Reactcie robisz <code>setItems([...items, x])</code>. Nie dlatego, ze niemutowalnosc jest ladniejsza, tylko dlatego, ze React porownuje referencje - ten sam obiekt oznacza dla niego brak zmiany.</p>' +
-            '<p>Aktualizacje sa batchowane: trzy wywolania setterow w jednym handlerze daja jeden render, nie trzy. To odpowiednik kolejki mikrozadan i <code>nextTick</code> w Vue.</p>',
+            '<p>Ważna konsekwencja: stan jest niemutowalny. Gdzie w Vue robiłeś <code>state.items.push(x)</code>, w Reactcie robisz <code>setItems([...items, x])</code>. Nie dlatego, że niemutowalność jest ładniejsza, tylko dlatego, że React porównuje referencje - ten sam obiekt oznacza dla niego brak zmiany.</p>' +
+            '<p>Aktualizacje są batchowane: trzy wywołania setterów w jednym handlerze dają jeden render, nie trzy. To odpowiednik kolejki mikrozadań i <code>nextTick</code> w Vue.</p>',
           en: '<p>This is the lesson after which everything else in React starts making sense. <strong>In Vue setup runs once and reactivity then refreshes only the parts that read the changed value. In React the entire component function runs again on every state change</strong> - because React never tracked what you read.</p>' +
             '<h4>Vue</h4>' +
             '<pre><code>&lt;script setup&gt;\nconst count = ref(0)\nconsole.log("setup")   // logs ONCE\n&lt;/script&gt;\n&lt;template&gt;&lt;button @click="count++"&gt;{{ count }}&lt;/button&gt;&lt;/template&gt;</code></pre>' +
@@ -907,20 +907,20 @@ export default {
             '<p>Updates are batched: three setter calls in one handler produce one render, not three. It is the equivalent of the microtask queue and <code>nextTick</code> in Vue.</p>'
         },
         pro: {
-          pl: '<p>Model wykonania: <strong>render</strong> (czysta funkcja, buduje elementy), <strong>reconciliation</strong> (porownanie z poprzednim drzewem) i <strong>commit</strong> (mutacje DOM plus efekty). Render moze zostac przerwany i powtorzony - dlatego musi byc czysty i dlatego <code>StrictMode</code> w devie wola go dwa razy, zeby wylapac efekty uboczne.</p>' +
-            '<h4>Dlaczego to inny model kosztowy niz Vue</h4>' +
-            '<p>Vue kosztuje mniej wywolan, bo zaleznosci sa sledzone na poziomie wartosci. React kosztuje wiecej wywolan, ale kazde jest tanie i przewidywalne, a diff jest plaski. Praktycznie: aplikacja Reactowa z 2000 komponentow i stanem trzymanym w korzeniu bedzie zacinac sie na klawiaturze, mimo ze DOM prawie sie nie zmienia. Profiler pokaze wtedy dlugi commit fazy render, a nie layout.</p>' +
-            '<pre><code>// Zamiast trzymac stan w korzeniu:\nfunction Page() {\n  const [q, setQ] = useState("")     // rerenderuje cala strone\n  return &lt;&gt;&lt;Search value={q} onChange={setQ} /&gt;&lt;HeavyTable /&gt;&lt;/&gt;\n}\n\n// Skoloku stan albo przekaz drzewo jako children:\nfunction Page({ children }) {\n  const [q, setQ] = useState("")\n  return &lt;&gt;&lt;Search value={q} onChange={setQ} /&gt;{children}&lt;/&gt;\n}\n// &lt;Page&gt;&lt;HeavyTable /&gt;&lt;/Page&gt; - HeavyTable jest tworzony wyzej,\n// wiec jego element nie zmienia referencji i diff go pomija.</code></pre>' +
-            '<h4>Kolejnosc dzwigni</h4>' +
+          pl: '<p>Model wykonania: <strong>render</strong> (czysta funkcja, buduje elementy), <strong>reconciliation</strong> (porównanie z poprzednim drzewem) i <strong>commit</strong> (mutacje DOM plus efekty). Render może zostać przerwany i powtórzony - dlatego musi być czysty i dlatego <code>StrictMode</code> w devie woła go dwa razy, żeby wyłapać efekty uboczne.</p>' +
+            '<h4>Dlaczego to inny model kosztowy niż Vue</h4>' +
+            '<p>Vue kosztuje mniej wywołań, bo zależności są śledzone na poziomie wartości. React kosztuje więcej wywołań, ale każde jest tanie i przewidywalne, a diff jest płaski. Praktycznie: aplikacja Reactowa z 2000 komponentów i stanem trzymanym w korzeniu będzie zacinać się na klawiaturze, mimo że DOM prawie się nie zmienia. Profiler pokaże wtedy długi commit fazy render, a nie layout.</p>' +
+            '<pre><code>// Zamiast trzymać stan w korzeniu:\nfunction Page() {\n  const [q, setQ] = useState("")     // rerenderuje całą stronę\n  return &lt;&gt;&lt;Search value={q} onChange={setQ} /&gt;&lt;HeavyTable /&gt;&lt;/&gt;\n}\n\n// Skoloku stan albo przekaż drzewo jako children:\nfunction Page({ children }) {\n  const [q, setQ] = useState("")\n  return &lt;&gt;&lt;Search value={q} onChange={setQ} /&gt;{children}&lt;/&gt;\n}\n// &lt;Page&gt;&lt;HeavyTable /&gt;&lt;/Page&gt; - HeavyTable jest tworzony wyżej,\n// więc jego element nie zmienia referencji i diff go pomija.</code></pre>' +
+            '<h4>Kolejność dźwigni</h4>' +
             '<ol>' +
-            '<li><strong>Kolokacja</strong> - obniz stan tak nisko, jak sie da. Najtansze i najskuteczniejsze.</li>' +
-            '<li><strong>Children jako props</strong> - opisany wyzej trik, dziala bez memo.</li>' +
-            '<li><strong>React.memo plus useMemo/useCallback</strong> - dopiero gdy pierwsze dwa nie wystarcza. Kazde memo kosztuje porownanie i pamiec.</li>' +
-            '<li><strong>useTransition / useDeferredValue</strong> - gdy render jest z natury ciezki (filtrowanie duzej listy) i chcesz zachowac responsywnosc wpisywania.</li>' +
+            '<li><strong>Kolokacja</strong> - obniż stan tak nisko, jak się da. Najtańsze i najskuteczniejsze.</li>' +
+            '<li><strong>Children jako props</strong> - opisany wyżej trik, działa bez memo.</li>' +
+            '<li><strong>React.memo plus useMemo/useCallback</strong> - dopiero gdy pierwsze dwa nie wystarczą. Każde memo kosztuje porównanie i pamięć.</li>' +
+            '<li><strong>useTransition / useDeferredValue</strong> - gdy render jest z natury ciężki (filtrowanie dużej listy) i chcesz zachować responsywność wpisywania.</li>' +
             '</ol>' +
-            '<p>W React 19 dochodzi kompilator, ktory automatycznie wstawia memoizacje na podstawie analizy kodu - efektywnie zblizajac ergonomie do Vue. Nie zwalnia to jednak z kolokacji: kompilator nie przeniesie stanu za ciebie.</p>' +
-            '<p>Liczby, ktore warto miec w glowie: render prostego komponentu to okolo 5-50 mikrosekund, wiec 500 niepotrzebnych renderow na keystroke to juz odczuwalne kilkanascie milisekund. Budzet na interakcje to 50 ms, wiec problem robi sie realny szybciej, niz sie wydaje.</p>' +
-            '<p>Na rozmowie pada klasyk: dlaczego <code>setCount(count + 1)</code> trzy razy pod rzad zwiekszy licznik o jeden. Odpowiedz: <code>count</code> jest zamrozony w domknieciu tego renderu, a aktualizacje sa kolejkowane - wersja funkcyjna to naprawia.</p>',
+            '<p>W React 19 dochodzi kompilator, który automatycznie wstawia memoizację na podstawie analizy kodu - efektywnie zbliżając ergonomię do Vue. Nie zwalnia to jednak z kolokacji: kompilator nie przeniesie stanu za ciebie.</p>' +
+            '<p>Liczby, które warto mieć w głowie: render prostego komponentu to około 5-50 mikrosekund, więc 500 niepotrzebnych renderów na keystroke to już odczuwalne kilkanaście milisekund. Budżet na interakcję to 50 ms, więc problem robi się realny szybciej, niż się wydaje.</p>' +
+            '<p>Na rozmowie pada klasyk: dlaczego <code>setCount(count + 1)</code> trzy razy pod rząd zwiększy licznik o jeden. Odpowiedź: <code>count</code> jest zamrożony w domknięciu tego renderu, a aktualizacje są kolejkowane - wersja funkcyjna to naprawia.</p>',
           en: '<p>Execution model: <strong>render</strong> (a pure function that builds elements), <strong>reconciliation</strong> (diff against the previous tree) and <strong>commit</strong> (DOM mutations plus effects). Render can be interrupted and replayed - which is why it must be pure and why <code>StrictMode</code> calls it twice in development to expose side effects.</p>' +
             '<h4>Why the cost model differs from Vue</h4>' +
             '<p>Vue costs fewer calls because dependencies are tracked per value. React costs more calls, but each is cheap and predictable, and the diff is flat. In practice: a React app with 2000 components and root-level state will stutter on keystrokes even though the DOM barely changes. The profiler shows a long render phase, not layout.</p>' +
@@ -940,35 +940,35 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Ile razy wykona sie cialo funkcji komponentu Reacta po dziesieciu zmianach stanu?',
+            pl: 'Ile razy wykona się ciało funkcji komponentu Reacta po dziesięciu zmianach stanu?',
             en: 'How many times does a React component function body run after ten state changes?'
           },
           options: [
             { pl: 'Raz, jak setup w Vue', en: 'Once, like Vue setup' },
-            { pl: 'Co najmniej raz na kazda zmiane, ktora nie zostala zbatchowana', en: 'At least once per change that was not batched' },
+            { pl: 'Co najmniej raz na każdą zmianę, która nie została zbatchowana', en: 'At least once per change that was not batched' },
             { pl: 'Tylko przy montowaniu i odmontowaniu', en: 'Only on mount and unmount' },
             { pl: 'Nigdy - JSX jest kompilowany statycznie', en: 'Never - JSX is compiled statically' }
           ],
           correct: 1,
           explain: {
-            pl: 'Funkcja komponentu jest wywolywana ponownie przy kazdym renderze. Setup w Vue uruchamia sie raz, bo reaktywnosc dziala na poziomie wartosci.',
+            pl: 'Funkcja komponentu jest wywoływana ponownie przy każdym renderze. Setup w Vue uruchamia się raz, bo reaktywność działa na poziomie wartości.',
             en: 'The component function is called again on every render. Vue setup runs once because reactivity works at the value level.'
           }
         },
         {
           q: {
-            pl: 'W jednym handlerze wolasz setCount(count + 1) trzy razy. Jaki bedzie wynik?',
+            pl: 'W jednym handlerze wołasz setCount(count + 1) trzy razy. Jaki będzie wynik?',
             en: 'You call setCount(count + 1) three times in one handler. What is the result?'
           },
           options: [
             { pl: 'Licznik rosnie o trzy', en: 'The counter grows by three' },
-            { pl: 'Rzucany jest blad o zbyt wielu aktualizacjach', en: 'An error about too many updates is thrown' },
+            { pl: 'Rzucany jest błąd o zbyt wielu aktualizacjach', en: 'An error about too many updates is thrown' },
             { pl: 'Licznik rosnie o jeden', en: 'The counter grows by one' },
-            { pl: 'Nastepuja trzy osobne rendery po jednym przyroscie', en: 'Three separate renders happen with one increment each' }
+            { pl: 'Następują trzy osobne rendery po jednym przyroście', en: 'Three separate renders happen with one increment each' }
           ],
           correct: 2,
           explain: {
-            pl: 'count jest zamrozony w domknieciu biezacego renderu, wiec trzy razy liczysz to samo. setCount(c => c + 1) rozwiazuje problem.',
+            pl: 'count jest zamrożony w domknięciu bieżącego renderu, więc trzy razy liczysz to samo. setCount(c => c + 1) rozwiązuje problem.',
             en: 'count is frozen in the current render closure, so you compute the same value three times. setCount(c => c + 1) fixes it.'
           }
         },
@@ -978,31 +978,31 @@ export default {
             en: 'Why should you not do items.push(x) on React state?'
           },
           options: [
-            { pl: 'Bo push jest wolniejszy niz spread', en: 'Because push is slower than a spread' },
-            { pl: 'Bo React porownuje referencje i ta sama tablica oznacza brak zmiany', en: 'Because React compares references and the same array means no change' },
-            { pl: 'Bo tablice sa zamrozone przez Object.freeze', en: 'Because arrays are frozen with Object.freeze' },
-            { pl: 'Bo push nie dziala w trybie StrictMode', en: 'Because push does not work in StrictMode' }
+            { pl: 'Bo push jest wolniejszy niż spread', en: 'Because push is slower than a spread' },
+            { pl: 'Bo React porównuje referencje i ta sama tablica oznacza brak zmiany', en: 'Because React compares references and the same array means no change' },
+            { pl: 'Bo tablice są zamrożone przez Object.freeze', en: 'Because arrays are frozen with Object.freeze' },
+            { pl: 'Bo push nie działa w trybie StrictMode', en: 'Because push does not work in StrictMode' }
           ],
           correct: 1,
           explain: {
-            pl: 'React nie ma proxy sledzacych mutacje jak Vue. Nowa referencja to jedyny sygnal, ze cos sie zmienilo.',
+            pl: 'React nie ma proxy śledzących mutacje jak Vue. Nowa referencja to jedyny sygnał, że coś się zmieniło.',
             en: 'React has no mutation-tracking proxies like Vue. A new reference is the only signal that something changed.'
           }
         },
         {
           q: {
-            pl: 'Wpisywanie w pole wyszukiwania zacina sie, choc DOM prawie sie nie zmienia. Ktory ruch najczesciej pomaga jako pierwszy?',
+            pl: 'Wpisywanie w pole wyszukiwania zacina się, choć DOM prawie się nie zmienia. Który ruch najczęściej pomaga jako pierwszy?',
             en: 'Typing in a search field stutters even though the DOM barely changes. Which move usually helps first?'
           },
           options: [
-            { pl: 'Owinac wszystko w useMemo', en: 'Wrap everything in useMemo' },
-            { pl: 'Zamienic kontrolowany input na niekontrolowany z refem', en: 'Swap the controlled input for an uncontrolled one with a ref' },
-            { pl: 'Wlaczyc StrictMode w produkcji', en: 'Enable StrictMode in production' },
-            { pl: 'Obnizyc stan do komponentu pola i oddzielic ciezkie poddrzewo przez children', en: 'Push state down into the field and split off the heavy subtree via children' }
+            { pl: 'Owinąć wszystko w useMemo', en: 'Wrap everything in useMemo' },
+            { pl: 'Zamienić kontrolowany input na niekontrolowany z refem', en: 'Swap the controlled input for an uncontrolled one with a ref' },
+            { pl: 'Włączyć StrictMode w produkcji', en: 'Enable StrictMode in production' },
+            { pl: 'Obniżyć stan do komponentu pola i oddzielić ciężkie poddrzewo przez children', en: 'Push state down into the field and split off the heavy subtree via children' }
           ],
           correct: 3,
           explain: {
-            pl: 'Problem to faza renderu calego poddrzewa, wiec kolokacja stanu i przekazanie ciezkiej czesci jako children usuwa przyczyne. Memo doklada tylko koszt porownan.',
+            pl: 'Problem to faza renderu całego poddrzewa, więc kolokacja stanu i przekazanie ciężkiej części jako children usuwa przyczynę. Memo dokłada tylko koszt porównań.',
             en: 'The problem is the render phase over the whole subtree, so colocating state and passing the heavy part as children removes the cause. Memo only adds comparison cost.'
           }
         }
@@ -1020,35 +1020,35 @@ export default {
         {
           term: { pl: 'Reconciliation', en: 'Reconciliation' },
           def: {
-            pl: 'Algorytm porownujacy nowe drzewo elementow ze starym. Liniowy i heurystyczny: porownuje rodzenstwo po kolei, korzystajac z mapy kluczy.',
+            pl: 'Algorytm porównujący nowe drzewo elementów ze starym. Liniowy i heurystyczny: porównuje rodzeństwo po kolei, korzystając z mapy kluczy.',
             en: 'The algorithm diffing the new element tree against the old one. Linear and heuristic: it walks siblings in order using a map of keys.'
           }
         },
         {
           term: { pl: 'key', en: 'key' },
           def: {
-            pl: 'Specjalny prop nadajacy elementowi tozsamosc wsrod rodzenstwa. Musi byc stabilny - <code>Math.random()</code> gwarantuje remount przy kazdym renderze.',
+            pl: 'Specjalny prop nadający elementowi tożsamość wśród rodzeństwa. Musi być stabilny - <code>Math.random()</code> gwarantuje remount przy każdym renderze.',
             en: 'A special prop giving an element identity among its siblings. It must be stable - <code>Math.random()</code> guarantees a remount on every render.'
           }
         },
         {
           term: { pl: 'Remount', en: 'Remount' },
           def: {
-            pl: 'Odmontowanie starej instancji i zamontowanie nowej. Ginie stan hookow, odpalaja sie cleanupy, znika focus, scroll i zaznaczenie tekstu.',
+            pl: 'Odmontowanie starej instancji i zamontowanie nowej. Ginie stan hooków, odpalają się cleanupy, znika focus, scroll i zaznaczenie tekstu.',
             en: 'Unmounting the old instance and mounting a new one. Hook state is lost, cleanups run, and focus, scroll and text selection disappear.'
           }
         },
         {
           term: { pl: 'key jako reset', en: 'key as a reset' },
           def: {
-            pl: 'Zmiana klucza celowo wymusza remount, np. <code>&lt;Form key={userId} /&gt;</code> czysci caly formularz. W Vue pisalbys do tego <code>watch</code>.',
+            pl: 'Zmiana klucza celowo wymusza remount, np. <code>&lt;Form key={userId} /&gt;</code> czyści cały formularz. W Vue pisałbyś do tego <code>watch</code>.',
             en: 'Changing the key deliberately forces a remount, e.g. <code>&lt;Form key={userId} /&gt;</code> clears the whole form. In Vue you would write a <code>watch</code> for that.'
           }
         },
         {
           term: { pl: 'Indeks jako klucz', en: 'Index as key' },
           def: {
-            pl: 'Bezpieczny wylacznie dla listy tylko do odczytu, ktora nigdy sie nie sortuje ani nie dostaje elementow na poczatek. Inaczej stan wedruje do zlych wierszy.',
+            pl: 'Bezpieczny wyłącznie dla listy tylko do odczytu, która nigdy się nie sortuje ani nie dostaje elementów na początek. Inaczej stan wędruje do złych wierszy.',
             en: 'Safe only for a read-only list that never reorders and never gets items prepended. Otherwise state migrates into the wrong rows.'
           }
         }
@@ -1081,14 +1081,14 @@ export default {
           '<text x="320" y="362" text-anchor="middle" font-size="13" fill="var(--muted)">same rule as :key in Vue, with harsher consequences</text>' +
           '</svg>',
         caption: {
-          pl: 'Klucz mowi Reactowi, ktory element to ten sam element. Indeks jako klucz przy wstawianiu na poczatek przesuwa stan do zlych wierszy.',
+          pl: 'Klucz mówi Reactowi, który element to ten sam element. Indeks jako klucz przy wstawianiu na początek przesuwa stan do złych wierszy.',
           en: 'A key tells React which element is the same element. Using the index as a key shifts state into the wrong rows when you prepend.'
         }
       },
       interactive: {
         kind: 'frames',
         caption: {
-          pl: 'Wstawiamy Zoe na poczatek listy z polami tekstowymi - najpierw z kluczem po indeksie, potem z kluczem po id.',
+          pl: 'Wstawiamy Zoe na początek listy z polami tekstowymi - najpierw z kluczem po indeksie, potem z kluczem po id.',
           en: 'Prepending Zoe to a list of text fields - first with index keys, then with id keys.'
         },
         frames: [
@@ -1109,9 +1109,9 @@ export default {
               '<text x="380" y="204" font-size="14" fill="var(--accent2)">typed: ccc</text>' +
               '<text x="320" y="270" text-anchor="middle" font-size="13" fill="var(--muted)">state lives in the component instance, not in the data</text>' +
               '</svg>',
-            label: { pl: 'Punkt wyjscia', en: 'Starting point' },
+            label: { pl: 'Punkt wyjścia', en: 'Starting point' },
             note: {
-              pl: 'Kazdy wiersz ma wlasny input i wlasny stan lokalny. Klucze to indeksy: 0, 1, 2.',
+              pl: 'Każdy wiersz ma własny input i własny stan lokalny. Klucze to indeksy: 0, 1, 2.',
               en: 'Each row has its own input and its own local state. The keys are indexes: 0, 1, 2.'
             }
           },
@@ -1134,7 +1134,7 @@ export default {
               '</svg>',
             label: { pl: 'Bug z indeksem', en: 'The index bug' },
             note: {
-              pl: 'Nazwy przesunely sie o jeden, ale klucze nie. React uznaje, ze to te same instancje i zostawia stara zawartosc inputow przy zlych osobach.',
+              pl: 'Nazwy przesunęły się o jeden, ale klucze nie. React uznaje, że to te same instancje i zostawia starą zawartość inputów przy złych osobach.',
               en: 'The names shifted by one but the keys did not. React treats these as the same instances and leaves the old input contents attached to the wrong people.'
             }
           },
@@ -1157,7 +1157,7 @@ export default {
               '</svg>',
             label: { pl: 'Skutek', en: 'The consequence' },
             note: {
-              pl: 'Trzy wiersze musialy zostac zaktualizowane, a stan inputow trafil do zlych osob. Ostatni wiersz zniknal razem ze swoim stanem.',
+              pl: 'Trzy wiersze musiały zostać zaktualizowane, a stan inputów trafił do złych osób. Ostatni wiersz zniknął razem ze swoim stanem.',
               en: 'Three rows had to be patched and the input state landed on the wrong people. The last row was unmounted together with its state.'
             }
           },
@@ -1180,7 +1180,7 @@ export default {
               '</svg>',
             label: { pl: 'Klucz po id', en: 'Keyed by id' },
             note: {
-              pl: 'Stabilne id pozwala Reactowi rozpoznac, ze Ada i Bo to te same instancje, a Zoe jest nowa. To dokladnie ta sama zasada, co :key w Vue.',
+              pl: 'Stabilne id pozwala Reactowi rozpoznać, że Ada i Bo to te same instancje, a Zoe jest nowa. To dokładnie ta sama zasada, co :key w Vue.',
               en: 'A stable id lets React see that Ada and Bo are the same instances and Zoe is new. Exactly the same principle as :key in Vue.'
             }
           },
@@ -1200,7 +1200,7 @@ export default {
               '</svg>',
             label: { pl: 'Klucz jako reset', en: 'Key as a reset' },
             note: {
-              pl: 'Zmiana klucza celowo niszczy instancje i tworzy nowa. Zamiast watcha resetujacego formularz po zmianie id, dajesz key={userId}.',
+              pl: 'Zmiana klucza celowo niszczy instancję i tworzy nową. Zamiast watcha resetującego formularz po zmianie id, dajesz key={userId}.',
               en: 'Changing the key deliberately destroys the instance and creates a new one. Instead of a watcher resetting the form when the id changes, you write key={userId}.'
             }
           }
@@ -1208,29 +1208,29 @@ export default {
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie szatnie z wieszakami. Kazda kurtka dostaje numerek. Kiedy przychodzisz po swoja kurtke, podajesz numerek i dostajesz dokladnie ta swoja.</p>' +
-            '<p>A teraz zla wersja: numerki sa przypisane do <em>miejsca na drazku</em>, nie do kurtki. Ktos wciska nowa kurtke na sam poczatek, wszystko przesuwa sie o jedno miejsce - i nagle numerek jeden nalezy do kogos innego. Ludzie wychodza w cudzych plaszczach.</p>' +
-            '<p>Dokladnie to robi React, gdy jako numerek dasz pozycje na liscie. Trzeba dac numerek, ktory nalezy do rzeczy, a nie do polki: identyfikator z bazy.</p>' +
-            '<p>Bonus: skoro numerek decyduje o tozsamosci, to zmieniajac go celowo, mowisz Reactowi <em>to juz inna kurtka</em> - i wszystko zaczyna sie od nowa.</p>',
+          pl: '<p>Wyobraź sobie szatnię z wieszakami. Każda kurtka dostaje numerek. Kiedy przychodzisz po swoją kurtkę, podajesz numerek i dostajesz dokładnie tę swoją.</p>' +
+            '<p>A teraz zła wersja: numerki są przypisane do <em>miejsca na drążku</em>, nie do kurtki. Ktoś wciska nową kurtkę na sam początek, wszystko przesuwa się o jedno miejsce - i nagle numerek jeden należy do kogoś innego. Ludzie wychodzą w cudzych płaszczach.</p>' +
+            '<p>Dokładnie to robi React, gdy jako numerek dasz pozycję na liście. Trzeba dać numerek, który należy do rzeczy, a nie do półki: identyfikator z bazy.</p>' +
+            '<p>Bonus: skoro numerek decyduje o tożsamości, to zmieniając go celowo, mówisz Reactowi <em>to już inna kurtka</em> - i wszystko zaczyna się od nowa.</p>',
           en: '<p>Picture a cloakroom with hangers. Every coat gets a tag. When you come back you hand over the tag and get exactly your coat.</p>' +
             '<p>Now the broken version: tags belong to a <em>spot on the rail</em>, not to a coat. Someone squeezes a new coat in at the front, everything shifts by one place - and suddenly tag one belongs to somebody else. People walk out in strangers coats.</p>' +
             '<p>That is precisely what React does when you use the position in the list as the tag. You need a tag that belongs to the thing, not to the shelf: an id from your database.</p>' +
             '<p>Bonus: since the tag decides identity, changing it on purpose tells React <em>this is a different coat now</em> - and everything starts fresh.</p>'
         },
         school: {
-          pl: '<p>Reconciliation to algorytm, ktory porownuje nowe drzewo elementow ze starym. Regula jest krotka: <strong>ten sam typ komponentu w tym samym miejscu i z tym samym kluczem oznacza te sama instancje</strong>, wiec stan i DOM sa zachowywane. Inny typ albo inny klucz - stara instancja jest odmontowywana, nowa montowana od zera.</p>' +
+          pl: '<p>Reconciliation to algorytm, który porównuje nowe drzewo elementów ze starym. Reguła jest krótka: <strong>ten sam typ komponentu w tym samym miejscu i z tym samym kluczem oznacza tę samą instancję</strong>, więc stan i DOM są zachowywane. Inny typ albo inny klucz - stara instancja jest odmontowywana, nowa montowana od zera.</p>' +
             '<h4>Vue</h4>' +
             '<pre><code>&lt;TodoRow v-for="t in todos" :key="t.id" :todo="t" /&gt;</code></pre>' +
             '<h4>React</h4>' +
             '<pre><code>{todos.map(t =&gt; &lt;TodoRow key={t.id} todo={t} /&gt;)}</code></pre>' +
-            '<p>Wyglada identycznie i w istocie <strong>w Vue uzywales :key i w Reactcie uzywasz key z tego samego powodu</strong>: oba runtime musza wiedziec, ktory wezel to ktory. Roznica jest w konsekwencjach. Vue czesciej wybroni sie samo, bo ma patch flagi i dodatkowe heurystyki. React bez klucza traktuje pozycje jako tozsamosc, wiec przy wstawianiu na poczatek stan komponentow przesuwa sie do zlych wierszy.</p>' +
-            '<p>Trzy praktyczne reguly:</p>' +
+            '<p>Wygląda identycznie i w istocie <strong>w Vue używałeś :key i w Reactcie używasz key z tego samego powodu</strong>: oba runtime muszą wiedzieć, który węzeł to który. Różnica jest w konsekwencjach. Vue częściej wybroni się samo, bo ma patch flagi i dodatkowe heurystyki. React bez klucza traktuje pozycję jako tożsamość, więc przy wstawianiu na początek stan komponentów przesuwa się do złych wierszy.</p>' +
+            '<p>Trzy praktyczne reguły:</p>' +
             '<ul>' +
-            '<li>Klucz musi byc <strong>stabilny</strong> - id z bazy albo uuid nadany przy tworzeniu. Nigdy <code>Math.random()</code>, bo to gwarantowany remount przy kazdym renderze.</li>' +
-            '<li>Indeks jest bezpieczny tylko wtedy, gdy lista jest tylko do odczytu i nigdy nie zmienia kolejnosci ani dlugosci na poczatku.</li>' +
-            '<li>Klucz jest lokalny dla rodzenstwa, nie globalny - dwie rozne listy moga miec te same klucze.</li>' +
+            '<li>Klucz musi być <strong>stabilny</strong> - id z bazy albo uuid nadany przy tworzeniu. Nigdy <code>Math.random()</code>, bo to gwarantowany remount przy każdym renderze.</li>' +
+            '<li>Indeks jest bezpieczny tylko wtedy, gdy lista jest tylko do odczytu i nigdy nie zmienia kolejności ani długości na początku.</li>' +
+            '<li>Klucz jest lokalny dla rodzeństwa, nie globalny - dwie różne listy mogą mieć te same klucze.</li>' +
             '</ul>' +
-            '<p>Jest tez druga strona medalu: klucz jako narzedzie. <code>&lt;Form key={userId} /&gt;</code> resetuje caly formularz przy zmianie uzytkownika. W Vue zwykle pisalbys do tego <code>watch</code> czyszczacy pola - tutaj wystarczy zmienic tozsamosc komponentu.</p>',
+            '<p>Jest też druga strona medalu: klucz jako narzędzie. <code>&lt;Form key={userId} /&gt;</code> resetuje cały formularz przy zmianie użytkownika. W Vue zwykle pisałbyś do tego <code>watch</code> czyszczący pola - tutaj wystarczy zmienić tożsamość komponentu.</p>',
           en: '<p>Reconciliation is the algorithm that diffs the new element tree against the old one. The rule is short: <strong>the same component type, in the same position, with the same key means the same instance</strong>, so state and DOM survive. A different type or key means the old instance unmounts and a new one mounts from scratch.</p>' +
             '<h4>Vue</h4>' +
             '<pre><code>&lt;TodoRow v-for="t in todos" :key="t.id" :todo="t" /&gt;</code></pre>' +
@@ -1246,24 +1246,24 @@ export default {
             '<p>There is a flip side: the key as a tool. <code>&lt;Form key={userId} /&gt;</code> resets the whole form when the user changes. In Vue you would usually write a <code>watch</code> to clear the fields - here you just change the component identity.</p>'
         },
         pro: {
-          pl: '<p>Reconciler Reacta jest z zalozenia heurystyczny i liniowy: nie szuka minimalnej odleglosci edycyjnej miedzy drzewami, tylko porownuje rodzenstwo po kolei, uzywajac mapy kluczy. Zalozenie brzmi: elementy roznego typu produkuja rozne drzewa, a deweloper podpowie tozsamosc kluczem. To daje zlozonosc O(n) zamiast O(n^3).</p>' +
-            '<h4>Co dokladnie ginie przy remount</h4>' +
+          pl: '<p>Reconciler Reacta jest z założenia heurystyczny i liniowy: nie szuka minimalnej odległości edycyjnej między drzewami, tylko porównuje rodzeństwo po kolei, używając mapy kluczy. Założenie brzmi: elementy różnego typu produkują różne drzewa, a deweloper podpowie tożsamość kluczem. To daje złożoność O(n) zamiast O(n^3).</p>' +
+            '<h4>Co dokładnie ginie przy remount</h4>' +
             '<ul>' +
-            '<li>Stan hookow (<code>useState</code>, <code>useReducer</code>) tego poddrzewa.</li>' +
-            '<li>Efekty - odpalaja sie cleanupy, potem efekty montujace na nowo. Subskrypcje, timery i zapytania startuja od zera.</li>' +
+            '<li>Stan hooków (<code>useState</code>, <code>useReducer</code>) tego poddrzewa.</li>' +
+            '<li>Efekty - odpalają się cleanupy, potem efekty montujące na nowo. Subskrypcje, timery i zapytania startują od zera.</li>' +
             '<li>Stan DOM nieodzwierciedlony w Reactcie: pozycja scrolla, focus, zaznaczenie tekstu, stan odtwarzania video.</li>' +
             '</ul>' +
-            '<p>Ostatni punkt jest tym, co najczesciej trafia na produkcje jako bug zglaszany przez uzytkownikow: przy dodaniu rekordu na gore listy pole traci focus w polowie pisania.</p>' +
-            '<pre><code>// Anty-wzorzec: nowy typ komponentu na kazdy render\nfunction Page() {\n  const Row = ({ item }) =&gt; &lt;li&gt;{item.name}&lt;/li&gt;  // nowa referencja za kazdym razem\n  return &lt;ul&gt;{items.map(i =&gt; &lt;Row key={i.id} item={i} /&gt;)}&lt;/ul&gt;\n}\n// Rezultat: caly poddrzewo montuje sie od nowa przy kazdym renderze.</code></pre>' +
-            '<h4>Roznice wobec Vue, ktore realnie bola przy migracji</h4>' +
-            '<p>W Vue <code>v-if</code> na dwoch galeziach o tym samym typie komponentu tez potrafi ponownie uzyc instancji i wymaga <code>key</code>, wiec sam problem jest znajomy. Nowe jest to, ze w Reactcie <em>pozycja w drzewie</em> jest czescia tozsamosci nawet bez list: <code>{cond ? &lt;Input /&gt; : &lt;Input /&gt;}</code> zachowa stan, bo to ten sam typ na tej samej pozycji. To najczestsze pytanie podchwytliwe na rozmowach.</p>' +
-            '<p>Praktyczne wnioski dla duzych list:</p>' +
+            '<p>Ostatni punkt jest tym, co najczęściej trafia na produkcję jako bug zgłaszany przez użytkowników: przy dodaniu rekordu na górę listy pole traci focus w połowie pisania.</p>' +
+            '<pre><code>// Anty-wzorzec: nowy typ komponentu na każdy render\nfunction Page() {\n  const Row = ({ item }) =&gt; &lt;li&gt;{item.name}&lt;/li&gt;  // nowa referencja za każdym razem\n  return &lt;ul&gt;{items.map(i =&gt; &lt;Row key={i.id} item={i} /&gt;)}&lt;/ul&gt;\n}\n// Rezultat: całe poddrzewo montuje się od nowa przy każdym renderze.</code></pre>' +
+            '<h4>Różnice wobec Vue, które realnie bolą przy migracji</h4>' +
+            '<p>W Vue <code>v-if</code> na dwóch gałęziach o tym samym typie komponentu też potrafi ponownie użyć instancji i wymaga <code>key</code>, więc sam problem jest znajomy. Nowe jest to, że w Reactcie <em>pozycja w drzewie</em> jest częścią tożsamości nawet bez list: <code>{cond ? &lt;Input /&gt; : &lt;Input /&gt;}</code> zachowa stan, bo to ten sam typ na tej samej pozycji. To najczęstsze pytanie podchwytliwe na rozmowach.</p>' +
+            '<p>Praktyczne wnioski dla dużych list:</p>' +
             '<ol>' +
-            '<li>Nadawaj id przy tworzeniu rekordu po stronie klienta (<code>crypto.randomUUID()</code>), nie czekaj na odpowiedz serwera - inaczej optimistic update dostanie nowy klucz i remount.</li>' +
-            '<li>Przy wirtualizacji (react-window, TanStack Virtual) klucz musi pochodzic z danych, nie z indeksu okna, inaczej scroll bedzie mieszal stan wierszy.</li>' +
+            '<li>Nadawaj id przy tworzeniu rekordu po stronie klienta (<code>crypto.randomUUID()</code>), nie czekaj na odpowiedź serwera - inaczej optimistic update dostanie nowy klucz i remount.</li>' +
+            '<li>Przy wirtualizacji (react-window, TanStack Virtual) klucz musi pochodzić z danych, nie z indeksu okna, inaczej scroll będzie mieszał stan wierszy.</li>' +
             '<li>Sortowanie po stronie klienta bez stabilnych kluczy to najszybsza droga do zgubionego focusu.</li>' +
             '</ol>' +
-            '<p>Warto tez znac koszt: React nie wykrywa przeniesienia poddrzewa w inne miejsce w drzewie. Przeniesiony komponent zawsze montuje sie od nowa, niezaleznie od klucza. Vue ma tu takie samo ograniczenie - to nie jest wada implementacji, tylko konsekwencja porownania po rodzenstwie.</p>',
+            '<p>Warto też znać koszt: React nie wykrywa przeniesienia poddrzewa w inne miejsce w drzewie. Przeniesiony komponent zawsze montuje się od nowa, niezależnie od klucza. Vue ma tu takie samo ograniczenie - to nie jest wada implementacji, tylko konsekwencja porównania po rodzeństwie.</p>',
           en: '<p>The React reconciler is deliberately heuristic and linear: it does not search for a minimal tree edit distance, it walks siblings in order using a key map. The assumption is that different element types produce different trees and that the developer supplies identity via keys. That buys O(n) instead of O(n^3).</p>' +
             '<h4>What exactly is lost on remount</h4>' +
             '<ul>' +
@@ -1291,31 +1291,31 @@ export default {
             en: 'Why does React need a key prop on list items?'
           },
           options: [
-            { pl: 'Do ustalenia kolejnosci CSS', en: 'To determine CSS ordering' },
-            { pl: 'Do rozpoznania, ktory element to ta sama instancja', en: 'To recognise which element is the same instance' },
+            { pl: 'Do ustalenia kolejności CSS', en: 'To determine CSS ordering' },
+            { pl: 'Do rozpoznania, który element to ta sama instancja', en: 'To recognise which element is the same instance' },
             { pl: 'Do cacheowania odpowiedzi z API', en: 'To cache API responses' },
             { pl: 'Do wygenerowania atrybutu id w DOM', en: 'To generate a DOM id attribute' }
           ],
           correct: 1,
           explain: {
-            pl: 'Klucz to tozsamosc elementu w obrebie rodzenstwa. Bez niego React uzywa pozycji, co przy zmianie kolejnosci przesuwa stan.',
+            pl: 'Klucz to tożsamość elementu w obrębie rodzeństwa. Bez niego React używa pozycji, co przy zmianie kolejności przesuwa stan.',
             en: 'The key is the identity of an element among its siblings. Without one React falls back to position, which shifts state when the order changes.'
           }
         },
         {
           q: {
-            pl: 'Co dzieje sie ze stanem komponentu, gdy zmienisz jego key?',
+            pl: 'Co dzieje się ze stanem komponentu, gdy zmienisz jego key?',
             en: 'What happens to a component state when you change its key?'
           },
           options: [
-            { pl: 'Stan jest zachowany, zmienia sie tylko DOM', en: 'State is preserved, only the DOM changes' },
+            { pl: 'Stan jest zachowany, zmienia się tylko DOM', en: 'State is preserved, only the DOM changes' },
             { pl: 'Stan jest scalany ze starym', en: 'State is merged with the old one' },
             { pl: 'Instancja jest odmontowywana i tworzona od nowa, stan znika', en: 'The instance unmounts and remounts, state is gone' },
-            { pl: 'Nic - key wplywa tylko na wydajnosc', en: 'Nothing - key only affects performance' }
+            { pl: 'Nic - key wpływa tylko na wydajność', en: 'Nothing - key only affects performance' }
           ],
           correct: 2,
           explain: {
-            pl: 'Inny klucz oznacza inna tozsamosc, wiec remount. To celowa technika resetowania formularzy, np. key={userId}.',
+            pl: 'Inny klucz oznacza inną tożsamość, więc remount. To celowa technika resetowania formularzy, np. key={userId}.',
             en: 'A different key means a different identity, so a remount. This is a deliberate technique for resetting forms, for example key={userId}.'
           }
         },
@@ -1326,30 +1326,30 @@ export default {
           },
           options: [
             { pl: 'Gdy lista jest statyczna, bez sortowania i wstawiania', en: 'When the list is static, never sorted and never inserted into' },
-            { pl: 'Zawsze, jesli elementy nie maja wlasnego stanu w DOM', en: 'Always, as long as items have no DOM state' },
-            { pl: 'Gdy lista jest krotsza niz 50 elementow', en: 'When the list is shorter than 50 items' },
+            { pl: 'Zawsze, jeśli elementy nie mają własnego stanu w DOM', en: 'Always, as long as items have no DOM state' },
+            { pl: 'Gdy lista jest krótsza niż 50 elementów', en: 'When the list is shorter than 50 items' },
             { pl: 'Nigdy - React to odrzuci', en: 'Never - React rejects it' }
           ],
           correct: 0,
           explain: {
-            pl: 'Indeks jest bezpieczny tylko dla listy niezmiennej pod wzgledem kolejnosci i dlugosci od poczatku. Kazde wstawienie na gore lamie tozsamosc.',
+            pl: 'Indeks jest bezpieczny tylko dla listy niezmiennej pod względem kolejności i długości od początku. Każde wstawienie na górę łamie tożsamość.',
             en: 'An index is safe only for a list whose order and leading length never change. Any prepend breaks identity.'
           }
         },
         {
           q: {
-            pl: 'Piszesz {isEdit ? <Input /> : <Input />} i dziwisz sie, ze po przelaczeniu wpisany tekst zostaje. Dlaczego?',
+            pl: 'Piszesz {isEdit ? <Input /> : <Input />} i dziwisz się, że po przełączeniu wpisany tekst zostaje. Dlaczego?',
             en: 'You write {isEdit ? <Input /> : <Input />} and are surprised the typed text survives the toggle. Why?'
           },
           options: [
-            { pl: 'Bo React cacheuje wartosci inputow globalnie', en: 'Because React caches input values globally' },
-            { pl: 'Bo przegladarka przywraca wartosc z autofill', en: 'Because the browser restores the value from autofill' },
+            { pl: 'Bo React cacheuje wartości inputów globalnie', en: 'Because React caches input values globally' },
+            { pl: 'Bo przeglądarka przywraca wartość z autofill', en: 'Because the browser restores the value from autofill' },
             { pl: 'Bo brakuje atrybutu defaultValue', en: 'Because a defaultValue attribute is missing' },
-            { pl: 'Bo to ten sam typ komponentu na tej samej pozycji, wiec ta sama instancja', en: 'Because it is the same component type in the same slot, hence the same instance' }
+            { pl: 'Bo to ten sam typ komponentu na tej samej pozycji, więc ta sama instancja', en: 'Because it is the same component type in the same slot, hence the same instance' }
           ],
           correct: 3,
           explain: {
-            pl: 'Pozycja w drzewie jest czescia tozsamosci. Zeby wymusic swiezy komponent, nadaj rozne klucze, np. key="edit" i key="view".',
+            pl: 'Pozycja w drzewie jest częścią tożsamości. Żeby wymusić świeży komponent, nadaj różne klucze, np. key="edit" i key="view".',
             en: 'Position in the tree is part of identity. To force a fresh component give them different keys, for example key="edit" and key="view".'
           }
         }
@@ -1367,35 +1367,35 @@ export default {
         {
           term: { pl: 'React Compiler', en: 'React Compiler' },
           def: {
-            pl: 'Kompilator wstawiajacy memoizacje automatycznie na podstawie analizy kodu, wiec <code>useMemo</code> i <code>useCallback</code> staja sie wyjatkiem. Ufa, ze render jest czysty.',
+            pl: 'Kompilator wstawiający memoizację automatycznie na podstawie analizy kodu, więc <code>useMemo</code> i <code>useCallback</code> stają się wyjątkiem. Ufa, że render jest czysty.',
             en: 'A compiler that inserts memoisation automatically from static analysis, making <code>useMemo</code> and <code>useCallback</code> the exception. It trusts that render is pure.'
           }
         },
         {
           term: { pl: 'RSC', en: 'RSC' },
           def: {
-            pl: 'React Server Components - komponenty renderowane wylacznie na serwerze, nieobecne w bundlu i bez hydracji. Moga robic <code>await db.query()</code> w ciele komponentu.',
+            pl: 'React Server Components - komponenty renderowane wyłącznie na serwerze, nieobecne w bundlu i bez hydracji. Mogą robić <code>await db.query()</code> w ciele komponentu.',
             en: 'React Server Components - components rendered only on the server, absent from the bundle and never hydrated. They can <code>await db.query()</code> in the component body.'
           }
         },
         {
           term: { pl: 'use client', en: 'use client' },
           def: {
-            pl: 'Dyrektywa oznaczajaca granice miedzy kodem serwerowym a interaktywnym kodem klienta. W architekturze RSC pelni role, ktora w SPA miala granica bundla.',
+            pl: 'Dyrektywa oznaczająca granicę między kodem serwerowym a interaktywnym kodem klienta. W architekturze RSC pełni rolę, którą w SPA miała granica bundla.',
             en: 'The directive marking the boundary between server code and interactive client code. In RSC it plays the role the bundle boundary played in an SPA.'
           }
         },
         {
           term: { pl: 'useActionState', en: 'useActionState' },
           def: {
-            pl: 'Hook laczacy akcje formularza ze stanem wyniku i flaga <code>pending</code>. Dziala takze bez serwera, wiec zastepuje wlasne composable do stanu ladowania.',
+            pl: 'Hook łączący akcję formularza ze stanem wyniku i flagą <code>pending</code>. Działa także bez serwera, więc zastępuje własne composable do stanu ładowania.',
             en: 'A hook that ties a form action to its result state and a <code>pending</code> flag. It works without a server too, replacing a hand-rolled loading-state composable.'
           }
         },
         {
           term: { pl: 'useOptimistic', en: 'useOptimistic' },
           def: {
-            pl: 'Hook pokazujacy przewidywany wynik akcji zanim serwer odpowie i cofajacy go przy bledzie.',
+            pl: 'Hook pokazujący przewidywany wynik akcji zanim serwer odpowie i cofający go przy błędzie.',
             en: 'A hook that shows the predicted result of an action before the server replies, and rolls it back on failure.'
           }
         }
@@ -1433,36 +1433,36 @@ export default {
           '<text x="320" y="386" text-anchor="middle" font-size="14" fill="var(--text)">the mental model stays the same: UI = f(state)</text>' +
           '</svg>',
         caption: {
-          pl: 'React 19 automatyzuje memoizacje i upraszcza formularze, ale nie zmienia modelu mentalnego: nadal renderujesz cala funkcje i nadal sam decydujesz, gdzie mieszka stan.',
+          pl: 'React 19 automatyzuje memoizację i upraszcza formularze, ale nie zmienia modelu mentalnego: nadal renderujesz całą funkcję i nadal sam decydujesz, gdzie mieszka stan.',
           en: 'React 19 automates memoization and simplifies forms, but it does not change the mental model: you still re-run the whole function and you still decide where state lives.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie, ze przez lata jezdziles autem, w ktorym trzeba bylo recznie zmieniac biegi, dolewac plyn i pamietac o swiatlach. Dziala, ale trzeba duzo pamietac.</p>' +
-            '<p>React 19 to ta sama droga i to samo auto, tylko z automatyczna skrzynia. Wiekszosc rzeczy, o ktorych trzeba bylo pamietac, robi sie sama. Silnik sie nie zmienil - dalej jedziesz tak samo, tylko mniej sie meczysz.</p>' +
-            '<p>Doszlo tez kilka gadzetow: wygodniejsza obsluga formularzy, latwiejsze czekanie na dane i mozliwosc przygotowania czesci ekranu jeszcze na serwerze, zanim auto ruszy.</p>' +
-            '<p>Najwazniejsze: reguly jazdy sa te same. Kto zna droge, ten nie musi uczyc sie od nowa.</p>',
+          pl: '<p>Wyobraź sobie, że przez lata jeździłeś autem, w którym trzeba było ręcznie zmieniać biegi, dolewać płyn i pamiętać o światłach. Działa, ale trzeba dużo pamiętać.</p>' +
+            '<p>React 19 to ta sama droga i to samo auto, tylko z automatyczną skrzynią. Większość rzeczy, o których trzeba było pamiętać, robi się sama. Silnik się nie zmienił - dalej jedziesz tak samo, tylko mniej się męczysz.</p>' +
+            '<p>Doszło też kilka gadżetów: wygodniejsza obsługa formularzy, łatwiejsze czekanie na dane i możliwość przygotowania części ekranu jeszcze na serwerze, zanim auto ruszy.</p>' +
+            '<p>Najważniejsze: reguły jazdy są te same. Kto zna drogę, ten nie musi uczyć się od nowa.</p>',
           en: '<p>Imagine you spent years driving a car where you shifted gears by hand, topped up fluids and remembered to switch the lights on. It works, but it is a lot to remember.</p>' +
             '<p>React 19 is the same road and the same car, just with an automatic gearbox. Most of the things you had to remember now happen by themselves. The engine did not change - you drive the same way, only with less effort.</p>' +
             '<p>A few gadgets arrived too: nicer form handling, easier waiting for data, and the ability to prepare part of the screen on the server before the car even moves.</p>' +
             '<p>The important bit: the rules of the road are unchanged. If you know the route, you do not have to relearn it.</p>'
         },
         school: {
-          pl: '<p>Jesli przesiadasz sie z Vue 3 w 2026 roku, wchodzisz do Reacta w dobrym momencie - najwiekszy zarzut wobec Reacta, czyli reczna memoizacja, wlasnie znika.</p>' +
+          pl: '<p>Jeśli przesiadasz się z Vue 3 w 2026 roku, wchodzisz do Reacta w dobrym momencie - największy zarzut wobec Reacta, czyli ręczna memoizacja, właśnie znika.</p>' +
             '<h4>React Compiler</h4>' +
-            '<p>Kompilator analizuje kod i sam wstawia memoizacje tam, gdzie ma to sens. <strong>W Vue nigdy nie pisales useCallback, bo kompilator i reaktywnosc robily to za ciebie - w Reactcie 19 zaczyna byc podobnie.</strong> Kod ktory kiedys wygladal tak:</p>' +
+            '<p>Kompilator analizuje kod i sam wstawia memoizację tam, gdzie ma to sens. <strong>W Vue nigdy nie pisałeś useCallback, bo kompilator i reaktywność robiły to za ciebie - w Reactcie 19 zaczyna być podobnie.</strong> Kod który kiedyś wyglądał tak:</p>' +
             '<pre><code>// React 18\nconst handle = useCallback(() =&gt; onPick(id), [onPick, id])\nconst rows = useMemo(() =&gt; items.filter(f), [items, f])</code></pre>' +
-            '<p>teraz mozna pisac po prostu jako zwykle wyrazenia, a kompilator dopisze reszte. Kompilator jest opt-in na poziomie pluginu bundlera i wymaga poprawnego kodu (regula hookow, brak mutacji w renderze).</p>' +
+            '<p>teraz można pisać po prostu jako zwykłe wyrażenia, a kompilator dopisze resztę. Kompilator jest opt-in na poziomie pluginu bundlera i wymaga poprawnego kodu (reguła hooków, brak mutacji w renderze).</p>' +
             '<h4>Formularze i akcje</h4>' +
             '<pre><code>function Save() {\n  const [state, action, pending] = useActionState(saveUser, null)\n  return &lt;form action={action}&gt;\n    &lt;input name="name" /&gt;\n    &lt;button disabled={pending}&gt;Save&lt;/button&gt;\n  &lt;/form&gt;\n}</code></pre>' +
-            '<p>To odpowiednik tego, co w Vue skladales z <code>ref(loading)</code>, <code>try/catch</code> i wlasnego composable. Doszly tez <code>useOptimistic</code> (optymistyczne UI bez recznego rollbacku) i <code>useFormStatus</code>.</p>' +
-            '<h4>Drobiazgi, ktore uprzyjemniaja zycie</h4>' +
+            '<p>To odpowiednik tego, co w Vue składałeś z <code>ref(loading)</code>, <code>try/catch</code> i własnego composable. Doszły też <code>useOptimistic</code> (optymistyczne UI bez ręcznego rollbacku) i <code>useFormStatus</code>.</p>' +
+            '<h4>Drobiazgi, które uprzyjemniają życie</h4>' +
             '<ul>' +
-            '<li><code>ref</code> jest zwyklym propsem - <code>forwardRef</code> odchodzi do lamusa.</li>' +
-            '<li><code>&lt;title&gt;</code> i <code>&lt;meta&gt;</code> renderowane w komponencie sa automatycznie przenoszone do head, jak w Nuxt.</li>' +
-            '<li>Context uzywasz jako <code>&lt;Ctx value={...}&gt;</code> bez <code>.Provider</code>.</li>' +
-            '<li>Hook <code>use()</code> czyta promise albo context i wspolpracuje z Suspense.</li>' +
+            '<li><code>ref</code> jest zwykłym propsem - <code>forwardRef</code> odchodzi do lamusa.</li>' +
+            '<li><code>&lt;title&gt;</code> i <code>&lt;meta&gt;</code> renderowane w komponencie są automatycznie przenoszone do head, jak w Nuxt.</li>' +
+            '<li>Context używasz jako <code>&lt;Ctx value={...}&gt;</code> bez <code>.Provider</code>.</li>' +
+            '<li>Hook <code>use()</code> czyta promise albo context i współpracuje z Suspense.</li>' +
             '</ul>',
           en: '<p>If you are switching from Vue 3 in 2026 you are entering React at a good moment - the biggest complaint about React, manual memoization, is going away.</p>' +
             '<h4>React Compiler</h4>' +
@@ -1481,21 +1481,21 @@ export default {
             '</ul>'
         },
         pro: {
-          pl: '<p>Warto wiedziec, co React 19 realnie zmienia w decyzjach architektonicznych, a co jest tylko wygoda.</p>' +
-            '<h4>Kompilator nie zastepuje architektury</h4>' +
-            '<p>React Compiler robi memoizacje na poziomie komponentu i wartosci - eliminuje wiekszosc <code>useMemo</code> i <code>useCallback</code>. Nie przeniesie za ciebie stanu w dol drzewa, nie naprawi zlych kluczy i nie usunie efektu, ktory nie powinien istniec. Innymi slowy: znika klasa problemow z referencjami, zostaje klasa problemow z projektem stanu. W Vue miales analogiczna sytuacje - reaktywnosc dawala automatyzm, ale zla struktura store i tak potrafila zabic wydajnosc.</p>' +
-            '<p>Wymagania praktyczne: kompilator ufa, ze render jest czysty. Mutacja propsa albo zapis do zewnetrznej zmiennej w czasie renderu daje bledna memoizacje. Dlatego wlaczaj go razem z <code>eslint-plugin-react-hooks</code> w wersji z regula kompilatora i traktuj ostrzezenia jak bledy typow.</p>' +
+          pl: '<p>Warto wiedzieć, co React 19 realnie zmienia w decyzjach architektonicznych, a co jest tylko wygodą.</p>' +
+            '<h4>Kompilator nie zastępuje architektury</h4>' +
+            '<p>React Compiler robi memoizację na poziomie komponentu i wartości - eliminuje większość <code>useMemo</code> i <code>useCallback</code>. Nie przeniesie za ciebie stanu w dół drzewa, nie naprawi złych kluczy i nie usunie efektu, który nie powinien istnieć. Innymi słowy: znika klasa problemów z referencjami, zostaje klasa problemów z projektem stanu. W Vue miałeś analogiczną sytuację - reaktywność dawała automatyzm, ale zła struktura store i tak potrafiła zabić wydajność.</p>' +
+            '<p>Wymagania praktyczne: kompilator ufa, że render jest czysty. Mutacja propsa albo zapis do zewnętrznej zmiennej w czasie renderu daje błędną memoizację. Dlatego włączaj go razem z <code>eslint-plugin-react-hooks</code> w wersji z regułą kompilatora i traktuj ostrzeżenia jak błędy typów.</p>' +
             '<h4>RSC - jedyna rzecz bez odpowiednika w Vue</h4>' +
-            '<p>Server Components renderuja sie wylacznie na serwerze i nie trafiaja do bundla. To nie jest SSR: nie ma hydracji tego kodu, a wynik jest serializowanym strumieniem opisu UI. Najblizsza analogia z Nuxt to <code>server components</code> i wyspy, ale model danych jest inny - RSC moze bezposrednio robic <code>await db.query()</code> w ciele komponentu.</p>' +
-            '<pre><code>// Server Component - zero JS po stronie klienta\nasync function Report({ id }) {\n  const rows = await db.rows.findMany({ where: { id } })\n  return &lt;Table rows={rows} /&gt;\n}\n\n// Client Component - interaktywnosc\n"use client"\nexport function Filter() { /* useState itd. */ }</code></pre>' +
-            '<p>Konsekwencja dla architektury: granica <code>use client</code> staje sie tym, czym w klasycznym SPA byla granica bundla. Warto ja projektowac swiadomie - komponenty prezentacyjne wyzej, interaktywne wyspy nizej i mniejsze.</p>' +
-            '<h4>Na co uwazac przy wyborze stacku w 2026</h4>' +
+            '<p>Server Components renderują się wyłącznie na serwerze i nie trafiają do bundla. To nie jest SSR: nie ma hydracji tego kodu, a wynik jest serializowanym strumieniem opisu UI. Najbliższa analogia z Nuxt to <code>server components</code> i wyspy, ale model danych jest inny - RSC może bezpośrednio robić <code>await db.query()</code> w ciele komponentu.</p>' +
+            '<pre><code>// Server Component - zero JS po stronie klienta\nasync function Report({ id }) {\n  const rows = await db.rows.findMany({ where: { id } })\n  return &lt;Table rows={rows} /&gt;\n}\n\n// Client Component - interaktywność\n"use client"\nexport function Filter() { /* useState itd. */ }</code></pre>' +
+            '<p>Konsekwencja dla architektury: granica <code>use client</code> staje się tym, czym w klasycznym SPA była granica bundla. Warto ją projektować świadomie - komponenty prezentacyjne wyżej, interaktywne wyspy niżej i mniejsze.</p>' +
+            '<h4>Na co uważać przy wyborze stacku w 2026</h4>' +
             '<ul>' +
             '<li>RSC praktycznie oznacza Next.js App Router albo Waku - w czystym Vite to nadal teren eksperymentalny.</li>' +
-            '<li><code>useActionState</code> i <code>useOptimistic</code> dzialaja tez bez serwera - warto po nie siegac nawet w SPA zamiast pisac wlasne composable do stanu ladowania.</li>' +
-            '<li>Migrujac projekt Vue, nie zaczynaj od RSC. Najpierw SPA z React Router lub Next w trybie klienckim, potem ewentualnie serwer.</li>' +
+            '<li><code>useActionState</code> i <code>useOptimistic</code> działają też bez serwera - warto po nie sięgać nawet w SPA zamiast pisać własne composable do stanu ładowania.</li>' +
+            '<li>Migrując projekt Vue, nie zaczynaj od RSC. Najpierw SPA z React Router lub Next w trybie klienckim, potem ewentualnie serwer.</li>' +
             '</ul>' +
-            '<p>Na rozmowie o senior/staff pojawia sie pytanie: czy kompilator zwalnia z <code>React.memo</code>. Uczciwa odpowiedz: w wiekszosci przypadkow tak, ale memo nadal ma sens na granicach duzych poddrzew i przy propsach pochodzacych spoza Reacta, ktorych kompilator nie widzi.</p>',
+            '<p>Na rozmowie o senior/staff pojawia się pytanie: czy kompilator zwalnia z <code>React.memo</code>. Uczciwa odpowiedź: w większości przypadków tak, ale memo nadal ma sens na granicach dużych poddrzew i przy propsach pochodzących spoza Reacta, których kompilator nie widzi.</p>',
           en: '<p>It is worth separating what React 19 genuinely changes in architectural decisions from what is merely convenience.</p>' +
             '<h4>The compiler does not replace architecture</h4>' +
             '<p>React Compiler memoizes at the component and value level - it removes most <code>useMemo</code> and <code>useCallback</code>. It will not move state down the tree for you, will not fix bad keys and will not delete an effect that should never have existed. In other words: a whole class of reference problems disappears and the class of state-design problems remains. Vue had the same dynamic - reactivity gave you automation, but a badly structured store still killed performance.</p>' +
@@ -1521,36 +1521,36 @@ export default {
           },
           options: [
             { pl: 'Zamienia komponenty na web components', en: 'Turns components into web components' },
-            { pl: 'Automatycznie wstawia memoizacje, zastepujac wiekszosc useMemo i useCallback', en: 'Inserts memoization automatically, replacing most useMemo and useCallback' },
-            { pl: 'Kompiluje JSX do stringow HTML', en: 'Compiles JSX into HTML strings' },
-            { pl: 'Usuwa potrzebe stosowania kluczy w listach', en: 'Removes the need for keys in lists' }
+            { pl: 'Automatycznie wstawia memoizację, zastępując większość useMemo i useCallback', en: 'Inserts memoization automatically, replacing most useMemo and useCallback' },
+            { pl: 'Kompiluje JSX do stringów HTML', en: 'Compiles JSX into HTML strings' },
+            { pl: 'Usuwa potrzebę stosowania kluczy w listach', en: 'Removes the need for keys in lists' }
           ],
           correct: 1,
           explain: {
-            pl: 'Kompilator analizuje kod i memoizuje wartosci oraz komponenty. Kluczy ani projektu stanu nie naprawi.',
+            pl: 'Kompilator analizuje kod i memoizuje wartości oraz komponenty. Kluczy ani projektu stanu nie naprawi.',
             en: 'The compiler analyses your code and memoizes values and components. It fixes neither keys nor state design.'
           }
         },
         {
           q: {
-            pl: 'Czym roznia sie Server Components od SSR?',
+            pl: 'Czym różnią się Server Components od SSR?',
             en: 'How do Server Components differ from SSR?'
           },
           options: [
             { pl: 'Niczym, to dwie nazwy tego samego', en: 'Not at all, two names for the same thing' },
-            { pl: 'SSR dziala tylko w Next.js, a RSC wszedzie', en: 'SSR only works in Next.js while RSC works everywhere' },
-            { pl: 'RSC dzialaja wylacznie w przegladarce', en: 'RSC run only in the browser' },
+            { pl: 'SSR działa tylko w Next.js, a RSC wszędzie', en: 'SSR only works in Next.js while RSC works everywhere' },
+            { pl: 'RSC działają wyłącznie w przeglądarce', en: 'RSC run only in the browser' },
             { pl: 'Kod RSC nie trafia do bundla i nie jest hydratowany', en: 'RSC code never enters the bundle and is never hydrated' }
           ],
           correct: 3,
           explain: {
-            pl: 'SSR renderuje na serwerze komponenty, ktore potem hydratuja sie na kliencie. RSC nigdy nie trafiaja do klienta - to strumien opisu UI.',
+            pl: 'SSR renderuje na serwerze komponenty, które potem hydratują się na kliencie. RSC nigdy nie trafiają do klienta - to strumień opisu UI.',
             en: 'SSR renders components on the server and then hydrates them on the client. RSC never reach the client - the output is a UI description stream.'
           }
         },
         {
           q: {
-            pl: 'Co w React 19 zastepuje reczny composable z ref(loading) i try/catch dla formularza?',
+            pl: 'Co w React 19 zastępuje ręczny composable z ref(loading) i try/catch dla formularza?',
             en: 'What in React 19 replaces a hand-rolled composable with ref(loading) and try/catch for a form?'
           },
           options: [
@@ -1561,24 +1561,24 @@ export default {
           ],
           correct: 0,
           explain: {
-            pl: 'useActionState zwraca wynik, akcje i flage pending, a form action ja podpina. useOptimistic doklada optymistyczne UI bez recznego rollbacku.',
+            pl: 'useActionState zwraca wynik, akcję i flagę pending, a form action ją podpina. useOptimistic dokłada optymistyczne UI bez ręcznego rollbacku.',
             en: 'useActionState returns the result, the action and a pending flag, and form action wires it up. useOptimistic adds optimistic UI without manual rollback.'
           }
         },
         {
           q: {
-            pl: 'Wlaczasz React Compiler w migrowanym projekcie i czesc widokow zaczyna pokazywac stare dane. Najbardziej prawdopodobna przyczyna?',
+            pl: 'Włączasz React Compiler w migrowanym projekcie i część widoków zaczyna pokazywać stare dane. Najbardziej prawdopodobna przyczyna?',
             en: 'You enable React Compiler in a migrated project and some views start showing stale data. Most likely cause?'
           },
           options: [
-            { pl: 'Kompilator nie obsluguje TypeScriptu', en: 'The compiler does not support TypeScript' },
-            { pl: 'Brakuje React.memo na komponentach nadrzednych', en: 'Parent components are missing React.memo' },
-            { pl: 'Render nie jest czysty - jest mutacja propsow lub zapis do zewnetrznej zmiennej', en: 'Render is not pure - props are mutated or an outer variable is written during render' },
-            { pl: 'Klucze list sa oparte na id zamiast na indeksie', en: 'List keys use ids instead of indexes' }
+            { pl: 'Kompilator nie obsługuje TypeScriptu', en: 'The compiler does not support TypeScript' },
+            { pl: 'Brakuje React.memo na komponentach nadrzędnych', en: 'Parent components are missing React.memo' },
+            { pl: 'Render nie jest czysty - jest mutacja propsów lub zapis do zewnętrznej zmiennej', en: 'Render is not pure - props are mutated or an outer variable is written during render' },
+            { pl: 'Klucze list są oparte na id zamiast na indeksie', en: 'List keys use ids instead of indexes' }
           ],
           correct: 2,
           explain: {
-            pl: 'Kompilator zaklada czystosc renderu. Mutacja w czasie renderu sprawia, ze zmemoizowana wartosc nie zostaje przeliczona - stad stare dane.',
+            pl: 'Kompilator zakłada czystość renderu. Mutacja w czasie renderu sprawia, że zmemoizowana wartość nie zostaje przeliczona - stąd stare dane.',
             en: 'The compiler assumes render purity. A mutation during render means a memoized value is never recomputed, hence the stale data.'
           }
         }

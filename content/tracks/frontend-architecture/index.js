@@ -19,7 +19,7 @@ export default {
   status: 'available',
   title: { pl: 'Architektura Frontendu', en: 'Frontend Architecture' },
   description: {
-    pl: 'Decyzje, ktore zyja lata: granice i ADR-y, design systemy w skali, architektura stanu, monorepo i micro-frontendy, budzety wydajnosci oraz jakosc i dostarczanie.',
+    pl: 'Decyzje, które żyją lata: granice i ADR-y, design systemy w skali, architektura stanu, monorepo i micro-frontendy, budżety wydajności oraz jakość i dostarczanie.',
     en: 'The decisions that live for years: boundaries and ADRs, design systems at scale, state architecture, monorepos and micro-frontends, performance budgets, plus quality and delivery.',
   },
   modules,

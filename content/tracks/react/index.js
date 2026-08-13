@@ -18,9 +18,9 @@ export default {
   order: 2,
   icon: '🔵',
   status: 'available',
-  title: { pl: 'React (dla znajacych Vue)', en: 'React (for Vue devs)' },
+  title: { pl: 'React (dla znających Vue)', en: 'React (for Vue devs)' },
   description: {
-    pl: 'Caly React obok jego odpowiednika z Vue 3: model renderowania, hooki kontra Composition API, wzorce komponentow, stan, Next.js i migracja. Zamiast uczyc sie od nowa, mapujesz to, co juz umiesz.',
+    pl: 'Cały React obok jego odpowiednika z Vue 3: model renderowania, hooki kontra Composition API, wzorce komponentów, stan, Next.js i migracja. Zamiast uczyć się od nowa, mapujesz to, co już umiesz.',
     en: 'All of React next to its Vue 3 equivalent: the rendering model, hooks versus the Composition API, component patterns, state, Next.js and migration. Instead of relearning, you map what you already know.',
   },
   modules,

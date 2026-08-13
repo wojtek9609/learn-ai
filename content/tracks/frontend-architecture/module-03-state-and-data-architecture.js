@@ -11,7 +11,7 @@ export default {
     en: 'State and data architecture'
   },
   description: {
-    pl: 'Gdzie naprawde mieszka stan aplikacji, jak zbudowac warstwe pobierania danych, jak robic realtime i optimistic UI, tryb offline oraz kontrakty API i BFF.',
+    pl: 'Gdzie naprawdę mieszka stan aplikacji, jak zbudować warstwę pobierania danych, jak robić realtime i optimistic UI, tryb offline oraz kontrakty API i BFF.',
     en: 'Where application state actually lives, how to build a data-fetching layer, realtime and optimistic UI, offline mode, plus API contracts and the BFF.'
   },
   lessons: [
@@ -91,18 +91,18 @@ export default {
           '<text x="320" y="409" text-anchor="middle" font-size="14" fill="var(--err)">Most global-store pain = server state parked in the wrong box</text>' +
           '</svg>',
         caption: {
-          pl: 'Cztery rodzaje stanu maja czterech roznych wlascicieli i cztery rozne cykle zycia. Wiekszosc bolu z globalnym store bierze sie z wrzucenia stanu serwera do pudelka stanu klienta.',
+          pl: 'Cztery rodzaje stanu mają czterech różnych właścicieli i cztery różne cykle życia. Większość bólu z globalnym store bierze się z wrzucenia stanu serwera do pudełka stanu klienta.',
           en: 'Four kinds of state have four different owners and four different lifecycles. Most global-store pain comes from parking server state in the client-state box.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie duza kuchnie w restauracji. Sa w niej cztery miejsca, gdzie leza rzeczy, i kazde ma innego wlasciciela.</p>' +
-            '<p>Jest <strong>magazyn</strong> - tam sa prawdziwe zapasy. Kucharz moze miec kartke z tym, co widzial rano w magazynie, ale to tylko kartka. Ktos mogl w miedzyczasie cos zabrac.</p>' +
-            '<p>Jest <strong>blat kucharza</strong> - noz, deska, wlaczone swiatlo. To znika, gdy kucharz konczy zmiane, i nikogo poza nim nie obchodzi.</p>' +
-            '<p>Jest <strong>tabliczka na drzwiach</strong> z napisem, ktory stolik obslugujemy. Kazdy moze ja przeczytac i kazdy moze zrobic jej zdjecie i wyslac koledze.</p>' +
-            '<p>I jest <strong>kartka z zamowieniem w trakcie pisania</strong> - pokreslona, niedokonczona, tylko w reku kelnera.</p>' +
-            '<p>Cala sztuka polega na tym, zeby nie mylic tych miejsc. Jesli kucharz zacznie traktowac swoja kartke jak magazyn, predzej czy pozniej ugotuje cos, czego nie ma.</p>',
+          pl: '<p>Wyobraź sobie dużą kuchnię w restauracji. Są w niej cztery miejsca, gdzie leżą rzeczy, i każde ma innego właściciela.</p>' +
+            '<p>Jest <strong>magazyn</strong> - tam są prawdziwe zapasy. Kucharz może mieć kartkę z tym, co widział rano w magazynie, ale to tylko kartka. Ktoś mógł w międzyczasie coś zabrać.</p>' +
+            '<p>Jest <strong>blat kucharza</strong> - nóż, deska, włączone światło. To znika, gdy kucharz kończy zmianę, i nikogo poza nim nie obchodzi.</p>' +
+            '<p>Jest <strong>tabliczka na drzwiach</strong> z napisem, który stolik obsługujemy. Każdy może ją przeczytać i każdy może zrobić jej zdjęcie i wysłać koledze.</p>' +
+            '<p>I jest <strong>kartka z zamówieniem w trakcie pisania</strong> - pokreślona, niedokończona, tylko w ręku kelnera.</p>' +
+            '<p>Cała sztuka polega na tym, żeby nie mylić tych miejsc. Jeśli kucharz zacznie traktować swoją kartkę jak magazyn, prędzej czy później ugotuje coś, czego nie ma.</p>',
           en: '<p>Picture a big restaurant kitchen. There are four places where things sit, and each has a different owner.</p>' +
             '<p>There is the <strong>storeroom</strong> - the real supplies. A cook can hold a note about what he saw in there this morning, but it is only a note. Someone may have taken things since.</p>' +
             '<p>There is the <strong>cook station</strong> - a knife, a board, a lamp switched on. It disappears when the shift ends and nobody else cares about it.</p>' +
@@ -111,17 +111,17 @@ export default {
             '<p>The whole trick is not mixing those places up. If the cook starts treating his note as the storeroom, sooner or later he cooks something that does not exist.</p>'
         },
         school: {
-          pl: '<p>Zanim wybierzesz biblioteke do zarzadzania stanem, zadaj jedno pytanie: <strong>kto jest wlascicielem tej danej i jak dlugo ona zyje</strong>. Odpowiedz miesci sie zwykle w czterech kategoriach.</p>' +
+          pl: '<p>Zanim wybierzesz bibliotekę do zarządzania stanem, zadaj jedno pytanie: <strong>kto jest właścicielem tej danej i jak długo ona żyje</strong>. Odpowiedź mieści się zwykle w czterech kategoriach.</p>' +
             '<h4>1. Stan serwera (server state)</h4>' +
-            '<p>Faktury, taryfy, zgloszenia serwisowe. Wlascicielem jest backend, a to, co masz w przegladarce, to <em>kopia z opoznieniem</em> - dokladnie jak cache w CDN. Kluczowe pytania to nie "gdzie to trzymam", tylko: jak dlugo jest swieze, kiedy uniewazniam, co pokazuje uzytkownikowi w miedzyczasie.</p>' +
+            '<p>Faktury, taryfy, zgłoszenia serwisowe. Właścicielem jest backend, a to, co masz w przeglądarce, to <em>kopia z opóźnieniem</em> - dokładnie jak cache w CDN. Kluczowe pytania to nie "gdzie to trzymam", tylko: jak długo jest świeże, kiedy unieważniam, co pokazuje użytkownikowi w międzyczasie.</p>' +
             '<h4>2. Stan klienta (client state)</h4>' +
-            '<p>Otwarty modal, wybrana zakladka w panelu, tryb ciemny. Nie ma odpowiednika na serwerze, ginie po odswiezeniu i nikt inny go nie widzi.</p>' +
+            '<p>Otwarty modal, wybrana zakładka w panelu, tryb ciemny. Nie ma odpowiednika na serwerze, ginie po odświeżeniu i nikt inny go nie widzi.</p>' +
             '<h4>3. Stan w URL</h4>' +
-            '<p>Filtry, strona, sortowanie, wybrany identyfikator. To jedyny stan, ktory da sie wkleic na Slacku i ktory przezyje przycisk wstecz.</p>' +
+            '<p>Filtry, strona, sortowanie, wybrany identyfikator. To jedyny stan, który da się wkleić na Slacku i który przeżyje przycisk wstecz.</p>' +
             '<h4>4. Stan formularza</h4>' +
-            '<p>Wartosci pol w trakcie edycji plus metadane: dirty, touched, bledy walidacji. Zmienia sie przy kazdym nacisnieciu klawisza, wiec trzymanie go w globalnym store to prosta droga do przemielenia calej aplikacji na literke.</p>' +
-            '<pre><code>// zly domyslny odruch\nstore.state.invoices = await api.getInvoices()\n\n// wlasciwy: to jest cache, nie stan\nconst { data, isStale } = useQuery({\n  queryKey: ["invoices", customerId],\n  queryFn: () =&gt; api.getInvoices(customerId),\n  staleTime: 60_000\n})</code></pre>' +
-            '<p>Jesli w code review zobaczysz obiekt z serwera recznie wlozony do Pinii albo Zustanda razem z polami <code>loading</code> i <code>error</code>, to prawie zawsze znak, ze ktos wlasnie zaczal pisac wlasny, gorszy cache HTTP.</p>',
+            '<p>Wartości pól w trakcie edycji plus metadane: dirty, touched, błędy walidacji. Zmienia się przy każdym naciśnięciu klawisza, więc trzymanie go w globalnym store to prosta droga do przemielenia całej aplikacji na literkę.</p>' +
+            '<pre><code>// zły domyślny odruch\nstore.state.invoices = await api.getInvoices()\n\n// właściwy: to jest cache, nie stan\nconst { data, isStale } = useQuery({\n  queryKey: ["invoices", customerId],\n  queryFn: () =&gt; api.getInvoices(customerId),\n  staleTime: 60_000\n})</code></pre>' +
+            '<p>Jeśli w code review zobaczysz obiekt z serwera ręcznie włożony do Pinii albo Zustanda razem z polami <code>loading</code> i <code>error</code>, to prawie zawsze znak, że ktoś właśnie zaczął pisać własny, gorszy cache HTTP.</p>',
           en: '<p>Before you pick a state-management library, ask one question: <strong>who owns this data and how long does it live</strong>. The answer almost always lands in one of four categories.</p>' +
             '<h4>1. Server state</h4>' +
             '<p>Invoices, tariffs, service tickets. The backend owns them; what you hold in the browser is a <em>delayed copy</em> - exactly like a CDN cache. The real questions are not "where do I store it" but: how long is it fresh, when do I invalidate, what does the user see meanwhile.</p>' +
@@ -135,26 +135,26 @@ export default {
             '<p>If a code review shows a server object hand-copied into Pinia or Zustand together with <code>loading</code> and <code>error</code> fields, that is almost always someone starting to write their own, worse HTTP cache.</p>'
         },
         pro: {
-          pl: '<p>Taksonomia stanu to najtansza decyzja architektoniczna, jaka mozesz podjac, i jedna z najdrozszych do cofniecia. W duzej organizacji telco widac to na liczbach: aplikacja obslugi klienta z 300 komponentami i jednym globalnym store zwykle ma 60-80 procent tego store wypelnione danymi z API, ktore samo w sobie ma juz naglowki <code>ETag</code> i <code>Cache-Control</code>. Piszemy wlasny cache i ignorujemy ten, ktory dostajemy za darmo.</p>' +
-            '<h4>Regula decyzyjna</h4>' +
+          pl: '<p>Taksonomia stanu to najtańsza decyzja architektoniczna, jaką możesz podjąć, i jedna z najdroższych do cofnięcia. W dużej organizacji telco widać to na liczbach: aplikacja obsługi klienta z 300 komponentami i jednym globalnym store zwykle ma 60-80 procent tego store wypełnione danymi z API, które samo w sobie ma już nagłówki <code>ETag</code> i <code>Cache-Control</code>. Piszemy własny cache i ignorujemy ten, który dostajemy za darmo.</p>' +
+            '<h4>Reguła decyzyjna</h4>' +
             '<table>' +
-            '<tr><th>Pytanie</th><th>Odpowiedz</th><th>Miejsce</th></tr>' +
-            '<tr><td>Czy inny uzytkownik moze to zmienic?</td><td>tak</td><td>warstwa cache serwera (TanStack Query, RTK Query, Apollo)</td></tr>' +
-            '<tr><td>Czy chce to wkleic komus w wiadomosci?</td><td>tak</td><td>URL (search params)</td></tr>' +
-            '<tr><td>Czy zmienia sie czesciej niz 10 razy na sekunde?</td><td>tak</td><td>lokalnie w komponencie lub w bibliotece formularzy</td></tr>' +
-            '<tr><td>Reszta</td><td>-</td><td>maly store klienta (Zustand, Pinia), bez danych z API</td></tr>' +
+            '<tr><th>Pytanie</th><th>Odpowiedź</th><th>Miejsce</th></tr>' +
+            '<tr><td>Czy inny użytkownik może to zmienić?</td><td>tak</td><td>warstwa cache serwera (TanStack Query, RTK Query, Apollo)</td></tr>' +
+            '<tr><td>Czy chcę to wkleić komuś w wiadomości?</td><td>tak</td><td>URL (search params)</td></tr>' +
+            '<tr><td>Czy zmienia się częściej niż 10 razy na sekundę?</td><td>tak</td><td>lokalnie w komponencie lub w bibliotece formularzy</td></tr>' +
+            '<tr><td>Reszta</td><td>-</td><td>mały store klienta (Zustand, Pinia), bez danych z API</td></tr>' +
             '</table>' +
             '<h4>Konsekwencje dla design systemu</h4>' +
-            '<p>Komponenty biblioteki (CHI, MUI, Carbon) nie powinny znac zadnej z tych warstw. Moment, w ktorym <code>DataTable</code> zaczyna sam wolac <code>useQuery</code>, jest momentem, w ktorym design system przestaje byc uzywalny w innej aplikacji niz ta, w ktorej powstal. Kontrakt brzmi: komponent przyjmuje dane i callbacki, a decyzja o zrodle nalezy do aplikacji. Wyjatkiem sa komponenty jawnie "connected", ktore stoja w osobnym pakiecie i maja wlasny numer wersji.</p>' +
+            '<p>Komponenty biblioteki (CHI, MUI, Carbon) nie powinny znać żadnej z tych warstw. Moment, w którym <code>DataTable</code> zaczyna sam wołać <code>useQuery</code>, jest momentem, w którym design system przestaje być używalny w innej aplikacji niż ta, w której powstał. Kontrakt brzmi: komponent przyjmuje dane i callbacki, a decyzja o źródle należy do aplikacji. Wyjątkiem są komponenty jawnie "connected", które stoją w osobnym pakiecie i mają własny numer wersji.</p>' +
             '<pre><code>// presentational, w design systemie\n&lt;ChiDataTable rows={rows} sort={sort} onSortChange={setSort} /&gt;\n\n// connected, w aplikacji - stan w URL, dane z cache\nconst [params, setParams] = useSearchParams()\nconst sort = params.get("sort") ?? "createdAt:desc"\nconst { data } = useInvoices({ sort, page: Number(params.get("page") ?? 1) })</code></pre>' +
-            '<h4>Pulapki produkcyjne</h4>' +
+            '<h4>Pułapki produkcyjne</h4>' +
             '<ul>' +
-            '<li><strong>Stan pochodny w store.</strong> Jesli da sie to policzyc w renderze z dwoch innych wartosci, to nie jest stan - to selektor.</li>' +
-            '<li><strong>Duplikat URL i store.</strong> Filtry trzymane w obu miejscach rozjezdzaja sie po przycisku wstecz. Wybierz URL jako jedyne zrodlo prawdy i czytaj z niego.</li>' +
-            '<li><strong>Stan sesji w Redux.</strong> Token i tozsamosc uzytkownika naleza do warstwy auth, nie do drzewa stanu UI - inaczej wyciekaja do devtools i do sentry breadcrumbs.</li>' +
-            '<li><strong>Wielozakladkowosc.</strong> W aplikacji CRM agent ma otwartych 6 zakladek. Bez <code>BroadcastChannel</code> lub wspoldzielonego cache po IndexedDB zobaczy szesc roznych wersji tej samej faktury.</li>' +
+            '<li><strong>Stan pochodny w store.</strong> Jeśli da się to policzyć w renderze z dwóch innych wartości, to nie jest stan - to selektor.</li>' +
+            '<li><strong>Duplikat URL i store.</strong> Filtry trzymane w obu miejscach rozjeżdżają się po przycisku wstecz. Wybierz URL jako jedyne źródło prawdy i czytaj z niego.</li>' +
+            '<li><strong>Stan sesji w Redux.</strong> Token i tożsamość użytkownika należą do warstwy auth, nie do drzewa stanu UI - inaczej wyciekają do devtools i do sentry breadcrumbs.</li>' +
+            '<li><strong>Wielozakładkowość.</strong> W aplikacji CRM agent ma otwartych 6 zakładek. Bez <code>BroadcastChannel</code> lub współdzielonego cache po IndexedDB zobaczy sześć różnych wersji tej samej faktury.</li>' +
             '</ul>' +
-            '<p>Na poziomie principal twoim produktem nie jest wybor biblioteki, tylko <strong>spisana zasada podzialu</strong> w ADR, do ktorej moze sie odwolac szesc zespolow bez ciebie na spotkaniu.</p>',
+            '<p>Na poziomie principal twoim produktem nie jest wybór biblioteki, tylko <strong>spisana zasada podziału</strong> w ADR, do której może się odwołać sześć zespołów bez ciebie na spotkaniu.</p>',
           en: '<p>State taxonomy is the cheapest architectural decision you can make and one of the most expensive to undo. In a large telco you can see it in numbers: a customer-care app with 300 components and one global store typically has 60-80 percent of that store filled with API data that already ships <code>ETag</code> and <code>Cache-Control</code> headers. We write our own cache and ignore the one we get for free.</p>' +
             '<h4>The decision rule</h4>' +
             '<table>' +
@@ -180,69 +180,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Ktory z ponizszych jest klasycznym przykladem stanu serwera?',
+            pl: 'Który z poniższych jest klasycznym przykładem stanu serwera?',
             en: 'Which of the following is a classic example of server state?'
           },
           options: [
-            { pl: 'Czy panel boczny jest rozwiniety', en: 'Whether the side panel is expanded' },
+            { pl: 'Czy panel boczny jest rozwinięty', en: 'Whether the side panel is expanded' },
             { pl: 'Lista faktur klienta pobrana z API', en: 'The customer invoice list fetched from the API' },
             { pl: 'Aktualnie wpisywany tekst w polu wyszukiwania', en: 'The text currently being typed into a search box' },
             { pl: 'Wybrany motyw jasny lub ciemny', en: 'The selected light or dark theme' }
           ],
           correct: 1,
           explain: {
-            pl: 'Stan serwera to dane, ktorych wlascicielem jest backend i ktore inny uzytkownik moze zmienic bez twojej wiedzy. Pozostale trzy odpowiedzi zyja i umieraja w tej jednej karcie przegladarki.',
+            pl: 'Stan serwera to dane, których właścicielem jest backend i które inny użytkownik może zmienić bez twojej wiedzy. Pozostałe trzy odpowiedzi żyją i umierają w tej jednej karcie przeglądarki.',
             en: 'Server state is data the backend owns and another user can change without you knowing. The other three live and die inside this one browser tab.'
           }
         },
         {
           q: {
-            pl: 'Dlaczego filtry tabeli warto trzymac w URL, a nie w globalnym store?',
+            pl: 'Dlaczego filtry tabeli warto trzymać w URL, a nie w globalnym store?',
             en: 'Why keep table filters in the URL rather than in a global store?'
           },
           options: [
-            { pl: 'Bo URL jest szybszy niz pamiec RAM', en: 'Because the URL is faster than RAM' },
-            { pl: 'Bo tylko URL da sie zaszyfrowac', en: 'Because only the URL can be encrypted' },
-            { pl: 'Bo stan w URL jest udostepnialny, przezywa przeladowanie i dziala z przyciskiem wstecz', en: 'Because URL state is shareable, survives reload and works with the back button' },
-            { pl: 'Bo store nie obsluguje wartosci tekstowych', en: 'Because stores cannot hold string values' }
+            { pl: 'Bo URL jest szybszy niż pamięć RAM', en: 'Because the URL is faster than RAM' },
+            { pl: 'Bo tylko URL da się zaszyfrować', en: 'Because only the URL can be encrypted' },
+            { pl: 'Bo stan w URL jest udostępnialny, przeżywa przeładowanie i działa z przyciskiem wstecz', en: 'Because URL state is shareable, survives reload and works with the back button' },
+            { pl: 'Bo store nie obsługuje wartości tekstowych', en: 'Because stores cannot hold string values' }
           ],
           correct: 2,
           explain: {
-            pl: 'URL jest jedynym miejscem, ktore uzytkownik moze skopiowac i wyslac koledze, a przegladarka traktuje go jak historie nawigacji. To daje trzy funkcje za darmo, ktore w store musialbys napisac recznie.',
+            pl: 'URL jest jedynym miejscem, które użytkownik może skopiować i wysłać koledze, a przeglądarka traktuje go jak historię nawigacji. To daje trzy funkcje za darmo, które w store musiałbyś napisać ręcznie.',
             en: 'The URL is the only place a user can copy and send to a colleague, and the browser treats it as navigation history. That is three features for free that a store would force you to hand-write.'
           }
         },
         {
           q: {
-            pl: 'Komponent DataTable w twoim design systemie zaczyna sam wolac useQuery. Co jest tu glownym ryzykiem architektonicznym?',
+            pl: 'Komponent DataTable w twoim design systemie zaczyna sam wołać useQuery. Co jest tu głównym ryzykiem architektonicznym?',
             en: 'A DataTable component in your design system starts calling useQuery itself. What is the main architectural risk?'
           },
           options: [
-            { pl: 'Komponent stanie sie nieuzywalny w aplikacjach z innym stosem danych i zwiaze design system z jedna aplikacja', en: 'The component becomes unusable in apps with a different data stack and couples the design system to one application' },
-            { pl: 'Zapytania beda wolniejsze o okolo 30 ms', en: 'Requests get about 30 ms slower' },
-            { pl: 'Zlamie to reguly CSS specificity', en: 'It breaks CSS specificity rules' },
-            { pl: 'TypeScript przestanie wnioskowac typy propsow', en: 'TypeScript stops inferring prop types' }
+            { pl: 'Komponent stanie się nieużywalny w aplikacjach z innym stosem danych i zwiąże design system z jedną aplikacją', en: 'The component becomes unusable in apps with a different data stack and couples the design system to one application' },
+            { pl: 'Zapytania będą wolniejsze o około 30 ms', en: 'Requests get about 30 ms slower' },
+            { pl: 'Złamie to reguły CSS specificity', en: 'It breaks CSS specificity rules' },
+            { pl: 'TypeScript przestanie wnioskować typy propsów', en: 'TypeScript stops inferring prop types' }
           ],
           correct: 0,
           explain: {
-            pl: 'Biblioteka komponentow ma byc niezalezna od zrodla danych. Wciagniecie warstwy pobierania do srodka wymusza ta sama biblioteke i ten sam ksztalt API u kazdego konsumenta, a przy 20 zespolach to blokada wersji na lata.',
+            pl: 'Biblioteka komponentów ma być niezależna od źródła danych. Wciągnięcie warstwy pobierania do środka wymusza ta sama bibliotekę i ten sam kształt API u każdego konsumenta, a przy 20 zespołach to blokada wersji na lata.',
             en: 'A component library must stay independent of the data source. Pulling the fetching layer inside forces the same library and the same API shape on every consumer, which with 20 teams becomes a multi-year version lock.'
           }
         },
         {
           q: {
-            pl: 'Agent CRM ma otwartych szesc zakladek z ta sama faktura i widzi w nich rozne kwoty. Ktore podejscie realnie rozwiazuje problem?',
+            pl: 'Agent CRM ma otwartych sześć zakładek z ta sama faktura i widzi w nich różne kwoty. Które podejście realnie rozwiązuje problem?',
             en: 'A CRM agent has six tabs open on the same invoice and sees different amounts in them. Which approach actually solves it?'
           },
           options: [
-            { pl: 'Zwiekszenie staleTime, zeby dane rzadziej sie zmienialy', en: 'Increase staleTime so the data changes less often' },
+            { pl: 'Zwiększenie staleTime, żeby dane rzadziej się zmieniały', en: 'Increase staleTime so the data changes less often' },
             { pl: 'Przeniesienie faktury do globalnego store aplikacji', en: 'Move the invoice into the global application store' },
-            { pl: 'Wylaczenie cache i pobieranie danych przy kazdym renderze', en: 'Disable caching and refetch on every render' },
-            { pl: 'Propagacja uniewaznien miedzy zakladkami, np. przez BroadcastChannel, plus refetch przy powrocie fokusu', en: 'Propagate invalidations across tabs, e.g. via BroadcastChannel, plus refetch on window focus' }
+            { pl: 'Wyłączenie cache i pobieranie danych przy każdym renderze', en: 'Disable caching and refetch on every render' },
+            { pl: 'Propagacja unieważnień między zakładkami, np. przez BroadcastChannel, plus refetch przy powrocie fokusu', en: 'Propagate invalidations across tabs, e.g. via BroadcastChannel, plus refetch on window focus' }
           ],
           correct: 3,
           explain: {
-            pl: 'Globalny store zyje w obrebie jednej karty, wiec nic nie zmienia. Problem jest z natury rozproszony: potrzebujesz kanalu miedzy kartami i odswiezenia przy powrocie fokusu, a nie dluzszego lub krotszego czasu zycia cache.',
+            pl: 'Globalny store żyje w obrębie jednej karty, więc nic nie zmienia. Problem jest z natury rozproszony: potrzebujesz kanału między kartami i odświeżenia przy powrocie fokusu, a nie dłuższego lub krótszego czasu życia cache.',
             en: 'A global store lives inside a single tab, so it changes nothing. The problem is distributed by nature: you need a cross-tab channel and a refetch on focus, not a longer or shorter cache lifetime.'
           }
         }
@@ -319,14 +319,14 @@ export default {
           '<text x="320" y="418" text-anchor="middle" font-size="13" fill="var(--ok)">Swap the transport without touching one component</text>' +
           '</svg>',
         caption: {
-          pl: 'Warstwowa architektura danych: komponenty widza tylko hooki domenowe, hooki widza cache, cache widzi transport. Podmiana REST na GraphQL dotyka jednej warstwy, nie 300 komponentow.',
+          pl: 'Warstwowa architektura danych: komponenty widzą tylko hooki domenowe, hooki widzą cache, cache widzi transport. Podmiana REST na GraphQL dotyka jednej warstwy, nie 300 komponentów.',
           en: 'Layered data architecture: components see only domain hooks, hooks see the cache, the cache sees the transport. Swapping REST for GraphQL touches one layer, not 300 components.'
         }
       },
       interactive: {
         kind: 'frames',
         caption: {
-          pl: 'Cykl zycia jednego wpisu w cache: od pustego stanu, przez stale-while-revalidate, po uniewaznienie po mutacji.',
+          pl: 'Cykl życia jednego wpisu w cache: od pustego stanu, przez stale-while-revalidate, po unieważnienie po mutacji.',
           en: 'The lifecycle of one cache entry: from empty, through stale-while-revalidate, to invalidation after a mutation.'
         },
         frames: [
@@ -353,7 +353,7 @@ export default {
               '</svg>',
             label: { pl: 'Zimny cache', en: 'Cold cache' },
             note: {
-              pl: 'Pierwszy komponent pyta o klucz, ktorego nie ma w cache. Leci jedno zapytanie, uzytkownik widzi skeleton.',
+              pl: 'Pierwszy komponent pyta o klucz, którego nie ma w cache. Leci jedno zapytanie, użytkownik widzi skeleton.',
               en: 'The first component asks for a key that is not cached. One request goes out and the user sees a skeleton.'
             }
           },
@@ -381,7 +381,7 @@ export default {
               '</svg>',
             label: { pl: 'Deduplikacja', en: 'Deduplication' },
             note: {
-              pl: 'Drugi komponent prosi o ten sam klucz w trakcie lotu zapytania. Cache nie wysyla drugiego requestu, tylko dopisuje subskrybenta.',
+              pl: 'Drugi komponent prosi o ten sam klucz w trakcie lotu zapytania. Cache nie wysyła drugiego requestu, tylko dopisuje subskrybenta.',
               en: 'A second component asks for the same key while the request is in flight. The cache does not fire a second request, it just adds a subscriber.'
             }
           },
@@ -406,9 +406,9 @@ export default {
               '<rect x="60" y="250" width="520" height="50" rx="10" fill="var(--surface)" stroke="var(--ok)" stroke-width="2"/>' +
               '<text x="320" y="280" text-anchor="middle" font-size="14" fill="var(--ok)">3. fresh: reads are free for 60 seconds</text>' +
               '</svg>',
-            label: { pl: 'Swieze dane', en: 'Fresh data' },
+            label: { pl: 'Świeże dane', en: 'Fresh data' },
             note: {
-              pl: 'Odpowiedz trafia do cache i obaj subskrybenci renderuja sie z tej samej referencji. Przez staleTime kolejne montowania nic nie kosztuja.',
+              pl: 'Odpowiedź trafia do cache i obaj subskrybenci renderują się z tej samej referencji. Przez staleTime kolejne montowania nic nie kosztują.',
               en: 'The response lands in the cache and both subscribers render from the same reference. Within staleTime, further mounts cost nothing.'
             }
           },
@@ -434,9 +434,9 @@ export default {
               '<rect x="60" y="250" width="520" height="50" rx="10" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
               '<text x="320" y="280" text-anchor="middle" font-size="14" fill="var(--warn)">4. stale-while-revalidate: no spinner, silent refresh</text>' +
               '</svg>',
-            label: { pl: 'Odswiezanie w tle', en: 'Background revalidate' },
+            label: { pl: 'Odświeżanie w tle', en: 'Background revalidate' },
             note: {
-              pl: 'Po powrocie fokusu wpis jest przeterminowany. Uzytkownik dalej widzi stare dane, a nowe doleca bez migotania interfejsu.',
+              pl: 'Po powrocie fokusu wpis jest przeterminowany. Użytkownik dalej widzi stare dane, a nowe doleca bez migotania interfejsu.',
               en: 'On window focus the entry is past its staleTime. The user still sees the old data while the new one arrives without a UI flash.'
             }
           },
@@ -462,9 +462,9 @@ export default {
               '<rect x="60" y="250" width="520" height="50" rx="10" fill="var(--surface)" stroke="var(--err)" stroke-width="2"/>' +
               '<text x="320" y="280" text-anchor="middle" font-size="14" fill="var(--err)">5. mutation invalidates the key, every subscriber updates</text>' +
               '</svg>',
-            label: { pl: 'Uniewaznienie po mutacji', en: 'Invalidate after mutation' },
+            label: { pl: 'Unieważnienie po mutacji', en: 'Invalidate after mutation' },
             note: {
-              pl: 'Mutacja uniewaznia klucz, a nie konkretny komponent. Dzieki temu kazdy ekran czytajacy te fakture aktualizuje sie sam, bez event busa i bez recznej synchronizacji.',
+              pl: 'Mutacja unieważnia klucz, a nie konkretny komponent. Dzięki temu każdy ekran czytający tę fakturę aktualizuje się sam, bez event busa i bez ręcznej synchronizacji.',
               en: 'The mutation invalidates a key, not a component. Every screen reading that invoice updates itself, with no event bus and no manual syncing.'
             }
           }
@@ -472,27 +472,27 @@ export default {
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie biuro, w ktorym kazdy pracownik, gdy potrzebuje dokumentu, sam biegnie do archiwum na drugim koncu miasta. Dwadziescia osob, dwadziescia wypraw po ten sam papier. Chaos, korki i rozne wersje tego samego dokumentu na biurkach.</p>' +
-            '<p>Teraz zatrudniasz jednego kuriera z podreczna szafka. Kazdy prosi kuriera. Kurier patrzy do szafki: jesli ma swiezy dokument, oddaje go od reki. Jesli trzy osoby prosza o to samo w tej samej chwili, jedzie <em>raz</em>. Jesli dokument lezy juz dlugo, oddaje ci stara kopie i po cichu jedzie po nowa.</p>' +
-            '<p>Ten kurier to warstwa pobierania danych. Nikt w biurze nie musi znac adresu archiwum ani pamietac, kiedy ostatnio tam byl. Wystarczy poprosic o dokument po nazwie.</p>',
+          pl: '<p>Wyobraź sobie biuro, w którym każdy pracownik, gdy potrzebuje dokumentu, sam biegnie do archiwum na drugim końcu miasta. Dwadzieścia osób, dwadzieścia wypraw po ten sam papier. Chaos, korki i różne wersje tego samego dokumentu na biurkach.</p>' +
+            '<p>Teraz zatrudniasz jednego kuriera z podręczną szafką. Każdy prosi kuriera. Kurier patrzy do szafki: jeśli ma świeży dokument, oddaje go od ręki. Jeśli trzy osoby proszą o to samo w tej samej chwili, jedzie <em>raz</em>. Jeśli dokument leży już długo, oddaje ci starą kopię i po cichu jedzie po nową.</p>' +
+            '<p>Ten kurier to warstwa pobierania danych. Nikt w biurze nie musi znać adresu archiwum ani pamiętać, kiedy ostatnio tam był. Wystarczy poprosić o dokument po nazwie.</p>',
           en: '<p>Picture an office where every worker who needs a document runs to an archive across town on their own. Twenty people, twenty trips for the same sheet of paper. Traffic jams, chaos, and different versions of the same document on different desks.</p>' +
             '<p>Now you hire one courier with a small cabinet. Everyone asks the courier. The courier checks the cabinet: if the document is fresh, you get it instantly. If three people ask for the same thing at the same moment, he goes <em>once</em>. If the document has been sitting there a while, he hands you the old copy and quietly drives off for a new one.</p>' +
             '<p>That courier is the data-fetching layer. Nobody in the office needs the archive address or has to remember when they were last there. You just ask for a document by name.</p>'
         },
         school: {
-          pl: '<p>Warstwa pobierania danych to nie jedna biblioteka, tylko <strong>cztery poziomy z jasnym kierunkiem zaleznosci</strong>. Komponenty widza tylko poziom najwyzszy.</p>' +
+          pl: '<p>Warstwa pobierania danych to nie jedna biblioteka, tylko <strong>cztery poziomy z jasnym kierunkiem zależności</strong>. Komponenty widzą tylko poziom najwyższy.</p>' +
             '<h4>Poziom 1: transport</h4>' +
-            '<p>Jeden klient HTTP, najlepiej wygenerowany z OpenAPI. Tu zyja naglowki autoryzacji, identyfikatory korelacji, timeouty, mapowanie bledow na typy domenowe. Zero logiki biznesowej.</p>' +
+            '<p>Jeden klient HTTP, najlepiej wygenerowany z OpenAPI. Tu żyją nagłówki autoryzacji, identyfikatory korelacji, timeouty, mapowanie błędów na typy domenowe. Zero logiki biznesowej.</p>' +
             '<h4>Poziom 2: cache</h4>' +
-            '<p>TanStack Query, RTK Query albo Apollo. Robi rzeczy, ktorych sam nie chcesz pisac: deduplikacje rownoleglych zapytan, ponawianie z backoffem, odswiezanie po powrocie fokusu, garbage collection nieuzywanych wpisow.</p>' +
+            '<p>TanStack Query, RTK Query albo Apollo. Robi rzeczy, których sam nie chcesz pisać: deduplikację równoległych zapytań, ponawianie z backoffem, odświeżanie po powrocie fokusu, garbage collection nieużywanych wpisów.</p>' +
             '<h4>Poziom 3: hooki domenowe</h4>' +
             '<pre><code>export function useInvoices(customerId, opts) {\n  return useQuery({\n    queryKey: invoiceKeys.list(customerId),\n    queryFn: () =&gt; api.invoices.list({ customerId }),\n    staleTime: 60_000,\n    ...opts\n  })\n}</code></pre>' +
-            '<p>To jest miejsce, w ktorym mieszkaja klucze cache, czasy swiezosci i reguly uniewazniania. Jeden plik na domene, wlasciciel: zespol domenowy.</p>' +
+            '<p>To jest miejsce, w którym mieszkają klucze cache, czasy świeżości i reguły unieważniania. Jeden plik na domenę, właściciel: zespół domenowy.</p>' +
             '<h4>Poziom 4: komponenty</h4>' +
-            '<p>Wolaja <code>useInvoices()</code> i nic wiecej. Nie znaja sciezek URL, nie wiedza, czy pod spodem jest REST czy GraphQL.</p>' +
-            '<p>Dlaczego to sie oplaca? Bo migracja z REST na GraphQL, dodanie BFF albo zmiana biblioteki cache dotyka poziomow 1-3, a nie trzystu komponentow rozsianych po monorepo. To jest ten sam argument, ktory znasz z design systemu: <strong>waska talia zamiast szerokiego API</strong>.</p>' +
-            '<p>Jest jeszcze efekt uboczny, ktory widac dopiero po kilku miesiacach: testy. Komponent, ktory wola tylko <code>useInvoices()</code>, testujesz podmieniajac jeden hook. Komponent, ktory sam siega po <code>fetch</code>, wymaga mockowania sieci, obslugi timeoutow i modli sie o stabilnosc. Warstwy nie sa tu estetyka, tylko warunkiem tego, zeby testy jednostkowe byly szybkie i deterministyczne.</p>' +
-            '<p>Praktyczna zasada podzialu wlasnosci: transport nalezy do zespolu platformowego, hooki domenowe do zespolu, ktory jest wlascicielem danej domeny biznesowej, a komponenty do zespolow produktowych. Kazda z tych warstw ma wtedy jednego wlasciciela i jasny powod do zmiany.</p>',
+            '<p>Wołają <code>useInvoices()</code> i nic więcej. Nie znają ścieżek URL, nie wiedzą, czy pod spodem jest REST czy GraphQL.</p>' +
+            '<p>Dlaczego to się opłaca? Bo migracja z REST na GraphQL, dodanie BFF albo zmiana biblioteki cache dotyka poziomów 1-3, a nie trzystu komponentów rozsianych po monorepo. To jest ten sam argument, który znasz z design systemu: <strong>wąska talia zamiast szerokiego API</strong>.</p>' +
+            '<p>Jest jeszcze efekt uboczny, który widać dopiero po kilku miesiącach: testy. Komponent, który woła tylko <code>useInvoices()</code>, testujesz podmieniając jeden hook. Komponent, który sam sięga po <code>fetch</code>, wymaga mockowania sieci, obsługi timeoutów i modli się o stabilność. Warstwy nie są tu estetyką, tylko warunkiem tego, żeby testy jednostkowe były szybkie i deterministyczne.</p>' +
+            '<p>Praktyczna zasada podziału własności: transport należy do zespołu platformowego, hooki domenowe do zespołu, który jest właścicielem danej domeny biznesowej, a komponenty do zespołów produktowych. Każda z tych warstw ma wtedy jednego właściciela i jasny powód do zmiany.</p>',
           en: '<p>A data-fetching layer is not one library, it is <strong>four levels with a clear dependency direction</strong>. Components only ever see the top one.</p>' +
             '<h4>Level 1: transport</h4>' +
             '<p>A single HTTP client, ideally generated from OpenAPI. Auth headers, correlation ids, timeouts, and error-to-domain-type mapping live here. No business logic.</p>' +
@@ -508,21 +508,21 @@ export default {
             '<p>A practical ownership split: the transport belongs to the platform team, domain hooks to the team that owns that business domain, components to the product teams. Each layer then has one owner and one clear reason to change.</p>'
         },
         pro: {
-          pl: '<p>Warstwa pobierania danych jest tym, czym w design systemie sa tokeny: niewidoczna, dopoki jej nie ma, i wtedy kosztuje kwartal.</p>' +
+          pl: '<p>Warstwa pobierania danych jest tym, czym w design systemie są tokeny: niewidoczna, dopóki jej nie ma, i wtedy kosztuje kwartał.</p>' +
             '<h4>Klucze cache to publiczne API</h4>' +
-            '<p>Jesli klucze budujesz ad hoc w komponentach, nikt nigdy nie uniewazni ich poprawnie. Zrob z nich modul z typami:</p>' +
-            '<pre><code>export const invoiceKeys = {\n  all: ["invoices"] as const,\n  list: (customerId: string, f?: Filters) =&gt;\n    [...invoiceKeys.all, "list", customerId, f ?? {}] as const,\n  detail: (id: string) =&gt; [...invoiceKeys.all, "detail", id] as const\n}\n\n// uniewaznienie hierarchiczne: jedna linia czysci cala domene\nqueryClient.invalidateQueries({ queryKey: invoiceKeys.all })</code></pre>' +
-            '<h4>Liczby, ktore warto znac</h4>' +
+            '<p>Jeśli klucze budujesz ad hoc w komponentach, nikt nigdy nie unieważni ich poprawnie. Zrób z nich moduł z typami:</p>' +
+            '<pre><code>export const invoiceKeys = {\n  all: ["invoices"] as const,\n  list: (customerId: string, f?: Filters) =&gt;\n    [...invoiceKeys.all, "list", customerId, f ?? {}] as const,\n  detail: (id: string) =&gt; [...invoiceKeys.all, "detail", id] as const\n}\n\n// unieważnienie hierarchiczne: jedna linia czyści całą domenę\nqueryClient.invalidateQueries({ queryKey: invoiceKeys.all })</code></pre>' +
+            '<h4>Liczby, które warto znać</h4>' +
             '<ul>' +
-            '<li><code>staleTime</code> jest domyslnie 0. To najczestsza przyczyna nadmiaru ruchu: bez zmiany dostajesz refetch przy kazdym mount i kazdym focusie. Dla danych referencyjnych, jak slownik taryf, sensowne jest 5-15 minut, dla salda konta 0-30 sekund.</li>' +
-            '<li><code>gcTime</code> (dawniej <code>cacheTime</code>) domyslnie 5 minut - to jak dlugo nieuzywany wpis lezy w pamieci, zanim zniknie.</li>' +
-            '<li>Deduplikacja realnie sciela ruch. W panelu agenta, gdzie cztery widgety pytaja o ten sam profil klienta, jeden klucz zamiast czterech to 75 procent mniej zapytan na kazde otwarcie karty.</li>' +
-            '<li>Generowany klient z OpenAPI (openapi-typescript, orval, Kubb) usuwa cala klase bledow typu "backend zmienil pole i nikt nie zauwazyl" - blad pojawia sie w CI, nie u klienta.</li>' +
+            '<li><code>staleTime</code> jest domyślnie 0. To najczęstsza przyczyna nadmiaru ruchu: bez zmiany dostajesz refetch przy każdym mount i każdym focusie. Dla danych referencyjnych, jak słownik taryf, sensowne jest 5-15 minut, dla salda konta 0-30 sekund.</li>' +
+            '<li><code>gcTime</code> (dawniej <code>cacheTime</code>) domyślnie 5 minut - to jak długo nieużywany wpis leży w pamięci, zanim zniknie.</li>' +
+            '<li>Deduplikacja realnie ścina ruch. W panelu agenta, gdzie cztery widgety pytają o ten sam profil klienta, jeden klucz zamiast czterech to 75 procent mniej zapytań na każde otwarcie karty.</li>' +
+            '<li>Generowany klient z OpenAPI (openapi-typescript, orval, Kubb) usuwa całą klasę błędów typu "backend zmienił pole i nikt nie zauważył" - błąd pojawia się w CI, nie u klienta.</li>' +
             '</ul>' +
-            '<h4>Bledy jako dane</h4>' +
-            '<p>Transport powinien mapowac odpowiedzi HTTP na typy domenowe: 401 to nie "blad sieci", tylko sygnal odswiezenia sesji; 409 to konflikt wersji do pokazania w UI; 429 to backoff. Komponent, ktory dostaje surowy <code>AxiosError</code>, zawsze skonczy z <code>catch</code> i alertem.</p>' +
+            '<h4>Błędy jako dane</h4>' +
+            '<p>Transport powinien mapować odpowiedzi HTTP na typy domenowe: 401 to nie "błąd sieci", tylko sygnał odświeżenia sesji; 409 to konflikt wersji do pokazania w UI; 429 to backoff. Komponent, który dostaje surowy <code>AxiosError</code>, zawsze skończy z <code>catch</code> i alertem.</p>' +
             '<h4>Dynamika organizacyjna</h4>' +
-            '<p>W telco z dwudziestoma zespolami frontendowymi najwiekszym problemem nie jest wybor biblioteki, tylko to, ze kazdy zespol ma wlasny <code>fetchWrapper</code> z wlasnym retry. Efekt: burza retry przy incydencie backendu i N razy wiekszy ruch dokladnie wtedy, gdy system pada. Wspolny pakiet transportu z jitterem i jednym budzetem retry jest tu decyzja niezawodnosciowa, nie estetyczna. Zapisz to w ADR i podepnij do platform teamu, nie do design systemu - to inny cykl wydawniczy i inny profil ryzyka.</p>',
+            '<p>W telco z dwudziestoma zespołami frontendowymi największym problemem nie jest wybór biblioteki, tylko to, że każdy zespół ma własny <code>fetchWrapper</code> z własnym retry. Efekt: burza retry przy incydencie backendu i N razy większy ruch dokładnie wtedy, gdy system pada. Wspólny pakiet transportu z jitterem i jednym budżetem retry jest tu decyzją niezawodnościową, nie estetyczną. Zapisz to w ADR i podepnij do platform teamu, nie do design systemu - to inny cykl wydawniczy i inny profil ryzyka.</p>',
           en: '<p>The data-fetching layer is to an application what tokens are to a design system: invisible until it is missing, and then it costs a quarter.</p>' +
             '<h4>Cache keys are a public API</h4>' +
             '<p>If keys are assembled ad hoc inside components, nobody will ever invalidate them correctly. Make them a typed module:</p>' +
@@ -543,69 +543,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Co robi deduplikacja zapytan w kliencie cache?',
+            pl: 'Co robi deduplikacja zapytań w kliencie cache?',
             en: 'What does request deduplication in a cache client do?'
           },
           options: [
-            { pl: 'Usuwa duplikaty rekordow z odpowiedzi serwera', en: 'Removes duplicate records from the server response' },
-            { pl: 'Laczy wiele rownoleglych subskrypcji tego samego klucza w jedno zapytanie sieciowe', en: 'Collapses several concurrent subscriptions to the same key into one network request' },
-            { pl: 'Kompresuje cialo odpowiedzi przed zapisem do cache', en: 'Compresses the response body before writing it to cache' },
+            { pl: 'Usuwa duplikaty rekordów z odpowiedzi serwera', en: 'Removes duplicate records from the server response' },
+            { pl: 'Łączy wiele równoległych subskrypcji tego samego klucza w jedno zapytanie sieciowe', en: 'Collapses several concurrent subscriptions to the same key into one network request' },
+            { pl: 'Kompresuje ciało odpowiedzi przed zapisem do cache', en: 'Compresses the response body before writing it to cache' },
             { pl: 'Zapobiega dwukrotnemu zamontowaniu komponentu', en: 'Prevents a component from mounting twice' }
           ],
           correct: 1,
           explain: {
-            pl: 'Jesli cztery widgety w tej samej chwili prosza o ten sam klucz, leci jeden request, a wszyscy dostaja te sama odpowiedz. To jest glowny powod, dla ktorego panel agenta nie zabija backendu przy otwarciu karty klienta.',
+            pl: 'Jeśli cztery widgety w tej samej chwili proszą o ten sam klucz, leci jeden request, a wszyscy dostają tę samą odpowiedź. To jest główny powód, dla którego panel agenta nie zabija backendu przy otwarciu karty klienta.',
             en: 'If four widgets ask for the same key at the same moment, one request goes out and all of them get the same response. That is the main reason an agent console does not hammer the backend when a case is opened.'
           }
         },
         {
           q: {
-            pl: 'Domyslny staleTime w TanStack Query wynosi 0. Jaki jest tego praktyczny skutek?',
+            pl: 'Domyślny staleTime w TanStack Query wynosi 0. Jaki jest tego praktyczny skutek?',
             en: 'The default staleTime in TanStack Query is 0. What is the practical consequence?'
           },
           options: [
-            { pl: 'Dane nigdy nie trafiaja do cache', en: 'Data never enters the cache' },
-            { pl: 'Zapytania nigdy nie sa ponawiane po bledzie', en: 'Requests are never retried after an error' },
-            { pl: 'Dane sa uznawane za przeterminowane natychmiast, wiec przy kazdym mount i powrocie fokusu leci refetch w tle', en: 'Data is considered stale immediately, so every mount and every window focus triggers a background refetch' },
-            { pl: 'Cache jest czyszczony przy kazdej nawigacji', en: 'The cache is cleared on every navigation' }
+            { pl: 'Dane nigdy nie trafiają do cache', en: 'Data never enters the cache' },
+            { pl: 'Zapytania nigdy nie są ponawiane po błędzie', en: 'Requests are never retried after an error' },
+            { pl: 'Dane są uznawane za przeterminowane natychmiast, więc przy każdym mount i powrocie fokusu leci refetch w tle', en: 'Data is considered stale immediately, so every mount and every window focus triggers a background refetch' },
+            { pl: 'Cache jest czyszczony przy każdej nawigacji', en: 'The cache is cleared on every navigation' }
           ],
           correct: 2,
           explain: {
-            pl: 'Dane nadal sa cachowane i pokazywane od reki, ale sa od razu uznane za nieswieze. Dla slownikow i danych referencyjnych warto podniesc staleTime do kilku minut, inaczej generujesz ruch bez zadnej wartosci dla uzytkownika.',
+            pl: 'Dane nadal są cachowane i pokazywane od ręki, ale są od razu uznane za nieświeże. Dla słowników i danych referencyjnych warto podnieść staleTime do kilku minut, inaczej generujesz ruch bez żadnej wartości dla użytkownika.',
             en: 'The data is still cached and shown instantly, it is just marked stale right away. For catalogues and reference data raise staleTime to minutes, otherwise you generate traffic with no user-visible benefit.'
           }
         },
         {
           q: {
-            pl: 'Dlaczego klucze cache warto trzymac w jednym typowanym module zamiast skladac je w komponentach?',
+            pl: 'Dlaczego klucze cache warto trzymać w jednym typowanym module zamiast składać je w komponentach?',
             en: 'Why keep cache keys in one typed module instead of assembling them inside components?'
           },
           options: [
-            { pl: 'Bo uniewaznianie po mutacji wymaga dokladnie tych samych kluczy, a hierarchia kluczy pozwala wyczyscic cala domene jedna linia', en: 'Because invalidation after a mutation needs exactly the same keys, and a key hierarchy lets you clear a whole domain in one line' },
-            { pl: 'Bo biblioteka odmawia dzialania z kluczami tekstowymi', en: 'Because the library refuses to work with string keys' },
-            { pl: 'Bo klucze musza byc unikalne globalnie w calym monorepo', en: 'Because keys must be globally unique across the monorepo' },
+            { pl: 'Bo unieważnianie po mutacji wymaga dokładnie tych samych kluczy, a hierarchia kluczy pozwala wyczyścić całą domenę jedną linią', en: 'Because invalidation after a mutation needs exactly the same keys, and a key hierarchy lets you clear a whole domain in one line' },
+            { pl: 'Bo biblioteka odmawia działania z kluczami tekstowymi', en: 'Because the library refuses to work with string keys' },
+            { pl: 'Bo klucze muszą być unikalne globalnie w całym monorepo', en: 'Because keys must be globally unique across the monorepo' },
             { pl: 'Bo skraca to czas budowania bundla', en: 'Because it shortens bundle build time' }
           ],
           correct: 0,
           explain: {
-            pl: 'Uniewaznianie dziala przez dopasowanie prefiksu klucza. Klucze pisane recznie w komponentach rozjezdzaja sie literowka albo kolejnoscia pol i mutacja po cichu nie odswieza polowy ekranow.',
+            pl: 'Unieważnianie działa przez dopasowanie prefiksu klucza. Klucze pisane ręcznie w komponentach rozjeżdżają się literówką albo kolejnością pól i mutacja po cichu nie odświeża połowy ekranów.',
             en: 'Invalidation works by key prefix matching. Hand-written keys drift apart through a typo or a different field order, and a mutation silently fails to refresh half the screens.'
           }
         },
         {
           q: {
-            pl: 'Dwadziescia zespolow ma wlasne wrappery fetch, kazdy z retry 3x bez jittera. Backend zaczyna zwracac 503. Co sie stanie i co jest wlasciwa odpowiedzia architektoniczna?',
+            pl: 'Dwadzieścia zespołów ma własne wrappery fetch, każdy z retry 3x bez jittera. Backend zaczyna zwracać 503. Co się stanie i co jest właściwą odpowiedzią architektoniczną?',
             en: 'Twenty teams each ship their own fetch wrapper with 3x retry and no jitter. The backend starts returning 503. What happens, and what is the right architectural answer?'
           },
           options: [
-            { pl: 'Nic szczegolnego, retry zawsze pomaga; wystarczy zwiekszyc liczbe prob', en: 'Nothing much, retries always help; just raise the attempt count' },
-            { pl: 'Ruch spadnie samoistnie, wiec wystarczy poczekac', en: 'Traffic will drop by itself, so just wait it out' },
-            { pl: 'Ruch wzrosnie kilkukrotnie w momencie awarii; potrzebny jest wspolny pakiet transportu z jitterem, budzetem retry i circuit breakerem', en: 'Traffic multiplies exactly during the outage; you need a shared transport package with jitter, a retry budget and a circuit breaker' },
-            { pl: 'Przegladarka sama ograniczy retry do jednego na domene', en: 'The browser will limit retries to one per domain by itself' }
+            { pl: 'Nic szczególnego, retry zawsze pomaga; wystarczy zwiększyć liczbę prób', en: 'Nothing much, retries always help; just raise the attempt count' },
+            { pl: 'Ruch spadnie samoistnie, więc wystarczy poczekać', en: 'Traffic will drop by itself, so just wait it out' },
+            { pl: 'Ruch wzrośnie kilkukrotnie w momencie awarii; potrzebny jest wspólny pakiet transportu z jitterem, budżetem retry i circuit breakerem', en: 'Traffic multiplies exactly during the outage; you need a shared transport package with jitter, a retry budget and a circuit breaker' },
+            { pl: 'Przeglądarka sama ograniczy retry do jednego na domenę', en: 'The browser will limit retries to one per domain by itself' }
           ],
           correct: 2,
           explain: {
-            pl: 'To klasyczna burza retry: w chwili awarii kazdy klient mnozy ruch, dokladnie wtedy, gdy backend go najmniej udzwignie. Bez jittera proby dodatkowo synchronizuja sie w fale. Lekarstwem jest jeden wspolny transport z limitem prob, a nie polityka na zespol.',
+            pl: 'To klasyczna burza retry: w chwili awarii każdy klient mnoży ruch, dokładnie wtedy, gdy backend go najmniej udźwignie. Bez jittera próby dodatkowo synchronizują się w fale. Lekarstwem jest jeden wspólny transport z limitem prób, a nie polityka na zespół.',
             en: 'This is a textbook retry storm: at the moment of failure every client multiplies traffic, precisely when the backend can least absorb it. Without jitter the attempts also synchronise into waves. The cure is one shared transport with a retry budget, not a per-team policy.'
           }
         }
@@ -685,14 +685,14 @@ export default {
           '<text x="320" y="394" text-anchor="middle" font-size="13" fill="var(--warn)">No snapshot means no rollback: optimism without a plan is a bug</text>' +
           '</svg>',
         caption: {
-          pl: 'Zapis optymistyczny i push z serwera spotykaja sie w jednym miejscu - w cache. Przed kazda zgadywanka robisz snapshot, bo bez niego nie ma czego cofnac.',
+          pl: 'Zapis optymistyczny i push z serwera spotykają się w jednym miejscu - w cache. Przed każdą zgadywanką robisz snapshot, bo bez niego nie ma czego cofnąć.',
           en: 'Optimistic writes and server pushes meet in one place - the cache. Take a snapshot before every guess, because without one there is nothing to roll back to.'
         }
       },
       interactive: {
         kind: 'frames',
         caption: {
-          pl: 'Pelny cykl optimistic update z nieudanym zapisem: snapshot, zgadywanka, blad, cofniecie, prawda z serwera.',
+          pl: 'Pełny cykl optimistic update z nieudanym zapisem: snapshot, zgadywanka, błąd, cofnięcie, prawda z serwera.',
           en: 'A full optimistic update cycle with a failed write: snapshot, guess, error, rollback, server truth.'
         },
         frames: [
@@ -711,9 +711,9 @@ export default {
               '<rect x="60" y="248" width="520" height="52" rx="10" fill="var(--surface)" stroke="var(--border)" stroke-width="2"/>' +
               '<text x="320" y="279" text-anchor="middle" font-size="14" fill="var(--muted)">1. before: one value, agreed by everyone</text>' +
               '</svg>',
-            label: { pl: 'Stan wyjsciowy', en: 'Starting state' },
+            label: { pl: 'Stan wyjściowy', en: 'Starting state' },
             note: {
-              pl: 'Zgloszenie ma status Open zarowno w UI, jak i w cache. Uzytkownik za chwile kliknie Resolve.',
+              pl: 'Zgłoszenie ma status Open zarówno w UI, jak i w cache. Użytkownik za chwilę kliknie Resolve.',
               en: 'The ticket reads Open both in the UI and in the cache. The user is about to click Resolve.'
             }
           },
@@ -734,7 +734,7 @@ export default {
               '</svg>',
             label: { pl: 'Zgadywanka i snapshot', en: 'Guess and snapshot' },
             note: {
-              pl: 'Cache dostaje przewidywana wartosc natychmiast, ale najpierw odklada kopie starej. Bez tej kopii cofniecie jest niemozliwe.',
+              pl: 'Cache dostaje przewidywaną wartość natychmiast, ale najpierw odkłada kopię starej. Bez tej kopii cofnięcie jest niemożliwe.',
               en: 'The cache takes the predicted value immediately, but first it stores a copy of the old one. Without that copy a rollback is impossible.'
             }
           },
@@ -755,7 +755,7 @@ export default {
               '</svg>',
             label: { pl: 'Serwer odmawia', en: 'The server refuses' },
             note: {
-              pl: 'Inny agent zamknal to zgloszenie sekunde wczesniej, wiec API zwraca 409. UI wciaz pokazuje zgadywanke.',
+              pl: 'Inny agent zamknął to zgłoszenie sekundę wcześniej, więc API zwraca 409. UI wciąż pokazuje zgadywankę.',
               en: 'Another agent closed the ticket a second earlier, so the API returns 409. The UI is still showing the guess.'
             }
           },
@@ -774,9 +774,9 @@ export default {
               '<rect x="60" y="248" width="520" height="52" rx="10" fill="var(--surface)" stroke="var(--warn)" stroke-width="2"/>' +
               '<text x="320" y="279" text-anchor="middle" font-size="14" fill="var(--warn)">4. rollback: onError puts the snapshot back</text>' +
               '</svg>',
-            label: { pl: 'Cofniecie', en: 'Rollback' },
+            label: { pl: 'Cofnięcie', en: 'Rollback' },
             note: {
-              pl: 'Handler onError przywraca snapshot i pokazuje komunikat z konkretem, a nie samym slowem blad. Uzytkownik widzi, ze jego zmiana nie przeszla.',
+              pl: 'Handler onError przywraca snapshot i pokazuje komunikat z konkretem, a nie samym słowem błąd. Użytkownik widzi, że jego zmiana nie przeszła.',
               en: 'The onError handler restores the snapshot and shows a specific message rather than the word error. The user can see the change did not stick.'
             }
           },
@@ -797,7 +797,7 @@ export default {
               '</svg>',
             label: { pl: 'Prawda z serwera', en: 'Server truth' },
             note: {
-              pl: 'Na koncu, niezaleznie od wyniku, uniewazniasz klucz i pobierasz stan z serwera. Dzieki temu UI konczy na prawdzie, a nie na cofnietej zgadywance.',
+              pl: 'Na końcu, niezależnie od wyniku, unieważniasz klucz i pobierasz stan z serwera. Dzięki temu UI kończy na prawdzie, a nie na cofniętej zgadywance.',
               en: 'Finally, regardless of the outcome, you invalidate the key and pull the server state. The UI ends on truth rather than on a rolled-back guess.'
             }
           }
@@ -805,24 +805,24 @@ export default {
       },
       levels: {
         eli5: {
-          pl: '<p>Zamawiasz kawe i barista od razu pisze twoje imie na kubku, zanim jeszcze cokolwiek zaparzy. Czujesz, ze zamowienie <em>juz sie dzieje</em>, chociaz kawy nie ma. To wlasnie optimistic UI: aplikacja zaklada, ze sie uda, i pokazuje wynik od razu.</p>' +
-            '<p>Ale barista trzyma pod lada kartke z tym, co bylo wczesniej. Jesli okaze sie, ze mleko sie skonczylo, wraca do ciebie i mowi: nie wyszlo, oddaje pieniadze. Bez tej kartki nie mialby jak niczego cofnac.</p>' +
-            '<p>A realtime to glosnik w kawiarni. Gdy ktos inny odbierze ostatnie ciastko, wszyscy slysza to w tej samej chwili i nikt nie stoi przy ladzie z nieaktualna informacja w glowie.</p>' +
-            '<p>Razem daja wrazenie, ze aplikacja jest szybka i ze wszyscy widza to samo.</p>',
+          pl: '<p>Zamawiasz kawę i barista od razu pisze twoje imię na kubku, zanim jeszcze cokolwiek zaparzy. Czujesz, że zamówienie <em>już się dzieje</em>, chociaż kawy nie ma. To właśnie optimistic UI: aplikacja zakłada, że się uda, i pokazuje wynik od razu.</p>' +
+            '<p>Ale barista trzyma pod ladą kartkę z tym, co było wcześniej. Jeśli okaże się, że mleko się skończyło, wraca do ciebie i mówi: nie wyszło, oddaję pieniądze. Bez tej kartki nie miałby jak niczego cofnąć.</p>' +
+            '<p>A realtime to głośnik w kawiarni. Gdy ktoś inny odbierze ostatnie ciastko, wszyscy słyszą to w tej samej chwili i nikt nie stoi przy ladzie z nieaktualną informacją w głowie.</p>' +
+            '<p>Razem dają wrażenie, że aplikacja jest szybka i że wszyscy widzą to samo.</p>',
           en: '<p>You order a coffee and the barista writes your name on the cup before brewing anything. It feels like the order is <em>already happening</em>, even though there is no coffee yet. That is optimistic UI: the app assumes success and shows the result straight away.</p>' +
             '<p>But the barista keeps a slip under the counter with what things looked like before. If the milk turns out to be gone, he comes back and says: it did not work, here is your money. Without that slip he could not undo anything.</p>' +
             '<p>Realtime is the loudspeaker in the cafe. When somebody else takes the last pastry, everyone hears it at the same moment and nobody stands at the counter with outdated information in their head.</p>' +
             '<p>Together they make the app feel fast and make everyone see the same thing.</p>'
         },
         school: {
-          pl: '<p>Optimistic UI to zaklad: pokazujesz wynik operacji, zanim serwer go potwierdzi. Oplaca sie, gdy szansa powodzenia jest wysoka, a operacja jest odwracalna - polubienie, zmiana statusu, przeciagniecie karty. Nie oplaca sie przy platnosciach i nieodwracalnych akcjach.</p>' +
-            '<p>Wzorzec ma zawsze trzy fazy, i tej srodkowej najczesciej brakuje w kodzie:</p>' +
-            '<pre><code>useMutation({\n  mutationFn: setStatus,\n  onMutate: async (next) =&gt; {\n    await qc.cancelQueries({ queryKey: key })   // 1. zatrzymaj wyscig\n    const prev = qc.getQueryData(key)           // 2. SNAPSHOT\n    qc.setQueryData(key, next)                  // 3. zgadywanka\n    return { prev }\n  },\n  onError: (_e, _v, ctx) =&gt; qc.setQueryData(key, ctx.prev),  // cofnij\n  onSettled: () =&gt; qc.invalidateQueries({ queryKey: key })   // prawda\n})</code></pre>' +
+          pl: '<p>Optimistic UI to zakład: pokazujesz wynik operacji, zanim serwer go potwierdzi. Opłaca się, gdy szansa powodzenia jest wysoka, a operacja jest odwracalna - polubienie, zmiana statusu, przeciągnięcie karty. Nie opłaca się przy płatnościach i nieodwracalnych akcjach.</p>' +
+            '<p>Wzorzec ma zawsze trzy fazy, i tej środkowej najczęściej brakuje w kodzie:</p>' +
+            '<pre><code>useMutation({\n  mutationFn: setStatus,\n  onMutate: async (next) =&gt; {\n    await qc.cancelQueries({ queryKey: key })   // 1. zatrzymaj wyścig\n    const prev = qc.getQueryData(key)           // 2. SNAPSHOT\n    qc.setQueryData(key, next)                  // 3. zgadywanka\n    return { prev }\n  },\n  onError: (_e, _v, ctx) =&gt; qc.setQueryData(key, ctx.prev),  // cofnij\n  onSettled: () =&gt; qc.invalidateQueries({ queryKey: key })   // prawda\n})</code></pre>' +
             '<h4>Realtime: SSE czy WebSocket</h4>' +
-            '<p>SSE (Server-Sent Events) to jednokierunkowy strumien po zwyklym HTTP - dziala z CDN, proxy i naglowkami autoryzacji, sam sie wznawia. Wystarcza dla 90 procent przypadkow typu "powiadom mnie, ze cos sie zmienilo". WebSocket bierz wtedy, gdy naprawde potrzebujesz kanalu w dwie strony: czat, wspoledycja, telemetria.</p>' +
-            '<h4>Zasada, ktora oszczedza tygodnie</h4>' +
-            '<p>Push z serwera nie powinien renderowac sie bezposrednio. Niech <strong>uniewaznia klucz w cache</strong> albo aktualizuje wpis w cache. Jesli komponenty subskrybuja socket bezposrednio, kazdy z nich ma wlasna kopie prawdy i po tygodniu masz dwa niezalezne systemy stanu, ktore trzeba synchronizowac recznie.</p>' +
-            '<p>Warto tez z gory ustalic, co uzytkownik widzi w czasie oczekiwania. Sa trzy sensowne warianty: pelny optymizm bez zadnego wskaznika, optymizm z delikatnym stanem pending na wierszu oraz zwykly spinner blokujacy akcje. Przy operacjach, ktore udaja sie ponad 99 procent razy, pierwszy wariant jest najlepszy. Przy 90 procentach lepszy jest drugi, bo cofniecie nie zaskoczy uzytkownika w polowie kolejnego kroku.</p>',
+            '<p>SSE (Server-Sent Events) to jednokierunkowy strumień po zwykłym HTTP - działa z CDN, proxy i nagłówkami autoryzacji, sam się wznawia. Wystarcza dla 90 procent przypadków typu "powiadom mnie, że coś się zmieniło". WebSocket bierz wtedy, gdy naprawdę potrzebujesz kanału w dwie strony: czat, współedycja, telemetria.</p>' +
+            '<h4>Zasada, która oszczędza tygodnie</h4>' +
+            '<p>Push z serwera nie powinien renderować się bezpośrednio. Niech <strong>unieważnia klucz w cache</strong> albo aktualizuje wpis w cache. Jeśli komponenty subskrybują socket bezpośrednio, każdy z nich ma własną kopię prawdy i po tygodniu masz dwa niezależne systemy stanu, które trzeba synchronizować ręcznie.</p>' +
+            '<p>Warto też z góry ustalić, co użytkownik widzi w czasie oczekiwania. Są trzy sensowne warianty: pełny optymizm bez żadnego wskaźnika, optymizm z delikatnym stanem pending na wierszu oraz zwykły spinner blokujący akcję. Przy operacjach, które udają się ponad 99 procent razy, pierwszy wariant jest najlepszy. Przy 90 procentach lepszy jest drugi, bo cofnięcie nie zaskoczy użytkownika w połowie kolejnego kroku.</p>',
           en: '<p>Optimistic UI is a bet: you show the result of an operation before the server confirms it. It pays off when the success rate is high and the action is reversible - a like, a status change, a dragged card. It does not pay off for payments and irreversible actions.</p>' +
             '<p>The pattern always has three phases, and the middle one is the one usually missing from real code:</p>' +
             '<pre><code>useMutation({\n  mutationFn: setStatus,\n  onMutate: async (next) =&gt; {\n    await qc.cancelQueries({ queryKey: key })   // 1. stop the race\n    const prev = qc.getQueryData(key)           // 2. SNAPSHOT\n    qc.setQueryData(key, next)                  // 3. the guess\n    return { prev }\n  },\n  onError: (_e, _v, ctx) =&gt; qc.setQueryData(key, ctx.prev),  // undo\n  onSettled: () =&gt; qc.invalidateQueries({ queryKey: key })   // truth\n})</code></pre>' +
@@ -833,22 +833,22 @@ export default {
             '<p>Decide up front what the user sees while waiting. There are three reasonable variants: full optimism with no indicator at all, optimism plus a subtle pending state on the row, and a plain blocking spinner. For operations that succeed more than 99 percent of the time the first is best. At 90 percent the second wins, because a rollback will not ambush the user halfway into the next step.</p>'
         },
         pro: {
-          pl: '<p>Realtime i optimistic UI to ta sama klasa problemu: <strong>masz dwa zegary, a uzytkownik ma widziec jeden interfejs</strong>. Cala trudnosc lezy w tym, kto wygrywa konflikt i kiedy.</p>' +
+          pl: '<p>Realtime i optimistic UI to ta sama klasa problemu: <strong>masz dwa zegary, a użytkownik ma widzieć jeden interfejs</strong>. Cała trudność leży w tym, kto wygrywa konflikt i kiedy.</p>' +
             '<h4>Jeden punkt uzgodnienia</h4>' +
-            '<p>Wybierz cache jako jedyne miejsce, w ktorym spotykaja sie: odpowiedzi HTTP, zdarzenia push i zapisy optymistyczne. Kazde inne rozwiazanie prowadzi do rozjazdu przy pierwszym wyscigu. Konkretny mechanizm w TanStack Query to <code>cancelQueries</code> w <code>onMutate</code>: bez niego refetch, ktory wystartowal 200 ms wczesniej, wraca po twojej zgadywance i cicho ja nadpisuje starymi danymi.</p>' +
-            '<h4>Kontrakt zdarzen</h4>' +
-            '<pre><code>// dobre zdarzenie: maly, wersjonowany, z id encji\n{ "type": "ticket.updated", "id": "771", "rev": 18, "at": "2026-03-04T10:12:01Z" }\n\n// zle: caly obiekt bez wersji - nie wiesz, czy nie jest starszy\nniz to, co juz masz w cache</code></pre>' +
-            '<p>Zdarzenia moga dotrzec nie po kolei i moga sie zdublowac. Numer rewizji pozwala odrzucic zdarzenie starsze niz stan lokalny. Bez tego przy niestabilnym 4G user zobaczy migotanie statusu w obie strony.</p>' +
+            '<p>Wybierz cache jako jedyne miejsce, w którym spotykają się: odpowiedzi HTTP, zdarzenia push i zapisy optymistyczne. Każde inne rozwiązanie prowadzi do rozjazdu przy pierwszym wyścigu. Konkretny mechanizm w TanStack Query to <code>cancelQueries</code> w <code>onMutate</code>: bez niego refetch, który wystartował 200 ms wcześniej, wraca po twojej zgadywance i cicho ją nadpisuje starymi danymi.</p>' +
+            '<h4>Kontrakt zdarzeń</h4>' +
+            '<pre><code>// dobre zdarzenie: mały, wersjonowany, z id encji\n{ "type": "ticket.updated", "id": "771", "rev": 18, "at": "2026-03-04T10:12:01Z" }\n\n// złe: cały obiekt bez wersji - nie wiesz, czy nie jest starszy\nniż to, co już masz w cache</code></pre>' +
+            '<p>Zdarzenia mogą dotrzeć nie po kolei i mogą się zdublować. Numer rewizji pozwala odrzucić zdarzenie starsze niż stan lokalny. Bez tego przy niestabilnym 4G user zobaczy migotanie statusu w obie strony.</p>' +
             '<h4>Reconnect i backfill</h4>' +
-            '<p>Kazde polaczenie sie zerwie: tunel, winda, przelaczenie z Wi-Fi na LTE. SSE ma <code>Last-Event-ID</code>, ktore serwer powinien honorowac. Jesli nie honoruje, po reconnect zrob pelne <code>invalidateQueries</code> na widocznych ekranach - to tanszy backfill niz dopisywanie brakujacych zdarzen. Zawsze zakladaj, ze strumien zgubil zdarzenia.</p>' +
+            '<p>Każde połączenie się zerwie: tunel, winda, przełączenie z Wi-Fi na LTE. SSE ma <code>Last-Event-ID</code>, które serwer powinien honorować. Jeśli nie honoruje, po reconnect zrób pełne <code>invalidateQueries</code> na widocznych ekranach - to tańszy backfill niż dopisywanie brakujących zdarzeń. Zawsze zakładaj, że strumień zgubił zdarzenia.</p>' +
             '<h4>Skala i koszty</h4>' +
             '<ul>' +
-            '<li>Otwarte polaczenie to pamiec na serwerze. Przy 5 tysiacach zalogowanych agentow to 5 tysiecy trwalych polaczen - projekt musi to uwzglednic po stronie load balancera i limitow proxy (domyslny timeout idle w nginx to 60 s, wiec potrzebujesz heartbeat).</li>' +
-            '<li>Przy bardziej niz jednej aktualizacji na sekunde na uzytkownika oplaca sie batching po stronie serwera zamiast N osobnych zdarzen.</li>' +
-            '<li>Sledz metryke "odsetek cofnietych mutacji". Powyzej 2-3 procent optymizm przestaje byc pomocny i zaczyna byc oszustwem wobec uzytkownika.</li>' +
+            '<li>Otwarte połączenie to pamięć na serwerze. Przy 5 tysiącach zalogowanych agentów to 5 tysięcy trwałych połączeń - projekt musi to uwzględnić po stronie load balancera i limitów proxy (domyślny timeout idle w nginx to 60 s, więc potrzebujesz heartbeat).</li>' +
+            '<li>Przy bardziej niż jednej aktualizacji na sekundę na użytkownika opłaca się batching po stronie serwera zamiast N osobnych zdarzeń.</li>' +
+            '<li>Śledź metrykę "odsetek cofniętych mutacji". Powyżej 2-3 procent optymizm przestaje być pomocny i zaczyna być oszustwem wobec użytkownika.</li>' +
             '</ul>' +
             '<h4>Design system</h4>' +
-            '<p>Stany pending, rolled-back i conflict musza byc <strong>tokenami i wariantami komponentow</strong>, a nie improwizacja kazdego zespolu. W CHI oznacza to jawny wariant <code>is-pending</code> na wierszu tabeli i standardowy komponent konfliktu z akcja "zobacz aktualna wersje". Inaczej dwadziescia zespolow wymysli dwadziescia sposobow pokazania, ze cos sie nie zapisalo, a support dostanie dwadziescia roznych zgloszen.</p>',
+            '<p>Stany pending, rolled-back i conflict muszą być <strong>tokenami i wariantami komponentów</strong>, a nie improwizacją każdego zespołu. W CHI oznacza to jawny wariant <code>is-pending</code> na wierszu tabeli i standardowy komponent konfliktu z akcją "zobacz aktualną wersję". Inaczej dwadzieścia zespołów wymyśli dwadzieścia sposobów pokazania, że coś się nie zapisało, a support dostanie dwadzieścia różnych zgłoszeń.</p>',
           en: '<p>Realtime and optimistic UI are the same class of problem: <strong>you have two clocks and the user must see one interface</strong>. All the difficulty sits in who wins a conflict, and when.</p>' +
             '<h4>One reconciliation point</h4>' +
             '<p>Pick the cache as the single place where HTTP responses, push events and optimistic writes meet. Anything else drifts apart at the first race. The concrete mechanism in TanStack Query is <code>cancelQueries</code> inside <code>onMutate</code>: without it, a refetch that started 200 ms earlier lands after your guess and silently overwrites it with stale data.</p>' +
@@ -874,65 +874,65 @@ export default {
             en: 'What is optimistic UI?'
           },
           options: [
-            { pl: 'Pokazaniem wyniku operacji zanim serwer ja potwierdzi, z planem cofniecia w razie bledu', en: 'Showing the result of an operation before the server confirms it, with a rollback plan if it fails' },
-            { pl: 'Wyswietlaniem przyjaznych komunikatow o bledach', en: 'Displaying friendly error messages' },
-            { pl: 'Ladowaniem danych z wyprzedzeniem przy najechaniu myszka', en: 'Prefetching data on mouse hover' },
-            { pl: 'Ukrywaniem spinnerow, zeby aplikacja wygladala szybciej', en: 'Hiding spinners so the app looks faster' }
+            { pl: 'Pokazaniem wyniku operacji zanim serwer ją potwierdzi, z planem cofnięcia w razie błędu', en: 'Showing the result of an operation before the server confirms it, with a rollback plan if it fails' },
+            { pl: 'Wyświetlaniem przyjaznych komunikatów o błędach', en: 'Displaying friendly error messages' },
+            { pl: 'Ładowaniem danych z wyprzedzeniem przy najechaniu myszką', en: 'Prefetching data on mouse hover' },
+            { pl: 'Ukrywaniem spinnerów, żeby aplikacja wyglądała szybciej', en: 'Hiding spinners so the app looks faster' }
           ],
           correct: 0,
           explain: {
-            pl: 'Kluczowe sa oba elementy: natychmiastowa aktualizacja i mozliwosc cofniecia. Sama zgadywanka bez snapshotu to nie optymizm, tylko blad, ktory ujawni sie przy pierwszym 500 z serwera.',
+            pl: 'Kluczowe są oba elementy: natychmiastowa aktualizacja i możliwość cofnięcia. Sama zgadywanka bez snapshotu to nie optymizm, tylko błąd, który ujawni się przy pierwszym 500 z serwera.',
             en: 'Both halves matter: the instant update and the ability to undo it. A guess without a snapshot is not optimism, it is a bug waiting for the first 500 from the server.'
           }
         },
         {
           q: {
-            pl: 'Po co wolac cancelQueries na poczatku onMutate?',
+            pl: 'Po co wołać cancelQueries na początku onMutate?',
             en: 'Why call cancelQueries at the start of onMutate?'
           },
           options: [
-            { pl: 'Zeby zwolnic pamiec przed zapisem', en: 'To free memory before the write' },
-            { pl: 'Zeby refetch bedacy juz w locie nie wrocil pozniej i nie nadpisal aktualizacji optymistycznej starymi danymi', en: 'So an in-flight refetch does not land later and overwrite the optimistic update with stale data' },
-            { pl: 'Zeby wymusic ponowne zamontowanie komponentu', en: 'To force the component to remount' },
-            { pl: 'Zeby wylaczyc retry dla tej mutacji', en: 'To disable retries for this mutation' }
+            { pl: 'Żeby zwolnić pamięć przed zapisem', en: 'To free memory before the write' },
+            { pl: 'Żeby refetch będący już w locie nie wrócił później i nie nadpisał aktualizacji optymistycznej starymi danymi', en: 'So an in-flight refetch does not land later and overwrite the optimistic update with stale data' },
+            { pl: 'Żeby wymusić ponowne zamontowanie komponentu', en: 'To force the component to remount' },
+            { pl: 'Żeby wyłączyć retry dla tej mutacji', en: 'To disable retries for this mutation' }
           ],
           correct: 1,
           explain: {
-            pl: 'To klasyczny wyscig: zapytanie wystartowalo przed twoja mutacja, ale odpowiedz przychodzi po niej. Bez anulowania cache dostaje stara wartosc i uzytkownik widzi, jak jego zmiana znika.',
+            pl: 'To klasyczny wyścig: zapytanie wystartowało przed twoją mutacją, ale odpowiedź przychodzi po niej. Bez anulowania cache dostaje starą wartość i użytkownik widzi, jak jego zmiana znika.',
             en: 'It is a classic race: the request started before your mutation but the response arrives after it. Without cancelling, the cache takes the old value and the user watches their change vanish.'
           }
         },
         {
           q: {
-            pl: 'Kiedy SSE jest lepszym wyborem niz WebSocket?',
+            pl: 'Kiedy SSE jest lepszym wyborem niż WebSocket?',
             en: 'When is SSE a better choice than a WebSocket?'
           },
           options: [
-            { pl: 'Przy wspoledycji dokumentu w czasie rzeczywistym', en: 'For real-time collaborative document editing' },
-            { pl: 'Przy przesylaniu duzych plikow binarnych', en: 'For transferring large binary files' },
-            { pl: 'Gdy potrzebujesz gwarancji dostarczenia kazdego zdarzenia dokladnie raz', en: 'When you need exactly-once delivery guarantees for every event' },
-            { pl: 'Przy jednokierunkowych powiadomieniach o zmianach, gdzie zalezy ci na zwyklym HTTP, naglowkach autoryzacji i automatycznym wznawianiu', en: 'For one-way change notifications where plain HTTP, auth headers and automatic reconnect matter' }
+            { pl: 'Przy współedycji dokumentu w czasie rzeczywistym', en: 'For real-time collaborative document editing' },
+            { pl: 'Przy przesyłaniu dużych plików binarnych', en: 'For transferring large binary files' },
+            { pl: 'Gdy potrzebujesz gwarancji dostarczenia każdego zdarzenia dokładnie raz', en: 'When you need exactly-once delivery guarantees for every event' },
+            { pl: 'Przy jednokierunkowych powiadomieniach o zmianach, gdzie zależy ci na zwykłym HTTP, nagłówkach autoryzacji i automatycznym wznawianiu', en: 'For one-way change notifications where plain HTTP, auth headers and automatic reconnect matter' }
           ],
           correct: 3,
           explain: {
-            pl: 'SSE jedzie po zwyklym HTTP, wiec przechodzi przez proxy i CDN, dziala z istniejaca autoryzacja i sam sie wznawia z Last-Event-ID. WebSocket bierz dopiero wtedy, gdy naprawde potrzebujesz kanalu w dwie strony.',
+            pl: 'SSE jedzie po zwykłym HTTP, więc przechodzi przez proxy i CDN, działa z istniejącą autoryzacją i sam się wznawia z Last-Event-ID. WebSocket bierz dopiero wtedy, gdy naprawdę potrzebujesz kanału w dwie strony.',
             en: 'SSE rides plain HTTP, so it passes proxies and CDNs, works with existing auth and reconnects itself using Last-Event-ID. Take a WebSocket only when you genuinely need a two-way channel.'
           }
         },
         {
           q: {
-            pl: 'Agenci na niestabilnym LTE zglaszaja, ze status zgloszenia miga tam i z powrotem. Zdarzenia z serwera zawieraja caly obiekt, ale bez numeru rewizji. Co jest tu przyczyna i lekarstwem?',
+            pl: 'Agenci na niestabilnym LTE zgłaszają, że status zgłoszenia miga tam i z powrotem. Zdarzenia z serwera zawierają cały obiekt, ale bez numeru rewizji. Co jest tu przyczyną i lekarstwem?',
             en: 'Agents on flaky LTE report that a ticket status flickers back and forth. Server events carry the whole object but no revision number. What is the cause and the cure?'
           },
           options: [
-            { pl: 'Zbyt niski staleTime; wystarczy go podniesc do 5 minut', en: 'staleTime is too low; raise it to 5 minutes' },
-            { pl: 'Zdarzenia docieraja nie po kolei i zdublowane, a bez wersji nie da sie odrzucic starszego; dodaj monotoniczna rewizje i ignoruj zdarzenia starsze niz stan lokalny', en: 'Events arrive out of order and duplicated, and without a version you cannot drop the older one; add a monotonic revision and ignore events older than local state' },
-            { pl: 'Przegladarka buforuje odpowiedzi SSE; nalezy dodac naglowek no-store', en: 'The browser buffers SSE responses; add a no-store header' },
-            { pl: 'Nalezy przejsc na WebSocket, bo SSE nie obsluguje kolejnosci', en: 'Switch to WebSockets, because SSE cannot preserve ordering' }
+            { pl: 'Zbyt niski staleTime; wystarczy go podnieść do 5 minut', en: 'staleTime is too low; raise it to 5 minutes' },
+            { pl: 'Zdarzenia docierają nie po kolei i zdublowane, a bez wersji nie da się odrzucić starszego; dodaj monotoniczną rewizję i ignoruj zdarzenia starsze niż stan lokalny', en: 'Events arrive out of order and duplicated, and without a version you cannot drop the older one; add a monotonic revision and ignore events older than local state' },
+            { pl: 'Przeglądarka buforuje odpowiedzi SSE; należy dodać nagłówek no-store', en: 'The browser buffers SSE responses; add a no-store header' },
+            { pl: 'Należy przejść na WebSocket, bo SSE nie obsługuje kolejności', en: 'Switch to WebSockets, because SSE cannot preserve ordering' }
           ],
           correct: 1,
           explain: {
-            pl: 'Przy zrywanym polaczeniu dostarczenie zdarzen jest z natury at-least-once i bez gwarancji kolejnosci. Wersjonowanie encji pozwala kazdemu klientowi lokalnie zdecydowac, czy zdarzenie wnosi cos nowego. Zmiana transportu tego nie naprawia.',
+            pl: 'Przy zrywanym połączeniu dostarczenie zdarzeń jest z natury at-least-once i bez gwarancji kolejności. Wersjonowanie encji pozwala każdemu klientowi lokalnie zdecydować, czy zdarzenie wnosi coś nowego. Zmiana transportu tego nie naprawia.',
             en: 'On a broken-up connection delivery is inherently at-least-once with no ordering guarantee. Versioning the entity lets every client decide locally whether an event adds anything. Changing the transport does not fix it.'
           }
         }
@@ -1011,33 +1011,33 @@ export default {
           '<text x="320" y="402" text-anchor="middle" font-size="13" fill="var(--err)">Hardest part is not caching, it is merging</text>' +
           '</svg>',
         caption: {
-          pl: 'W trybie offline-first akcja uzytkownika trafia do kolejki w IndexedDB, a nie do sieci. Osobny worker oproznia kolejke, gdy wroci lacznosc, a klucz idempotencji chroni przed dublami.',
+          pl: 'W trybie offline-first akcja użytkownika trafia do kolejki w IndexedDB, a nie do sieci. Osobny worker opróżnia kolejkę, gdy wróci łączność, a klucz idempotencji chroni przed dublami.',
           en: 'In offline-first, a user action goes into an IndexedDB queue rather than onto the network. A separate worker drains it when connectivity returns, and an idempotency key protects against duplicates.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie listonosza, ktory pracuje w gorach. Czasem ma zasieg, czasem nie. Gdyby przy kazdym liscie musial dzwonic do centrali, staly by w miejscu godzinami.</p>' +
-            '<p>Zamiast tego ma <strong>torbe</strong>. Wrzuca do niej wszystko, co ma do wyslania, i idzie dalej. Gdy dojdzie na szczyt i zlapie zasieg, torba oprozniania sie sama.</p>' +
-            '<p>Ma tez <strong>notes z kopiami</strong> najwazniejszych papierow, wiec nawet bez zasiegu moze komus pokazac, co jest w umowie.</p>' +
-            '<p>Jedna rzecz jest trudna. Jesli w miedzyczasie ktos w centrali zmienil ten sam papier, po powrocie sa dwie wersje. Ktos musi zdecydowac, ktora jest wazniejsza - i to jest naprawde trudna czesc, a nie sama torba.</p>',
+          pl: '<p>Wyobraź sobie listonosza, który pracuje w górach. Czasem ma zasięg, czasem nie. Gdyby przy każdym liście musiał dzwonić do centrali, stałyby w miejscu godzinami.</p>' +
+            '<p>Zamiast tego ma <strong>torbę</strong>. Wrzuca do niej wszystko, co ma do wysłania, i idzie dalej. Gdy dojdzie na szczyt i złapie zasięg, torba opróżniania się sama.</p>' +
+            '<p>Ma też <strong>notes z kopiami</strong> najważniejszych papierów, więc nawet bez zasięgu może komuś pokazać, co jest w umowie.</p>' +
+            '<p>Jedna rzecz jest trudna. Jeśli w międzyczasie ktoś w centrali zmienił ten sam papier, po powrocie są dwie wersje. Ktoś musi zdecydować, która jest ważniejsza - i to jest naprawdę trudna część, a nie sama torba.</p>',
           en: '<p>Picture a postman working in the mountains. Sometimes he has signal, sometimes he does not. If he had to phone the office for every letter, he would stand still for hours.</p>' +
             '<p>Instead he carries a <strong>bag</strong>. Everything he needs to send goes in the bag and he keeps walking. When he reaches the ridge and catches a signal, the bag empties itself.</p>' +
             '<p>He also carries a <strong>notebook of copies</strong> of the important papers, so even with no signal he can show somebody what the contract says.</p>' +
             '<p>One thing is hard. If somebody at the office changed the same paper meanwhile, there are now two versions. Someone has to decide which one counts - and that, not the bag, is the genuinely hard part.</p>'
         },
         school: {
-          pl: '<p>Offline-first nie oznacza "aplikacja pokazuje komunikat, gdy nie ma sieci". Oznacza, ze <strong>brak sieci jest normalnym trybem pracy</strong>, a nie awaria. To realny wymog w telco: technik w piwnicy, kurier w windzie, agent w terenie.</p>' +
-            '<h4>Trzy niezalezne warstwy</h4>' +
+          pl: '<p>Offline-first nie oznacza "aplikacja pokazuje komunikat, gdy nie ma sieci". Oznacza, że <strong>brak sieci jest normalnym trybem pracy</strong>, a nie awarią. To realny wymóg w telco: technik w piwnicy, kurier w windzie, agent w terenie.</p>' +
+            '<h4>Trzy niezależne warstwy</h4>' +
             '<ol>' +
-            '<li><strong>Powloka aplikacji.</strong> Service worker precachuje HTML, CSS, JS i ikony. Tu wystarcza gotowe strategie z Workboxa: cache-first dla plikow z hashem w nazwie, network-first dla nawigacji.</li>' +
-            '<li><strong>Dane do odczytu.</strong> Trzymane w IndexedDB, zwykle przez persystencje cache (np. persistQueryClient w TanStack Query albo wlasny adapter na Dexie). Uzytkownik widzi ostatni znany stan z jasna informacja, kiedy pochodzi.</li>' +
-            '<li><strong>Zapisy.</strong> Kolejka outbox: akcja zapisuje sie lokalnie i czeka. Przegladarki Chromium maja Background Sync, ktory obudzi service workera po powrocie sieci; w Safari go nie ma, wiec i tak potrzebujesz zwyklego drenu przy starcie aplikacji i przy zdarzeniu <code>online</code>.</li>' +
+            '<li><strong>Powłoka aplikacji.</strong> Service worker precachuje HTML, CSS, JS i ikony. Tu wystarcza gotowe strategie z Workboxa: cache-first dla plików z hashem w nazwie, network-first dla nawigacji.</li>' +
+            '<li><strong>Dane do odczytu.</strong> Trzymane w IndexedDB, zwykle przez persystencję cache (np. persistQueryClient w TanStack Query albo własny adapter na Dexie). Użytkownik widzi ostatni znany stan z jasną informacją, kiedy pochodzi.</li>' +
+            '<li><strong>Zapisy.</strong> Kolejka outbox: akcja zapisuje się lokalnie i czeka. Przeglądarki Chromium mają Background Sync, który obudzi service workera po powrocie sieci; w Safari go nie ma, więc i tak potrzebujesz zwykłego drenu przy starcie aplikacji i przy zdarzeniu <code>online</code>.</li>' +
             '</ol>' +
             '<pre><code>async function enqueue(op) {\n  op.id = crypto.randomUUID()   // klucz idempotencji\n  await db.outbox.add(op)\n  if (navigator.onLine) drain()\n}</code></pre>' +
-            '<h4>Czego nie robic offline</h4>' +
-            '<p>Operacji nieodwracalnych i takich, ktore wymagaja aktualnego stanu serwera: platnosci, aktywacji uslugi, rezerwacji ostatniej sztuki. Lepiej jawnie je zablokowac z czytelnym komunikatem niz obiecac uzytkownikowi cos, co za godzine odrzuci backend.</p>' +
-            '<p>Testowanie? Przelacznik offline w DevTools to za malo. Realny scenariusz to <em>zle</em> lacze, nie brak lacza: 3 sekundy opoznienia i 30 procent utraconych pakietow. Uzyj profilu throttlingu i wymus czesciowe niepowodzenia.</p>',
+            '<h4>Czego nie robić offline</h4>' +
+            '<p>Operacji nieodwracalnych i takich, które wymagają aktualnego stanu serwera: płatności, aktywacji usługi, rezerwacji ostatniej sztuki. Lepiej jawnie je zablokować z czytelnym komunikatem niż obiecać użytkownikowi coś, co za godzinę odrzuci backend.</p>' +
+            '<p>Testowanie? Przełącznik offline w DevTools to za mało. Realny scenariusz to <em>złe</em> łącze, nie brak łącza: 3 sekundy opóźnienia i 30 procent utraconych pakietów. Użyj profilu throttlingu i wymuś częściowe niepowodzenia.</p>',
           en: '<p>Offline-first does not mean "the app shows a banner when the network is down". It means <strong>no network is a normal operating mode</strong>, not a failure. In a telco this is a real requirement: a technician in a basement, a courier in a lift, a field agent in a rural cell.</p>' +
             '<h4>Three independent layers</h4>' +
             '<ol>' +
@@ -1051,25 +1051,25 @@ export default {
             '<p>Testing? The DevTools offline toggle is not enough. The realistic scenario is a <em>bad</em> link, not a missing one: 3 seconds of latency and 30 percent packet loss. Use a throttling profile and force partial failures.</p>'
         },
         pro: {
-          pl: '<p>Offline-first to decyzja produktowa przebrana za techniczna. Zanim napiszesz linijke kodu, ustal z biznesem <strong>ktore operacje maja dzialac bez sieci i jaka jest polityka konfliktow</strong>. Bez tej odpowiedzi kazda implementacja bedzie zla.</p>' +
+          pl: '<p>Offline-first to decyzja produktowa przebrana za techniczną. Zanim napiszesz linijkę kodu, ustal z biznesem <strong>które operacje mają działać bez sieci i jaka jest polityka konfliktów</strong>. Bez tej odpowiedzi każda implementacja będzie zła.</p>' +
             '<h4>Idempotencja jest kontraktem z backendem</h4>' +
-            '<p>Kolejka offline gwarantuje dostarczenie <em>co najmniej raz</em>. Klient wysyla, traci zasieg przed odpowiedzia, ponawia - i backend widzi dwa zadania. Jedyna poprawna odpowiedz to naglowek <code>Idempotency-Key</code> generowany w momencie <strong>utworzenia operacji</strong>, nie w momencie wysylki, oraz deduplikacja po stronie serwera przez 24 godziny. To rozmowa z zespolem backendu, ktora trzeba odbyc na starcie, nie po pierwszym incydencie z podwojnym zamowieniem.</p>' +
-            '<pre><code>// operacja powstaje raz, nawet jesli wysylka nastapi 5 razy\nconst op = { id: crypto.randomUUID(), type: "ticket.close", ticketId, rev }\nawait db.outbox.add(op)\n\n// przy kazdej probie leci ten sam klucz\nfetch(url, { method: "POST", headers: { "Idempotency-Key": op.id }, body })</code></pre>' +
-            '<h4>Konflikty: wybierz swiadomie</h4>' +
+            '<p>Kolejka offline gwarantuje dostarczenie <em>co najmniej raz</em>. Klient wysyła, traci zasięg przed odpowiedzią, ponawia - i backend widzi dwa żądania. Jedyna poprawna odpowiedź to nagłówek <code>Idempotency-Key</code> generowany w momencie <strong>utworzenia operacji</strong>, nie w momencie wysyłki, oraz deduplikacja po stronie serwera przez 24 godziny. To rozmowa z zespołem backendu, którą trzeba odbyć na starcie, nie po pierwszym incydencie z podwójnym zamówieniem.</p>' +
+            '<pre><code>// operacja powstaje raz, nawet jeśli wysyłka nastąpi 5 razy\nconst op = { id: crypto.randomUUID(), type: "ticket.close", ticketId, rev }\nawait db.outbox.add(op)\n\n// przy każdej próbie leci ten sam klucz\nfetch(url, { method: "POST", headers: { "Idempotency-Key": op.id }, body })</code></pre>' +
+            '<h4>Konflikty: wybierz świadomie</h4>' +
             '<ul>' +
-            '<li><strong>Last write wins.</strong> Najtansze, akceptowalne dla notatek i pol opisowych. Nieakceptowalne dla statusow i kwot.</li>' +
-            '<li><strong>Odrzucenie z rewizja.</strong> Klient wysyla <code>rev</code>, backend zwraca 409 z aktualna wersja, UI pokazuje ekran porownania. Najlepszy stosunek jakosci do zlozonosci w aplikacjach biznesowych.</li>' +
-            '<li><strong>CRDT (np. Yjs, Automerge).</strong> Automatyczne scalanie bez konfliktow, ale placisz rozmiarem dokumentu i zupelnie inna architektura danych. Uzasadnione przy wspoledycji, nie przy formularzu zgloszenia.</li>' +
+            '<li><strong>Last write wins.</strong> Najtańsze, akceptowalne dla notatek i pól opisowych. Nieakceptowalne dla statusów i kwot.</li>' +
+            '<li><strong>Odrzucenie z rewizją.</strong> Klient wysyła <code>rev</code>, backend zwraca 409 z aktualną wersją, UI pokazuje ekran porównania. Najlepszy stosunek jakości do złożoności w aplikacjach biznesowych.</li>' +
+            '<li><strong>CRDT (np. Yjs, Automerge).</strong> Automatyczne scalanie bez konfliktów, ale płacisz rozmiarem dokumentu i zupełnie inną architekturą danych. Uzasadnione przy współedycji, nie przy formularzu zgłoszenia.</li>' +
             '</ul>' +
             '<h4>Twarde ograniczenia platformy</h4>' +
             '<ul>' +
-            '<li>iOS czysci dane witryny po okolo 7 dniach braku interakcji, jesli PWA nie jest dodana do ekranu glownego. Kolejka offline moze po prostu zniknac - trzeba to zaprojektowac, nie zignorowac.</li>' +
-            '<li>Limity magazynu sa udzialem od dostepnego dysku (rzedu kilku procent). Dla 500 zgloszen z zalacznikami to realny sufit - trzymaj metadane, nie pliki.</li>' +
-            '<li>Background Sync nie istnieje w Safari i Firefoksie. Zaprojektuj dren przy starcie jako sciezke glowna, a Background Sync jako bonus.</li>' +
-            '<li>Migracje schematu IndexedDB sa jak migracje bazy - potrzebujesz numeru wersji i sciezki upgrade, bo stare urzadzenia potrafia wrocic po pol roku.</li>' +
+            '<li>iOS czyści dane witryny po około 7 dniach braku interakcji, jeśli PWA nie jest dodana do ekranu głównego. Kolejka offline może po prostu zniknąć - trzeba to zaprojektować, nie zignorować.</li>' +
+            '<li>Limity magazynu są udziałem od dostępnego dysku (rzędu kilku procent). Dla 500 zgłoszeń z załącznikami to realny sufit - trzymaj metadane, nie pliki.</li>' +
+            '<li>Background Sync nie istnieje w Safari i Firefoksie. Zaprojektuj dren przy starcie jako ścieżkę główną, a Background Sync jako bonus.</li>' +
+            '<li>Migracje schematu IndexedDB są jak migracje bazy - potrzebujesz numeru wersji i ścieżki upgrade, bo stare urządzenia potrafią wrócić po pół roku.</li>' +
             '</ul>' +
             '<h4>Perspektywa principal</h4>' +
-            '<p>Najczestszy blad organizacyjny: kazdy zespol buduje wlasny outbox. Sensowniejsze jest jedno malenkie SDK (kolejka, idempotencja, wskaznik stanu polaczenia, hooki polityki konfliktow) utrzymywane przez platform team, plus komponenty stanu offline w design systemie. Wtedy dyskusja w zespolach schodzi z "jak zrobic kolejke" na "ktore operacje wpuszczamy offline" - czyli tam, gdzie faktycznie jest ryzyko.</p>',
+            '<p>Najczęstszy błąd organizacyjny: każdy zespół buduje własny outbox. Sensowniejsze jest jedno maleńkie SDK (kolejka, idempotencja, wskaźnik stanu połączenia, hooki polityki konfliktów) utrzymywane przez platform team, plus komponenty stanu offline w design systemie. Wtedy dyskusja w zespołach schodzi z "jak zrobić kolejkę" na "które operacje wpuszczamy offline" - czyli tam, gdzie faktycznie jest ryzyko.</p>',
           en: '<p>Offline-first is a product decision dressed as a technical one. Before writing a line of code, settle with the business <strong>which operations must work without a network and what the conflict policy is</strong>. Without that answer every implementation is the wrong one.</p>' +
             '<h4>Idempotency is a contract with the backend</h4>' +
             '<p>An offline queue guarantees <em>at-least-once</em> delivery. The client sends, loses signal before the response, retries - and the backend sees two requests. The only correct answer is an <code>Idempotency-Key</code> header generated when the operation is <strong>created</strong>, not when it is sent, plus server-side deduplication for 24 hours. That is a conversation to have with the backend team up front, not after the first duplicate-order incident.</p>' +
@@ -1094,69 +1094,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Do czego sluzy kolejka outbox w aplikacji offline-first?',
+            pl: 'Do czego służy kolejka outbox w aplikacji offline-first?',
             en: 'What is an outbox queue for in an offline-first app?'
           },
           options: [
-            { pl: 'Do przechowywania logow bledow do pozniejszej analizy', en: 'Storing error logs for later analysis' },
-            { pl: 'Do buforowania obrazkow i czcionek', en: 'Buffering images and fonts' },
-            { pl: 'Do zapisywania lokalnie operacji zapisu i wyslania ich, gdy wroci lacznosc', en: 'Storing write operations locally and sending them once connectivity returns' },
+            { pl: 'Do przechowywania logów błędów do późniejszej analizy', en: 'Storing error logs for later analysis' },
+            { pl: 'Do buforowania obrazków i czcionek', en: 'Buffering images and fonts' },
+            { pl: 'Do zapisywania lokalnie operacji zapisu i wysłania ich, gdy wróci łączność', en: 'Storing write operations locally and sending them once connectivity returns' },
             { pl: 'Do kompresowania odpowiedzi API przed zapisem na dysk', en: 'Compressing API responses before writing them to disk' }
           ],
           correct: 2,
           explain: {
-            pl: 'Outbox odwraca kierunek myslenia: akcja uzytkownika trafia najpierw do trwalej kolejki, a sama wysylka jest osobnym, ponawialnym procesem. Dzieki temu utrata zasiegu nie gubi pracy uzytkownika.',
+            pl: 'Outbox odwraca kierunek myślenia: akcja użytkownika trafia najpierw do trwałej kolejki, a sama wysyłka jest osobnym, ponawialnym procesem. Dzięki temu utrata zasięgu nie gubi pracy użytkownika.',
             en: 'The outbox inverts the flow: a user action first lands in a durable queue, and sending is a separate retryable process. Losing signal then does not lose the user work.'
           }
         },
         {
           q: {
-            pl: 'Dlaczego klucz idempotencji powinien powstawac przy tworzeniu operacji, a nie przy kazdej probie wyslania?',
+            pl: 'Dlaczego klucz idempotencji powinien powstawać przy tworzeniu operacji, a nie przy każdej próbie wysłania?',
             en: 'Why should an idempotency key be created when the operation is created, not on each send attempt?'
           },
           options: [
-            { pl: 'Bo dzieki temu wszystkie ponowienia tej samej operacji maja ten sam klucz i backend moze je zdeduplikowac', en: 'Because then all retries of the same operation share one key and the backend can deduplicate them' },
+            { pl: 'Bo dzięki temu wszystkie ponowienia tej samej operacji mają ten sam klucz i backend może je zdeduplikować', en: 'Because then all retries of the same operation share one key and the backend can deduplicate them' },
             { pl: 'Bo generowanie UUID jest kosztowne obliczeniowo', en: 'Because generating a UUID is computationally expensive' },
-            { pl: 'Bo przegladarka nie pozwala generowac UUID w service workerze', en: 'Because the browser cannot generate UUIDs in a service worker' },
-            { pl: 'Bo klucz musi byc zgodny z identyfikatorem sesji', en: 'Because the key must match the session id' }
+            { pl: 'Bo przeglądarka nie pozwala generować UUID w service workerze', en: 'Because the browser cannot generate UUIDs in a service worker' },
+            { pl: 'Bo klucz musi być zgodny z identyfikatorem sesji', en: 'Because the key must match the session id' }
           ],
           correct: 0,
           explain: {
-            pl: 'Klucz generowany przy wysylce byl by za kazdym razem inny, wiec ponowienie po utracie odpowiedzi wygladaloby dla backendu jak nowa operacja - i klient dostalby dwa zamowienia zamiast jednego.',
+            pl: 'Klucz generowany przy wysyłce byłby za każdym razem inny, więc ponowienie po utracie odpowiedzi wyglądałoby dla backendu jak nowa operacja - i klient dostałby dwa zamówienia zamiast jednego.',
             en: 'A key generated at send time would differ on every attempt, so a retry after a lost response would look like a brand new operation to the backend - and the customer would get two orders instead of one.'
           }
         },
         {
           q: {
-            pl: 'Ktora operacja jest najgorszym kandydatem do wykonywania w trybie offline?',
+            pl: 'Która operacja jest najgorszym kandydatem do wykonywania w trybie offline?',
             en: 'Which operation is the worst candidate for offline execution?'
           },
           options: [
-            { pl: 'Dopisanie notatki technicznej do zgloszenia', en: 'Adding a technical note to a ticket' },
-            { pl: 'Oznaczenie zgloszenia jako przeczytane', en: 'Marking a ticket as read' },
+            { pl: 'Dopisanie notatki technicznej do zgłoszenia', en: 'Adding a technical note to a ticket' },
+            { pl: 'Oznaczenie zgłoszenia jako przeczytane', en: 'Marking a ticket as read' },
             { pl: 'Zapisanie odczytu licznika w terenie', en: 'Recording a meter reading in the field' },
-            { pl: 'Aktywacja platnej uslugi na koncie klienta', en: 'Activating a paid service on a customer account' }
+            { pl: 'Aktywacja płatnej usługi na koncie klienta', en: 'Activating a paid service on a customer account' }
           ],
           correct: 3,
           explain: {
-            pl: 'Aktywacja jest nieodwracalna i zalezy od aktualnego stanu konta oraz limitow po stronie serwera. Obiecanie jej offline konczy sie odrzuceniem godzine pozniej i reklamacja - lepiej jawnie zablokowac akcje.',
+            pl: 'Aktywacja jest nieodwracalna i zależy od aktualnego stanu konta oraz limitów po stronie serwera. Obiecanie jej offline kończy się odrzuceniem godzinę później i reklamacją - lepiej jawnie zablokować akcję.',
             en: 'Activation is irreversible and depends on current account state and server-side limits. Promising it offline ends in a rejection an hour later and a complaint - better to block the action explicitly.'
           }
         },
         {
           q: {
-            pl: 'Technicy zglaszaja, ze po weekendzie aplikacja na iPhonach traci zakolejkowane zapisy. Jaka jest najbardziej prawdopodobna przyczyna?',
+            pl: 'Technicy zgłaszają, że po weekendzie aplikacja na iPhonach traci zakolejkowane zapisy. Jaka jest najbardziej prawdopodobna przyczyna?',
             en: 'Technicians report that after a weekend the app on iPhones loses queued writes. What is the most likely cause?'
           },
           options: [
-            { pl: 'IndexedDB nie obsluguje zapisow wiekszych niz 1 MB', en: 'IndexedDB cannot store writes larger than 1 MB' },
+            { pl: 'IndexedDB nie obsługuje zapisów większych niż 1 MB', en: 'IndexedDB cannot store writes larger than 1 MB' },
             { pl: 'Service worker wygasa po 24 godzinach i kasuje wszystkie bazy', en: 'The service worker expires after 24 hours and wipes every database' },
-            { pl: 'Safari usuwa dane witryny po okolo 7 dniach bez interakcji, jesli PWA nie jest zainstalowana na ekranie glownym', en: 'Safari evicts site data after about 7 days without interaction unless the PWA is installed to the home screen' },
-            { pl: 'Background Sync w iOS wysyla dane, ale nie zapisuje potwierdzen', en: 'Background Sync on iOS sends the data but never records the confirmations' }
+            { pl: 'Safari usuwa dane witryny po około 7 dniach bez interakcji, jeśli PWA nie jest zainstalowana na ekranie głównym', en: 'Safari evicts site data after about 7 days without interaction unless the PWA is installed to the home screen' },
+            { pl: 'Background Sync w iOS wysyła dane, ale nie zapisuje potwierdzeń', en: 'Background Sync on iOS sends the data but never records the confirmations' }
           ],
           correct: 2,
           explain: {
-            pl: 'To udokumentowane zachowanie ITP w Safari. Instalacja PWA na ekranie glownym zdejmuje ten limit, ale i tak warto ostrzegac uzytkownika o niewyslanych operacjach i synchronizowac przy kazdym otwarciu aplikacji.',
+            pl: 'To udokumentowane zachowanie ITP w Safari. Instalacja PWA na ekranie głównym zdejmuje ten limit, ale i tak warto ostrzegać użytkownika o niewysłanych operacjach i synchronizować przy każdym otwarciu aplikacji.',
             en: 'This is documented ITP behaviour in Safari. Installing the PWA to the home screen lifts the limit, but you should still warn the user about unsent operations and sync on every app open.'
           }
         }
@@ -1247,29 +1247,29 @@ export default {
           '<text x="320" y="404" text-anchor="middle" font-size="13" fill="var(--ok)">who owns the BFF decides how fast the frontend can move</text>' +
           '</svg>',
         caption: {
-          pl: 'BFF zamienia siedem zapytan z telefonu na jedno, przenoszac laczenie danych na serwer. Kontraktem jest wersjonowany schemat w repozytorium, a nie dokumentacja na Confluence.',
+          pl: 'BFF zamienia siedem zapytań z telefonu na jedno, przenosząc łączenie danych na serwer. Kontraktem jest wersjonowany schemat w repozytorium, a nie dokumentacja na Confluence.',
           en: 'A BFF turns seven phone-side requests into one by moving the joining to the server. The contract is a versioned schema in the repository, not a page on Confluence.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie, ze chcesz zrobic obiad i wysylasz dziecko po zakupy do piatki roznych sklepow. Kazda wyprawa to osobne wyjscie z domu, a dziecko wraca za kazdym razem. Obiad bedzie wieczorem.</p>' +
-            '<p>Lepiej zatrudnic jedna osobe, ktora robi wszystkie zakupy naraz i przynosi jedna torbe z dokladnie tym, co potrzebne do tego przepisu. Ta osoba to BFF - pomocnik po stronie kuchni, ktory zna twoj przepis.</p>' +
-            '<p>Jest jeszcze druga rzecz: <strong>lista zakupow</strong>. Jesli jest spisana i obie strony ja podpisaly, nikt nie przyniesie mleka zamiast smietany. A gdy ktos chce cos z listy usunac, musi uprzedzic wczesniej - nie w dniu obiadu.</p>',
+          pl: '<p>Wyobraź sobie, że chcesz zrobić obiad i wysyłasz dziecko po zakupy do piątki różnych sklepów. Każda wyprawa to osobne wyjście z domu, a dziecko wraca za każdym razem. Obiad będzie wieczorem.</p>' +
+            '<p>Lepiej zatrudnić jedną osobę, która robi wszystkie zakupy naraz i przynosi jedną torbę z dokładnie tym, co potrzebne do tego przepisu. Ta osoba to BFF - pomocnik po stronie kuchni, który zna twój przepis.</p>' +
+            '<p>Jest jeszcze druga rzecz: <strong>lista zakupów</strong>. Jeśli jest spisana i obie strony ją podpisały, nikt nie przyniesie mleka zamiast śmietany. A gdy ktoś chce coś z listy usunąć, musi uprzedzić wcześniej - nie w dniu obiadu.</p>',
           en: '<p>Imagine you want to cook dinner and you send a child shopping to five different shops. Each trip is a separate journey and the child comes home in between. Dinner will be ready by nightfall.</p>' +
             '<p>Better to hire one person who does all the shopping in one go and brings back a single bag with exactly what the recipe needs. That person is the BFF - a helper on the kitchen side who knows your recipe.</p>' +
             '<p>There is a second thing: <strong>the shopping list</strong>. If it is written down and both sides signed it, nobody brings milk instead of cream. And if somebody wants to remove an item, they have to say so in advance - not on the day of the dinner.</p>'
         },
         school: {
-          pl: '<p>Kontrakt API to nie dokumentacja, tylko <strong>artefakt, ktory da sie zweryfikowac maszynowo</strong>. W praktyce oznacza to schemat OpenAPI albo schemat GraphQL trzymany w gicie i recenzowany jak kod.</p>' +
-            '<h4>Dlaczego generowanie typow zmienia wszystko</h4>' +
-            '<pre><code># w CI\nnpx openapi-typescript ./contracts/billing.yaml -o ./src/api/billing.d.ts\ngit diff --exit-code ./src/api   # roznica = kontrakt sie zmienil</code></pre>' +
-            '<p>Recznie pisany interfejs TypeScript to zyczenie, nie kontrakt. Wygenerowany z pliku, ktory jest zrodlem prawdy dla backendu, zamienia zmiane pola w blad kompilacji zamiast w bledny ekran u klienta.</p>' +
+          pl: '<p>Kontrakt API to nie dokumentacja, tylko <strong>artefakt, który da się zweryfikować maszynowo</strong>. W praktyce oznacza to schemat OpenAPI albo schemat GraphQL trzymany w gicie i recenzowany jak kod.</p>' +
+            '<h4>Dlaczego generowanie typów zmienia wszystko</h4>' +
+            '<pre><code># w CI\nnpx openapi-typescript ./contracts/billing.yaml -o ./src/api/billing.d.ts\ngit diff --exit-code ./src/api   # różnica = kontrakt się zmienił</code></pre>' +
+            '<p>Ręcznie pisany interfejs TypeScript to życzenie, nie kontrakt. Wygenerowany z pliku, który jest źródłem prawdy dla backendu, zamienia zmianę pola w błąd kompilacji zamiast w błędny ekran u klienta.</p>' +
             '<h4>BFF: backend for frontend</h4>' +
-            '<p>W duzej firmie ekran "podsumowanie klienta" potrafi zbierac dane z billingu, CRM, katalogu uslug i systemu sieciowego. Cztery zapytania po 200 ms z telefonu w LTE to latwo sekunda z gorka, zanim cokolwiek sie pokaze. BFF laczy je po stronie serwera, gdzie opoznienia sa jednocyfrowe, i zwraca jeden obiekt dopasowany do ekranu.</p>' +
-            '<p>Zysk to nie tylko szybkosc. BFF pozwala tez ukryc dziwactwa systemow zrodlowych - trzy rozne formaty daty, pola nazwane <code>CUST_NM</code>, kody statusu w postaci liczb - zamiast rozsmarowywac je po komponentach.</p>' +
+            '<p>W dużej firmie ekran "podsumowanie klienta" potrafi zbierać dane z billingu, CRM, katalogu usług i systemu sieciowego. Cztery zapytania po 200 ms z telefonu w LTE to łatwo sekunda z górką, zanim cokolwiek się pokaże. BFF łączy je po stronie serwera, gdzie opóźnienia są jednocyfrowe, i zwraca jeden obiekt dopasowany do ekranu.</p>' +
+            '<p>Zysk to nie tylko szybkość. BFF pozwala też ukryć dziwactwa systemów źródłowych - trzy różne formaty daty, pola nazwane <code>CUST_NM</code>, kody statusu w postaci liczb - zamiast rozsmarowywać je po komponentach.</p>' +
             '<h4>Cena</h4>' +
-            '<p>BFF to kolejna usluga do wdrazania, monitorowania i dyzurowania. Regula kciuka: bierz go, gdy masz co najmniej dwa problemy z listy - duzo zapytan na ekran, brzydkie modele zrodlowe, potrzeba ukrycia sekretow, agregacja pod mobilke. Dla jednego zapytania na ekran to czysty narzut.</p>',
+            '<p>BFF to kolejna usługa do wdrażania, monitorowania i dyżurowania. Reguła kciuka: bierz go, gdy masz co najmniej dwa problemy z listy - dużo zapytań na ekran, brzydkie modele źródłowe, potrzeba ukrycia sekretów, agregacja pod mobilkę. Dla jednego zapytania na ekran to czysty narzut.</p>',
           en: '<p>An API contract is not documentation, it is <strong>an artifact you can verify by machine</strong>. In practice that means an OpenAPI document or a GraphQL schema kept in git and reviewed like code.</p>' +
             '<h4>Why generating types changes everything</h4>' +
             '<pre><code># in CI\nnpx openapi-typescript ./contracts/billing.yaml -o ./src/api/billing.d.ts\ngit diff --exit-code ./src/api   # a diff means the contract moved</code></pre>' +
@@ -1281,17 +1281,17 @@ export default {
             '<p>A BFF is one more service to deploy, monitor and be on call for. Rule of thumb: adopt it when at least two of these are true - many requests per screen, ugly upstream models, secrets to hide, mobile-driven aggregation. For one request per screen it is pure overhead.</p>'
         },
         pro: {
-          pl: '<p>Kontrakt API jest granica organizacyjna zapisana w pliku. Jego jakosc decyduje o tym, czy frontend potrzebuje spotkania z backendem, zeby zmienic ekran.</p>' +
+          pl: '<p>Kontrakt API jest granicą organizacyjną zapisaną w pliku. Jego jakość decyduje o tym, czy frontend potrzebuje spotkania z backendem, żeby zmienić ekran.</p>' +
             '<h4>Wersjonowanie i okno deprecjacji</h4>' +
-            '<p>Zmiany addytywne (nowe opcjonalne pole, nowa wartosc enuma po stronie odpowiedzi) sa bezpieczne, o ile klienci ignoruja nieznane pola - to trzeba zapisac w regule, bo generowane parsery ze <code>strict</code> potrafia sie na tym wywrocic. Usuniecia i zmiany semantyki wymagaja okna: typowo <strong>dwa kwartaly</strong> w organizacji, gdzie aplikacja mobilna ma ogon starych wersji. Praktyczny mechanizm: naglowek <code>Sunset</code> plus telemetria uzycia pola, zeby wiedziec, kiedy realnie mozna usunac, a nie zgadywac.</p>' +
+            '<p>Zmiany addytywne (nowe opcjonalne pole, nowa wartość enuma po stronie odpowiedzi) są bezpieczne, o ile klienci ignorują nieznane pola - to trzeba zapisać w regule, bo generowane parsery ze <code>strict</code> potrafią się na tym wywrócić. Usunięcia i zmiany semantyki wymagają okna: typowo <strong>dwa kwartały</strong> w organizacji, gdzie aplikacja mobilna ma ogon starych wersji. Praktyczny mechanizm: nagłówek <code>Sunset</code> plus telemetria użycia pola, żeby wiedzieć, kiedy realnie można usunąć, a nie zgadywać.</p>' +
             '<h4>Testy sterowane konsumentem</h4>' +
             '<pre><code>// Pact: konsument publikuje oczekiwania, dostawca je weryfikuje w swoim CI\npact.addInteraction({\n  state: "customer 42 has 2 invoices",\n  uponReceiving: "a request for invoices",\n  withRequest: { method: "GET", path: "/v1/customers/42/invoices" },\n  willRespondWith: { status: 200, body: like({ items: eachLike({ id: "1" }) }) }\n})</code></pre>' +
-            '<p>Wartosc Pacta nie lezy w testach, tylko w tym, ze <strong>psuje build dostawcy</strong>, gdy zlamie kontrakt. Bez tego kazda dyskusja o zgodnosci konczy sie na dobrych checiach. Alternatywa lzejsza: bramka na diff schematu w CI (oasdiff, graphql-inspector) blokujaca zmiany breaking bez etykiety <code>approved-breaking</code>.</p>' +
+            '<p>Wartość Pacta nie leży w testach, tylko w tym, że <strong>psuje build dostawcy</strong>, gdy złamie kontrakt. Bez tego każda dyskusja o zgodności kończy się na dobrych chęciach. Alternatywa lżejsza: bramka na diff schematu w CI (oasdiff, graphql-inspector) blokująca zmiany breaking bez etykiety <code>approved-breaking</code>.</p>' +
             '<h4>GraphQL czy OpenAPI</h4>' +
-            '<p>GraphQL rozwiazuje over-fetching i pozwala frontendowi dobierac pola bez zmian po stronie serwera - kosztem cachowania (mniej dziala darmowy cache HTTP), zlozonosci autoryzacji na poziomie pola i realnego ryzyka kosztownych zapytan. W telco czesto najlepszy kompromis to <strong>REST z BFF na ekran</strong>: prosty do cachowania, latwy do przewidzenia, bez federacji do utrzymania. GraphQL Federation ma sens, gdy masz dedykowany zespol platformowy, ktory ja utrzyma - a nie jako projekt poboczny jednego zespolu.</p>' +
-            '<h4>Kto jest wlascicielem BFF</h4>' +
-            '<p>To najwazniejsze pytanie w calej lekcji. BFF utrzymywany przez zespol backendu staje sie kolejna kolejka zadan i frontend czeka tygodniami na dodanie pola. BFF utrzymywany przez zespol frontendowy dziala szybko, ale wymaga, zeby ten zespol umial go wdrazac, monitorowac i pelnic dyzur - to realne zobowiazanie, nie deklaracja. Prawo Conwaya nie negocjuje: <strong>ksztalt twojego API bedzie ksztaltem twojej organizacji</strong>. Jesli chcesz frontend, ktory dowozi w dniach, granica BFF musi lezec wewnatrz zespolu frontendowego, z jasnym kontraktem operacyjnym: SLO, alerty, runbook.</p>' +
-            '<p>Zapisz to w ADR razem z liczbami: obecne p95 laczenia danych na kliencie, docelowe po BFF, koszt utrzymania w osobodniach na kwartal. Bez liczb ta dyskusja zawsze przegrywa z "nie mamy ludzi".</p>',
+            '<p>GraphQL rozwiązuje over-fetching i pozwala frontendowi dobierać pola bez zmian po stronie serwera - kosztem cachowania (mniej działa darmowy cache HTTP), złożoności autoryzacji na poziomie pola i realnego ryzyka kosztownych zapytań. W telco często najlepszy kompromis to <strong>REST z BFF na ekran</strong>: prosty do cachowania, łatwy do przewidzenia, bez federacji do utrzymania. GraphQL Federation ma sens, gdy masz dedykowany zespół platformowy, który ją utrzyma - a nie jako projekt poboczny jednego zespołu.</p>' +
+            '<h4>Kto jest właścicielem BFF</h4>' +
+            '<p>To najważniejsze pytanie w całej lekcji. BFF utrzymywany przez zespół backendu staje się kolejną kolejką żądań i frontend czeka tygodniami na dodanie pola. BFF utrzymywany przez zespół frontendowy działa szybko, ale wymaga, żeby ten zespół umiał go wdrażać, monitorować i pełnić dyżur - to realne zobowiązanie, nie deklaracja. Prawo Conwaya nie negocjuje: <strong>kształt twojego API będzie kształtem twojej organizacji</strong>. Jeśli chcesz frontend, który dowozi w dniach, granica BFF musi leżeć wewnątrz zespołu frontendowego, z jasnym kontraktem operacyjnym: SLO, alerty, runbook.</p>' +
+            '<p>Zapisz to w ADR razem z liczbami: obecne p95 łączenia danych na kliencie, docelowe po BFF, koszt utrzymania w osobodniach na kwartał. Bez liczb ta dyskusja zawsze przegrywa z "nie mamy ludzi".</p>',
           en: '<p>An API contract is an organisational boundary written into a file. Its quality decides whether the frontend needs a meeting with the backend in order to change a screen.</p>' +
             '<h4>Versioning and the deprecation window</h4>' +
             '<p>Additive changes (a new optional field, a new response enum value) are safe provided clients ignore unknown fields - which must be written down as a rule, because generated parsers in <code>strict</code> mode happily blow up on it. Removals and semantic changes need a window: typically <strong>two quarters</strong> in an organisation with a long tail of old mobile versions. The practical mechanism is a <code>Sunset</code> header plus per-field usage telemetry, so removal is measured rather than guessed.</p>' +
@@ -1308,69 +1308,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Co oznacza skrot BFF?',
+            pl: 'Co oznacza skrót BFF?',
             en: 'What does BFF stand for?'
           },
           options: [
             { pl: 'Backend For Frontend - warstwa serwerowa dopasowana do potrzeb konkretnego klienta', en: 'Backend For Frontend - a server layer shaped for the needs of one specific client' },
-            { pl: 'Batch Fetch Framework - biblioteka do laczenia zapytan w przegladarce', en: 'Batch Fetch Framework - a library for merging requests in the browser' },
+            { pl: 'Batch Fetch Framework - biblioteka do łączenia zapytań w przeglądarce', en: 'Batch Fetch Framework - a library for merging requests in the browser' },
             { pl: 'Binary Format Filter - warstwa kompresji odpowiedzi', en: 'Binary Format Filter - a response compression layer' },
             { pl: 'Backend Failure Fallback - mechanizm awaryjny przy awarii API', en: 'Backend Failure Fallback - an emergency mechanism when the API is down' }
           ],
           correct: 0,
           explain: {
-            pl: 'BFF to cienka warstwa serwerowa, ktora agreguje i przeksztalca dane pod jeden typ klienta. Kluczowe slowo to for - istnieje po to, zeby sluzyc konkretnemu frontendowi, a nie byc uniwersalnym API.',
+            pl: 'BFF to cienka warstwa serwerowa, która agreguje i przekształca dane pod jeden typ klienta. Kluczowe słowo to for - istnieje po to, żeby służyć konkretnemu frontendowi, a nie być uniwersalnym API.',
             en: 'A BFF is a thin server layer that aggregates and reshapes data for one client type. The key word is for - it exists to serve a specific frontend, not to be a universal API.'
           }
         },
         {
           q: {
-            pl: 'Dlaczego typy TypeScript generowane z OpenAPI sa lepsze niz pisane recznie?',
+            pl: 'Dlaczego typy TypeScript generowane z OpenAPI są lepsze niż pisane ręcznie?',
             en: 'Why are TypeScript types generated from OpenAPI better than hand-written ones?'
           },
           options: [
-            { pl: 'Bo zajmuja mniej miejsca w bundlu', en: 'Because they take less space in the bundle' },
-            { pl: 'Bo pochodza z tego samego zrodla prawdy co backend, wiec rozjazd kontraktu ujawnia sie jako blad kompilacji w CI', en: 'Because they come from the same source of truth as the backend, so contract drift surfaces as a compile error in CI' },
-            { pl: 'Bo generatory tworza dokladniejsze typy generyczne', en: 'Because generators produce more precise generic types' },
-            { pl: 'Bo pozwalaja pominac walidacje odpowiedzi w czasie dzialania', en: 'Because they let you skip runtime response validation' }
+            { pl: 'Bo zajmują mniej miejsca w bundlu', en: 'Because they take less space in the bundle' },
+            { pl: 'Bo pochodzą z tego samego źródła prawdy co backend, więc rozjazd kontraktu ujawnia się jako błąd kompilacji w CI', en: 'Because they come from the same source of truth as the backend, so contract drift surfaces as a compile error in CI' },
+            { pl: 'Bo generatory tworzą dokładniejsze typy generyczne', en: 'Because generators produce more precise generic types' },
+            { pl: 'Bo pozwalają pominąć walidację odpowiedzi w czasie działania', en: 'Because they let you skip runtime response validation' }
           ],
           correct: 1,
           explain: {
-            pl: 'Recznie pisany typ opisuje to, w co wierzysz, a nie to, co zwraca serwer. Generowanie przenosi wykrycie zmiany z produkcji do pipeline CI. Uwaga: to nadal nie zastepuje walidacji w runtime na granicy systemu.',
+            pl: 'Ręcznie pisany typ opisuje to, w co wierzysz, a nie to, co zwraca serwer. Generowanie przenosi wykrycie zmiany z produkcji do pipeline CI. Uwaga: to nadal nie zastępuje walidacji w runtime na granicy systemu.',
             en: 'A hand-written type describes what you believe, not what the server returns. Generation moves detection from production into the CI pipeline. Note it still does not replace runtime validation at the boundary.'
           }
         },
         {
           q: {
-            pl: 'Ktora zmiana w API jest zwykle bezpieczna dla istniejacych klientow?',
+            pl: 'Która zmiana w API jest zwykle bezpieczna dla istniejących klientów?',
             en: 'Which API change is normally safe for existing clients?'
           },
           options: [
             { pl: 'Zmiana typu pola z liczby na tekst', en: 'Changing a field type from number to string' },
             { pl: 'Dodanie nowego, opcjonalnego pola w odpowiedzi', en: 'Adding a new optional field to the response' },
-            { pl: 'Usuniecie nieuzywanej wartosci enuma z zadania', en: 'Removing an unused enum value from the request' },
-            { pl: 'Zmiana domyslnej strony paginacji z 1 na 0', en: 'Changing the default pagination page from 1 to 0' }
+            { pl: 'Usunięcie nieużywanej wartości enuma z żądania', en: 'Removing an unused enum value from the request' },
+            { pl: 'Zmiana domyślnej strony paginacji z 1 na 0', en: 'Changing the default pagination page from 1 to 0' }
           ],
           correct: 1,
           explain: {
-            pl: 'Zmiany addytywne sa bezpieczne, pod warunkiem ze klienci ignoruja nieznane pola. Zmiana typu, semantyki albo wartosci domyslnej lamie kontrakt cicho - kod sie kompiluje, a zachowanie sie zmienia.',
+            pl: 'Zmiany addytywne są bezpieczne, pod warunkiem że klienci ignorują nieznane pola. Zmiana typu, semantyki albo wartości domyślnej łamie kontrakt cicho - kod się kompiluje, a zachowanie się zmienia.',
             en: 'Additive changes are safe provided clients ignore unknown fields. Changing a type, a semantic or a default breaks the contract silently - the code still compiles while behaviour shifts.'
           }
         },
         {
           q: {
-            pl: 'Zespol frontendowy chce BFF, zeby przyspieszyc dostarczanie. Backend proponuje, ze bedzie go utrzymywac u siebie. Jakie jest tu glowne ryzyko z punktu widzenia architektury?',
+            pl: 'Zespół frontendowy chce BFF, żeby przyspieszyć dostarczanie. Backend proponuje, że będzie go utrzymywać u siebie. Jakie jest tu główne ryzyko z punktu widzenia architektury?',
             en: 'A frontend team wants a BFF to speed up delivery. The backend team offers to own it. What is the main architectural risk?'
           },
           options: [
-            { pl: 'BFF bedzie wolniejszy, bo wdrozony w innym klastrze', en: 'The BFF will be slower because it is deployed in a different cluster' },
-            { pl: 'Nie da sie generowac typow z BFF utrzymywanego przez inny zespol', en: 'You cannot generate types from a BFF owned by another team' },
-            { pl: 'Granica BFF przestanie odpowiadac granicy zespolu, wiec kazda zmiana ekranu znow bedzie wymagala kolejki u backendu i cel przyspieszenia zniknie', en: 'The BFF boundary stops matching the team boundary, so every screen change queues at the backend again and the speed goal disappears' },
-            { pl: 'GraphQL przestanie dzialac z takim ukladem wlasnosci', en: 'GraphQL stops working with that ownership layout' }
+            { pl: 'BFF będzie wolniejszy, bo wdrożony w innym klastrze', en: 'The BFF will be slower because it is deployed in a different cluster' },
+            { pl: 'Nie da się generować typów z BFF utrzymywanego przez inny zespół', en: 'You cannot generate types from a BFF owned by another team' },
+            { pl: 'Granica BFF przestanie odpowiadać granicy zespołu, więc każda zmiana ekranu znów będzie wymagała kolejki u backendu i cel przyspieszenia zniknie', en: 'The BFF boundary stops matching the team boundary, so every screen change queues at the backend again and the speed goal disappears' },
+            { pl: 'GraphQL przestanie działać z takim układem własności', en: 'GraphQL stops working with that ownership layout' }
           ],
           correct: 2,
           explain: {
-            pl: 'Sensem BFF jest to, ze zespol frontendowy sam ksztaltuje odpowiedz pod swoj ekran. Gdy wlascicielem jest inny zespol, dokladasz warstwe i zachowujesz ten sam czas oczekiwania - klasyczny przypadek prawa Conwaya. Wlasnosc jest tu wazniejsza niz technologia.',
+            pl: 'Sensem BFF jest to, że zespół frontendowy sam kształtuje odpowiedź pod swój ekran. Gdy właścicielem jest inny zespół, dokładasz warstwę i zachowujesz ten sam czas oczekiwania - klasyczny przypadek prawa Conwaya. Własność jest tu ważniejsza niż technologia.',
             en: 'The point of a BFF is that the frontend team shapes the response for its own screen. With another team owning it you add a layer and keep the same wait time - a textbook Conway law outcome. Ownership matters more than the technology here.'
           }
         }

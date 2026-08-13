@@ -940,6 +940,271 @@ export default {
           }
         }
       ]
+    },
+    {
+      id: 'fastapi-endpoints',
+      title: {
+        pl: 'FastAPI: endpoint dla modelu',
+        en: 'FastAPI: an endpoint for the model'
+      },
+      minutes: 10,
+      terms: [
+        { term: { pl: 'FastAPI', en: 'FastAPI' }, def: { pl: 'Framework webowy Pythona oparty na typach: endpoint deklarujesz dekoratorem, a walidację wejścia robi za Ciebie pydantic. Odpowiednik Express/Fastify z wbudowanym zod.', en: 'A type-driven Python web framework: you declare an endpoint with a decorator and pydantic validates the input for you. The Express/Fastify of Python with zod built in.' } },
+        { term: { pl: 'uvicorn', en: 'uvicorn' }, def: { pl: 'Serwer ASGI (Asynchronous Server Gateway Interface - asynchroniczny standard serwerów Pythona), który uruchamia aplikację FastAPI. Pełni rolę procesu node odpalającego Twój serwer Express.', en: 'An ASGI (Asynchronous Server Gateway Interface) server that runs a FastAPI app. It plays the role of the node process that runs your Express server.' } },
+        { term: { pl: 'lifespan', en: 'lifespan' }, def: { pl: 'Hak cyklu życia aplikacji FastAPI: kod przed <code>yield</code> wykonuje się raz na starcie, kod po <code>yield</code> przy zamykaniu. Właściwe miejsce na jedną instancję klienta <code>AsyncAnthropic</code>.', en: 'The FastAPI application lifecycle hook: code before <code>yield</code> runs once at startup, code after <code>yield</code> at shutdown. The right home for a single <code>AsyncAnthropic</code> client instance.' } },
+        { term: { pl: 'Depends', en: 'Depends' }, def: { pl: 'Wbudowane dependency injection FastAPI: parametr z <code>Depends(get_cos)</code> dostaje wynik tej funkcji, cache-owany w obrębie jednego requestu. Typowe zastosowania: autoryzacja, konfiguracja, klient bazy.', en: 'FastAPI built-in dependency injection: a parameter with <code>Depends(get_thing)</code> receives that function result, cached within one request. Typical uses: auth, config, a database client.' } },
+        { term: { pl: 'StreamingResponse', en: 'StreamingResponse' }, def: { pl: 'Odpowiedź strumieniowa FastAPI: podajesz generator asynchroniczny, a framework wysyła kolejne kawałki do klienta w miarę ich powstawania. Podstawa endpointów SSE dla czatu.', en: 'A streaming FastAPI response: you pass an async generator and the framework ships chunks to the client as they are produced. The basis of SSE chat endpoints.' } }
+      ],
+      diagram: {
+        svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+          '<defs><marker id="p8fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
+          '<text x="20" y="26" fill="var(--muted)" font-size="14">One request through a FastAPI chat endpoint</text>' +
+          '<g stroke-width="2" fill="var(--surface)">' +
+          '<rect x="20" y="48" width="140" height="64" rx="12" stroke="var(--border)"/>' +
+          '<rect x="220" y="48" width="180" height="64" rx="12" stroke="var(--accent)"/>' +
+          '<rect x="460" y="48" width="160" height="64" rx="12" stroke="var(--accent2)"/>' +
+          '<rect x="460" y="170" width="160" height="56" rx="12" stroke="var(--err)"/>' +
+          '<rect x="220" y="170" width="180" height="64" rx="12" stroke="var(--accent)"/>' +
+          '<rect x="20" y="170" width="140" height="64" rx="12" stroke="var(--border)"/>' +
+          '<rect x="220" y="292" width="180" height="64" rx="12" stroke="var(--ok)"/>' +
+          '</g>' +
+          '<g font-size="14" fill="var(--text)" text-anchor="middle">' +
+          '<text x="90" y="76">Client</text><text x="90" y="96" font-size="12" fill="var(--muted)">browser / app</text>' +
+          '<text x="310" y="76">POST /chat</text><text x="310" y="96" font-size="12" fill="var(--muted)">@app.post route</text>' +
+          '<text x="540" y="76">pydantic model</text><text x="540" y="96" font-size="12" fill="var(--muted)">validates body</text>' +
+          '<text x="540" y="194">422 response</text><text x="540" y="212" font-size="12" fill="var(--err)">model never called</text>' +
+          '<text x="310" y="198">async handler</text><text x="310" y="218" font-size="12" fill="var(--muted)">messages.stream()</text>' +
+          '<text x="90" y="198">Claude API</text><text x="90" y="218" font-size="12" fill="var(--muted)">one shared client</text>' +
+          '<text x="310" y="320">StreamingResponse</text><text x="310" y="340" font-size="12" fill="var(--ok)">SSE chunks out</text>' +
+          '</g>' +
+          '<g stroke="var(--muted)" stroke-width="2" marker-end="url(#p8fa)" fill="none">' +
+          '<line x1="160" y1="80" x2="218" y2="80"/>' +
+          '<line x1="400" y1="80" x2="458" y2="80"/>' +
+          '<line x1="218" y1="202" x2="162" y2="202"/>' +
+          '<line x1="310" y1="234" x2="310" y2="290"/>' +
+          '<path d="M218 324 L90 324 L90 114"/>' +
+          '</g>' +
+          '<line x1="540" y1="112" x2="540" y2="168" stroke="var(--err)" stroke-width="2" marker-end="url(#p8fa)"/>' +
+          '<text x="552" y="146" font-size="12" fill="var(--err)">invalid</text>' +
+          '<line x1="470" y1="112" x2="360" y2="168" stroke="var(--ok)" stroke-width="2" marker-end="url(#p8fa)"/>' +
+          '<text x="430" y="150" font-size="12" fill="var(--ok)">valid</text>' +
+          '</svg>',
+        caption: {
+          pl: 'Jedno zapytanie do endpointu czatu: walidacja pydantic zanim model cokolwiek zobaczy, wspólny klient z lifespan, odpowiedź jako strumień SSE.',
+          en: 'One request into a chat endpoint: pydantic validation before the model sees anything, a shared client from lifespan, and the answer as an SSE stream.'
+        }
+      },
+      levels: {
+        eli5: {
+          pl: '<p>Wyobraź sobie klub, w którym pracuje jeden bardzo zajęty ekspert. Ludzie przychodzą z pytaniami, ale nikt nie wchodzi prosto do jego pokoju. Najpierw jest bramkarz z listą: sprawdza, czy masz wypełniony formularz i czy wszystkie rubryki się zgadzają. Jak czegoś brakuje, grzecznie odsyła Cię już przy drzwiach - ekspert nawet nie wie, że przyszedłeś.</p><p>FastAPI to właśnie ten bramkarz dla Twojego modelu. Ty tylko opisujesz, jak wygląda poprawny formularz (to jest model pydantic), a odsyłanie ludzi z błędami dzieje się samo. Do tego klub ma na ścianie zawsze aktualny regulamin, którego nikt nie musi ręcznie przepisywać - to automatyczna dokumentacja.</p><p>A gdy ekspert odpowiada, kelner nie czeka, aż skończy cały wykład. Wynosi odpowiedź kawałek po kawałku, zdanie po zdaniu, więc słyszysz ją na bieżąco. To streaming - i cały ten teatr, bramkarz, kelner i regulamin, to w sumie kilkanaście linijek kodu.</p>',
+          en: '<p>Imagine a club with one very busy expert inside. People come with questions, but nobody walks straight into the room. First there is a doorman with a checklist: he verifies your form is filled in and every field makes sense. If something is missing, he politely turns you away at the door - the expert never even knows you came.</p><p>FastAPI is that doorman for your model. You only describe what a correct form looks like (that is the pydantic model) and turning people away with errors happens by itself. The club also keeps an always-current rulebook on the wall that nobody has to retype - that is the automatic documentation.</p><p>And when the expert answers, the waiter does not wait for the whole lecture to finish. He carries the answer out piece by piece, sentence by sentence, so you hear it as it happens. That is streaming - and this entire theatre, doorman, waiter and rulebook, is maybe fifteen lines of code.</p>'
+        },
+        school: {
+          pl: '<p>FastAPI to Express Pythona, tylko z typami w roli głównej. Trasę deklarujesz dekoratorem nad funkcją, a kształt danych wejściowych opisujesz klasą pydantic - i to jest cała integracja walidacji.</p><pre><code>from fastapi import FastAPI\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\nclass ChatRequest(BaseModel):\n    message: str = Field(min_length=1, max_length=4000)\n    max_tokens: int = 1024\n\n@app.post("/chat")\nasync def chat(req: ChatRequest):\n    reply = await ask_model(req.message, req.max_tokens)\n    return {"reply": reply}</code></pre><p>Co tu się dzieje:</p><ul><li><strong>Walidacja za darmo.</strong> Jeśli body nie pasuje do <code>ChatRequest</code> (brak pola, zły typ, za długi tekst), FastAPI zwraca <strong>422</strong> ze szczegółową listą błędów. Twój handler w ogóle się nie uruchamia - dokładnie jak middleware z zod w Express, tylko wbudowane.</li><li><strong>Typ parametru steruje zachowaniem.</strong> Adnotacja <code>req: ChatRequest</code> mówi frameworkowi: to jest JSON body do sparsowania. Parametry proste (str, int) w sygnaturze stają się query params.</li><li><strong>async def</strong> pozwala czekać na model bez blokowania innych requestów - jedna pętla zdarzeń, jak w Node.</li></ul><p>Uruchomienie: <code>uvicorn main:app --reload</code>. Uvicorn to serwer ASGI (Asynchronous Server Gateway Interface - standard asynchronicznych serwerów Pythona), czyli proces, który faktycznie słucha na porcie - odpowiednik <code>node server.js</code>.</p><p>Bonus, którego Express nie ma: pod adresem <code>/docs</code> dostajesz automatycznie wygenerowaną, interaktywną dokumentację OpenAPI - wyklikaną z Twoich modeli pydantic, zawsze aktualną. Dla zespołu frontendowego to kontrakt API bez pisania ani jednej linijki dokumentacji.</p>',
+          en: '<p>FastAPI is the Express of Python, with types in the lead role. You declare a route with a decorator above a function and describe the input shape with a pydantic class - and that is the entire validation integration.</p><pre><code>from fastapi import FastAPI\nfrom pydantic import BaseModel, Field\n\napp = FastAPI()\n\nclass ChatRequest(BaseModel):\n    message: str = Field(min_length=1, max_length=4000)\n    max_tokens: int = 1024\n\n@app.post("/chat")\nasync def chat(req: ChatRequest):\n    reply = await ask_model(req.message, req.max_tokens)\n    return {"reply": reply}</code></pre><p>What happens here:</p><ul><li><strong>Validation for free.</strong> If the body does not match <code>ChatRequest</code> (missing field, wrong type, text too long), FastAPI returns <strong>422</strong> with a detailed error list. Your handler never runs - exactly like a zod middleware in Express, except built in.</li><li><strong>The parameter type drives behavior.</strong> The annotation <code>req: ChatRequest</code> tells the framework: this is a JSON body to parse. Simple parameters (str, int) in the signature become query params.</li><li><strong>async def</strong> lets you await the model without blocking other requests - one event loop, like Node.</li></ul><p>Running it: <code>uvicorn main:app --reload</code>. Uvicorn is an ASGI server (Asynchronous Server Gateway Interface - the async Python server standard), the process that actually listens on the port - the equivalent of <code>node server.js</code>.</p><p>A bonus Express does not have: at <code>/docs</code> you get automatically generated, interactive OpenAPI documentation - derived from your pydantic models, always current. For a frontend team that is an API contract without writing a single line of docs.</p>'
+        },
+        pro: {
+          pl: '<p>Produkcyjny serwis AI na FastAPI to w praktyce trzy decyzje: gdzie żyje klient modelu, jak strumieniujesz odpowiedź i co wstrzykujesz przez zależności.</p><h4>Klient w lifespan, nie w handlerze</h4><pre><code>from contextlib import asynccontextmanager\nfrom anthropic import AsyncAnthropic\n\n@asynccontextmanager\nasync def lifespan(app):\n    app.state.claude = AsyncAnthropic()\n    yield\n    await app.state.claude.close()\n\napp = FastAPI(lifespan=lifespan)</code></pre><p>Jedna instancja na proces oznacza reużywaną pulę połączeń HTTP (keep-alive do api.anthropic.com). Klient tworzony per request płaci handshake TLS przy każdym wywołaniu i pod obciążeniem potrafi wyczerpać deskryptory. Ta sama zasada co singleton <code>httpx.AsyncClient</code> z lekcji o async.</p><h4>Streaming przez SSE</h4><pre><code>import json\nfrom fastapi.responses import StreamingResponse\n\n@app.post("/chat/stream")\nasync def chat_stream(req: ChatRequest):\n    async def gen():\n        async with app.state.claude.messages.stream(\n            model="claude-opus-5", max_tokens=req.max_tokens,\n            messages=[{"role": "user", "content": req.message}],\n        ) as s:\n            async for text in s.text_stream:\n                yield "data: " + json.dumps({"t": text}) + "\\n\\n"\n        yield "data: [DONE]\\n\\n"\n    return StreamingResponse(gen(), media_type="text/event-stream")</code></pre><p>Generator jest mostem: kawałki z API modelu przechodzą do klienta natychmiast, TTFT (Time To First Token - czas do pierwszego tokenu) Twojego serwisu jest praktycznie równy TTFT dostawcy. Klasyczna wpadka wdrożeniowa: proxy po drodze (nginx, load balancer) buforuje odpowiedź i klient dostaje wszystko naraz - stąd nagłówki typu <code>X-Accel-Buffering: no</code> i wyłączanie kompresji dla SSE.</p><h4>Depends do rzeczy per request</h4><p><code>Depends</code> wstrzykuje autoryzację, limity per użytkownik czy wybór promptu: funkcja zależności może rzucić <code>HTTPException(401)</code> i handler się nie wykona. To samo miejsce dobrze robi za punkt zaczepienia tracingu - span otwierasz w zależności, domykasz w tle po odpowiedzi (BackgroundTasks), żeby eksport śladów nie blokował użytkownika.</p><p>Dwie rzeczy na koniec. Po pierwsze: walidacja 422 dzieje się przed jakimkolwiek wywołaniem modelu, więc śmieciowe requesty nie kosztują ani tokena - to najtańszy guardrail, jaki masz. Po drugie: <code>response_model</code> na endpointach zwracających obiekty filtruje pola przy serializacji, więc sekret, który przypadkiem wpadł do obiektu, nie wycieknie do JSON-a.</p>',
+          en: '<p>A production AI service on FastAPI comes down to three decisions: where the model client lives, how you stream the answer, and what you inject through dependencies.</p><h4>Client in lifespan, not in the handler</h4><pre><code>from contextlib import asynccontextmanager\nfrom anthropic import AsyncAnthropic\n\n@asynccontextmanager\nasync def lifespan(app):\n    app.state.claude = AsyncAnthropic()\n    yield\n    await app.state.claude.close()\n\napp = FastAPI(lifespan=lifespan)</code></pre><p>One instance per process means a reused HTTP connection pool (keep-alive to api.anthropic.com). A client created per request pays a TLS handshake on every call and can exhaust file descriptors under load. Same rule as the <code>httpx.AsyncClient</code> singleton from the async lesson.</p><h4>Streaming via SSE</h4><pre><code>import json\nfrom fastapi.responses import StreamingResponse\n\n@app.post("/chat/stream")\nasync def chat_stream(req: ChatRequest):\n    async def gen():\n        async with app.state.claude.messages.stream(\n            model="claude-opus-5", max_tokens=req.max_tokens,\n            messages=[{"role": "user", "content": req.message}],\n        ) as s:\n            async for text in s.text_stream:\n                yield "data: " + json.dumps({"t": text}) + "\\n\\n"\n        yield "data: [DONE]\\n\\n"\n    return StreamingResponse(gen(), media_type="text/event-stream")</code></pre><p>The generator is a bridge: chunks from the model API pass to the client immediately, so your service TTFT (Time To First Token) is essentially the provider TTFT. The classic deployment stumble: a proxy on the way (nginx, a load balancer) buffers the response and the client receives everything at once - hence headers like <code>X-Accel-Buffering: no</code> and disabling compression for SSE.</p><h4>Depends for per-request concerns</h4><p><code>Depends</code> injects auth, per-user limits or prompt selection: a dependency can raise <code>HTTPException(401)</code> and the handler never runs. The same spot works well as the tracing anchor - open the span in a dependency, close and export it after the response in BackgroundTasks, so shipping traces never blocks the user.</p><p>Two closing points. First: 422 validation happens before any model call, so junk requests cost zero tokens - the cheapest guardrail you own. Second: <code>response_model</code> on endpoints returning objects filters fields at serialization, so a secret that accidentally landed on the object does not leak into the JSON.</p>'
+        }
+      },
+      quiz: [
+        {
+          q: {
+            pl: 'Co robi FastAPI, gdy body requestu nie przechodzi walidacji modelu pydantic?',
+            en: 'What does FastAPI do when a request body fails pydantic model validation?'
+          },
+          options: [
+            { pl: 'Przekazuje niezwalidowane dane do handlera z flagą ostrzegawczą', en: 'Passes the unvalidated data to the handler with a warning flag' },
+            { pl: 'Zwraca 422 ze szczegółami błędów, zanim handler się uruchomi', en: 'Returns 422 with error details before the handler even runs' },
+            { pl: 'Loguje błąd i zwraca 500', en: 'Logs the error and returns 500' },
+            { pl: 'Prosi klienta o ponowienie requestu nagłówkiem Retry-After', en: 'Asks the client to retry using a Retry-After header' }
+          ],
+          correct: 1,
+          explain: {
+            pl: 'Walidacja jest wbudowana w parsowanie requestu: niepoprawne body kończy się odpowiedzią 422 z listą pól i powodów, a Twój kod w ogóle nie widzi takiego zapytania. Model też nie - więc błędne requesty nic nie kosztują.',
+            en: 'Validation is built into request parsing: a bad body ends as a 422 response listing fields and reasons, and your code never sees the request. Neither does the model - so bad requests cost nothing.'
+          }
+        },
+        {
+          q: {
+            pl: 'Czemu w świecie TypeScript najbliżej odpowiada klasa pydantic użyta jako typ parametru endpointu?',
+            en: 'What is the closest TypeScript-world equivalent of a pydantic class used as an endpoint parameter type?'
+          },
+          options: [
+            { pl: 'Interfejsowi TypeScript, który znika po kompilacji', en: 'A TypeScript interface that disappears after compilation' },
+            { pl: 'Klasie komponentu React', en: 'A React component class' },
+            { pl: 'Middleware CORS', en: 'A CORS middleware' },
+            { pl: 'Schematowi zod walidującemu request body w runtime', en: 'A zod schema validating the request body at runtime' }
+          ],
+          correct: 3,
+          explain: {
+            pl: 'Interfejs TS sprawdza typy tylko w czasie kompilacji, a pydantic - jak zod - waliduje prawdziwe dane w runtime i odrzuca niepoprawne. Dlatego to pydantic jest kontraktem wejścia, a nie sama adnotacja typu.',
+            en: 'A TS interface checks types only at compile time, while pydantic - like zod - validates real data at runtime and rejects bad input. That is why pydantic is the input contract, not the bare type annotation.'
+          }
+        },
+        {
+          q: {
+            pl: 'Dlaczego klienta AsyncAnthropic tworzy się raz w lifespan, a nie w każdym handlerze?',
+            en: 'Why is the AsyncAnthropic client created once in lifespan instead of in every handler?'
+          },
+          options: [
+            { pl: 'Bo jedna instancja reużywa pulę połączeń HTTP; per request płacisz handshake przy każdym wywołaniu', en: 'Because one instance reuses the HTTP connection pool; per request you pay a handshake on every call' },
+            { pl: 'Bo klient tworzony w handlerze nie ma dostępu do zmiennych środowiskowych', en: 'Because a client created in a handler cannot access environment variables' },
+            { pl: 'Bo FastAPI zabrania tworzenia obiektów w funkcjach async', en: 'Because FastAPI forbids creating objects inside async functions' },
+            { pl: 'Bo lifespan automatycznie cache-uje odpowiedzi modelu', en: 'Because lifespan automatically caches model responses' }
+          ],
+          correct: 0,
+          explain: {
+            pl: 'Chodzi o pulę połączeń keep-alive: jedna instancja na proces utrzymuje otwarte połączenia do API, a tworzenie klienta per request dokłada handshake TLS do latencji i pod obciążeniem wyczerpuje zasoby.',
+            en: 'It is about the keep-alive pool: one instance per process keeps connections to the API open, while a per-request client adds a TLS handshake to latency and exhausts resources under load.'
+          }
+        },
+        {
+          q: {
+            pl: 'Endpoint SSE działa lokalnie strumieniowo, ale na produkcji klient dostaje całą odpowiedź naraz, dopiero gdy generowanie się skończy. Najbardziej prawdopodobna przyczyna?',
+            en: 'An SSE endpoint streams fine locally, but in production the client receives the whole answer at once, only after generation finishes. Most likely cause?'
+          },
+          options: [
+            { pl: 'Model nie wspiera streamingu na produkcyjnym kluczu API', en: 'The model does not support streaming on the production API key' },
+            { pl: 'StreamingResponse działa tylko w trybie --reload', en: 'StreamingResponse only works in --reload mode' },
+            { pl: 'Proxy po drodze (nginx, load balancer) buforuje odpowiedź, zanim odda ją klientowi', en: 'A proxy on the path (nginx, a load balancer) buffers the response before handing it to the client' },
+            { pl: 'Zabrakło await przed generatorem w handlerze', en: 'A missing await before the generator in the handler' }
+          ],
+          correct: 2,
+          explain: {
+            pl: 'Buforowanie w warstwie pośredniej to klasyka wdrożeń SSE: serwer wysyła kawałki na bieżąco, ale proxy skleja je w jedną odpowiedź. Leczy się to konfiguracją proxy (np. X-Accel-Buffering: no) i wyłączeniem kompresji dla tego endpointu.',
+            en: 'Intermediate-layer buffering is the classic SSE deployment issue: the server emits chunks live, but the proxy glues them into one response. The cure is proxy config (e.g. X-Accel-Buffering: no) and disabling compression for that endpoint.'
+          }
+        }
+      ]
+    },
+    {
+      id: 'pytest-testing',
+      title: {
+        pl: 'pytest: testy kodu AI',
+        en: 'pytest: testing AI code'
+      },
+      minutes: 9,
+      terms: [
+        { term: { pl: 'fixture', en: 'fixture' }, def: { pl: 'Funkcja z dekoratorem <code>@pytest.fixture</code> dostarczająca testom zależności przez nazwę parametru. Łączy rolę <code>beforeEach</code> i dependency injection znane z JS.', en: 'A function with the <code>@pytest.fixture</code> decorator that provides dependencies to tests by parameter name. It merges the roles of <code>beforeEach</code> and dependency injection from JS.' } },
+        { term: { pl: 'parametrize', en: 'parametrize' }, def: { pl: '<code>@pytest.mark.parametrize</code> uruchamia ten sam test dla wielu zestawów danych - odpowiednik <code>it.each</code> z Jest/Vitest.', en: '<code>@pytest.mark.parametrize</code> runs the same test over many data sets - the <code>it.each</code> of Jest/Vitest.' } },
+        { term: { pl: 'monkeypatch', en: 'monkeypatch' }, def: { pl: 'Wbudowana fixture pytest podmieniająca atrybuty, funkcje i zmienne środowiskowe na czas jednego testu, z automatycznym sprzątaniem. Rola vi.spyOn i vi.stubEnv w jednym.', en: 'A built-in pytest fixture that swaps attributes, functions and environment variables for one test, with automatic cleanup. The role of vi.spyOn and vi.stubEnv in one.' } },
+        { term: { pl: 'respx', en: 'respx' }, def: { pl: 'Biblioteka mockująca ruch HTTP klienta httpx: przechwytuje wywołanie do API modelu na poziomie sieci i zwraca przygotowaną odpowiedź. Odpowiednik msw lub nock.', en: 'A library that mocks httpx HTTP traffic: it intercepts the call to the model API at the network level and returns a canned response. The msw or nock of Python.' } },
+        { term: { pl: 'TestClient', en: 'TestClient' }, def: { pl: 'Klient testowy FastAPI: woła endpointy aplikacji w pamięci, bez odpalania serwera. Odpowiednik supertest - pozwala testować cały kontrakt HTTP łącznie z 422.', en: 'The FastAPI test client: it calls app endpoints in memory, no server needed. The supertest of Python - it lets you test the whole HTTP contract including 422s.' } }
+      ],
+      diagram: {
+        svg: '<svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg" font-family="inherit">' +
+          '<defs><marker id="p8pt" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker></defs>' +
+          '<text x="20" y="26" fill="var(--muted)" font-size="14">The test pyramid of an AI application</text>' +
+          '<g stroke-width="2" fill="var(--surface)">' +
+          '<rect x="200" y="56" width="240" height="72" rx="12" stroke="var(--warn)"/>' +
+          '<rect x="120" y="152" width="400" height="72" rx="12" stroke="var(--accent2)"/>' +
+          '<rect x="40" y="248" width="560" height="72" rx="12" stroke="var(--accent)"/>' +
+          '</g>' +
+          '<g font-size="15" fill="var(--text)" text-anchor="middle">' +
+          '<text x="320" y="86">Evals: real model</text>' +
+          '<text x="320" y="108" font-size="12" fill="var(--muted)">golden set, LLM judge - slow, paid</text>' +
+          '<text x="320" y="182">Contract: mocked model API</text>' +
+          '<text x="320" y="204" font-size="12" fill="var(--muted)">respx, TestClient - retries, 422, parsing</text>' +
+          '<text x="320" y="278">Unit: pure logic</text>' +
+          '<text x="320" y="300" font-size="12" fill="var(--muted)">tools, chunking, prompt render - ms, free</text>' +
+          '</g>' +
+          '<line x1="600" y1="320" x2="600" y2="70" stroke="var(--muted)" stroke-width="2" marker-end="url(#p8pt)"/>' +
+          '<text x="612" y="200" font-size="12" fill="var(--muted)" transform="rotate(90 612 200)">cost, realism</text>' +
+          '<line x1="28" y1="70" x2="28" y2="320" stroke="var(--muted)" stroke-width="2" marker-end="url(#p8pt)"/>' +
+          '<text x="16" y="200" font-size="12" fill="var(--muted)" transform="rotate(-90 16 200)">count, speed</text>' +
+          '<text x="320" y="356" text-anchor="middle" font-size="13" fill="var(--muted)">pytest owns the two lower layers; evals (module 5) own the top</text>' +
+          '</svg>',
+        caption: {
+          pl: 'Piramida testów aplikacji AI: pytest pokrywa logikę i kontrakt z zamockowanym API, a zachowanie modelu mierzą evale z modułu 5.',
+          en: 'The AI app test pyramid: pytest covers logic and the contract against a mocked API, while model behavior is measured by the evals from module 5.'
+        }
+      },
+      levels: {
+        eli5: {
+          pl: '<p>Teatr przygotowuje sztukę z bardzo drogą gwiazdą. Nikt nie wzywa gwiazdy na każdą próbę - od tego jest dubler. Codziennie ćwiczy się sceny z dublerem, który mówi zawsze te same kwestie, więc od razu widać, czy reszta obsady i dekoracje działają. Gwiazda przychodzi rzadko, na próbę generalną, bo jej czas kosztuje i lubi za każdym razem zagrać trochę inaczej.</p><p>Tak samo testuje się aplikacje z modelem. Model to gwiazda: drogi i za każdym razem odpowiada trochę inaczej. Więc na co dzień testujesz z dublerem - podstawioną, zawsze taką samą odpowiedzią - i sprawdzasz wszystko dookoła: czy formularz odrzuca błędy, czy kwestie trafiają do właściwych osób, czy scenografia się nie przewraca.</p><p>A pytest to reżyser tych prób: sam znajduje wszystkie sceny do przećwiczenia, ustawia rekwizyty przed każdą i sprząta po niej. Próbę generalną z prawdziwą gwiazdą też się robi - ale rzadziej i z osobną listą ocen. To są evale.</p>',
+          en: '<p>A theatre is preparing a play with a very expensive star. Nobody calls the star to every rehearsal - that is what the stand-in is for. Scenes are practised daily with the stand-in, who always delivers the same lines, so you instantly see whether the rest of the cast and the set work. The star comes rarely, for the dress rehearsal, because her time is costly and she likes to play it slightly differently every time.</p><p>Testing an app with a model works the same way. The model is the star: expensive, and it answers a bit differently each time. So day to day you test with a stand-in - a canned, always-identical response - and check everything around it: does the form reject mistakes, do the lines reach the right people, does the scenery stay up.</p><p>And pytest is the director of those rehearsals: it finds every scene to practise by itself, sets the props before each one and cleans up after. You still do the dress rehearsal with the real star - but rarely, and with its own scorecard. Those are the evals.</p>'
+        },
+        school: {
+          pl: '<p>pytest jest dla Pythona tym, czym Jest lub Vitest dla JS, tylko z mniejszą ilością ceremonii. Nie ma <code>describe</code> ani <code>expect</code> - są pliki <code>test_*.py</code>, funkcje <code>test_*</code> i goły <code>assert</code>:</p><pre><code>from chunker import split_text\n\ndef test_short_text_is_one_chunk():\n    chunks = split_text("krotki akapit", size=2000)\n    assert len(chunks) == 1</code></pre><p>Gdy asercja padnie, pytest sam pokaże wartości po obu stronach porównania - to jego znak firmowy. Odpalasz wszystko przez <code>uv run pytest</code>, bez konfiguracji.</p><h4>Fixtures zamiast beforeEach</h4><pre><code>import pytest\n\n@pytest.fixture\ndef sample_docs():\n    return [{"id": 1, "text": "Umowa najmu..."}]\n\ndef test_indexing(sample_docs):\n    index = build_index(sample_docs)\n    assert index.count == 1</code></pre><p>Test deklaruje, czego potrzebuje, przez nazwę parametru, a pytest to dostarcza. To dependency injection: fixture może budować dane, klienta HTTP albo tymczasowy katalog i posprzątać po sobie.</p><h4>Parametrize zamiast it.each</h4><pre><code>@pytest.mark.parametrize("text,expected", [\n    ("", 0),\n    ("krotki akapit", 1),\n    ("a" * 5000, 3),\n])\ndef test_chunk_count(text, expected):\n    assert len(split_text(text, size=2000)) == expected</code></pre><p>Jeden test, wiele przypadków, każdy raportowany osobno. W kodzie AI to idealne narzędzie na przypadki brzegowe parserów i chunkerów: pusty tekst, jeden znak, tekst dokładnie na granicy limitu.</p><p>Do zapamiętania: pytest testuje kod deterministyczny - funkcje narzędzi, parsowanie, składanie promptów. Odpowiedzi samego modelu są niedeterministyczne i ich jakość mierzy się evalami, nie assertami.</p>',
+          en: '<p>pytest is to Python what Jest or Vitest is to JS, with less ceremony. There is no <code>describe</code> and no <code>expect</code> - there are <code>test_*.py</code> files, <code>test_*</code> functions and a bare <code>assert</code>:</p><pre><code>from chunker import split_text\n\ndef test_short_text_is_one_chunk():\n    chunks = split_text("short paragraph", size=2000)\n    assert len(chunks) == 1</code></pre><p>When an assertion fails, pytest shows the values on both sides of the comparison by itself - its signature feature. You run everything with <code>uv run pytest</code>, zero config.</p><h4>Fixtures instead of beforeEach</h4><pre><code>import pytest\n\n@pytest.fixture\ndef sample_docs():\n    return [{"id": 1, "text": "Lease agreement..."}]\n\ndef test_indexing(sample_docs):\n    index = build_index(sample_docs)\n    assert index.count == 1</code></pre><p>A test declares what it needs through a parameter name and pytest delivers it. That is dependency injection: a fixture can build data, an HTTP client or a temp directory, and clean up after itself.</p><h4>Parametrize instead of it.each</h4><pre><code>@pytest.mark.parametrize("text,expected", [\n    ("", 0),\n    ("short paragraph", 1),\n    ("a" * 5000, 3),\n])\ndef test_chunk_count(text, expected):\n    assert len(split_text(text, size=2000)) == expected</code></pre><p>One test, many cases, each reported separately. In AI code it is the perfect tool for parser and chunker edge cases: empty text, a single character, text exactly at the limit.</p><p>To remember: pytest tests deterministic code - tool functions, parsing, prompt assembly. The model own answers are non-deterministic, and their quality is measured with evals, not asserts.</p>'
+        },
+        pro: {
+          pl: '<p>W aplikacji AI granica jest ostra: wszystko, co deterministyczne, testujesz pytestem w milisekundach i za darmo; zachowanie modelu mierzysz evalami z modułu o ewaluacjach. Problemy zaczynają się, gdy ktoś tę granicę pomiesza - testy jednostkowe wołające prawdziwe API są wolne, płatne i flaky, a evale pisane jako asserty nie mierzą jakości, tylko szczęście.</p><h4>Mockuj na poziomie HTTP, nie metody</h4><p>SDK Anthropica chodzi po httpx, więc <strong>respx</strong> przechwytuje request na poziomie sieci. To lepsze niż podmiana metody klienta, bo testujesz prawdziwą ścieżkę SDK: retry, nagłówki, parsowanie odpowiedzi.</p><pre><code>import httpx, respx\nfrom anthropic import Anthropic\n\n@respx.mock\ndef test_retries_on_overload():\n    route = respx.post("https://api.anthropic.com/v1/messages").mock(\n        side_effect=[httpx.Response(529), httpx.Response(200, json=FAKE_MSG)]\n    )\n    client = Anthropic(max_retries=2)\n    reply = ask_model(client, "pytanie")\n    assert route.call_count == 2\n    body = json.loads(route.calls.last.request.content)\n    assert body["max_tokens"] == 1024</code></pre><p>Zwróć uwagę na drugą asercję: sprawdzasz, <em>co</em> poszło do API (model, max_tokens, kształt messages). To test kontraktu - łapie regresje typu "ktoś podniósł limit tokenów dziesięciokrotnie" zanim zobaczysz je na fakturze. Do prostszych podmian (zmienna środowiskowa, funkcja liczenia kosztu) wystarczy wbudowany <strong>monkeypatch</strong>.</p><h4>TestClient dla endpointów</h4><pre><code>from fastapi.testclient import TestClient\n\ndef test_chat_rejects_empty_message():\n    client = TestClient(app)\n    res = client.post("/chat", json={"message": ""})\n    assert res.status_code == 422</code></pre><p>Testujesz cały kontrakt HTTP w pamięci, łącznie z walidacją pydantic i zależnościami. Testy async oznaczasz przez <code>pytest.mark.asyncio</code> (plugin pytest-asyncio).</p><h4>Co konkretnie pokrywasz pytestem</h4><ul><li>Funkcje narzędzi agenta - czyste wejście-wyjście, plus idempotencja tam, gdzie ją obiecujesz.</li><li>Parsery i pętlę naprawczą structured output - podajesz zepsuty JSON i sprawdzasz, że naprawa działa, a budżet prób jest respektowany.</li><li>Renderowanie promptów - snapshot złożonego promptu łapie przypadkowe zmiany, które inaczej zobaczyłbyś dopiero w evalach.</li><li>Kontrakt endpointów - kody błędów, kształt odpowiedzi, nagłówki SSE.</li></ul><p>Na rozmowie rekrutacyjnej pytanie "jak testujesz aplikację z LLM" jest testem dojrzałości: dobra odpowiedź zawsze rozdziela deterministyczny kod (pytest, mock na poziomie HTTP) od jakości modelu (evale w CI z golden setem).</p>',
+          en: '<p>In an AI application the boundary is sharp: everything deterministic is tested with pytest in milliseconds for free; model behavior is measured with the evals from the evaluations module. Trouble starts when someone mixes the two - unit tests calling the real API are slow, paid and flaky, and evals written as asserts measure luck, not quality.</p><h4>Mock at the HTTP level, not the method</h4><p>The Anthropic SDK rides on httpx, so <strong>respx</strong> intercepts the request at the network level. That beats swapping a client method, because you exercise the real SDK path: retries, headers, response parsing.</p><pre><code>import httpx, respx\nfrom anthropic import Anthropic\n\n@respx.mock\ndef test_retries_on_overload():\n    route = respx.post("https://api.anthropic.com/v1/messages").mock(\n        side_effect=[httpx.Response(529), httpx.Response(200, json=FAKE_MSG)]\n    )\n    client = Anthropic(max_retries=2)\n    reply = ask_model(client, "question")\n    assert route.call_count == 2\n    body = json.loads(route.calls.last.request.content)\n    assert body["max_tokens"] == 1024</code></pre><p>Note the second assertion: you check <em>what</em> went to the API (model, max_tokens, the shape of messages). That is a contract test - it catches regressions like "someone raised the token limit tenfold" before you see them on the invoice. For simpler swaps (an env var, a cost function) the built-in <strong>monkeypatch</strong> is enough.</p><h4>TestClient for endpoints</h4><pre><code>from fastapi.testclient import TestClient\n\ndef test_chat_rejects_empty_message():\n    client = TestClient(app)\n    res = client.post("/chat", json={"message": ""})\n    assert res.status_code == 422</code></pre><p>You test the whole HTTP contract in memory, pydantic validation and dependencies included. Async tests are marked with <code>pytest.mark.asyncio</code> (the pytest-asyncio plugin).</p><h4>What exactly pytest covers</h4><ul><li>Agent tool functions - pure input-output, plus idempotency wherever you promise it.</li><li>Parsers and the structured-output repair loop - feed broken JSON and check the repair works and the attempt budget is respected.</li><li>Prompt rendering - a snapshot of the assembled prompt catches accidental changes you would otherwise first see in evals.</li><li>Endpoint contracts - error codes, response shapes, SSE headers.</li></ul><p>In interviews, "how do you test an LLM app" is a maturity check: a good answer always separates deterministic code (pytest, HTTP-level mocks) from model quality (evals in CI with a golden set).</p>'
+        }
+      },
+      quiz: [
+        {
+          q: {
+            pl: 'Jak pytest znajduje testy do uruchomienia?',
+            en: 'How does pytest discover the tests to run?'
+          },
+          options: [
+            { pl: 'Z listy testów zadeklarowanej w pyproject.toml', en: 'From a list of tests declared in pyproject.toml' },
+            { pl: 'Z funkcji opakowanych w describe() i it()', en: 'From functions wrapped in describe() and it()' },
+            { pl: 'Sam skanuje pliki test_*.py i bierze z nich funkcje test_*', en: 'It scans test_*.py files by itself and picks the test_* functions from them' },
+            { pl: 'Uruchamia każdy plik .py w katalogu projektu', en: 'It runs every .py file in the project directory' }
+          ],
+          correct: 2,
+          explain: {
+            pl: 'Konwencja nazw zastępuje konfigurację: pliki test_*.py i funkcje test_* są wykrywane automatycznie, a asercją jest goły assert. Zero rejestrowania testów, zero importowanego frameworka w każdym pliku.',
+            en: 'Naming convention replaces configuration: test_*.py files and test_* functions are discovered automatically, and a bare assert is the assertion. No test registry, no framework import in every file.'
+          }
+        },
+        {
+          q: {
+            pl: 'Którym narzędziem z JS najlepiej opisać @pytest.mark.parametrize?',
+            en: 'Which JS tool best describes @pytest.mark.parametrize?'
+          },
+          options: [
+            { pl: 'it.each z Jest/Vitest - ten sam test dla wielu zestawów danych', en: 'it.each from Jest/Vitest - the same test over many data sets' },
+            { pl: 'beforeAll - jednorazowe przygotowanie środowiska', en: 'beforeAll - one-time environment setup' },
+            { pl: 'vi.mock - podmiana modułu na atrapę', en: 'vi.mock - swapping a module for a fake' },
+            { pl: 'expect.extend - własne matchery asercji', en: 'expect.extend - custom assertion matchers' }
+          ],
+          correct: 0,
+          explain: {
+            pl: 'parametrize mnoży jeden test przez tabelę przypadków i raportuje każdy osobno - dokładnie jak it.each. W kodzie AI najczęściej pokrywa przypadki brzegowe chunkerów i parserów.',
+            en: 'parametrize multiplies one test by a table of cases and reports each separately - exactly like it.each. In AI code it most often covers chunker and parser edge cases.'
+          }
+        },
+        {
+          q: {
+            pl: 'Dlaczego wywołania modelu w testach lepiej mockować na poziomie HTTP (respx), a nie podmieniać metodę klienta?',
+            en: 'Why is it better to mock model calls at the HTTP level (respx) instead of swapping the client method?'
+          },
+          options: [
+            { pl: 'Bo podmiana metody klienta jest niemożliwa w Pythonie', en: 'Because swapping a client method is impossible in Python' },
+            { pl: 'Bo respx jest szybszy od monkeypatch o rząd wielkości', en: 'Because respx is an order of magnitude faster than monkeypatch' },
+            { pl: 'Bo mock HTTP pozwala testować prawdziwe odpowiedzi modelu', en: 'Because an HTTP mock lets you test real model answers' },
+            { pl: 'Bo test przechodzi wtedy przez prawdziwą ścieżkę SDK: retry, nagłówki i parsowanie odpowiedzi', en: 'Because the test then exercises the real SDK path: retries, headers and response parsing' }
+          ],
+          correct: 3,
+          explain: {
+            pl: 'Mock na poziomie sieci zostawia cały kod SDK w grze, więc możesz przetestować logikę retry po 529, treść wysyłanego body i parsowanie odpowiedzi. Podmiana metody klienta omija to wszystko i testuje mniej, niż się wydaje.',
+            en: 'A network-level mock keeps all SDK code in play, so you can test retry logic after a 529, the outgoing body and response parsing. Swapping the client method bypasses all of it and tests less than it seems.'
+          }
+        },
+        {
+          q: {
+            pl: 'Testy w CI wołają prawdziwe API modelu: przechodzą raz na jakiś czas, kosztują i blokują merge. Co z tym zrobić?',
+            en: 'CI tests call the real model API: they pass intermittently, cost money and block merges. What is the right move?'
+          },
+          options: [
+            { pl: 'Dodać retry na poziomie CI, aż testy przejdą', en: 'Add CI-level retries until the tests pass' },
+            { pl: 'Deterministyczną logikę przełączyć na mocki HTTP, a jakość odpowiedzi modelu mierzyć evalami z golden setem', en: 'Move deterministic logic to HTTP mocks and measure model answer quality with golden-set evals' },
+            { pl: 'Obniżyć temperature do zera, żeby odpowiedzi były w pełni powtarzalne', en: 'Lower temperature to zero so the answers become fully repeatable' },
+            { pl: 'Przenieść te testy do osobnego jobu i ignorować ich wynik', en: 'Move those tests to a separate job and ignore its result' }
+          ],
+          correct: 1,
+          explain: {
+            pl: 'To pomieszanie warstw piramidy: kod deterministyczny testuje się na mockach (szybko, za darmo, stabilnie), a niedeterministyczne zachowanie modelu mierzy evalami z progami. Retry i ignorowanie maskują problem, a temperature zero nie daje pełnej powtarzalności.',
+            en: 'This is a mixed-up pyramid: deterministic code belongs on mocks (fast, free, stable), while non-deterministic model behavior is measured by thresholded evals. Retries and ignoring mask the problem, and temperature zero does not guarantee repeatability.'
+          }
+        }
+      ]
     }
   ]
 }

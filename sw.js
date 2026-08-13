@@ -33,6 +33,7 @@ const PRECACHE = [
   './content/tracks/ai-engineer/module-06-streaming-ux.js',
   './content/tracks/ai-engineer/module-07-security.js',
   './content/tracks/ai-engineer/module-08-python.js',
+  './content/tracks/ai-engineer/module-09-cloud-infrastructure.js',
   './content/tracks/frontend-architecture/index.js',
   './content/tracks/frontend-architecture/interview.js',
   './content/tracks/frontend-architecture/module-01-architecture-thinking.js',

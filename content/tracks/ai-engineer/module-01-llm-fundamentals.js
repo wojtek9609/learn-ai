@@ -138,7 +138,7 @@ export default {
     en: 'LLM Fundamentals'
   },
   description: {
-    pl: 'Jak naprawde dziala model jezykowy: przewidywanie tokenow, tokenizacja, okno kontekstu, embeddingi, parametry losowosci oraz koszt, latencja i cache.',
+    pl: 'Jak naprawdę działa model językowy: przewidywanie tokenów, tokenizacja, okno kontekstu, embeddingi, parametry losowości oraz koszt, latencja i cache.',
     en: 'How a language model actually works: next-token prediction, tokenization, context windows, embeddings, sampling parameters, and cost, latency and caching.'
   },
   lessons: [
@@ -146,43 +146,43 @@ export default {
     {
       id: 'how-llms-work',
       title: {
-        pl: 'Jak dzialaja modele jezykowe',
+        pl: 'Jak działają modele językowe',
         en: 'How LLMs actually work'
       },
       minutes: 12,
       terms: [
         {
-          term: { pl: 'przewidywanie nastepnego tokena', en: 'next-token prediction' },
+          term: { pl: 'przewidywanie następnego tokena', en: 'next-token prediction' },
           def: {
-            pl: 'Jedyna operacja modelu: dla calego dotychczasowego tekstu policz rozklad prawdopodobienstwa nastepnego tokena i wylosuj jeden. Cala reszta - chat, kod, tool calling - jest zbudowana na tej jednej petli.',
+            pl: 'Jedyna operacja modelu: dla całego dotychczasowego tekstu policz rozkład prawdopodobieństwa następnego tokena i wylosuj jeden. Cała reszta - chat, kod, tool calling - jest zbudowana na tej jednej pętli.',
             en: 'The only thing the model does: given all the text so far, compute a probability distribution over the next token and sample one. Chat, code and tool calling are all built on that single loop.'
           }
         },
         {
           term: { pl: 'autoregresja', en: 'autoregression' },
           def: {
-            pl: 'Kazdy wygenerowany token wraca na wejscie i staje sie czescia kontekstu dla kolejnego kroku. Dlatego wyjscie powstaje sekwencyjnie i nie da sie go zrownoleglic w obrebie jednej odpowiedzi.',
+            pl: 'Każdy wygenerowany token wraca na wejście i staje się częścią kontekstu dla kolejnego kroku. Dlatego wyjście powstaje sekwencyjnie i nie da się go zrównoleglić w obrębie jednej odpowiedzi.',
             en: 'Every generated token is appended to the input and becomes context for the next step. That is why output is produced sequentially and cannot be parallelised within one response.'
           }
         },
         {
           term: { pl: 'trening vs inferencja', en: 'training vs inference' },
           def: {
-            pl: 'Trening to jednorazowe (bardzo drogie) ustalenie wag. Inferencja to kazde wywolanie API na zamrozonych wagach - model niczego sie wtedy nie uczy i nic nie pamieta miedzy requestami.',
+            pl: 'Trening to jednorazowe (bardzo drogie) ustalenie wag. Inferencja to każde wywołanie API na zamrożonych wagach - model niczego się wtedy nie uczy i nic nie pamięta między requestami.',
             en: 'Training sets the weights once, at huge cost. Inference is every API call against those frozen weights - the model learns nothing then and remembers nothing between requests.'
           }
         },
         {
           term: { pl: 'halucynacja', en: 'hallucination' },
           def: {
-            pl: 'Pewnie brzmiaca odpowiedz, ktora nie ma pokrycia w faktach. Nie jest bugiem do zalatania, tylko skutkiem tego, ze model zawsze losuje prawdopodobny ciag dalszy - leczy sie ja groundingiem i weryfikacja, nie promptem <em>badz dokladny</em>.',
+            pl: 'Pewnie brzmiąca odpowiedź, która nie ma pokrycia w faktach. Nie jest bugiem do załatania, tylko skutkiem tego, że model zawsze losuje prawdopodobny ciąg dalszy - leczy się ją groundingiem i weryfikacją, nie promptem <em>bądź dokładny</em>.',
             en: 'A confident answer with no factual backing. Not a bug to patch but a consequence of always sampling a plausible continuation - you treat it with grounding and verification, not with a <em>be accurate</em> prompt.'
           }
         },
         {
           term: { pl: 'logity', en: 'logits' },
           def: {
-            pl: 'Surowe wyniki modelu dla kazdego tokena ze slownika, przed zamiana na prawdopodobienstwa przez <code>softmax</code>. Na nich dzialaja temperature, <code>top_p</code> i <code>top_k</code>.',
+            pl: 'Surowe wyniki modelu dla każdego tokena ze słownika, przed zamianą na prawdopodobieństwa przez <code>softmax</code>. Na nich działają temperature, <code>top_p</code> i <code>top_k</code>.',
             en: 'The raw per-token scores over the whole vocabulary, before <code>softmax</code> turns them into probabilities. Temperature, <code>top_p</code> and <code>top_k</code> all operate on them.'
           }
         }
@@ -216,7 +216,7 @@ export default {
           '<text x="320" y="352" text-anchor="middle" font-size="13" fill="var(--muted)">no memory between calls, no database lookup, no truth check</text>' +
           '</svg>',
         caption: {
-          pl: 'Petla generowania: model liczy rozklad prawdopodobienstwa nad tokenami, jeden token jest losowany, dopisywany do tekstu i wszystko leci od nowa.',
+          pl: 'Pętla generowania: model liczy rozkład prawdopodobieństwa nad tokenami, jeden token jest losowany, dopisywany do tekstu i wszystko leci od nowa.',
           en: 'The generation loop: the model scores a probability distribution over tokens, one token is sampled, appended to the text, and the whole pass runs again.'
         }
       },
@@ -224,7 +224,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Petla autoregresji krok po kroku: ten sam model, coraz dluzszy tekst, jeden nowy token na przebieg.',
+            pl: 'Pętla autoregresji krok po kroku: ten sam model, coraz dłuższy tekst, jeden nowy token na przebieg.',
             en: 'The autoregressive loop step by step: same model, longer text each time, one new token per pass.'
           },
           frames: [
@@ -237,9 +237,9 @@ export default {
                 'Pass 1: score every token in the vocabulary',
                 'var(--accent)'
               ),
-              label: { pl: '1. Rozklad', en: '1. The distribution' },
+              label: { pl: '1. Rozkład', en: '1. The distribution' },
               note: {
-                pl: 'Model dostaje caly tekst i zwraca liczbe dla kazdego z okolo 200 tysiecy tokenow slownika. Tu widac tylko trzy najwyzsze.',
+                pl: 'Model dostaje cały tekst i zwraca liczbę dla każdego z około 200 tysięcy tokenów słownika. Tu widać tylko trzy najwyższe.',
                 en: 'The model reads the whole text and returns a score for each of roughly 200k vocabulary tokens. Only the top three are shown.'
               }
             },
@@ -254,7 +254,7 @@ export default {
               ),
               label: { pl: '2. Losowanie', en: '2. Sampling' },
               note: {
-                pl: 'Jeden token zostaje wybrany losowaniem wazonym prawdopodobienstwem. Przy temperature 0 zawsze wygrywa faworyt, wyzej czasem wchodzi drugi z listy.',
+                pl: 'Jeden token zostaje wybrany losowaniem ważonym prawdopodobieństwem. Przy temperature 0 zawsze wygrywa faworyt, wyżej czasem wchodzi drugi z listy.',
                 en: 'One token is drawn, weighted by probability. At temperature 0 the favourite always wins; higher up, the runner-up sometimes gets in.'
               }
             },
@@ -269,7 +269,7 @@ export default {
               ),
               label: { pl: '3. Doklejenie', en: '3. Append' },
               note: {
-                pl: 'Wybrany token wraca na wejscie i model liczy wszystko od nowa. To jest autoregresja: wyjscie z kroku N jest wejsciem kroku N plus 1.',
+                pl: 'Wybrany token wraca na wejście i model liczy wszystko od nowa. To jest autoregresja: wyjście z kroku N jest wejściem kroku N plus 1.',
                 en: 'The chosen token goes back into the input and the model recomputes everything. That is autoregression: the output of step N is the input of step N plus 1.'
               }
             },
@@ -284,7 +284,7 @@ export default {
               ),
               label: { pl: '4. Stop', en: '4. Stop' },
               note: {
-                pl: 'Model nie wie z gory, jak dluga bedzie odpowiedz. Konczy, gdy wylosuje specjalny token konca albo gdy trafi w twoj limit max_tokens.',
+                pl: 'Model nie wie z góry, jak długa będzie odpowiedź. Kończy, gdy wylosuje specjalny token końca albo gdy trafi w twój limit max_tokens.',
                 en: 'The model does not know the answer length up front. It ends when it samples the special stop token, or when it hits your max_tokens limit.'
               }
             }
@@ -293,7 +293,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Dlaczego API jest bezstanowe: druga tura rozmowy to nie sesja na serwerze, tylko dluzszy prompt wyslany od nowa.',
+            pl: 'Dlaczego API jest bezstanowe: druga tura rozmowy to nie sesja na serwerze, tylko dłuższy prompt wysłany od nowa.',
             en: 'Why the API is stateless: turn two is not a server session, it is a longer prompt sent from scratch.'
           },
           frames: [
@@ -309,7 +309,7 @@ export default {
               ),
               label: { pl: '1. Pierwsza tura', en: '1. First turn' },
               note: {
-                pl: 'Wysylasz system prompt i pytanie. Serwer nic po sobie nie zostawia - dokladnie jak bezstanowy endpoint HTTP bez sesji.',
+                pl: 'Wysyłasz system prompt i pytanie. Serwer nic po sobie nie zostawia - dokładnie jak bezstanowy endpoint HTTP bez sesji.',
                 en: 'You send the system prompt and the question. The server keeps nothing afterwards - exactly like a stateless HTTP endpoint with no session.'
               }
             },
@@ -325,7 +325,7 @@ export default {
               ),
               label: { pl: '2. Druga tura', en: '2. Second turn' },
               note: {
-                pl: 'Historia rozmowy to po prostu dluzsze wejscie. Nie ma sesji do odpytania, jest tylko tablica wiadomosci, ktora ty trzymasz.',
+                pl: 'Historia rozmowy to po prostu dłuższe wejście. Nie ma sesji do odpytania, jest tylko tablica wiadomości, którą ty trzymasz.',
                 en: 'Conversation history is simply a longer input. There is no session to query, only an array of messages that you keep.'
               }
             },
@@ -339,9 +339,9 @@ export default {
                 fText(28, 232, 'Same question length every time - the input keeps growing.', 14, 'var(--muted)') +
                 fPanel('Cost grows with the square of the conversation', 'Turn N re-sends turns 1..N-1, so total spend rises quadratically.', 'Fixes: summarise old turns, or drop them and keep a state block.', 'var(--err)')
               ),
-              label: { pl: '3. Rachunek rosnie', en: '3. The bill grows' },
+              label: { pl: '3. Rachunek rośnie', en: '3. The bill grows' },
               note: {
-                pl: 'Kazda tura placi za cala poprzednia historie. Dlatego dlugie rozmowy kompaktuje sie streszczeniem, zamiast przesylac wszystko w nieskonczonosc.',
+                pl: 'Każda tura płaci za całą poprzednią historię. Dlatego długie rozmowy kompaktuje się streszczeniem, zamiast przesyłać wszystko w nieskończoność.',
                 en: 'Every turn pays for the whole history again. That is why long conversations get compacted into a summary instead of resent forever.'
               }
             }
@@ -350,7 +350,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Skad biora sie halucynacje: model nie ma stanu "nie wiem", wiec dla pytania bez pokrycia i tak zwraca pewnie wygladajacy rozklad.',
+            pl: 'Skąd biorą się halucynacje: model nie ma stanu "nie wiem", więc dla pytania bez pokrycia i tak zwraca pewnie wyglądający rozkład.',
             en: 'Where hallucinations come from: with no "I do not know" state, a question with no support still gets a confident-looking distribution.'
           },
           frames: [
@@ -366,7 +366,7 @@ export default {
               ),
               label: { pl: '1. Pytanie z pokryciem', en: '1. A supported question' },
               note: {
-                pl: 'Gdy dane treningowe sa zgodne, rozklad jest ostry jak igla. Model nie "sprawdza" odpowiedzi - po prostu jeden token ma ogromna przewage.',
+                pl: 'Gdy dane treningowe są zgodne, rozkład jest ostry jak igła. Model nie "sprawdza" odpowiedzi - po prostu jeden token ma ogromną przewagę.',
                 en: 'When the training data agrees, the distribution is needle-sharp. The model does not verify anything - one token simply dominates.'
               }
             },
@@ -382,7 +382,7 @@ export default {
               ),
               label: { pl: '2. Pytanie bez pokrycia', en: '2. An unsupported question' },
               note: {
-                pl: 'Rozklad robi sie plaski, ale nadal nie ma w nim opcji "nie wiem". Cokolwiek zostanie wylosowane, brzmi rownie pewnie jak Paryz.',
+                pl: 'Rozkład robi się płaski, ale nadal nie ma w nim opcji "nie wiem". Cokolwiek zostanie wylosowane, brzmi równie pewnie jak Paryż.',
                 en: 'The distribution goes flat, but there is still no "I do not know" option in it. Whatever gets sampled sounds as confident as Paris.'
               }
             },
@@ -399,7 +399,7 @@ export default {
               ),
               label: { pl: '3. Grounding', en: '3. Grounding' },
               note: {
-                pl: 'Wstrzykniecie faktu do promptu przywraca ostry rozklad. Dlatego na halucynacje dziala grounding i weryfikacja narzedziem, a nie proszenie modelu o dokladnosc.',
+                pl: 'Wstrzyknięcie faktu do promptu przywraca ostry rozkład. Dlatego na halucynacje działa grounding i weryfikacja narzędziem, a nie proszenie modelu o dokładność.',
                 en: 'Injecting the fact into the prompt restores a sharp distribution. That is why grounding and tool verification beat asking the model to be accurate.'
               }
             }
@@ -408,28 +408,28 @@ export default {
       ],
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie autouzupelnianie z klawiatury telefonu, tylko takie, ktore przeczytalo pol internetu. Piszesz poczatek zdania, a ono podpowiada, co pasuje dalej. Model jezykowy robi doslownie to samo, tylko nieprzyzwoicie lepiej.</p>' +
-            '<p>Model nigdy nie <em>pamieta</em> rozmowy tak, jak pamieta ja czlowiek. Za kazdym razem dostaje caly tekst od poczatku i odpowiada na jedno jedyne pytanie: <strong>jaki kawalek slowa pasuje teraz najlepiej?</strong> Wybiera jeden, dokleja go do konca i pyta znowu. I znowu. Kilkaset razy pod rzad, az uzna, ze to juz koniec zdania, akapitu i tematu.</p>' +
-            '<p>Dlatego potrafi napisac cos, co brzmi madrze, a jest zmyslone. On nie sprawdza, czy zdanie jest prawdziwe. Sprawdza, czy <em>brzmi jak dobra kontynuacja</em>. To troche jak kolega, ktory zawsze ma odpowiedz, bo nie znosi ciszy przy stole. Czesto trafia, bo duzo przeczytal. Czasem strzela z fasonem, bo strzelanie z fasonem to caly jego zawod.</p>' +
-            '<p>I jeszcze jedna rzecz, ktora oszczedza pozniej duzo nerwow: on nie uczy sie od ciebie w trakcie rozmowy. Jesli cos ma wiedziec, musisz mu to napisac w tej wiadomosci. Jutro nie bedzie pamietal ani ciebie, ani wczorajszych ustalen.</p>',
+          pl: '<p>Wyobraź sobie autouzupełnianie z klawiatury telefonu, tylko takie, które przeczytało pół internetu. Piszesz początek zdania, a ono podpowiada, co pasuje dalej. Model językowy robi dosłownie to samo, tylko nieprzyzwoicie lepiej.</p>' +
+            '<p>Model nigdy nie <em>pamięta</em> rozmowy tak, jak pamięta ją człowiek. Za każdym razem dostaje cały tekst od początku i odpowiada na jedno jedyne pytanie: <strong>jaki kawałek słowa pasuje teraz najlepiej?</strong> Wybiera jeden, dokleja go do końca i pyta znowu. I znowu. Kilkaset razy pod rząd, aż uzna, że to już koniec zdania, akapitu i tematu.</p>' +
+            '<p>Dlatego potrafi napisać coś, co brzmi mądrze, a jest zmyślone. On nie sprawdza, czy zdanie jest prawdziwe. Sprawdza, czy <em>brzmi jak dobra kontynuacja</em>. To trochę jak kolega, który zawsze ma odpowiedź, bo nie znosi ciszy przy stole. Często trafia, bo dużo przeczytał. Czasem strzela z fasonem, bo strzelanie z fasonem to cały jego zawód.</p>' +
+            '<p>I jeszcze jedna rzecz, która oszczędza później dużo nerwów: on nie uczy się od ciebie w trakcie rozmowy. Jeśli coś ma wiedzieć, musisz mu to napisać w tej wiadomości. Jutro nie będzie pamiętał ani ciebie, ani wczorajszych ustaleń.</p>',
           en: '<p>Picture the autocomplete on your phone keyboard, except this one has read half the internet. You type the start of a sentence and it suggests what comes next. A language model does literally that, just indecently better.</p>' +
             '<p>The model never <em>remembers</em> your chat the way a person does. Every single time it gets the whole text from the beginning and answers one question: <strong>which chunk of a word fits best right now?</strong> It picks one, glues it onto the end, and asks again. And again. A few hundred times in a row, until it decides that is the end of the sentence, the paragraph and the topic.</p>' +
             '<p>That is why it can write something that sounds smart and is invented. It is not checking whether the sentence is true. It is checking whether it <em>sounds like a good continuation</em>. A bit like the friend who always has an answer because he cannot stand silence at the table. He is right a lot, because he has read a lot. Sometimes he guesses with great style, because guessing with style is the entire job.</p>' +
             '<p>One more thing that saves a lot of frustration later: it does not learn from you mid-conversation. If it needs to know something, you have to write it in this message. Tomorrow it will remember neither you nor what you agreed yesterday.</p>'
         },
         school: {
-          pl: '<p>Model jezykowy to funkcja. Na wejsciu dostaje ciag <strong>tokenow</strong> (token to kawalek tekstu, zwykle fragment slowa), a na wyjsciu zwraca rozklad prawdopodobienstwa nad wszystkimi tokenami w swoim <strong>slowniku</strong> (liscie wszystkich znanych mu kawalkow, zwykle 50-200 tysiecy pozycji). Jeden <strong>przebieg</strong> sieci, czyli jedno przeliczenie calego wejscia, daje dokladnie jeden nowy token.</p>' +
-            '<p>Zeby powstal akapit, ten przebieg powtarza sie kilkaset razy, za kazdym razem z tekstem wydluzonym o poprzedni token. To sie nazywa <strong>autoregresja</strong> (wyjscie kroku N staje sie wejsciem kroku N plus 1).</p>' +
+          pl: '<p>Model językowy to funkcja. Na wejściu dostaje ciąg <strong>tokenów</strong> (token to kawałek tekstu, zwykle fragment słowa), a na wyjściu zwraca rozkład prawdopodobieństwa nad wszystkimi tokenami w swoim <strong>słowniku</strong> (liście wszystkich znanych mu kawałków, zwykle 50-200 tysięcy pozycji). Jeden <strong>przebieg</strong> sieci, czyli jedno przeliczenie całego wejścia, daje dokładnie jeden nowy token.</p>' +
+            '<p>Żeby powstał akapit, ten przebieg powtarza się kilkaset razy, za każdym razem z tekstem wydłużonym o poprzedni token. To się nazywa <strong>autoregresja</strong> (wyjście kroku N staje się wejściem kroku N plus 1).</p>' +
             '<h4>Worked example: policzmy jeden akapit</h4>' +
-            '<p>Piszesz prompt o dlugosci 900 tokenow i prosisz o odpowiedz dlugosci 300 tokenow. Model wykonuje 300 przebiegow. W kazdym z nich widzi wejscie o dlugosci 900, 901, 902... az do 1199 tokenow. Nie ma tu zadnego skrotu: 300 tokenow odpowiedzi to 300 osobnych decyzji, a kazda z nich zna caly wczesniejszy tekst. Dlatego odpowiedzi nie da sie wygenerowac rownolegle, a czas rosnie liniowo z jej dlugoscia.</p>' +
+            '<p>Piszesz prompt o długości 900 tokenów i prosisz o odpowiedź długości 300 tokenów. Model wykonuje 300 przebiegów. W każdym z nich widzi wejście o długości 900, 901, 902... aż do 1199 tokenów. Nie ma tu żadnego skrótu: 300 tokenów odpowiedzi to 300 osobnych decyzji, a każda z nich zna cały wcześniejszy tekst. Dlatego odpowiedzi nie da się wygenerować równolegle, a czas rośnie liniowo z jej długością.</p>' +
             '<h4>Trening kontra inferencja</h4>' +
-            '<p><strong>Trening</strong> to jednorazowy, potwornie drogi proces (miesiace pracy dziesiatek tysiecy kart graficznych), w ktorym <strong>wagi</strong> modelu - miliardy liczb opisujacych siec - sa dostrajane tak, by przewidywanie nastepnego tokena bylo jak najtrafniejsze. <strong>Inferencja</strong> to kazde twoje wywolanie API: wagi sa zamrozone i nic sie w nich nie zmienia. Model nie uczy sie z twojego promptu i nie zapamietuje niczego miedzy requestami.</p>' +
-            '<p>W kodzie cala petla wyglada zenujaco prosto:</p>' +
-            '<pre><code>tokens = encode(prompt)\nwhile not done:\n    probs = model(tokens)   // rozklad nad slownikiem\n    next  = sample(probs)   // losowanie jednego tokena\n    tokens.append(next)</code></pre>' +
-            '<h4>Skad on to niby wie</h4>' +
-            '<p>Wiedza siedzi w wagach jako statystyczne wzorce z danych treningowych, a nie jako tabela faktow z indeksem. Nie ma wiersza, ktory dalo by sie sprawdzic. Dlatego <strong>halucynacja</strong> (pewnie brzmiaca, ale zmyslona odpowiedz) nie jest bugiem do zalatania - to ten sam mechanizm, ktory daje kreatywnosc, uzyty tam, gdzie model nie ma pokrycia w danych. Model zawsze zwroci jakis rozklad, nawet gdy nie wie nic sensownego; nie ma w nim wbudowanej opcji "nie wiem".</p>' +
-            '<h4>Co musisz zapamietac</h4>' +
-            '<p>Model to bezstanowa funkcja, ktora w jednym przebiegu wybiera jeden token i nic nie pamieta miedzy wywolaniami. Historie rozmowy trzymasz i wysylasz ty, nie serwer. A jesli odpowiedz ma byc oparta na faktach, fakty musisz wlozyc do promptu albo dac modelowi narzedzie, ktore je sprawdzi.</p>',
+            '<p><strong>Trening</strong> to jednorazowy, potwornie drogi proces (miesiące pracy dziesiątek tysięcy kart graficznych), w którym <strong>wagi</strong> modelu - miliardy liczb opisujących sieć - są dostrajane tak, by przewidywanie następnego tokena było jak najtrafniejsze. <strong>Inferencja</strong> to każde twoje wywołanie API: wagi są zamrożone i nic się w nich nie zmienia. Model nie uczy się z twojego promptu i nie zapamiętuje niczego między requestami.</p>' +
+            '<p>W kodzie cała pętla wygląda żenująco prosto:</p>' +
+            '<pre><code>tokens = encode(prompt)\nwhile not done:\n    probs = model(tokens)   // rozkład nad słownikiem\n    next  = sample(probs)   // losowanie jednego tokena\n    tokens.append(next)</code></pre>' +
+            '<h4>Skąd on to niby wie</h4>' +
+            '<p>Wiedza siedzi w wagach jako statystyczne wzorce z danych treningowych, a nie jako tabela faktów z indeksem. Nie ma wiersza, który dało by się sprawdzić. Dlatego <strong>halucynacja</strong> (pewnie brzmiąca, ale zmyślona odpowiedź) nie jest bugiem do załatania - to ten sam mechanizm, który daje kreatywność, użyty tam, gdzie model nie ma pokrycia w danych. Model zawsze zwróci jakiś rozkład, nawet gdy nie wie nic sensownego; nie ma w nim wbudowanej opcji "nie wiem".</p>' +
+            '<h4>Co musisz zapamiętać</h4>' +
+            '<p>Model to bezstanowa funkcja, która w jednym przebiegu wybiera jeden token i nic nie pamięta między wywołaniami. Historię rozmowy trzymasz i wysyłasz ty, nie serwer. A jeśli odpowiedź ma być oparta na faktach, fakty musisz włożyć do promptu albo dać modelowi narzędzie, które je sprawdzi.</p>',
           en: '<p>A language model is a function. It takes a sequence of <strong>tokens</strong> (a token is a chunk of text, usually a piece of a word) and returns a probability distribution over every token in its <strong>vocabulary</strong> (the list of all chunks it knows, typically 50,000 to 200,000 entries). One <strong>forward pass</strong> - one full computation over the input - produces exactly one new token.</p>' +
             '<p>To get a paragraph, that pass repeats a few hundred times, each time with the text extended by the previous token. This is called <strong>autoregression</strong> (the output of step N becomes the input of step N plus 1).</p>' +
             '<h4>Worked example: one paragraph, counted</h4>' +
@@ -444,29 +444,29 @@ export default {
             '<p>The model is a stateless function that picks one token per pass and remembers nothing between calls. You hold and resend the conversation history, not the server. And if an answer must be grounded in facts, you have to put the facts in the prompt or give the model a tool that can look them up.</p>'
         },
         pro: {
-          pl: '<p>Traktuj wywolanie modelu jak <strong>bezstanowa funkcje HTTP</strong>: <code>f(tokeny) -> logity</code>. <strong>Logity</strong> to surowe, nieznormalizowane wyniki dla kazdego tokena slownika; funkcja <code>softmax</code> zamienia je w prawdopodobienstwa sumujace sie do jedynki. Stan rozmowy jest po twojej stronie, nie po stronie modelu. To najwazniejszy model mentalny w calym module, bo prostuje polowe nieporozumien: model nie "zapamietal" poprzedniej wiadomosci - ty ja ponownie wyslales.</p>' +
-            '<h4>Co dzieje sie w srodku wywolania</h4>' +
+          pl: '<p>Traktuj wywołanie modelu jak <strong>bezstanową funkcję HTTP</strong>: <code>f(tokeny) -> logity</code>. <strong>Logity</strong> to surowe, nieznormalizowane wyniki dla każdego tokena słownika; funkcja <code>softmax</code> zamienia je w prawdopodobieństwa sumujące się do jedynki. Stan rozmowy jest po twojej stronie, nie po stronie modelu. To najważniejszy model mentalny w całym module, bo prostuje połowę nieporozumień: model nie "zapamiętał" poprzedniej wiadomości - ty ją ponownie wysłałeś.</p>' +
+            '<h4>Co dzieje się w środku wywołania</h4>' +
             '<ul>' +
-            '<li><strong>Prefill</strong> - caly prompt idzie przez siec rownolegle, w jednym rzucie. Koszt rosnie z dlugoscia wejscia i to on dominuje <strong>TTFT</strong> (time to first token - czas od wyslania requestu do pierwszego tokena odpowiedzi).</li>' +
-            '<li><strong>Decode</strong> - kolejne tokeny wyjscia powstaja sekwencyjnie, jeden na przebieg, przyspieszone przez <strong>KV cache</strong> (zapamietane w pamieci GPU posrednie wyniki uwagi dla juz przetworzonych tokenow, dzieki czemu nie liczy sie ich drugi raz). Stad asymetria cen: 10 tysiecy tokenow wejscia jest wyraznie tansze i szybsze niz 10 tysiecy tokenow wyjscia.</li>' +
+            '<li><strong>Prefill</strong> - cały prompt idzie przez sieć równolegle, w jednym rzucie. Koszt rośnie z długością wejścia i to on dominuje <strong>TTFT</strong> (time to first token - czas od wysłania requestu do pierwszego tokena odpowiedzi).</li>' +
+            '<li><strong>Decode</strong> - kolejne tokeny wyjścia powstają sekwencyjnie, jeden na przebieg, przyspieszone przez <strong>KV cache</strong> (zapamiętane w pamięci GPU pośrednie wyniki uwagi dla już przetworzonych tokenów, dzięki czemu nie liczy się ich drugi raz). Stąd asymetria cen: 10 tysięcy tokenów wejścia jest wyraźnie tańsze i szybsze niż 10 tysięcy tokenów wyjścia.</li>' +
             '</ul>' +
-            '<p>Determinizm konczy sie na poziomie sprzetu. Rownolegla redukcja zmiennoprzecinkowa (sumowanie wielu liczb w nieustalonej kolejnosci na GPU) nie jest laczna, wiec ta sama prosba potrafi dac inny wynik nawet przy temperaturze 0, gdy dwa tokeny maja niemal identyczny wynik. Dlatego testy snapshotowe na dokladny string sa krucha strategia - asertujesz na schemacie i wlasnosciach, nie na bajtach.</p>' +
+            '<p>Determinizm kończy się na poziomie sprzętu. Równoległa redukcja zmiennoprzecinkowa (sumowanie wielu liczb w nieustalonej kolejności na GPU) nie jest łączna, więc ta sama prośba potrafi dać inny wynik nawet przy temperaturze 0, gdy dwa tokeny mają niemal identyczny wynik. Dlatego testy snapshotowe na dokładny string są kruchą strategią - asertujesz na schemacie i własnościach, nie na bajtach.</p>' +
             '<h4>Halucynacje w produkcji</h4>' +
-            '<p>Model nie ma skalibrowanego sygnalu "nie wiem". Trzy dzwignie, ktore realnie dzialaja:</p>' +
+            '<p>Model nie ma skalibrowanego sygnału "nie wiem". Trzy dźwignie, które realnie działają:</p>' +
             '<ol>' +
-            '<li><strong>Grounding</strong> (osadzenie odpowiedzi w dostarczonych danych) - wstrzykujesz kontekst i wymagasz cytowan z identyfikatorow, ktore sam podales; brak cytatu traktujesz jak blad walidacji, nie jak drobiazg.</li>' +
-            '<li><strong>Structured output</strong> (wymuszona struktura odpowiedzi) - schemat opisany w <strong>zod</strong> (biblioteka walidacji typow w TypeScript) albo w JSON Schema zamienia wolna proze w kontrakt, ktory da sie zwalidowac i ponowic.</li>' +
-            '<li><strong>Weryfikacja narzedziem</strong> - liczby liczy kod, nie model. Tak jak w React nie sumujesz koszyka w JSX, tylko w warstwie domenowej.</li>' +
+            '<li><strong>Grounding</strong> (osadzenie odpowiedzi w dostarczonych danych) - wstrzykujesz kontekst i wymagasz cytowań z identyfikatorów, które sam podałeś; brak cytatu traktujesz jak błąd walidacji, nie jak drobiazg.</li>' +
+            '<li><strong>Structured output</strong> (wymuszona struktura odpowiedzi) - schemat opisany w <strong>zod</strong> (biblioteka walidacji typów w TypeScript) albo w JSON Schema zamienia wolną prozę w kontrakt, który da się zwalidować i ponowić.</li>' +
+            '<li><strong>Weryfikacja narzędziem</strong> - liczby liczy kod, nie model. Tak jak w React nie sumujesz koszyka w JSX, tylko w warstwie domenowej.</li>' +
             '</ol>' +
             '<pre><code>const res = await client.messages.create({\n  model: "claude-sonnet-4-5",\n  max_tokens: 1024,\n  system: "Answer only from CONTEXT. If missing, reply NOT_FOUND.",\n  messages: [{ role: "user", content: prompt }]\n});\n// res.usage.input_tokens / res.usage.output_tokens -> loguj oba</code></pre>' +
-            '<p>Cenowo (stawki z 2026 roku dla klasy sredniej, np. Claude Sonnet): okolo 3 USD za milion tokenow wejscia i 15 USD za milion tokenow wyjscia. Klasa mala (Haiku, GPT-4o-mini, Gemini Flash) to rzad wielkosci taniej. Typowy TTFT dla promptu 2 tysiecy tokenow to 0,4-1,2 sekundy, a tempo generowania kilkadziesiat tokenow na sekunde - te dwie liczby wystarcza, zeby oszacowac latencje ekranu, zanim cokolwiek napiszesz.</p>' +
+            '<p>Cenowo (stawki z 2026 roku dla klasy średniej, np. Claude Sonnet): około 3 USD za milion tokenów wejścia i 15 USD za milion tokenów wyjścia. Klasa mała (Haiku, GPT-4o-mini, Gemini Flash) to rząd wielkości taniej. Typowy TTFT dla promptu 2 tysięcy tokenów to 0,4-1,2 sekundy, a tempo generowania kilkadziesiąt tokenów na sekundę - te dwie liczby wystarczą, żeby oszacować latencję ekranu, zanim cokolwiek napiszesz.</p>' +
             '<h4>Na rozmowie kwalifikacyjnej</h4>' +
-            '<p>Pytaja o to zwykle tak: dlaczego temperatura 0 nie daje pelnej powtarzalnosci, czym rozni sie prefill od decode i dlaczego <strong>fine-tuning</strong> (dotrenowanie modelu na wlasnych przykladach) uczy stylu oraz formatu, a nie swiezych faktow. Odpowiedz na ostatnie: gradient rozmywa wiedze po miliardach wag, wiec pojedynczy fakt widziany kilkanascie razy nie staje sie niezawodnym rekordem - do faktow uzywasz retrievalu, czyli dociagania danych do promptu.</p>' +
+            '<p>Pytają o to zwykle tak: dlaczego temperatura 0 nie daje pełnej powtarzalności, czym różni się prefill od decode i dlaczego <strong>fine-tuning</strong> (dotrenowanie modelu na własnych przykładach) uczy stylu oraz formatu, a nie świeżych faktów. Odpowiedź na ostatnie: gradient rozmywa wiedzę po miliardach wag, więc pojedynczy fakt widziany kilkanaście razy nie staje się niezawodnym rekordem - do faktów używasz retrievalu, czyli dociągania danych do promptu.</p>' +
             '<h4>Co z tego wynika w praktyce</h4>' +
             '<ul>' +
-            '<li>Historia rozmowy to twoja struktura danych i twoj koszt - projektuj ja jak stan aplikacji, z jawna kompakcja, a nie jak nieskonczony log.</li>' +
-            '<li>Kazdy fakt, ktory ma byc prawdziwy, musi wejsc do promptu albo przejsc przez narzedzie; instrukcja "nie zmyslaj" nie zmienia rozkladu.</li>' +
-            '<li>Testy i alerty buduj na schemacie, wlasnosciach i metrykach zbiorczych, bo dokladny string nie jest kontraktem.</li>' +
+            '<li>Historia rozmowy to twoja struktura danych i twój koszt - projektuj ją jak stan aplikacji, z jawną kompakcją, a nie jak nieskończony log.</li>' +
+            '<li>Każdy fakt, który ma być prawdziwy, musi wejść do promptu albo przejść przez narzędzie; instrukcja "nie zmyślaj" nie zmienia rozkładu.</li>' +
+            '<li>Testy i alerty buduj na schemacie, własnościach i metrykach zbiorczych, bo dokładny string nie jest kontraktem.</li>' +
             '</ul>',
           en: '<p>Treat a model call as a <strong>stateless HTTP function</strong>: <code>f(tokens) -&gt; logits</code>. <strong>Logits</strong> are the raw, unnormalized scores for every token in the vocabulary; the <code>softmax</code> function turns them into probabilities that sum to one. Conversation state lives on your side, not the model side. This is the single most important mental model in the module, because it kills half the confusion in the field: the model did not "remember" the previous message - you re-sent it.</p>' +
             '<h4>What happens inside a call</h4>' +
@@ -497,18 +497,18 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Model pisze odpowiedz. Jak powstaje ta odpowiedz?',
+            pl: 'Model pisze odpowiedź. Jak powstaje ta odpowiedź?',
             en: 'The model writes an answer. How does that answer come into being?'
           },
           options: [
-            { pl: 'Cala naraz, jako gotowy blok tekstu', en: 'All at once, as one finished block of text' },
-            { pl: 'Kawalek po kawalku: model za kazdym razem wybiera nastepny fragment i dokleja go do tekstu', en: 'Chunk by chunk: each time the model picks the next fragment and glues it onto the text' },
-            { pl: 'Model wyszukuje gotowa odpowiedz w swojej bazie danych', en: 'The model looks the answer up in its database' },
-            { pl: 'Model tlumaczy pytanie na kod SQL i wykonuje zapytanie', en: 'The model translates the question into SQL and runs a query' }
+            { pl: 'Cała naraz, jako gotowy blok tekstu', en: 'All at once, as one finished block of text' },
+            { pl: 'Kawałek po kawałku: model za każdym razem wybiera następny fragment i dokleja go do tekstu', en: 'Chunk by chunk: each time the model picks the next fragment and glues it onto the text' },
+            { pl: 'Model wyszukuje gotową odpowiedź w swojej bazie danych', en: 'The model looks the answer up in its database' },
+            { pl: 'Model tłumaczy pytanie na kod SQL i wykonuje zapytanie', en: 'The model translates the question into SQL and runs a query' }
           ],
           correct: 1,
           explain: {
-            pl: 'To jest ta petla autouzupelniania: jeden kawalek slowa, doklejenie, i wszystko od nowa. Dlatego dluga odpowiedz trwa dluzej niz krotka.',
+            pl: 'To jest ta pętla autouzupełniania: jeden kawałek słowa, doklejenie, i wszystko od nowa. Dlatego długa odpowiedź trwa dłużej niż krótka.',
             en: 'That is the autocomplete loop: one chunk of a word, glue it on, start over. Which is why a long answer takes longer than a short one.'
           }
         },
@@ -518,48 +518,48 @@ export default {
             en: 'What does the model compute in a single forward pass?'
           },
           options: [
-            { pl: 'Skrot (hash) promptu uzywany jako klucz cache', en: 'A hash of the prompt used as a cache key' },
-            { pl: 'Cala odpowiedz naraz', en: 'The entire answer at once' },
-            { pl: 'Rozklad prawdopodobienstwa nad nastepnym tokenem', en: 'A probability distribution over the next token' },
+            { pl: 'Skrót (hash) promptu używany jako klucz cache', en: 'A hash of the prompt used as a cache key' },
+            { pl: 'Cała odpowiedź naraz', en: 'The entire answer at once' },
+            { pl: 'Rozkład prawdopodobieństwa nad następnym tokenem', en: 'A probability distribution over the next token' },
             { pl: 'Zapytanie do bazy wiedzy', en: 'A query against a knowledge base' }
           ],
           correct: 2,
           explain: {
-            pl: 'Jeden przebieg daje jeden rozklad nad calym slownikiem, z ktorego losowany jest jeden token. Odpowiedz na 300 tokenow to 300 takich przebiegow.',
+            pl: 'Jeden przebieg daje jeden rozkład nad całym słownikiem, z którego losowany jest jeden token. Odpowiedź na 300 tokenów to 300 takich przebiegów.',
             en: 'One pass yields one distribution over the whole vocabulary, from which one token is sampled. A 300-token answer is 300 such passes.'
           }
         },
         {
           q: {
-            pl: 'Wysylasz drugie pytanie w tej samej rozmowie. Co realnie dzieje sie po stronie API?',
+            pl: 'Wysyłasz drugie pytanie w tej samej rozmowie. Co realnie dzieje się po stronie API?',
             en: 'You send a second question in the same conversation. What actually happens at the API?'
           },
           options: [
-            { pl: 'Serwer trzyma sesje i dokleja tylko nowa wiadomosc', en: 'The server holds a session and appends only the new message' },
-            { pl: 'Model dotrenowuje sie na poprzedniej wymianie', en: 'The model fine-tunes itself on the previous exchange' },
-            { pl: 'Poprzednie tokeny sa odczytywane z pamieci modelu', en: 'Earlier tokens are read back from the model memory' },
-            { pl: 'Wysylasz cala historie od nowa jako tokeny wejsciowe', en: 'You resend the whole history as input tokens' }
+            { pl: 'Serwer trzyma sesję i dokleja tylko nową wiadomość', en: 'The server holds a session and appends only the new message' },
+            { pl: 'Model dotrenowuje się na poprzedniej wymianie', en: 'The model fine-tunes itself on the previous exchange' },
+            { pl: 'Poprzednie tokeny są odczytywane z pamięci modelu', en: 'Earlier tokens are read back from the model memory' },
+            { pl: 'Wysyłasz całą historię od nowa jako tokeny wejściowe', en: 'You resend the whole history as input tokens' }
           ],
           correct: 3,
           explain: {
-            pl: 'API jest bezstanowe jak zwykly endpoint HTTP. Historia to po prostu dluzsze wejscie - i dlatego dluga rozmowa kosztuje coraz wiecej.',
+            pl: 'API jest bezstanowe jak zwykły endpoint HTTP. Historia to po prostu dłuższe wejście - i dlatego długa rozmowa kosztuje coraz więcej.',
             en: 'The API is stateless like any HTTP endpoint. History is simply a longer input - which is exactly why long chats get more expensive.'
           }
         },
         {
           q: {
-            pl: 'Dwa uruchomienia tego samego promptu z ustawieniem temperature 0 (czyli "zawsze wybieraj token o najwyzszym wyniku") daja lekko rozne odpowiedzi. Ktore wyjasnienie jest najbardziej prawdopodobne?',
+            pl: 'Dwa uruchomienia tego samego promptu z ustawieniem temperature 0 (czyli "zawsze wybieraj token o najwyższym wyniku") dają lekko różne odpowiedzi. Które wyjaśnienie jest najbardziej prawdopodobne?',
             en: 'Two runs of the same prompt with temperature 0 (meaning "always take the highest-scoring token") give slightly different answers. Which explanation is most likely?'
           },
           options: [
-            { pl: 'Model dotrenowal sie na twoim poprzednim zapytaniu', en: 'The model fine-tuned itself on your previous request' },
-            { pl: 'Sumowanie liczb zmiennoprzecinkowych na GPU odbywa sie w zmiennej kolejnosci, wiec dwa niemal rowne wyniki moga sie zamienic miejscami', en: 'Floating-point sums on the GPU happen in a varying order, so two nearly equal scores can swap places' },
-            { pl: 'Temperature 0 oznacza losowanie z calego slownika', en: 'Temperature 0 means sampling from the entire vocabulary' },
-            { pl: 'Cache promptu zwrocil starsza zapisana odpowiedz', en: 'The prompt cache returned an older stored answer' }
+            { pl: 'Model dotrenował się na twoim poprzednim zapytaniu', en: 'The model fine-tuned itself on your previous request' },
+            { pl: 'Sumowanie liczb zmiennoprzecinkowych na GPU odbywa się w zmiennej kolejności, więc dwa niemal równe wyniki mogą się zamienić miejscami', en: 'Floating-point sums on the GPU happen in a varying order, so two nearly equal scores can swap places' },
+            { pl: 'Temperature 0 oznacza losowanie z całego słownika', en: 'Temperature 0 means sampling from the entire vocabulary' },
+            { pl: 'Cache promptu zwrócił starszą zapisaną odpowiedź', en: 'The prompt cache returned an older stored answer' }
           ],
           correct: 1,
           explain: {
-            pl: 'Temperature 0 usuwa losowosc samplingu, ale nie niedeterminizm arytmetyki na GPU. Jeden zamieniony token na starcie rozjezdza cala dalsza generacje - dlatego testuj schemat i wlasnosci, nie dokladny string.',
+            pl: 'Temperature 0 usuwa losowość samplingu, ale nie niedeterminizm arytmetyki na GPU. Jeden zamieniony token na starcie rozjeżdża całą dalszą generację - dlatego testuj schemat i własności, nie dokładny string.',
             en: 'Temperature 0 removes sampling randomness but not GPU arithmetic non-determinism. One flipped token early derails the whole continuation - so test schema and properties, not the exact string.'
           }
         }
@@ -577,35 +577,35 @@ export default {
         {
           term: { pl: 'token', en: 'token' },
           def: {
-            pl: 'Najmniejsza jednostka, jaka widzi model - zwykle kawalek slowa, nie litera i nie slowo. Rozliczenie i limity API sa liczone w tokenach, w angielskim to srednio okolo 4 znaki na token.',
+            pl: 'Najmniejsza jednostka, jaka widzi model - zwykle kawałek słowa, nie litera i nie słowo. Rozliczenie i limity API są liczone w tokenach, w angielskim to średnio około 4 znaki na token.',
             en: 'The smallest unit the model sees - usually a piece of a word, not a letter and not a word. Billing and API limits are counted in tokens; in English roughly 4 characters per token.'
           }
         },
         {
           term: { pl: 'BPE', en: 'BPE (Byte Pair Encoding)' },
           def: {
-            pl: 'Algorytm budowy slownika tokenow: startuje od bajtow i iteracyjnie skleja najczestsze pary w wieksze jednostki. Dlatego czeste slowa sa jednym tokenem, a rzadkie rozpadaja sie na kilka.',
+            pl: 'Algorytm budowy słownika tokenów: startuje od bajtów i iteracyjnie skleja najczęstsze pary w większe jednostki. Dlatego częste słowa są jednym tokenem, a rzadkie rozpadają się na kilka.',
             en: 'The algorithm that builds the token vocabulary: it starts from bytes and repeatedly merges the most frequent pair into a larger unit. Common words end up as one token, rare ones split into several.'
           }
         },
         {
           term: { pl: 'tokenizer', en: 'tokenizer' },
           def: {
-            pl: 'Deterministyczna funkcja tekst -> lista id tokenow, powiazana z konkretnym modelem. Liczby tokenow nie przenosza sie miedzy dostawcami - policzone <code>tiktoken</code> nie sa liczbami Claude.',
+            pl: 'Deterministyczna funkcja tekst -> lista id tokenów, powiązana z konkretnym modelem. Liczby tokenów nie przenoszą się między dostawcami - policzone <code>tiktoken</code> nie są liczbami Claude.',
             en: 'The deterministic text -> list of token ids function tied to one specific model. Token counts are not portable between providers - what <code>tiktoken</code> reports is not what Claude charges.'
           }
         },
         {
-          term: { pl: 'inflacja tokenow', en: 'token inflation' },
+          term: { pl: 'inflacja tokenów', en: 'token inflation' },
           def: {
-            pl: 'Ten sam tekst po polsku, w JSON-ie z wcieciami albo w base64 zajmuje znaczaco wiecej tokenow niz zwykla angielska proza. To bezposrednio koszt i zjedzone okno kontekstu.',
+            pl: 'Ten sam tekst po polsku, w JSON-ie z wcięciami albo w base64 zajmuje znacząco więcej tokenów niż zwykła angielska proza. To bezpośrednio koszt i zjedzone okno kontekstu.',
             en: 'The same content in Polish, in pretty-printed JSON or in base64 costs far more tokens than plain English prose. That is money and context window burned directly.'
           }
         },
         {
           term: { pl: 'problem strawberry', en: 'the strawberry problem' },
           def: {
-            pl: 'Model nie umie policzyc liter w slowie, bo nigdy nie widzi liter - widzi tokeny. Ten sam mechanizm psuje odwracanie stringow, rymy i liczenie znakow: takie zadania oddaje sie narzedziu.',
+            pl: 'Model nie umie policzyć liter w słowie, bo nigdy nie widzi liter - widzi tokeny. Ten sam mechanizm psuje odwracanie stringów, rymy i liczenie znaków: takie zadania oddaje się narzędziu.',
             en: 'The model cannot count letters in a word because it never sees letters, only tokens. The same mechanism breaks string reversal, rhyming and character counting - hand those to a tool.'
           }
         }
@@ -640,7 +640,7 @@ export default {
           '<text x="480" y="357" font-size="13" fill="var(--muted)">about 480 tokens</text>' +
           '</svg>',
         caption: {
-          pl: 'Tekst jest ciety na tokeny (kawalki slow) zanim dotrze do modelu. Ten sam tekst kosztuje inna liczbe tokenow w zaleznosci od jezyka i formatu.',
+          pl: 'Tekst jest cięty na tokeny (kawałki słów) zanim dotrze do modelu. Ten sam tekst kosztuje inną liczbę tokenów w zależności od języka i formatu.',
           en: 'Text is cut into tokens (chunks of words) before it reaches the model. The same text costs a different number of tokens depending on language and format.'
         }
       },
@@ -648,7 +648,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Trening tokenizera na jednym slowie: BPE laczy najczestsza pare symboli, zapisuje regule i powtarza, az slowo lowest zostaje dwoma tokenami.',
+            pl: 'Trening tokenizera na jednym słowie: BPE łączy najczęstszą parę symboli, zapisuje regułę i powtarza, aż słowo lowest zostaje dwoma tokenami.',
             en: 'Training the tokenizer on one word: BPE merges the most frequent pair, records the rule and repeats, until lowest is just two tokens.'
           },
           frames: [
@@ -666,7 +666,7 @@ export default {
               ),
               label: { pl: '1. Same litery', en: '1. Bare characters' },
               note: {
-                pl: 'BPE zaczyna od alfabetu: kazdy znak to osobny symbol. Na tym etapie slowo lowest kosztuje szesc tokenow.',
+                pl: 'BPE zaczyna od alfabetu: każdy znak to osobny symbol. Na tym etapie słowo lowest kosztuje sześć tokenów.',
                 en: 'BPE starts from the alphabet: every character is its own symbol. At this point the word lowest costs six tokens.'
               }
             },
@@ -683,9 +683,9 @@ export default {
                 'merge rule 1 recorded: e + s = es',
                 'var(--accent)'
               ),
-              label: { pl: '2. Najczestsza para', en: '2. The most frequent pair' },
+              label: { pl: '2. Najczęstsza para', en: '2. The most frequent pair' },
               note: {
-                pl: 'Algorytm liczy wystapienia wszystkich sasiednich par w calym korpusie i wybiera zwyciezce. Tu wygrywa e + s.',
+                pl: 'Algorytm liczy wystąpienia wszystkich sąsiednich par w całym korpusie i wybiera zwycięzcę. Tu wygrywa e + s.',
                 en: 'The algorithm counts every adjacent pair across the whole corpus and picks the winner. Here e + s wins.'
               }
             },
@@ -701,9 +701,9 @@ export default {
                 '5 symbols - merge rule 2: es + t = est',
                 'var(--accent)'
               ),
-              label: { pl: '3. Sklejka rosnie', en: '3. The merge grows' },
+              label: { pl: '3. Sklejka rośnie', en: '3. The merge grows' },
               note: {
-                pl: 'Nowy symbol es wchodzi do slownika i od razu bierze udzial w kolejnym liczeniu par. Koncowka est jest czesta w angielskim.',
+                pl: 'Nowy symbol es wchodzi do słownika i od razu bierze udział w kolejnym liczeniu par. Końcówka est jest częsta w angielskim.',
                 en: 'The new symbol es joins the vocabulary and immediately competes in the next round of counting. The ending est is common in English.'
               }
             },
@@ -718,9 +718,9 @@ export default {
                 '4 symbols - merge rule 3: l + o = lo',
                 'var(--accent)'
               ),
-              label: { pl: '4. Poczatek slowa', en: '4. The head of the word' },
+              label: { pl: '4. Początek słowa', en: '4. The head of the word' },
               note: {
-                pl: 'Ten sam mechanizm dziala od lewej strony slowa. Kazda regula jest numerowana, wiec kolejnosc laczenia jest zawsze taka sama.',
+                pl: 'Ten sam mechanizm działa od lewej strony słowa. Każda reguła jest numerowana, więc kolejność łączenia jest zawsze taka sama.',
                 en: 'The same mechanism works on the head of the word. Every rule is numbered, so the merge order is always identical.'
               }
             },
@@ -734,9 +734,9 @@ export default {
                 '3 symbols - merge rule 4: lo + w = low',
                 'var(--accent)'
               ),
-              label: { pl: '5. Przedostatnia regula', en: '5. One rule to go' },
+              label: { pl: '5. Przedostatnia reguła', en: '5. One rule to go' },
               note: {
-                pl: 'Slowo low wystepuje w korpusie samodzielnie tysiace razy, wiec oplaca sie miec dla niego jeden symbol.',
+                pl: 'Słowo low występuje w korpusie samodzielnie tysiące razy, więc opłaca się mieć dla niego jeden symbol.',
                 en: 'The word low appears thousands of times on its own, so it earns a symbol of its own.'
               }
             },
@@ -750,7 +750,7 @@ export default {
               ),
               label: { pl: '6. Gotowe tokeny', en: '6. Final tokens' },
               note: {
-                pl: 'Model dostaje dwa identyfikatory, nie szesc liter. Dlatego pytanie o liczbe liter r w slowie jest dla niego zagadka, a nie odczytem.',
+                pl: 'Model dostaje dwa identyfikatory, nie sześć liter. Dlatego pytanie o liczbę liter r w słowie jest dla niego zagadką, a nie odczytem.',
                 en: 'The model receives two ids, not six letters. That is why counting the letter r in a word is a puzzle for it, not a lookup.'
               }
             }
@@ -759,7 +759,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Problem strawberry rozlozony na czynniki: co widzisz ty, co widzi model i dlaczego liczenie liter jest dla niego zgadywanka.',
+            pl: 'Problem strawberry rozłożony na czynniki: co widzisz ty, co widzi model i dlaczego liczenie liter jest dla niego zgadywanką.',
             en: 'The strawberry problem, taken apart: what you see, what the model sees, and why counting letters is guesswork for it.'
           },
           frames: [
@@ -782,7 +782,7 @@ export default {
               ),
               label: { pl: '1. Twoje dane', en: '1. Your data' },
               note: {
-                pl: 'Dla ciebie slowo to tablica znakow, wiec liczenie liter jest dokladne i darmowe. To jest punkt odniesienia dla nastepnej klatki.',
+                pl: 'Dla ciebie słowo to tablica znaków, więc liczenie liter jest dokładne i darmowe. To jest punkt odniesienia dla następnej klatki.',
                 en: 'For you the word is an array of characters, so counting letters is exact and free. That is the baseline for the next frame.'
               }
             },
@@ -801,7 +801,7 @@ export default {
               ),
               label: { pl: '2. Dane modelu', en: '2. The model data' },
               note: {
-                pl: 'Model dostaje trzy liczby. Pisownia tokena nie jest czescia wejscia - musi zostac odtworzona z pamieci wzorcow, a nie odczytana.',
+                pl: 'Model dostaje trzy liczby. Pisownia tokena nie jest częścią wejścia - musi zostać odtworzona z pamięci wzorców, a nie odczytana.',
                 en: 'The model gets three integers. The spelling of a token is not part of the input - it has to be reconstructed from remembered patterns, not read.'
               }
             },
@@ -819,7 +819,7 @@ export default {
               ),
               label: { pl: '3. Poprawka', en: '3. The fix' },
               note: {
-                pl: 'Nie ma promptu, ktory naprawi warstwe tokenizacji. Zadania znakowe oddajesz kodowi - w produkcie to jedna funkcja narzedziowa.',
+                pl: 'Nie ma promptu, który naprawi warstwę tokenizacji. Zadania znakowe oddajesz kodowi - w produkcie to jedna funkcja narzędziowa.',
                 en: 'No prompt fixes the tokenization layer. Character-level tasks go to code - in a product that is one tool function.'
               }
             }
@@ -828,7 +828,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Ta sama tresc, cztery formaty: jak zapis danych zmienia liczbe tokenow i rachunek, zanim model cokolwiek pomysli.',
+            pl: 'Ta sama treść, cztery formaty: jak zapis danych zmienia liczbę tokenów i rachunek, zanim model cokolwiek pomyśli.',
             en: 'The same content in four formats: how the encoding changes token count and the bill before the model thinks at all.'
           },
           frames: [
@@ -842,9 +842,9 @@ export default {
                 fText(28, 220, '100k calls a month: about 1230 USD, just to describe 50 rows.', 14, 'var(--warn)') +
                 fPanel('Format is a cost decision', 'The model never asked for JSON - your serializer did.', 'Keys repeated 50 times are 50 copies of the same tokens.', 'var(--warn)')
               ),
-              label: { pl: '1. JSON z wcieciami', en: '1. Pretty JSON' },
+              label: { pl: '1. JSON z wcięciami', en: '1. Pretty JSON' },
               note: {
-                pl: 'Punkt wyjscia: piekny, czytelny JSON. Kazdy klucz powtarza sie w kazdym wierszu, wiec placisz za te sama nazwe pola piecdziesiat razy.',
+                pl: 'Punkt wyjścia: piękny, czytelny JSON. Każdy klucz powtarza się w każdym wierszu, więc płacisz za tę samą nazwę pola pięćdziesiąt razy.',
                 en: 'The starting point: beautiful readable JSON. Every key repeats on every row, so you pay for the same field name fifty times.'
               }
             },
@@ -860,7 +860,7 @@ export default {
               ),
               label: { pl: '2. CSV zamiast JSON', en: '2. CSV instead of JSON' },
               note: {
-                pl: 'Ta sama tresc w CSV: nazwy kolumn raz w naglowku zamiast w kazdym wierszu. Typowa oszczednosc to 40-50 procent tokenow wejscia.',
+                pl: 'Ta sama treść w CSV: nazwy kolumn raz w nagłówku zamiast w każdym wierszu. Typowa oszczędność to 40-50 procent tokenów wejścia.',
                 en: 'The same content as CSV: column names once in the header instead of on every row. Typical saving is 40-50 percent of input tokens.'
               }
             },
@@ -875,9 +875,9 @@ export default {
                 fText(28, 250, 'a 36-character UUID is not.', 14, 'var(--ok)') +
                 fPanel('Map aliases back in your code', 'Send d1..d50, receive d7, look up the real UUID server-side.', 'Cheaper prompt AND more reliable citations at the same time.', 'var(--ok)')
               ),
-              label: { pl: '3. Krotkie aliasy', en: '3. Short aliases' },
+              label: { pl: '3. Krótkie aliasy', en: '3. Short aliases' },
               note: {
-                pl: 'UUID to 8-12 tokenow bez znaczenia dla modelu. Aliasy d1..d50 tna koszt i jednoczesnie zmniejszaja ryzyko przekrecenia identyfikatora w cytowaniu.',
+                pl: 'UUID to 8-12 tokenów bez znaczenia dla modelu. Aliasy d1..d50 tną koszt i jednocześnie zmniejszają ryzyko przekręcenia identyfikatora w cytowaniu.',
                 en: 'A UUID is 8-12 meaningless tokens for the model. Aliases d1..d50 cut cost and at the same time reduce the risk of a garbled id in a citation.'
               }
             },
@@ -892,9 +892,9 @@ export default {
                 fText(28, 250, 'Never estimate with text.length / 4 outside English.', 14, 'var(--warn)') +
                 fPanel('Count, do not guess', 'Use tiktoken for OpenAI or the count_tokens endpoint for Claude.', 'Treat it as validation middleware, like zod at an API boundary.', 'var(--accent)')
               ),
-              label: { pl: '4. Jezyk tez kosztuje', en: '4. Language costs too' },
+              label: { pl: '4. Język też kosztuje', en: '4. Language costs too' },
               note: {
-                pl: 'Polski tekst to zwykle 30-60 procent wiecej tokenow niz ten sam sens po angielsku. Dlatego budzet liczy sie tokenizerem, nie dlugoscia stringa.',
+                pl: 'Polski tekst to zwykle 30-60 procent więcej tokenów niż ten sam sens po angielsku. Dlatego budżet liczy się tokenizerem, nie długością stringa.',
                 en: 'Polish text is usually 30-60 percent more tokens than the same meaning in English. Which is why budgets are counted with a tokenizer, not with string length.'
               }
             }
@@ -903,25 +903,25 @@ export default {
       ],
       levels: {
         eli5: {
-          pl: '<p>Model nie czyta liter. Zanim tekst do niego dotrze, ktos tnie go na kawalki, troche jak batonik na kesy. Czasem kes to cale slowo, czasem sama koncowka, czasem trzy przypadkowe litery.</p>' +
-            '<p>Slowo "truskawka" moze zostac pociete na trzy kesy. I teraz clou: kiedy pytasz model, ile jest w nim liter "r", on nie widzi liter. Widzi trzy kesy z numerkami. To tak, jakbys probowal policzyc ziarenka maku, patrzac wylacznie na zdjecie calej bulki z opisem "bulka z makiem".</p>' +
-            '<p>Dlatego model, ktory pieknie napisze esej, potrafi sie pomylic przy liczeniu liter albo przy odwracaniu slowa od tylu. To nie znaczy, ze jest glupi. To znaczy, ze pokazujesz mu zadanie w jednostkach, ktorych nie ma jak zobaczyc - jakbys prosil kogos o policzenie pikseli, pokazujac mu tylko nazwe pliku.</p>' +
-            '<p>Kesy maja tez druga strone, mniej filozoficzna, za to widoczna na fakturze: za kazdy kes placisz. Im wiecej kesow wysylasz i im wiecej model odsyla, tym wiekszy rachunek. A liczba kesow zalezy nie tylko od tego, ile napisales, ale i jak. To samo zdanie po polsku to wiecej kesow niz po angielsku, a upakowane w ladny JSON z wcieciami - jeszcze wiecej.</p>',
+          pl: '<p>Model nie czyta liter. Zanim tekst do niego dotrze, ktoś tnie go na kawałki, trochę jak batonik na kęsy. Czasem kęs to całe słowo, czasem sama końcówka, czasem trzy przypadkowe litery.</p>' +
+            '<p>Słowo "truskawka" może zostać pocięte na trzy kęsy. I teraz clou: kiedy pytasz model, ile jest w nim liter "r", on nie widzi liter. Widzi trzy kęsy z numerkami. To tak, jakbyś próbował policzyć ziarenka maku, patrząc wyłącznie na zdjęcie całej bułki z opisem "bułka z makiem".</p>' +
+            '<p>Dlatego model, który pięknie napisze esej, potrafi się pomylić przy liczeniu liter albo przy odwracaniu słowa od tyłu. To nie znaczy, że jest głupi. To znaczy, że pokazujesz mu zadanie w jednostkach, których nie ma jak zobaczyć - jakbyś prosił kogoś o policzenie pikseli, pokazując mu tylko nazwę pliku.</p>' +
+            '<p>Kęsy mają też drugą stronę, mniej filozoficzną, za to widoczną na fakturze: za każdy kęs płacisz. Im więcej kęsów wysyłasz i im więcej model odsyła, tym większy rachunek. A liczba kęsów zależy nie tylko od tego, ile napisałeś, ale i jak. To samo zdanie po polsku to więcej kęsów niż po angielsku, a upakowane w ładny JSON z wcięciami - jeszcze więcej.</p>',
           en: '<p>The model does not read letters. Before your text reaches it, something slices it into chunks, a bit like cutting a chocolate bar into bites. Sometimes a bite is a whole word, sometimes just an ending, sometimes three random letters.</p>' +
             '<p>The word "strawberry" might be cut into three bites. Here is the punchline: when you ask how many letter r it contains, the model does not see letters. It sees three numbered bites. It is like counting poppy seeds while only ever looking at a photo of the whole bun labelled "bun with poppy seeds".</p>' +
             '<p>So a model that writes a beautiful essay can still fumble counting letters or spelling a word backwards. That does not mean it is stupid. It means you handed it a task in units it has no way of seeing - like asking someone to count pixels when all you showed them is the filename.</p>' +
             '<p>Bites have a second, less philosophical side that shows up on the invoice: you pay per bite. The more bites you send and the more the model sends back, the bigger the bill. And the number of bites depends not only on how much you wrote, but how. The same sentence in Polish is more bites than in English, and packed into pretty indented JSON, more still.</p>'
         },
         school: {
-          pl: '<p><strong>Tokenizacja</strong> to zamiana tekstu na liczby, ktore rozumie siec. Standardem jest <strong>BPE</strong> (Byte Pair Encoding - kodowanie par bajtow). Algorytm startuje od pojedynczych bajtow i wielokrotnie skleja najczestsza sasiadujaca pare symboli w nowy symbol, az powstanie <strong>slownik</strong> zadanej wielkosci, czyli lista wszystkich tokenow, jakie model bedzie znal. Efekt: czeste slowa maja wlasny token, rzadkie rozpadaja sie na kawalki.</p>' +
-            '<p>Kilka regul kciuka dla angielskiego: 1 token to okolo 4 znaki, czyli okolo 0,75 slowa. Strona A4 to mniej wiecej 500-700 tokenow. Polski wypada gorzej, bo tokenizery byly trenowane glownie na angielskim - ten sam sens po polsku potrafi kosztowac 1,3-2 razy wiecej tokenow. Odmiana przez przypadki robi swoje: "kontenerach" to nie jeden symbol, tylko kilka.</p>' +
+          pl: '<p><strong>Tokenizacja</strong> to zamiana tekstu na liczby, które rozumie sieć. Standardem jest <strong>BPE</strong> (Byte Pair Encoding - kodowanie par bajtów). Algorytm startuje od pojedynczych bajtów i wielokrotnie skleja najczęstszą sąsiadującą parę symboli w nowy symbol, aż powstanie <strong>słownik</strong> zadanej wielkości, czyli lista wszystkich tokenów, jakie model będzie znał. Efekt: częste słowa mają własny token, rzadkie rozpadają się na kawałki.</p>' +
+            '<p>Kilka reguł kciuka dla angielskiego: 1 token to około 4 znaki, czyli około 0,75 słowa. Strona A4 to mniej więcej 500-700 tokenów. Polski wypada gorzej, bo tokenizery były trenowane głównie na angielskim - ten sam sens po polsku potrafi kosztować 1,3-2 razy więcej tokenów. Odmiana przez przypadki robi swoje: "kontenerach" to nie jeden symbol, tylko kilka.</p>' +
             '<h4>Worked example: rachunek za jeden endpoint</h4>' +
-            '<p>Twoj prompt ma 6000 znakow angielskiego tekstu, czyli okolo 1500 tokenow. Odpowiedz to 400 tokenow. Przy cenniku 3 USD za milion tokenow wejscia i 15 USD za milion wyjscia jedno wywolanie kosztuje 1500 razy 0,000003 plus 400 razy 0,000015, czyli 0,0045 plus 0,006 - razem okolo jednego centa. Przy 200 tysiacach wywolan miesiecznie to okolo 2100 USD. Teraz to samo po polsku: wejscie rosnie do okolo 2200 tokenow i rachunek rosnie o kilkaset dolarow, mimo ze tresc jest identyczna.</p>' +
-            '<h4>Slynny problem z truskawka</h4>' +
-            '<p>Pytanie "ile r jest w strawberry" bywa trudne, bo model dostaje trzy tokeny, a nie dziesiec liter. Litery sa dla niego czyms, o czym musi wnioskowac posrednio, tak jak ty wnioskujesz o zawartosci pliku po jego nazwie. Rozwiazanie w produkcie jest banalne: takie zadania oddajesz kodowi lub narzedziu, zamiast prosic model o liczenie.</p>' +
-            '<p>Ta sama logika tlumaczy inne dziwactwa: literowka potrafi calkiem zmienic podzial na tokeny, wiec model reaguje inaczej niz na poprawny zapis, a bialy znak ma znaczenie, bo token to zwykle spacja plus slowo.</p>' +
-            '<h4>Co musisz zapamietac</h4>' +
-            '<p>Model widzi tokeny, nie litery - liczenie znakow oddaj kodowi. Liczba tokenow zalezy od jezyka i formatu danych, wiec ten sam sens ma rozna cene. A gdy szacujesz koszt albo sprawdzasz, czy tekst zmiesci sie w oknie kontekstu, licz prawdziwym tokenizerem, nie dlugoscia stringa.</p>',
+            '<p>Twój prompt ma 6000 znaków angielskiego tekstu, czyli około 1500 tokenów. Odpowiedź to 400 tokenów. Przy cenniku 3 USD za milion tokenów wejścia i 15 USD za milion wyjścia jedno wywołanie kosztuje 1500 razy 0,000003 plus 400 razy 0,000015, czyli 0,0045 plus 0,006 - razem około jednego centa. Przy 200 tysiącach wywołań miesięcznie to około 2100 USD. Teraz to samo po polsku: wejście rośnie do około 2200 tokenów i rachunek rośnie o kilkaset dolarów, mimo że treść jest identyczna.</p>' +
+            '<h4>Słynny problem z truskawką</h4>' +
+            '<p>Pytanie "ile r jest w strawberry" bywa trudne, bo model dostaje trzy tokeny, a nie dziesięć liter. Litery są dla niego czymś, o czym musi wnioskować pośrednio, tak jak ty wnioskujesz o zawartości pliku po jego nazwie. Rozwiązanie w produkcie jest banalne: takie zadania oddajesz kodowi lub narzędziu, zamiast prosić model o liczenie.</p>' +
+            '<p>Ta sama logika tłumaczy inne dziwactwa: literówka potrafi całkiem zmienić podział na tokeny, więc model reaguje inaczej niż na poprawny zapis, a biały znak ma znaczenie, bo token to zwykle spacja plus słowo.</p>' +
+            '<h4>Co musisz zapamiętać</h4>' +
+            '<p>Model widzi tokeny, nie litery - liczenie znaków oddaj kodowi. Liczba tokenów zależy od języka i formatu danych, więc ten sam sens ma różną cenę. A gdy szacujesz koszt albo sprawdzasz, czy tekst zmieści się w oknie kontekstu, licz prawdziwym tokenizerem, nie długością stringa.</p>',
           en: '<p><strong>Tokenization</strong> converts text into the numbers the network consumes. The standard is <strong>BPE</strong> (Byte Pair Encoding). The algorithm starts from raw bytes and repeatedly merges the most frequent adjacent pair of symbols into a new symbol until the <strong>vocabulary</strong> - the list of every token the model will know - reaches a target size. Result: common words get their own token, rare ones fall apart into pieces.</p>' +
             '<p>Rules of thumb for English: 1 token is roughly 4 characters, about 0.75 of a word. A full A4 page is around 500-700 tokens. Polish fares worse, because tokenizers were trained mostly on English - the same meaning in Polish can cost 1.3 to 2 times more tokens. Inflection does the damage: a case-marked noun is several symbols, not one.</p>' +
             '<h4>Worked example: the bill for one endpoint</h4>' +
@@ -933,27 +933,27 @@ export default {
             '<p>The model sees tokens, not letters - give character counting to code. Token count depends on language and data format, so identical meaning has different prices. And when you estimate cost or check whether text fits the context window, count with a real tokenizer, never with string length.</p>'
         },
         pro: {
-          pl: '<p>Tokenizer to <strong>warstwa serializacji</strong> miedzy twoim stringiem a modelem - dokladnie tak, jak JSON siedzi miedzy obiektem a formatem przesylanym po sieci. I tak samo jak przy JSON, wybor formatu ma mierzalny koszt.</p>' +
-            '<h4>Liczby, ktore warto miec w glowie</h4>' +
+          pl: '<p>Tokenizer to <strong>warstwa serializacji</strong> między twoim stringiem a modelem - dokładnie tak, jak JSON siedzi między obiektem a formatem przesyłanym po sieci. I tak samo jak przy JSON, wybór formatu ma mierzalny koszt.</p>' +
+            '<h4>Liczby, które warto mieć w głowie</h4>' +
             '<ul>' +
-            '<li>Angielski: okolo 4 znaki na token. Polski: czesto 2,5-3 znaki na token, czyli 30-60 procent narzutu na to samo zdanie.</li>' +
-            '<li>Slowniki: GPT-4o uzywa <code>o200k_base</code> (okolo 200 tysiecy tokenow), starsze GPT-4 uzywalo <code>cl100k_base</code> (okolo 100 tysiecy). Modele Claude i Gemini maja wlasne tokenizery - liczby tokenow nie sa przenoszalne miedzy dostawcami.</li>' +
-            '<li><strong>UUID</strong> (128-bitowy identyfikator zapisany jako 36 znakow) w JSON to zwykle 8-12 tokenow. Tabela z 500 wierszami i pelnymi identyfikatorami potrafi zjesc 10-15 tysiecy tokenow samych kluczy i idkow.</li>' +
-            '<li><strong>base64</strong> (tekstowe kodowanie danych binarnych) i emoji sa drogie - jeden emoji to czesto 2-4 tokeny.</li>' +
+            '<li>Angielski: około 4 znaki na token. Polski: często 2,5-3 znaki na token, czyli 30-60 procent narzutu na to samo zdanie.</li>' +
+            '<li>Słowniki: GPT-4o używa <code>o200k_base</code> (około 200 tysięcy tokenów), starsze GPT-4 używało <code>cl100k_base</code> (około 100 tysięcy). Modele Claude i Gemini mają własne tokenizery - liczby tokenów nie są przenoszalne między dostawcami.</li>' +
+            '<li><strong>UUID</strong> (128-bitowy identyfikator zapisany jako 36 znaków) w JSON to zwykle 8-12 tokenów. Tabela z 500 wierszami i pełnymi identyfikatorami potrafi zjeść 10-15 tysięcy tokenów samych kluczy i idków.</li>' +
+            '<li><strong>base64</strong> (tekstowe kodowanie danych binarnych) i emoji są drogie - jeden emoji to często 2-4 tokeny.</li>' +
             '</ul>' +
             '<h4>Praktyki produkcyjne</h4>' +
-            '<p>Licz tokeny przed wyslaniem, nie po fakcie. Po stronie Node uzywasz <code>tiktoken</code> albo <code>gpt-tokenizer</code> dla OpenAI, a dla Claude endpointu <code>count_tokens</code> w oficjalnym SDK Anthropic. Traktuj to jak middleware walidacyjne, dokladnie tak jak zod na granicy API.</p>' +
+            '<p>Licz tokeny przed wysłaniem, nie po fakcie. Po stronie Node używasz <code>tiktoken</code> albo <code>gpt-tokenizer</code> dla OpenAI, a dla Claude endpointu <code>count_tokens</code> w oficjalnym SDK Anthropic. Traktuj to jak middleware walidacyjne, dokładnie tak jak zod na granicy API.</p>' +
             '<pre><code>import { encoding_for_model } from "tiktoken";\nconst enc = encoding_for_model("gpt-4o");\nconst n = enc.encode(payload).length;\nif (n &gt; BUDGET) payload = shrink(payload);\nenc.free();</code></pre>' +
-            '<p>Optymalizacja formatu daje realne oszczednosci: zamiana tablicy obiektow JSON na CSV z naglowkiem potrafi obciac 40-50 procent tokenow, bo klucze nie powtarzaja sie w kazdym wierszu. Skracanie identyfikatorow z UUID do krotkich aliasow (<code>d1</code>, <code>d2</code>) przy okazji ulatwia modelowi cytowanie i zmniejsza ryzyko przekrecenia identyfikatora - model, ktory ma przepisac 36 znakow losowego ciagu, myli sie znacznie czesciej niz ten, ktory ma napisac <code>d7</code>.</p>' +
-            '<h4>Pulapki</h4>' +
-            '<p>Nie tnij tekstu po znakach - mozesz rozciac token w polowie i zepsuc streaming albo trafienia w cache promptu. Nie zakladaj, ze <code>text.length / 4</code> wystarczy dla jezykow innych niz angielski. Pamietaj, ze <code>max_tokens</code> dotyczy wylacznie wyjscia, a limit okna kontekstu obejmuje wejscie plus wyjscie razem - podniesienie <code>max_tokens</code> nie zrobi miejsca na wieksze dane. I nie prosz modelu o zadania znakowe (liczenie liter, odwracanie, dokladne wyrownanie tabelek ASCII) - to robota dla <code>String.prototype</code>, nie dla LLM.</p>' +
+            '<p>Optymalizacja formatu daje realne oszczędności: zamiana tablicy obiektów JSON na CSV z nagłówkiem potrafi obciąć 40-50 procent tokenów, bo klucze nie powtarzają się w każdym wierszu. Skracanie identyfikatorów z UUID do krótkich aliasów (<code>d1</code>, <code>d2</code>) przy okazji ułatwia modelowi cytowanie i zmniejsza ryzyko przekręcenia identyfikatora - model, który ma przepisać 36 znaków losowego ciągu, myli się znacznie częściej niż ten, który ma napisać <code>d7</code>.</p>' +
+            '<h4>Pułapki</h4>' +
+            '<p>Nie tnij tekstu po znakach - możesz rozciąć token w połowie i zepsuć streaming albo trafienia w cache promptu. Nie zakładaj, że <code>text.length / 4</code> wystarczy dla języków innych niż angielski. Pamiętaj, że <code>max_tokens</code> dotyczy wyłącznie wyjścia, a limit okna kontekstu obejmuje wejście plus wyjście razem - podniesienie <code>max_tokens</code> nie zrobi miejsca na większe dane. I nie proś modelu o zadania znakowe (liczenie liter, odwracanie, dokładne wyrównanie tabelek ASCII) - to robota dla <code>String.prototype</code>, nie dla LLM.</p>' +
             '<h4>Na rozmowie kwalifikacyjnej</h4>' +
-            '<p>Klasyczne pytanie: dlaczego ten sam prompt kosztuje inaczej u dwoch dostawcow, mimo identycznej tresci. Powod jest podwojny - inny tokenizer daje inna liczbe tokenow, a cennik jest liczony wlasnie za tokeny, nie za znaki. Dlatego porownania kosztow robi sie na realnym ruchu, liczac tokeny tokenizerem konkretnego dostawcy, a nie przelicznikiem znakow.</p>' +
+            '<p>Klasyczne pytanie: dlaczego ten sam prompt kosztuje inaczej u dwóch dostawców, mimo identycznej treści. Powód jest podwójny - inny tokenizer daje inną liczbę tokenów, a cennik jest liczony właśnie za tokeny, nie za znaki. Dlatego porównania kosztów robi się na realnym ruchu, licząc tokeny tokenizerem konkretnego dostawcy, a nie przelicznikiem znaków.</p>' +
             '<h4>Co z tego wynika w praktyce</h4>' +
             '<ul>' +
-            '<li>Format danych w prompcie to decyzja kosztowa - CSV plus krotkie aliasy zamiast rozlazlego JSON-a to zwykle najtansza optymalizacja w calym systemie.</li>' +
-            '<li>Licznik tokenow wpinasz w kod przed wyslaniem requestu i alertujesz na wzrost, tak jak na rozmiar bundle.</li>' +
-            '<li>Kazde zadanie operujace na znakach przenosisz do narzedzia, bo zadna wersja promptu nie da modelowi dostepu do liter.</li>' +
+            '<li>Format danych w prompcie to decyzja kosztowa - CSV plus krótkie aliasy zamiast rozlazłego JSON-a to zwykle najtańsza optymalizacja w całym systemie.</li>' +
+            '<li>Licznik tokenów wpinasz w kod przed wysłaniem requestu i alertujesz na wzrost, tak jak na rozmiar bundle.</li>' +
+            '<li>Każde zadanie operujące na znakach przenosisz do narzędzia, bo żadna wersja promptu nie da modelowi dostępu do liter.</li>' +
             '</ul>',
           en: '<p>The tokenizer is a <strong>serialization layer</strong> between your string and the model - exactly like JSON sits between an object and the wire format. And just like with JSON, format choice has a measurable cost.</p>' +
             '<h4>Numbers worth memorizing</h4>' +
@@ -982,69 +982,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Dlaczego model myli sie, gdy pytasz go, ile liter "r" jest w slowie strawberry?',
+            pl: 'Dlaczego model myli się, gdy pytasz go, ile liter "r" jest w słowie strawberry?',
             en: 'Why does the model stumble when you ask how many letter r are in strawberry?'
           },
           options: [
-            { pl: 'Bo dostaje slowo pociete na kilka kawalkow i nie widzi pojedynczych liter', en: 'Because it gets the word cut into a few chunks and cannot see individual letters' },
-            { pl: 'Bo nie zna angielskiego slownictwa kulinarnego', en: 'Because it does not know English food vocabulary' },
-            { pl: 'Bo pytanie jest zbyt dlugie jak na okno kontekstu', en: 'Because the question is too long for the context window' },
+            { pl: 'Bo dostaje słowo pocięte na kilka kawałków i nie widzi pojedynczych liter', en: 'Because it gets the word cut into a few chunks and cannot see individual letters' },
+            { pl: 'Bo nie zna angielskiego słownictwa kulinarnego', en: 'Because it does not know English food vocabulary' },
+            { pl: 'Bo pytanie jest zbyt długie jak na okno kontekstu', en: 'Because the question is too long for the context window' },
             { pl: 'Bo litera r jest rzadka w danych treningowych', en: 'Because the letter r is rare in training data' }
           ],
           correct: 0,
           explain: {
-            pl: 'Warstwa tokenizacji ukrywa litery: model widzi trzy kawalki z numerkami, nie dziesiec znakow. Takie zadanie oddaje sie kodowi - w JS to jedna linia.',
+            pl: 'Warstwa tokenizacji ukrywa litery: model widzi trzy kawałki z numerkami, nie dziesięć znaków. Takie zadanie oddaje się kodowi - w JS to jedna linia.',
             en: 'The tokenization layer hides letters: the model sees three numbered chunks, not ten characters. Hand that task to code - one line in JS.'
           }
         },
         {
           q: {
-            pl: 'Ile mniej wiecej tokenow ma 1000 znakow zwyklego angielskiego tekstu?',
+            pl: 'Ile mniej więcej tokenów ma 1000 znaków zwykłego angielskiego tekstu?',
             en: 'Roughly how many tokens are in 1000 characters of ordinary English prose?'
           },
           options: [
-            { pl: 'Okolo 1000', en: 'About 1000' },
-            { pl: 'Okolo 60', en: 'About 60' },
-            { pl: 'Okolo 250', en: 'About 250' },
-            { pl: 'Okolo 4000', en: 'About 4000' }
+            { pl: 'Około 1000', en: 'About 1000' },
+            { pl: 'Około 60', en: 'About 60' },
+            { pl: 'Około 250', en: 'About 250' },
+            { pl: 'Około 4000', en: 'About 4000' }
           ],
           correct: 2,
           explain: {
-            pl: 'Regula kciuka: okolo 4 znaki na token w angielskim. W polskim wychodzi znacznie gorzej, czesto 2,5-3 znaki na token, wiec ta sama tresc kosztuje wiecej.',
+            pl: 'Reguła kciuka: około 4 znaki na token w angielskim. W polskim wychodzi znacznie gorzej, często 2,5-3 znaki na token, więc ta sama treść kosztuje więcej.',
             en: 'Rule of thumb: about 4 characters per token in English. Polish is much worse, often 2.5-3 characters per token, so identical content costs more.'
           }
         },
         {
           q: {
-            pl: 'Jak dziala BPE w jednym zdaniu?',
+            pl: 'Jak działa BPE w jednym zdaniu?',
             en: 'How does BPE work, in one sentence?'
           },
           options: [
             { pl: 'Dzieli tekst po spacjach i znakach interpunkcyjnych', en: 'It splits text on spaces and punctuation' },
-            { pl: 'Tlumaczy tekst na angielski przed tokenizacja', en: 'It translates text into English before tokenizing' },
-            { pl: 'Przypisuje kazdej literze osobny numer w slowniku', en: 'It assigns every letter its own vocabulary id' },
-            { pl: 'Iteracyjnie skleja najczestsze sasiadujace pary symboli w nowe symbole', en: 'It iteratively merges the most frequent adjacent symbol pairs into new symbols' }
+            { pl: 'Tłumaczy tekst na angielski przed tokenizacją', en: 'It translates text into English before tokenizing' },
+            { pl: 'Przypisuje każdej literze osobny numer w słowniku', en: 'It assigns every letter its own vocabulary id' },
+            { pl: 'Iteracyjnie skleja najczęstsze sąsiadujące pary symboli w nowe symbole', en: 'It iteratively merges the most frequent adjacent symbol pairs into new symbols' }
           ],
           correct: 3,
           explain: {
-            pl: 'Dlatego czeste slowa maja jeden token, a rzadkie rozpadaja sie na kawalki - o podziale decyduje czestotliwosc w danych treningowych, a nie gramatyka.',
+            pl: 'Dlatego częste słowa mają jeden token, a rzadkie rozpadają się na kawałki - o podziale decyduje częstotliwość w danych treningowych, a nie gramatyka.',
             en: 'That is why frequent words get a single token while rare ones fragment - frequency in the training data decides the split, not grammar.'
           }
         },
         {
           q: {
-            pl: 'W prompcie wysylasz 800 rekordow jako tablice obiektow JSON, kazdy z polem UUID (36-znakowy identyfikator). Przekraczasz budzet tokenow wejscia. Ktora zmiana da najwieksza oszczednosc przy najmniejszym ryzyku?',
+            pl: 'W prompcie wysyłasz 800 rekordów jako tablice obiektów JSON, każdy z polem UUID (36-znakowy identyfikator). Przekraczasz budżet tokenów wejścia. Która zmiana da największą oszczędność przy najmniejszym ryzyku?',
             en: 'Your prompt sends 800 records as a JSON object array, each with a UUID field (a 36-character identifier). You are over the input token budget. Which change saves the most with the least risk?'
           },
           options: [
-            { pl: 'Obnizyc temperature do 0', en: 'Lower temperature to 0' },
-            { pl: 'Zamienic tablice obiektow na CSV z naglowkiem i skrocic identyfikatory do aliasow d1..d800', en: 'Convert the object array to CSV with a header and shorten ids to aliases d1..d800' },
-            { pl: 'Zwiekszyc max_tokens, zeby zmiescic wiecej danych', en: 'Raise max_tokens so more data fits' },
-            { pl: 'Przetlumaczyc dane na angielski', en: 'Translate the data into English' }
+            { pl: 'Obniżyć temperature do 0', en: 'Lower temperature to 0' },
+            { pl: 'Zamienić tablicę obiektów na CSV z nagłówkiem i skrócić identyfikatory do aliasów d1..d800', en: 'Convert the object array to CSV with a header and shorten ids to aliases d1..d800' },
+            { pl: 'Zwiększyć max_tokens, żeby zmieścić więcej danych', en: 'Raise max_tokens so more data fits' },
+            { pl: 'Przetłumaczyć dane na angielski', en: 'Translate the data into English' }
           ],
           correct: 1,
           explain: {
-            pl: 'CSV usuwa klucze powtarzane w kazdym wierszu (czesto 40-50 procent oszczednosci), a krotkie aliasy tna po 8-12 tokenow na kazdym UUID i ulatwiaja poprawne cytowanie. max_tokens dotyczy wyjscia, wiec nie zwolni miejsca na wejsciu.',
+            pl: 'CSV usuwa klucze powtarzane w każdym wierszu (często 40-50 procent oszczędności), a krótkie aliasy tną po 8-12 tokenów na każdym UUID i ułatwiają poprawne cytowanie. max_tokens dotyczy wyjścia, więc nie zwolni miejsca na wejściu.',
             en: 'CSV drops the keys repeated on every row (often 40-50 percent savings) and short aliases cut 8-12 tokens per UUID while making citation more reliable. max_tokens governs output, so it frees no input room.'
           }
         }
@@ -1054,7 +1054,7 @@ export default {
     {
       id: 'context-window',
       title: {
-        pl: 'Okno kontekstu i jego pulapki',
+        pl: 'Okno kontekstu i jego pułapki',
         en: 'The context window and its traps'
       },
       minutes: 12,
@@ -1062,35 +1062,35 @@ export default {
         {
           term: { pl: 'okno kontekstu', en: 'context window' },
           def: {
-            pl: 'Maksymalna liczba tokenow wejscia i wyjscia w jednym wywolaniu. To budzet na request, a nie pamiec - model jest bezstanowy i przy kazdym wywolaniu dostaje cala historie od nowa.',
+            pl: 'Maksymalna liczba tokenów wejścia i wyjścia w jednym wywołaniu. To budżet na request, a nie pamięć - model jest bezstanowy i przy każdym wywołaniu dostaje całą historię od nowa.',
             en: 'The maximum number of input plus output tokens in a single call. It is a per-request budget, not memory - the model is stateless and receives the whole history again every time.'
           }
         },
         {
           term: { pl: 'obcinanie', en: 'truncation' },
           def: {
-            pl: 'Usuwanie czesci historii, gdy przestaje sie miescic w oknie. Robione naiwnie (od poczatku) wycina system prompt albo pierwotne wymagania - dlatego kolejnosc i priorytety trzeba ustalic jawnie.',
+            pl: 'Usuwanie części historii, gdy przestaje się mieścić w oknie. Robione naiwnie (od początku) wycina system prompt albo pierwotne wymagania - dlatego kolejność i priorytety trzeba ustalić jawnie.',
             en: 'Dropping part of the history when it no longer fits. Done naively, from the top, it removes the system prompt or the original requirements - so ordering and priorities must be explicit.'
           }
         },
         {
           term: { pl: 'lost in the middle', en: 'lost in the middle' },
           def: {
-            pl: 'Empiryczny efekt: model najlepiej wykorzystuje poczatek i koniec kontekstu, a fakty ze srodka gubi. Najwazniejsze instrukcje i dokumenty kladzie sie na brzegach promptu.',
+            pl: 'Empiryczny efekt: model najlepiej wykorzystuje początek i koniec kontekstu, a fakty ze środka gubi. Najważniejsze instrukcje i dokumenty kładzie się na brzegach promptu.',
             en: 'The empirical effect that models use the beginning and the end of the context best and lose facts placed in the middle. Put the critical instructions and documents at the edges of the prompt.'
           }
         },
         {
           term: { pl: 'needle in a haystack', en: 'needle in a haystack' },
           def: {
-            pl: 'Test dlugiego kontekstu: chowasz jedno zdanie w ogromnym tekscie i sprawdzasz, czy model je znajdzie. Wysoki wynik oznacza wyszukanie faktu, a nie rozumowanie na calym dokumencie.',
+            pl: 'Test długiego kontekstu: chowasz jedno zdanie w ogromnym tekście i sprawdzasz, czy model je znajdzie. Wysoki wynik oznacza wyszukanie faktu, a nie rozumowanie na całym dokumencie.',
             en: 'A long-context benchmark: hide one sentence in a huge text and check whether the model retrieves it. A high score means fact lookup, not reasoning over the whole document.'
           }
         },
         {
           term: { pl: 'kontekst vs RAG vs fine-tuning', en: 'context vs RAG vs fine-tuning' },
           def: {
-            pl: 'Trzy sposoby dostarczenia wiedzy: wkleic do promptu (male, zmienne dane), dociagnac przez RAG (duzy, zmienny korpus), dotrenowac (styl i format, nie fakty).',
+            pl: 'Trzy sposoby dostarczenia wiedzy: wkleić do promptu (małe, zmienne dane), dociągnąć przez RAG (duży, zmienny korpus), dotrenować (styl i format, nie fakty).',
             en: 'Three ways to give the model knowledge: paste it into the prompt (small, changing data), retrieve it with RAG (large, changing corpus), or fine-tune (style and format, not facts).'
           }
         }
@@ -1121,7 +1121,7 @@ export default {
           '<text x="20" y="392" font-size="14" fill="var(--warn)">Put instructions and key facts at the edges, never buried in the middle</text>' +
           '</svg>',
         caption: {
-          pl: 'Okno kontekstu to jeden bufor na wszystko: system prompt, historie, dokumenty i odpowiedz. Fakty w srodku dlugiego kontekstu sa odzyskiwane najslabiej.',
+          pl: 'Okno kontekstu to jeden bufor na wszystko: system prompt, historię, dokumenty i odpowiedź. Fakty w środku długiego kontekstu są odzyskiwane najsłabiej.',
           en: 'The context window is one buffer for everything: system prompt, history, documents and the answer. Facts buried mid-context are recalled the least reliably.'
         }
       },
@@ -1129,7 +1129,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Jak okno zapelnia sie w prawdziwej rozmowie i co dokladnie znika, gdy biblioteka po cichu przycina historie.',
+            pl: 'Jak okno zapełnia się w prawdziwej rozmowie i co dokładnie znika, gdy biblioteka po cichu przycina historię.',
             en: 'How the window fills up in a real conversation and what exactly disappears when a library quietly trims the history.'
           },
           frames: [
@@ -1150,7 +1150,7 @@ export default {
               ),
               label: { pl: '1. Pusto', en: '1. Roomy' },
               note: {
-                pl: 'Na starcie okno swieci pustkami. Warto zapamietac sklad: system prompt i definicje narzedzi placisz przy kazdym wywolaniu, nawet gdy sie nie zmieniaja.',
+                pl: 'Na starcie okno świeci pustkami. Warto zapamiętać skład: system prompt i definicje narzędzi płacisz przy każdym wywołaniu, nawet gdy się nie zmieniają.',
                 en: 'At the start the window is nearly empty. Note the composition: you pay for the system prompt and tool definitions on every call, even though they never change.'
               }
             },
@@ -1171,9 +1171,9 @@ export default {
                 fText(28, 206, 'Latency and cost have quietly tripled since turn 1.', 14, 'var(--warn)') +
                 fPanel('Input and output share one budget', 'A fat prompt literally eats the space available for a long answer.', 'Prefill also grows, so time to first token climbs with it.', 'var(--warn)')
               ),
-              label: { pl: '2. Prawie pelno', en: '2. Nearly full' },
+              label: { pl: '2. Prawie pełno', en: '2. Nearly full' },
               note: {
-                pl: 'Historia i dokumenty zjadly 93 procent budzetu. Odpowiedz musi zmiescic sie w tym, co zostalo - okno jest wspolne dla wejscia i wyjscia.',
+                pl: 'Historia i dokumenty zjadły 93 procent budżetu. Odpowiedź musi zmieścić się w tym, co zostało - okno jest wspólne dla wejścia i wyjścia.',
                 en: 'History and documents ate 93 percent of the budget. The answer has to fit in what is left - the window is shared by input and output.'
               }
             },
@@ -1192,9 +1192,9 @@ export default {
                 fText(28, 206, 'No error is raised. The app keeps answering - just worse.', 14, 'var(--err)') +
                 fPanel('Silent truncation is the dangerous kind', 'A hard error you notice in minutes; quiet quality loss you notice in weeks.', 'The oldest turns are exactly where the requirements live.', 'var(--err)')
               ),
-              label: { pl: '3. Ciche obciecie', en: '3. Silent truncation' },
+              label: { pl: '3. Ciche obcięcie', en: '3. Silent truncation' },
               note: {
-                pl: 'Naiwne przyciecie zaczyna od najstarszych wiadomosci - czyli od system promptu i pierwotnych ustalen. Bledu nie ma, jest tylko gorsza jakosc.',
+                pl: 'Naiwne przycięcie zaczyna od najstarszych wiadomości - czyli od system promptu i pierwotnych ustaleń. Błędu nie ma, jest tylko gorsza jakość.',
                 en: 'Naive trimming starts from the oldest messages - the system prompt and the original decisions. There is no error, only worse answers.'
               }
             },
@@ -1219,7 +1219,7 @@ export default {
               ),
               label: { pl: '4. Kompakcja', en: '4. Compaction' },
               note: {
-                pl: 'Zamiast wyrzucac stare tury, streszczasz je i doklejasz osobny blok stanu z faktami krytycznymi. Okno spada z 93 do 20 procent bez utraty ustalen.',
+                pl: 'Zamiast wyrzucać stare tury, streszczasz je i doklejasz osobny blok stanu z faktami krytycznymi. Okno spada z 93 do 20 procent bez utraty ustaleń.',
                 en: 'Instead of evicting old turns you summarise them and re-append a separate state block with the critical facts. The window drops from 93 to 20 percent with no lost decisions.'
               }
             }
@@ -1228,7 +1228,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Test needle in a haystack: ten sam fakt, trzy pozycje w dlugim kontekscie i trzy bardzo rozne skutecznosci.',
+            pl: 'Test needle in a haystack: ten sam fakt, trzy pozycje w długim kontekście i trzy bardzo różne skuteczności.',
             en: 'The needle in a haystack test: one fact, three positions in a long context, three very different hit rates.'
           },
           frames: [
@@ -1242,9 +1242,9 @@ export default {
                 fText(28, 210, 'Question asked at the very end, as always.', 14, 'var(--muted)') +
                 fPanel('Early positions are read reliably', 'Attention has the strongest grip on the head of the context.', 'This is also where your system prompt should live.', 'var(--ok)')
               ),
-              label: { pl: '1. Igla na poczatku', en: '1. Needle at the start' },
+              label: { pl: '1. Igła na początku', en: '1. Needle at the start' },
               note: {
-                pl: 'Fakt w pierwszych procentach promptu jest odnajdywany praktycznie zawsze. Dlatego instrukcje systemowe trzymamy na samej gorze.',
+                pl: 'Fakt w pierwszych procentach promptu jest odnajdywany praktycznie zawsze. Dlatego instrukcje systemowe trzymamy na samej górze.',
                 en: 'A fact in the first few percent of the prompt is found almost every time. Which is why system instructions live at the very top.'
               }
             },
@@ -1258,9 +1258,9 @@ export default {
                 fText(28, 210, 'Nothing else changed - same model, same question, same length.', 14, 'var(--err)') +
                 fPanel('Lost in the middle', 'Roughly one in three lookups fails, silently and confidently.', 'Long-context marketing numbers rarely mention this dip.', 'var(--err)')
               ),
-              label: { pl: '2. Igla w srodku', en: '2. Needle in the middle' },
+              label: { pl: '2. Igła w środku', en: '2. Needle in the middle' },
               note: {
-                pl: 'Ten sam fakt w polowie kontekstu bywa pomijany. Model nie zglasza problemu - po prostu odpowiada tak, jakby faktu nie bylo.',
+                pl: 'Ten sam fakt w połowie kontekstu bywa pomijany. Model nie zgłasza problemu - po prostu odpowiada tak, jakby faktu nie było.',
                 en: 'The same fact halfway through gets skipped. The model reports no problem - it simply answers as if the fact were not there.'
               }
             },
@@ -1275,9 +1275,9 @@ export default {
                 fText(28, 230, 'middle with explicit ids, task and question at the bottom.', 14, 'var(--muted)') +
                 fPanel('Run this test on your own data', 'Vendor benchmarks use synthetic needles that are easy to spot.', 'Your documents are repetitive, which makes the dip deeper.', 'var(--accent)')
               ),
-              label: { pl: '3. Igla na koncu', en: '3. Needle at the end' },
+              label: { pl: '3. Igła na końcu', en: '3. Needle at the end' },
               note: {
-                pl: 'Tuz przed pytaniem skutecznosc wraca do maksimum. Stad reguly ukladu promptu: krytyczne instrukcje na gorze albo na samym dole, nigdy w srodku.',
+                pl: 'Tuż przed pytaniem skuteczność wraca do maksimum. Stąd reguły układu promptu: krytyczne instrukcje na górze albo na samym dole, nigdy w środku.',
                 en: 'Right before the question, accuracy is back at maximum. Hence the layout rule: critical instructions at the top or the very bottom, never in the middle.'
               }
             }
@@ -1286,7 +1286,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Kontekst, RAG czy fine-tuning: to samo pytanie o cene katalogu, trzy architektury i trzy rachunki.',
+            pl: 'Kontekst, RAG czy fine-tuning: to samo pytanie o cenę katalogu, trzy architektury i trzy rachunki.',
             en: 'Context, RAG or fine-tuning: the same catalog pricing question, three architectures, three bills.'
           },
           frames: [
@@ -1304,7 +1304,7 @@ export default {
               ),
               label: { pl: '1. Wszystko do promptu', en: '1. Everything in the prompt' },
               note: {
-                pl: 'Wklejenie calego katalogu dziala i jest swieze, ale kosztuje kilka dolarow za wywolanie i doklada kilkanascie sekund do pierwszego tokena.',
+                pl: 'Wklejenie całego katalogu działa i jest świeże, ale kosztuje kilka dolarów za wywołanie i dokłada kilkanaście sekund do pierwszego tokena.',
                 en: 'Pasting the whole catalog works and stays fresh, but it costs dollars per call and adds tens of seconds before the first token.'
               }
             },
@@ -1323,7 +1323,7 @@ export default {
               ),
               label: { pl: '2. Fine-tuning', en: '2. Fine-tuning' },
               note: {
-                pl: 'Dotrenowanie wtapia dane w wagi: nie ma cytowania, nie ma swiezosci, a kazda zmiana ceny wymaga kolejnego treningu. Fakty tak sie nie przechowuje.',
+                pl: 'Dotrenowanie wtapia dane w wagi: nie ma cytowania, nie ma świeżości, a każda zmiana ceny wymaga kolejnego treningu. Fakty tak się nie przechowuje.',
                 en: 'Fine-tuning melts data into weights: no citations, no freshness, and every price change needs another training run. Facts do not belong there.'
               }
             },
@@ -1341,7 +1341,7 @@ export default {
               ),
               label: { pl: '3. RAG', en: '3. RAG' },
               note: {
-                pl: 'Dociagasz szesc pasujacych wierszy zamiast czterdziestu tysiecy. Dane sa swieze, zrodlo cytowalne, a rachunek spada o dwa rzedy wielkosci.',
+                pl: 'Dociągasz sześć pasujących wierszy zamiast czterdziestu tysięcy. Dane są świeże, źródło cytowalne, a rachunek spada o dwa rzędy wielkości.',
                 en: 'You pull six matching rows instead of forty thousand. Data stays fresh, sources are citable, and the bill drops by two orders of magnitude.'
               }
             },
@@ -1359,7 +1359,7 @@ export default {
               ),
               label: { pl: '4. Kiedy co', en: '4. Which when' },
               note: {
-                pl: 'RAG wygrywa przy wielu dokumentach i punktowych pytaniach. Dlugi kontekst wygrywa, gdy odpowiedz wymaga calego dokumentu naraz - umowy, transkrypcji, duzego pliku.',
+                pl: 'RAG wygrywa przy wielu dokumentach i punktowych pytaniach. Długi kontekst wygrywa, gdy odpowiedź wymaga całego dokumentu naraz - umowy, transkrypcji, dużego pliku.',
                 en: 'RAG wins for many documents and pinpoint questions. Long context wins when the answer needs the whole document at once - a contract, a transcript, one big file.'
               }
             }
@@ -1368,30 +1368,30 @@ export default {
       ],
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie biurko o stalej wielkosci. Wszystko, co ma byc uzyte teraz, musi na nim lezec: notatka od szefa, poprzednie rozmowy, wydruki i jeszcze miejsce na kartke, na ktorej wlasnie piszesz. Jak zabraknie miejsca, cos musi spasc na podloge.</p>' +
-            '<p>Model tez ma takie biurko i nazywa sie ono okno kontekstu. Wszystko, co mu wyslesz, i wszystko, co odpisze, musi sie na nim zmiescic naraz. Nie ma szuflady na potem.</p>' +
-            '<p>Jest tez druga rzecz, znacznie dziwniejsza. Jesli biurko jest zawalone, model najlepiej pamieta to, co lezy na samej gorze i na samym spodzie stosu. To, co utknelo dokladnie w srodku, gubi sie najczesciej - dokladnie jak u ludzi, ktorzy z listy zakupow pamietaja pierwsza i ostatnia pozycje, a te ze srodka odkrywaja dopiero w domu.</p>' +
-            '<p>Najgorsze jest to, ze kiedy cos spada z biurka, nikt nie krzyczy. Model nie powie ci "zgubilem twoja notatke". On odpowie dalej, pewnym glosem, tylko troche glupiej. Dlatego celem nigdy nie jest wrzucenie modelowi wszystkiego, co masz. Celem jest polozyc na biurku dokladnie te kartki, ktore sa potrzebne do tego jednego zadania - i te najwazniejsze polozyc na wierzchu.</p>',
+          pl: '<p>Wyobraź sobie biurko o stałej wielkości. Wszystko, co ma być użyte teraz, musi na nim leżeć: notatka od szefa, poprzednie rozmowy, wydruki i jeszcze miejsce na kartkę, na której właśnie piszesz. Jak zabraknie miejsca, coś musi spaść na podłogę.</p>' +
+            '<p>Model też ma takie biurko i nazywa się ono okno kontekstu. Wszystko, co mu wyślesz, i wszystko, co odpisze, musi się na nim zmieścić naraz. Nie ma szuflady na potem.</p>' +
+            '<p>Jest też druga rzecz, znacznie dziwniejsza. Jeśli biurko jest zawalone, model najlepiej pamięta to, co leży na samej górze i na samym spodzie stosu. To, co utknęło dokładnie w środku, gubi się najczęściej - dokładnie jak u ludzi, którzy z listy zakupów pamiętają pierwszą i ostatnią pozycję, a te ze środka odkrywają dopiero w domu.</p>' +
+            '<p>Najgorsze jest to, że kiedy coś spada z biurka, nikt nie krzyczy. Model nie powie ci "zgubiłem twoją notatkę". On odpowie dalej, pewnym głosem, tylko trochę głupiej. Dlatego celem nigdy nie jest wrzucenie modelowi wszystkiego, co masz. Celem jest położyć na biurku dokładnie te kartki, które są potrzebne do tego jednego zadania - i te najważniejsze położyć na wierzchu.</p>',
           en: '<p>Picture a desk of fixed size. Everything you need right now has to lie on it: the note from your boss, earlier conversations, printouts, and the sheet you are writing on. When it runs out of room, something falls on the floor.</p>' +
             '<p>The model has such a desk too, and it is called the context window. Everything you send and everything it writes back must fit on it at once. There is no drawer for later.</p>' +
             '<p>There is a second, much stranger thing. When the desk is crowded, the model best recalls what sits at the very top and the very bottom of the pile. Whatever is stuck exactly in the middle gets lost most often - just like people who remember the first and last items on a shopping list and rediscover the middle ones back at home.</p>' +
             '<p>The worst part: when something falls off the desk, nobody shouts. The model will not say "I dropped your note". It will keep answering in a confident voice, just slightly dumber. So the goal is never to dump everything you have on the model. The goal is to place exactly the sheets this one task needs - and to put the most important ones on top.</p>'
         },
         school: {
-          pl: '<p><strong>Okno kontekstu</strong> (context window) to maksymalna liczba tokenow, ktore model przetwarza w jednym wywolaniu - i liczy sie do niego wszystko: system prompt (stala instrukcja na gorze rozmowy), cala historia, wklejone dokumenty, definicje narzedzi oraz wygenerowana odpowiedz. Typowe wielkosci w 2026 roku to 128 tysiecy tokenow w modelach produkcyjnych i 1 milion w wariantach long-context.</p>' +
-            '<h4>Worked example: co sie miesci w 128k</h4>' +
-            '<p>System prompt 1800 tokenow, definicje piaciu narzedzi 2100, szesc dociagnietych dokumentow po 800 tokenow to 4800, historia 39 tur po okolo 250 tokenow to okolo 9750. Razem okolo 18,5 tysiaca tokenow, czyli 14 procent budzetu - komfortowo. Ale gdy zamiast szesciu dokumentow wkleisz caly podrecznik na 90 tysiecy tokenow, zostaje niecale 20 tysiecy na odpowiedz i cala dalsza rozmowe, a prefill (przeliczenie wejscia) wydluza czas do pierwszego tokena kilkukrotnie.</p>' +
-            '<p>Kiedy przekroczysz limit, dostajesz blad albo - w niektorych bibliotekach - ciche <strong>obcinanie</strong> (truncation) najstarszych wiadomosci. To drugie jest grozniejsze, bo aplikacja dziala dalej, tylko odpowiedzi robia sie glupsze bez zadnego sygnalu w logach.</p>' +
+          pl: '<p><strong>Okno kontekstu</strong> (context window) to maksymalna liczba tokenów, które model przetwarza w jednym wywołaniu - i liczy się do niego wszystko: system prompt (stała instrukcja na górze rozmowy), cała historia, wklejone dokumenty, definicje narzędzi oraz wygenerowana odpowiedź. Typowe wielkości w 2026 roku to 128 tysięcy tokenów w modelach produkcyjnych i 1 milion w wariantach long-context.</p>' +
+            '<h4>Worked example: co się mieści w 128k</h4>' +
+            '<p>System prompt 1800 tokenów, definicje pięciu narzędzi 2100, sześć dociągniętych dokumentów po 800 tokenów to 4800, historia 39 tur po około 250 tokenów to około 9750. Razem około 18,5 tysiąca tokenów, czyli 14 procent budżetu - komfortowo. Ale gdy zamiast sześciu dokumentów wkleisz cały podręcznik na 90 tysięcy tokenów, zostaje niecałe 20 tysięcy na odpowiedź i całą dalszą rozmowę, a prefill (przeliczenie wejścia) wydłuża czas do pierwszego tokena kilkukrotnie.</p>' +
+            '<p>Kiedy przekroczysz limit, dostajesz błąd albo - w niektórych bibliotekach - ciche <strong>obcinanie</strong> (truncation) najstarszych wiadomości. To drugie jest groźniejsze, bo aplikacja działa dalej, tylko odpowiedzi robią się głupsze bez żadnego sygnału w logach.</p>' +
             '<h4>Lost in the middle</h4>' +
-            '<p>Badania i praktyka zgadzaja sie: ten sam fakt umieszczony na poczatku lub koncu dlugiego kontekstu jest odnajdywany niemal zawsze, a umieszczony w polowie bywa pomijany w kilkudziesieciu procentach przypadkow. Test <strong>needle in a haystack</strong> (igla w stogu siana) polega wlasnie na chowaniu jednego zdania w dlugim tekscie i mierzeniu skutecznosci odzyskania.</p>' +
-            '<h4>Trzy sposoby na wiedze modelu</h4>' +
+            '<p>Badania i praktyka zgadzają się: ten sam fakt umieszczony na początku lub końcu długiego kontekstu jest odnajdywany niemal zawsze, a umieszczony w połowie bywa pomijany w kilkudziesięciu procentach przypadków. Test <strong>needle in a haystack</strong> (igła w stogu siana) polega właśnie na chowaniu jednego zdania w długim tekście i mierzeniu skuteczności odzyskania.</p>' +
+            '<h4>Trzy sposoby na wiedzę modelu</h4>' +
             '<ul>' +
-            '<li><strong>Kontekst</strong> - wklejasz dane do promptu. Natychmiastowe, drogie przy kazdym wywolaniu, ograniczone rozmiarem okna.</li>' +
-            '<li><strong>RAG</strong> (Retrieval-Augmented Generation - generowanie wsparte wyszukiwaniem) - wyszukujesz tylko potrzebne fragmenty i wklejasz je. Skaluje sie do milionow dokumentow, dane sa zawsze swieze.</li>' +
-            '<li><strong>Fine-tuning</strong> - dostrajasz wagi na wlasnych przykladach. Uczy stylu, formatu i zachowania, ale kiepsko nadaje sie do faktow, ktore sie zmieniaja.</li>' +
+            '<li><strong>Kontekst</strong> - wklejasz dane do promptu. Natychmiastowe, drogie przy każdym wywołaniu, ograniczone rozmiarem okna.</li>' +
+            '<li><strong>RAG</strong> (Retrieval-Augmented Generation - generowanie wsparte wyszukiwaniem) - wyszukujesz tylko potrzebne fragmenty i wklejasz je. Skaluje się do milionów dokumentów, dane są zawsze świeże.</li>' +
+            '<li><strong>Fine-tuning</strong> - dostrajasz wagi na własnych przykładach. Uczy stylu, formatu i zachowania, ale kiepsko nadaje się do faktów, które się zmieniają.</li>' +
             '</ul>' +
-            '<h4>Co musisz zapamietac</h4>' +
-            '<p>Okno to jeden wspolny budzet na wejscie i wyjscie, a nie pamiec modelu. Fakty ze srodka dlugiego kontekstu gina, wiec instrukcje i pytanie trzymasz na brzegach promptu. Do zmiennych danych uzywasz RAG, a fine-tuning zostawiasz na styl i format.</p>',
+            '<h4>Co musisz zapamiętać</h4>' +
+            '<p>Okno to jeden wspólny budżet na wejście i wyjście, a nie pamięć modelu. Fakty ze środka długiego kontekstu giną, więc instrukcje i pytanie trzymasz na brzegach promptu. Do zmiennych danych używasz RAG, a fine-tuning zostawiasz na styl i format.</p>',
           en: '<p>The <strong>context window</strong> is the maximum number of tokens a model processes in one call - and everything counts toward it: the system prompt (the standing instruction at the top of the conversation), the full history, pasted documents, tool definitions, and the generated answer. Typical sizes in 2026 are 128k tokens for production models and 1M for long-context variants.</p>' +
             '<h4>Worked example: what fits in 128k</h4>' +
             '<p>A 1800-token system prompt, 2100 tokens of definitions for five tools, six retrieved documents of 800 tokens each is 4800, and 39 turns of history at about 250 tokens each is roughly 9750. Total around 18.5k tokens, 14 percent of the budget - comfortable. But paste a 90k-token handbook instead of six documents and you have under 20k left for the answer and the rest of the conversation, while prefill (computing the input) multiplies your time to first token.</p>' +
@@ -1408,26 +1408,26 @@ export default {
             '<p>The window is one shared budget for input and output, not the model memory. Facts in the middle of a long context get lost, so keep instructions and the question at the edges. Use RAG for changing data and leave fine-tuning for style and format.</p>'
         },
         pro: {
-          pl: '<p>Okno kontekstu to <strong>budzet, a nie pojemnik</strong>. Dwa niezalezne powody, by go nie wypelniac do pelna: koszt i latencja rosna liniowo (prefill, czyli jednorazowe przeliczenie calego wejscia, dotyka kazdego tokena), a jakosc odzyskiwania spada wraz z dlugoscia - efektywne okno jest zauwazalnie mniejsze niz nominalne.</p>' +
-            '<h4>Uklad promptu, ktory dziala</h4>' +
+          pl: '<p>Okno kontekstu to <strong>budżet, a nie pojemnik</strong>. Dwa niezależne powody, by go nie wypełniać do pełna: koszt i latencja rosną liniowo (prefill, czyli jednorazowe przeliczenie całego wejścia, dotyka każdego tokena), a jakość odzyskiwania spada wraz z długością - efektywne okno jest zauważalnie mniejsze niż nominalne.</p>' +
+            '<h4>Układ promptu, który działa</h4>' +
             '<ol>' +
-            '<li>Stabilny system prompt i definicje narzedzi na gorze - te same bajty w tym samym miejscu daja trafienia <strong>prompt cache</strong> (mechanizmu, ktory pozwala dostawcy nie przeliczac powtarzanego prefiksu).</li>' +
-            '<li>Dokumenty i dane w srodku, kazdy z jawnym identyfikatorem, na przyklad <code>[doc:3]</code>, zeby model mial czym cytowac.</li>' +
-            '<li>Instrukcje zadania i faktyczne pytanie na samym koncu, tuz przed generowaniem.</li>' +
+            '<li>Stabilny system prompt i definicje narzędzi na górze - te same bajty w tym samym miejscu dają trafienia <strong>prompt cache</strong> (mechanizmu, który pozwala dostawcy nie przeliczać powtarzanego prefiksu).</li>' +
+            '<li>Dokumenty i dane w środku, każdy z jawnym identyfikatorem, na przykład <code>[doc:3]</code>, żeby model miał czym cytować.</li>' +
+            '<li>Instrukcje zadania i faktyczne pytanie na samym końcu, tuż przed generowaniem.</li>' +
             '</ol>' +
-            '<p>Reguly na koncu wygrywaja z regulami zakopanymi w srodku 60 tysiecy tokenow logow. Jesli musisz je powtorzyc - powtorz; dwadziescia tokenow jest tansze niz zle wykonane zadanie.</p>' +
-            '<pre><code>const messages = [\n  { role: "user", content: [\n      { type: "text", text: CONTEXT_DOCS },      // duze, w srodku\n      { type: "text", text: "Question: " + q }   // male, na koncu\n  ]}\n];</code></pre>' +
-            '<h4>Zarzadzanie dluga rozmowa</h4>' +
-            '<p>W chatbocie stosujesz okno przesuwne plus <strong>kompakcje</strong> (zamiane starszych tur na zwiezle streszczenie): co N tur streszczasz historie do stanu i trzymasz ostatnie 5-10 tur doslownie. Wazne, by nigdy nie obcinac w srodku pary <code>tool_use</code> / <code>tool_result</code> (zadanie wywolania narzedzia i jego wynik) - modele odrzucaja niekompletna pare bledem walidacji, a szukanie tego potrafi zjesc pol dnia. Fakty krytyczne, czyli identyfikator klienta, wybrany plan i poczynione ustalenia, trzymaj w oddzielnej, zawsze doklejanej sekcji stanu, zamiast liczyc, ze przetrwaja w historii.</p>' +
-            '<h4>Kiedy 1 mln tokenow nie jest odpowiedzia</h4>' +
-            '<p>Wrzucenie calego repozytorium do okna 1M kosztuje przy typowych cenach (okolo 3 USD za milion tokenow wejscia) kilka dolarow za jedno wywolanie i dodaje kilkanascie sekund do TTFT (czasu do pierwszego tokena). RAG na tych samych danych to zwykle 3-8 tysiecy tokenow, kilkadziesiat milisekund wyszukiwania i wyzsza precyzja, bo model nie musi ignorowac 990 tysiecy tokenow szumu. Long context wygrywa tam, gdzie dokument jest naprawde niepodzielny i potrzebne jest rozumowanie globalne: dluga umowa, jeden duzy plik, transkrypcja calego spotkania.</p>' +
+            '<p>Reguły na końcu wygrywają z regułami zakopanymi w środku 60 tysięcy tokenów logów. Jeśli musisz je powtórzyć - powtórz; dwadzieścia tokenów jest tańsze niż źle wykonane zadanie.</p>' +
+            '<pre><code>const messages = [\n  { role: "user", content: [\n      { type: "text", text: CONTEXT_DOCS },      // duże, w środku\n      { type: "text", text: "Question: " + q }   // małe, na końcu\n  ]}\n];</code></pre>' +
+            '<h4>Zarządzanie długą rozmową</h4>' +
+            '<p>W chatbocie stosujesz okno przesuwne plus <strong>kompakcję</strong> (zamianę starszych tur na zwięzłe streszczenie): co N tur streszczasz historię do stanu i trzymasz ostatnie 5-10 tur dosłownie. Ważne, by nigdy nie obcinać w środku pary <code>tool_use</code> / <code>tool_result</code> (zadanie wywołania narzędzia i jego wynik) - modele odrzucają niekompletną parę błędem walidacji, a szukanie tego potrafi zjeść pół dnia. Fakty krytyczne, czyli identyfikator klienta, wybrany plan i poczynione ustalenia, trzymaj w oddzielnej, zawsze doklejanej sekcji stanu, zamiast liczyć, że przetrwają w historii.</p>' +
+            '<h4>Kiedy 1 mln tokenów nie jest odpowiedzią</h4>' +
+            '<p>Wrzucenie całego repozytorium do okna 1M kosztuje przy typowych cenach (około 3 USD za milion tokenów wejścia) kilka dolarów za jedno wywołanie i dodaje kilkanaście sekund do TTFT (czasu do pierwszego tokena). RAG na tych samych danych to zwykle 3-8 tysięcy tokenów, kilkadziesiąt milisekund wyszukiwania i wyższa precyzja, bo model nie musi ignorować 990 tysięcy tokenów szumu. Long context wygrywa tam, gdzie dokument jest naprawdę niepodzielny i potrzebne jest rozumowanie globalne: długa umowa, jeden duży plik, transkrypcja całego spotkania.</p>' +
             '<h4>Na rozmowie kwalifikacyjnej i w monitoringu</h4>' +
-            '<p>Czeste pytanie: skoro mamy okno 1M, po co jeszcze RAG. Odpowiedz zawiera trzy watki - koszt liniowy wzgledem wejscia, degradacja recall w dlugim kontekscie i brak cytowalnego zrodla. Praktycznie: zrob wlasny test needle-in-a-haystack na swoich danych, w kilku pozycjach i kilku dlugosciach; powie ci wiecej niz benchmark dostawcy, bo twoje dokumenty sa powtarzalne, a syntetyczne igly z benchmarku sa latwe do znalezienia. Loguj <code>input_tokens</code> per zadanie i alertuj na wzrost - rozrastajacy sie prompt to najczestsza cicha przyczyna rosnacego rachunku.</p>' +
+            '<p>Częste pytanie: skoro mamy okno 1M, po co jeszcze RAG. Odpowiedź zawiera trzy wątki - koszt liniowy względem wejścia, degradacja recall w długim kontekście i brak cytowalnego źródła. Praktycznie: zrób własny test needle-in-a-haystack na swoich danych, w kilku pozycjach i kilku długościach; powie ci więcej niż benchmark dostawcy, bo twoje dokumenty są powtarzalne, a syntetyczne igły z benchmarku są łatwe do znalezienia. Loguj <code>input_tokens</code> per zadanie i alertuj na wzrost - rozrastający się prompt to najczęstsza cicha przyczyna rosnącego rachunku.</p>' +
             '<h4>Co z tego wynika w praktyce</h4>' +
             '<ul>' +
-            '<li>Projektuj prompt jak layout, nie jak worek: stale na gorze, dane w srodku z identyfikatorami, zadanie na dole.</li>' +
-            '<li>Zamien ciche obcinanie na jawna kompakcje z blokiem stanu, bo utrata ustalen nie generuje bledu i nie zostawia sladu.</li>' +
-            '<li>Dlugie okno traktuj jak funkcje, ktora placisz przy kazdym wywolaniu - domyslnie wybieraj retrieval, a caly dokument wkladaj tylko wtedy, gdy pytanie naprawde go wymaga.</li>' +
+            '<li>Projektuj prompt jak layout, nie jak worek: stałe na górze, dane w środku z identyfikatorami, zadanie na dole.</li>' +
+            '<li>Zamień ciche obcinanie na jawną kompakcję z blokiem stanu, bo utrata ustaleń nie generuje błędu i nie zostawia śladu.</li>' +
+            '<li>Długie okno traktuj jak funkcję, którą płacisz przy każdym wywołaniu - domyślnie wybieraj retrieval, a cały dokument wkładaj tylko wtedy, gdy pytanie naprawdę go wymaga.</li>' +
             '</ul>',
           en: '<p>The context window is a <strong>budget, not a container</strong>. Two independent reasons not to fill it: cost and latency grow linearly (prefill - the one-off computation over the whole input - touches every token), and retrieval quality degrades with length, so the effective window is noticeably smaller than the nominal one.</p>' +
             '<h4>A prompt layout that works</h4>' +
@@ -1455,69 +1455,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Do czego mozna porownac okno kontekstu?',
+            pl: 'Do czego można porównać okno kontekstu?',
             en: 'What is a good comparison for the context window?'
           },
           options: [
-            { pl: 'Do trwalej pamieci modelu, ktora rosnie z kazda rozmowa', en: 'To the permanent memory of the model, growing with every chat' },
-            { pl: 'Do biurka o stalej wielkosci, na ktorym musi zmiescic sie wszystko potrzebne teraz', en: 'To a fixed-size desk that must hold everything needed right now' },
-            { pl: 'Do dysku, na ktorym model zapisuje twoje pliki', en: 'To a disk where the model stores your files' },
-            { pl: 'Do limitu liczby wiadomosci na dobe', en: 'To a daily limit on the number of messages' }
+            { pl: 'Do trwałej pamięci modelu, która rośnie z każdą rozmową', en: 'To the permanent memory of the model, growing with every chat' },
+            { pl: 'Do biurka o stałej wielkości, na którym musi zmieścić się wszystko potrzebne teraz', en: 'To a fixed-size desk that must hold everything needed right now' },
+            { pl: 'Do dysku, na którym model zapisuje twoje pliki', en: 'To a disk where the model stores your files' },
+            { pl: 'Do limitu liczby wiadomości na dobę', en: 'To a daily limit on the number of messages' }
           ],
           correct: 1,
           explain: {
-            pl: 'To budzet na jedno wywolanie, wspolny dla tego, co wysylasz, i tego, co model odpisze. Gdy sie skonczy, cos musi z biurka zniknac.',
+            pl: 'To budżet na jedno wywołanie, wspólny dla tego, co wysyłasz, i tego, co model odpisze. Gdy się skończy, coś musi z biurka zniknąć.',
             en: 'It is a per-call budget shared by what you send and what the model writes back. When it runs out, something has to leave the desk.'
           }
         },
         {
           q: {
-            pl: 'Co wlicza sie do okna kontekstu?',
+            pl: 'Co wlicza się do okna kontekstu?',
             en: 'What counts toward the context window?'
           },
           options: [
-            { pl: 'Tylko ostatnia wiadomosc uzytkownika', en: 'Only the latest user message' },
-            { pl: 'Tylko dokumenty dociagniete przez RAG', en: 'Only the documents retrieved by RAG' },
-            { pl: 'System prompt, historia, definicje narzedzi, dokumenty i odpowiedz razem', en: 'System prompt, history, tool definitions, documents and the answer together' },
-            { pl: 'Wylacznie tokeny wyjsciowe', en: 'Output tokens only' }
+            { pl: 'Tylko ostatnia wiadomość użytkownika', en: 'Only the latest user message' },
+            { pl: 'Tylko dokumenty dociągnięte przez RAG', en: 'Only the documents retrieved by RAG' },
+            { pl: 'System prompt, historia, definicje narzędzi, dokumenty i odpowiedź razem', en: 'System prompt, history, tool definitions, documents and the answer together' },
+            { pl: 'Wyłącznie tokeny wyjściowe', en: 'Output tokens only' }
           ],
           correct: 2,
           explain: {
-            pl: 'Okno to jeden wspolny bufor na wejscie i wyjscie. Dlatego duzy prompt realnie zjada miejsce na dluga odpowiedz i podnosi czas do pierwszego tokena.',
+            pl: 'Okno to jeden wspólny bufor na wejście i wyjście. Dlatego duży prompt realnie zjada miejsce na długą odpowiedź i podnosi czas do pierwszego tokena.',
             en: 'The window is a single shared buffer for input and output. A big prompt literally eats the room for a long answer and raises time to first token.'
           }
         },
         {
           q: {
-            pl: 'Katalog produktow zmienia sie codziennie i model ma odpowiadac na pytania o ceny. Co wybierasz?',
+            pl: 'Katalog produktów zmienia się codziennie i model ma odpowiadać na pytania o ceny. Co wybierasz?',
             en: 'A product catalog changes daily and the model must answer pricing questions. What do you pick?'
           },
           options: [
             { pl: 'Fine-tuning modelu co noc na nowym katalogu', en: 'Fine-tune the model nightly on the new catalog' },
-            { pl: 'Wklejanie calego katalogu do kazdego promptu', en: 'Paste the entire catalog into every prompt' },
-            { pl: 'Dluzszy system prompt z regulami cenowymi', en: 'A longer system prompt with pricing rules' },
-            { pl: 'RAG: wyszukanie kilku pasujacych rekordow i wklejenie tylko ich', en: 'RAG: retrieve a few matching records and paste only those' }
+            { pl: 'Wklejanie całego katalogu do każdego promptu', en: 'Paste the entire catalog into every prompt' },
+            { pl: 'Dłuższy system prompt z regułami cenowymi', en: 'A longer system prompt with pricing rules' },
+            { pl: 'RAG: wyszukanie kilku pasujących rekordów i wklejenie tylko ich', en: 'RAG: retrieve a few matching records and paste only those' }
           ],
           correct: 3,
           explain: {
-            pl: 'Zmienne fakty naleza do warstwy danych, nie do wag. RAG daje swiezosc, niski koszt i cytowalne zrodlo, a fine-tuning nie daje zadnego z tych trzech.',
+            pl: 'Zmienne fakty należą do warstwy danych, nie do wag. RAG daje świeżość, niski koszt i cytowalne źródło, a fine-tuning nie daje żadnego z tych trzech.',
             en: 'Changing facts belong in the data layer, not in the weights. RAG gives freshness, low cost and a citable source; fine-tuning gives none of the three.'
           }
         },
         {
           q: {
-            pl: 'Chatbot dziala poprawnie, ale po okolo 30 turach zaczyna zapominac wczesniejsze ustalenia i myli identyfikator klienta. W logach nie ma zadnego bledu. Najbardziej prawdopodobna przyczyna i poprawka?',
+            pl: 'Chatbot działa poprawnie, ale po około 30 turach zaczyna zapominać wcześniejsze ustalenia i myli identyfikator klienta. W logach nie ma żadnego błędu. Najbardziej prawdopodobna przyczyna i poprawka?',
             en: 'A chatbot works fine, but after roughly 30 turns it forgets earlier decisions and mixes up the customer id. There is no error in the logs. Most likely cause and fix?'
           },
           options: [
-            { pl: 'Zbyt niska temperatura; podnies ja do 1,0', en: 'Temperature too low; raise it to 1.0' },
-            { pl: 'Biblioteka po cichu przycina najstarsze wiadomosci; trzymaj krytyczny stan w osobnej sekcji doklejanej przy kazdym wywolaniu', en: 'The library silently trims the oldest messages; keep critical state in a separate block re-appended on every call' },
-            { pl: 'Wyczerpany limit max_tokens; zwieksz go dwukrotnie', en: 'max_tokens exhausted; double it' },
-            { pl: 'Uszkodzony cache promptu; wylacz caching', en: 'Corrupted prompt cache; disable caching' }
+            { pl: 'Zbyt niska temperatura; podnieś ją do 1,0', en: 'Temperature too low; raise it to 1.0' },
+            { pl: 'Biblioteka po cichu przycina najstarsze wiadomości; trzymaj krytyczny stan w osobnej sekcji doklejanej przy każdym wywołaniu', en: 'The library silently trims the oldest messages; keep critical state in a separate block re-appended on every call' },
+            { pl: 'Wyczerpany limit max_tokens; zwiększ go dwukrotnie', en: 'max_tokens exhausted; double it' },
+            { pl: 'Uszkodzony cache promptu; wyłącz caching', en: 'Corrupted prompt cache; disable caching' }
           ],
           correct: 1,
           explain: {
-            pl: 'Okno przesuwne wypycha najstarsze tury, czyli dokladnie te, w ktorych siedza poczatkowe ustalenia - i robi to bez bledu. Stan krytyczny trzymaj poza historia i dokladaj go za kazdym razem.',
+            pl: 'Okno przesuwne wypycha najstarsze tury, czyli dokładnie te, w których siedzą początkowe ustalenia - i robi to bez błędu. Stan krytyczny trzymaj poza historią i dokładaj go za każdym razem.',
             en: 'A sliding window evicts the oldest turns, exactly where the initial decisions live - and it does so without an error. Keep critical state outside the history and re-append it every time.'
           }
         }
@@ -1527,7 +1527,7 @@ export default {
     {
       id: 'embeddings',
       title: {
-        pl: 'Embeddingi: znaczenie jako wspolrzedne',
+        pl: 'Embeddingi: znaczenie jako współrzędne',
         en: 'Embeddings: meaning as coordinates'
       },
       minutes: 12,
@@ -1535,35 +1535,35 @@ export default {
         {
           term: { pl: 'embedding', en: 'embedding' },
           def: {
-            pl: 'Wektor liczb reprezentujacy znaczenie tekstu - funkcja skrotu, ktora zachowuje bliskosc sensu. Teksty o podobnym znaczeniu maja bliskie wektory, nawet bez wspolnych slow.',
+            pl: 'Wektor liczb reprezentujący znaczenie tekstu - funkcja skrótu, która zachowuje bliskość sensu. Teksty o podobnym znaczeniu mają bliskie wektory, nawet bez wspólnych słów.',
             en: 'A vector of numbers representing the meaning of a text - a hash that preserves closeness of meaning. Similar texts land close together even with no words in common.'
           }
         },
         {
-          term: { pl: 'podobienstwo kosinusowe', en: 'cosine similarity' },
+          term: { pl: 'podobieństwo kosinusowe', en: 'cosine similarity' },
           def: {
-            pl: 'Miara podobienstwa dwoch wektorow: kosinus kata miedzy nimi, w praktyce od 0 do 1. Na znormalizowanych wektorach to zwykly iloczyn skalarny, dlatego liczy sie ja bardzo szybko.',
+            pl: 'Miara podobieństwa dwóch wektorów: kosinus kąta między nimi, w praktyce od 0 do 1. Na znormalizowanych wektorach to zwykły iloczyn skalarny, dlatego liczy się ją bardzo szybko.',
             en: 'The similarity measure between two vectors: the cosine of the angle between them, in practice 0 to 1. On normalised vectors it is just a dot product, which is why it is so fast.'
           }
         },
         {
           term: { pl: 'wyszukiwanie semantyczne', en: 'semantic search' },
           def: {
-            pl: 'Szukanie po znaczeniu zamiast po slowach kluczowych: zapytanie i dokumenty zamieniasz na embeddingi i zwracasz najblizsze wektory. Podstawa etapu retrievalu w RAG.',
+            pl: 'Szukanie po znaczeniu zamiast po słowach kluczowych: zapytanie i dokumenty zamieniasz na embeddingi i zwracasz najbliższe wektory. Podstawa etapu retrievalu w RAG.',
             en: 'Searching by meaning instead of keywords: embed the query and the documents and return the nearest vectors. This is the retrieval half of RAG.'
           }
         },
         {
           term: { pl: 'asymetria zapytanie-dokument', en: 'query-document asymmetry' },
           def: {
-            pl: 'Krotkie pytanie i dlugi dokument nie leza naturalnie blisko siebie. Modele asymetryczne maja osobne prefiksy lub tryby dla zapytania i dokumentu - trzeba ich uzyc, inaczej trafnosc spada.',
+            pl: 'Krótkie pytanie i długi dokument nie leżą naturalnie blisko siebie. Modele asymetryczne mają osobne prefiksy lub tryby dla zapytania i dokumentu - trzeba ich użyć, inaczej trafność spada.',
             en: 'A short question and a long document do not sit naturally close. Asymmetric embedding models use separate prefixes or modes for query and document - use them or recall drops.'
           }
         },
         {
-          term: { pl: 'podobienstwo to nie trafnosc', en: 'similarity is not relevance' },
+          term: { pl: 'podobieństwo to nie trafność', en: 'similarity is not relevance' },
           def: {
-            pl: 'Wysoki cosine oznacza tylko, ze teksty sa o tym samym - nie ze dokument odpowiada na pytanie. Negacja i przeczenia sa dla embeddingow prawie niewidoczne, stad reranking.',
+            pl: 'Wysoki cosine oznacza tylko, że teksty są o tym samym - nie że dokument odpowiada na pytanie. Negacja i przeczenia są dla embeddingów prawie niewidoczne, stąd reranking.',
             en: 'A high cosine only means the texts are about the same thing, not that the document answers the question. Negation is nearly invisible to embeddings - hence reranking.'
           }
         }
@@ -1595,7 +1595,7 @@ export default {
           '<text x="330" y="404" font-size="14" fill="var(--muted)">cosine similarity compares direction, not length</text>' +
           '</svg>',
         caption: {
-          pl: 'Embedding zamienia tekst w wektor. Zdania o podobnym znaczeniu wskazuja w podobnym kierunku, wiec kat miedzy nimi jest maly.',
+          pl: 'Embedding zamienia tekst w wektor. Zdania o podobnym znaczeniu wskazują w podobnym kierunku, więc kąt między nimi jest mały.',
           en: 'An embedding turns text into a vector. Sentences with similar meaning point in a similar direction, so the angle between them is small.'
         }
       },
@@ -1603,7 +1603,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Od zdania do wspolrzednych: co dokladnie robi model embeddingowy i dlaczego wynik jest jednokierunkowy.',
+            pl: 'Od zdania do współrzędnych: co dokładnie robi model embeddingowy i dlaczego wynik jest jednokierunkowy.',
             en: 'From a sentence to coordinates: what an embedding model actually does and why the result is one-way.'
           },
           frames: [
@@ -1620,7 +1620,7 @@ export default {
               ),
               label: { pl: '1. Osobny model', en: '1. A separate model' },
               note: {
-                pl: 'Model embeddingowy nie generuje tekstu. Jest mniejszy, tanszy i szybszy od czatowego, a jego zadaniem jest opisac tekst liczbami.',
+                pl: 'Model embeddingowy nie generuje tekstu. Jest mniejszy, tańszy i szybszy od czatowego, a jego zadaniem jest opisać tekst liczbami.',
                 en: 'An embedding model does not generate text. It is smaller, cheaper and faster than a chat model, and its job is to describe text with numbers.'
               }
             },
@@ -1636,7 +1636,7 @@ export default {
               ),
               label: { pl: '2. Wektor', en: '2. The vector' },
               note: {
-                pl: 'Wynik ma zawsze te sama dlugosc, niezaleznie od dlugosci tekstu. Liczysz go raz przy zapisie i trzymasz obok rekordu, jak indeks w bazie.',
+                pl: 'Wynik ma zawsze tę samą długość, niezależnie od długości tekstu. Liczysz go raz przy zapisie i trzymasz obok rekordu, jak indeks w bazie.',
                 en: 'The output is always the same length, regardless of input length. You compute it once on write and store it next to the row, like a database index.'
               }
             },
@@ -1659,9 +1659,9 @@ export default {
                 fText(28, 352, 'numbers back into the original sentence.', 13, 'var(--warn)') +
                 fText(28, 382, 'It is a hash that preserves closeness, not a compression.', 13, 'var(--muted)')
               ),
-              label: { pl: '3. Mapa znaczen', en: '3. The map of meaning' },
+              label: { pl: '3. Mapa znaczeń', en: '3. The map of meaning' },
               note: {
-                pl: 'Zdania bez ani jednego wspolnego slowa laduja obok siebie, bo znacza to samo. Operacja jest jednokierunkowa - z wektora nie odtworzysz tekstu.',
+                pl: 'Zdania bez ani jednego wspólnego słowa lądują obok siebie, bo znaczą to samo. Operacja jest jednokierunkowa - z wektora nie odtworzysz tekstu.',
                 en: 'Sentences with no shared words land next to each other because they mean the same thing. The operation is one-way - you cannot rebuild the text from the vector.'
               }
             }
@@ -1670,7 +1670,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Podobienstwo kosinusowe policzone recznie: dlaczego liczy sie kat, a nie dlugosc wektora.',
+            pl: 'Podobieństwo kosinusowe policzone ręcznie: dlaczego liczy się kąt, a nie długość wektora.',
             en: 'Cosine similarity computed by hand: why the angle matters and the vector length does not.'
           },
           frames: [
@@ -1688,9 +1688,9 @@ export default {
                 fText(340, 210, 'Angle between them: 0 degrees.', 14, 'var(--ok)') +
                 fPanel('Length is document size, direction is meaning', 'A long document is a long vector; that must not beat a short one.', 'Cosine divides the length out, so only direction is compared.', 'var(--ok)')
               ),
-              label: { pl: '1. Kierunek kontra dlugosc', en: '1. Direction versus length' },
+              label: { pl: '1. Kierunek kontra długość', en: '1. Direction versus length' },
               note: {
-                pl: 'Dwa wektory o tym samym kierunku, ale roznej dlugosci, znacza to samo. Dlatego miara musi ignorowac dlugosc - inaczej dlugie dokumenty zawsze by wygrywaly.',
+                pl: 'Dwa wektory o tym samym kierunku, ale różnej długości, znaczą to samo. Dlatego miara musi ignorować długość - inaczej długie dokumenty zawsze by wygrywały.',
                 en: 'Two vectors with the same direction but different lengths mean the same thing. The measure must ignore length, otherwise long documents would always win.'
               }
             },
@@ -1705,9 +1705,9 @@ export default {
                 fText(28, 230, 'around 0. Opposite directions score -1.', 14, 'var(--muted)') +
                 fPanel('On normalised vectors it is just a dot product', 'Providers usually return unit-length vectors, so len = 1.', 'That reduces the whole comparison to one multiply-and-add pass.', 'var(--accent)')
               ),
-              label: { pl: '2. Wzor na liczbach', en: '2. The formula on numbers' },
+              label: { pl: '2. Wzór na liczbach', en: '2. The formula on numbers' },
               note: {
-                pl: 'Iloczyn skalarny podzielony przez dlugosci obu wektorow. Na znormalizowanych wektorach mianownik znika i zostaje samo mnozenie z sumowaniem.',
+                pl: 'Iloczyn skalarny podzielony przez długości obu wektorów. Na znormalizowanych wektorach mianownik znika i zostaje samo mnożenie z sumowaniem.',
                 en: 'The dot product divided by both vector lengths. On normalised vectors the denominator disappears and only multiply-and-add remains.'
               }
             },
@@ -1724,7 +1724,7 @@ export default {
               ),
               label: { pl: '3. Ranking', en: '3. Ranking' },
               note: {
-                pl: 'Wyszukiwanie polega na policzeniu tej samej liczby dla kazdego kandydata i posortowaniu. Progi ustala sie empirycznie - nie sa przenoszalne miedzy modelami.',
+                pl: 'Wyszukiwanie polega na policzeniu tej samej liczby dla każdego kandydata i posortowaniu. Progi ustala się empirycznie - nie są przenoszalne między modelami.',
                 en: 'Search is computing that one number for every candidate and sorting. Thresholds are set empirically - they do not transfer between models.'
               }
             }
@@ -1733,7 +1733,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Wyszukiwanie semantyczne end-to-end plus jego najbardziej podstepna porazka: negacja.',
+            pl: 'Wyszukiwanie semantyczne end-to-end plus jego najbardziej podstępna porażka: negacja.',
             en: 'Semantic search end to end, plus its most treacherous failure: negation.'
           },
           frames: [
@@ -1752,7 +1752,7 @@ export default {
               ),
               label: { pl: '1. Indeksowanie', en: '1. Indexing' },
               note: {
-                pl: 'Wektory liczysz raz, przy zapisie dokumentu, i trzymasz w kolumnie obok tresci. Zapisz tez nazwe modelu - zmiana modelu wymusza pelny reindeks.',
+                pl: 'Wektory liczysz raz, przy zapisie dokumentu, i trzymasz w kolumnie obok treści. Zapisz też nazwę modelu - zmiana modelu wymusza pełny reindeks.',
                 en: 'Vectors are computed once, when the document is written, and kept in a column next to the content. Store the model name too - swapping models forces a full reindex.'
               }
             },
@@ -1772,7 +1772,7 @@ export default {
               ),
               label: { pl: '2. Wyszukiwanie', en: '2. Searching' },
               note: {
-                pl: 'Zapytanie przechodzi przez ten sam model, a baza zwraca najblizsze wektory. Filtr po najemcy musi dzialac przed rankingiem - to granica bezpieczenstwa.',
+                pl: 'Zapytanie przechodzi przez ten sam model, a baza zwraca najbliższe wektory. Filtr po najemcy musi działać przed rankingiem - to granica bezpieczeństwa.',
                 en: 'The query goes through the same model and the database returns the nearest vectors. The tenant filter must apply before ranking - it is a security boundary.'
               }
             },
@@ -1788,9 +1788,9 @@ export default {
                 fText(28, 272, '"answers the question".', 14, 'var(--err)') +
                 fPanel('Fix: hybrid search plus a reranker', 'BM25 keyword search catches the literal token NOT.', 'A reranker scores the query and document jointly and reorders the top 50.', 'var(--ok)')
               ),
-              label: { pl: '3. Pulapka negacji', en: '3. The negation trap' },
+              label: { pl: '3. Pułapka negacji', en: '3. The negation trap' },
               note: {
-                pl: 'Zdania rozniace sie tylko przeczeniem leza obok siebie w przestrzeni wektorowej. Ratunkiem jest hybryda z BM25 i reranker oceniajacy pare zapytanie-dokument.',
+                pl: 'Zdania różniące się tylko przeczeniem leżą obok siebie w przestrzeni wektorowej. Ratunkiem jest hybryda z BM25 i reranker oceniający parę zapytanie-dokument.',
                 en: 'Sentences differing only by a negation sit next to each other in vector space. The remedy is a BM25 hybrid plus a reranker that scores the query-document pair jointly.'
               }
             }
@@ -1799,11 +1799,11 @@ export default {
       ],
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie ogromna mape miasta, na ktorej kazde zdanie ma swoj adres. Nie taki adres jak ulica i numer, tylko taki, ze <em>rzeczy o podobnym znaczeniu mieszkaja obok siebie</em>.</p>' +
-            '<p>"Jak zmienic haslo" i "zapomnialem loginu" beda sasiadami zza plotu, chociaz nie maja ani jednego wspolnego slowa. A "dostawa pizzy" wyladuje na drugim koncu miasta, przy obwodnicy.</p>' +
-            '<p>Embedding to wlasnie sposob wyliczania takiego adresu. Wrzucasz zdanie, dostajesz dluga liste liczb - to sa wspolrzedne na mapie znaczen. Zawsze tyle samo liczb, czy wrzucisz trzy slowa, czy trzy akapity.</p>' +
-            '<p>Po co to komu? Bo szukanie przestaje polegac na zgadywaniu slow kluczowych. Pytasz o cos swoimi slowami, komputer sprawdza, kto mieszka najblizej twojego pytania, i podaje tych sasiadow. Tak dziala wyszukiwarka w dokumentacji, podpowiadanie podobnych produktow albo wykrywanie, ze dwa zgloszenia to ten sam problem opisany calkiem innymi slowami.</p>' +
-            '<p>Jest tylko jeden haczyk, o ktorym warto pamietac od poczatku: mapa mowi ci, ze cos jest <em>o tym samym</em>. Nie mowi, ze to dobra odpowiedz. "Umowa wymaga zgody" i "umowa nie wymaga zgody" to bliscy sasiedzi, chociaz znacza dokladnie cos przeciwnego.</p>',
+          pl: '<p>Wyobraź sobie ogromną mapę miasta, na której każde zdanie ma swój adres. Nie taki adres jak ulica i numer, tylko taki, że <em>rzeczy o podobnym znaczeniu mieszkają obok siebie</em>.</p>' +
+            '<p>"Jak zmienić hasło" i "zapomniałem loginu" będą sąsiadami zza płotu, chociaż nie mają ani jednego wspólnego słowa. A "dostawa pizzy" wyląduje na drugim końcu miasta, przy obwodnicy.</p>' +
+            '<p>Embedding to właśnie sposób wyliczania takiego adresu. Wrzucasz zdanie, dostajesz długą listę liczb - to są współrzędne na mapie znaczeń. Zawsze tyle samo liczb, czy wrzucisz trzy słowa, czy trzy akapity.</p>' +
+            '<p>Po co to komu? Bo szukanie przestaje polegać na zgadywaniu słów kluczowych. Pytasz o coś swoimi słowami, komputer sprawdza, kto mieszka najbliżej twojego pytania, i podaje tych sąsiadów. Tak działa wyszukiwarka w dokumentacji, podpowiadanie podobnych produktów albo wykrywanie, że dwa zgłoszenia to ten sam problem opisany całkiem innymi słowami.</p>' +
+            '<p>Jest tylko jeden haczyk, o którym warto pamiętać od początku: mapa mówi ci, że coś jest <em>o tym samym</em>. Nie mówi, że to dobra odpowiedź. "Umowa wymaga zgody" i "umowa nie wymaga zgody" to bliscy sąsiedzi, chociaż znaczą dokładnie coś przeciwnego.</p>',
           en: '<p>Picture an enormous city map where every sentence has an address. Not a street-and-number address, but one where <em>things with similar meaning live next door to each other</em>.</p>' +
             '<p>"How do I change my password" and "I forgot my login" end up neighbours over the fence, even though they share no words at all. Meanwhile "pizza delivery" lands on the other side of town, out by the ring road.</p>' +
             '<p>An embedding is simply how that address gets computed. You feed in a sentence, you get back a long list of numbers - the coordinates on a map of meaning. Always the same count of numbers, whether you sent three words or three paragraphs.</p>' +
@@ -1811,21 +1811,21 @@ export default {
             '<p>There is one catch worth knowing from day one: the map tells you something is <em>about the same thing</em>. It does not tell you it is a good answer. "The contract requires consent" and "the contract does not require consent" are close neighbours, even though they mean the opposite.</p>'
         },
         school: {
-          pl: '<p><strong>Embedding</strong> (osadzenie, wektor znaczeniowy) to zamiana tekstu na liste liczb o stalej dlugosci - typowo 384, 768, 1024 lub 1536 <strong>wymiarow</strong> (czyli pozycji na tej liscie). Model embeddingowy jest trenowany tak, by teksty o zblizonym znaczeniu dostawaly wektory wskazujace w podobnym kierunku.</p>' +
-            '<p>Podobienstwo mierzy sie miara <strong>cosine similarity</strong> (podobienstwo kosinusowe) - kosinusem kata miedzy wektorami. Wynik od -1 do 1, gdzie 1 to identyczny kierunek. Liczy sie kierunek, nie dlugosc, dzieki czemu dlugi dokument nie wygrywa automatycznie z krotkim.</p>' +
-            '<h4>Worked example: policzmy to na dwoch liczbach</h4>' +
-            '<p>Wezmy wektory dwuwymiarowe A = [3, 4] i B = [6, 8]. Iloczyn skalarny to 3 razy 6 plus 4 razy 8, czyli 50. Dlugosc A to pierwiastek z 9 plus 16, czyli 5; dlugosc B to pierwiastek z 36 plus 64, czyli 10. Podobienstwo wynosi 50 podzielone przez 5 razy 10, czyli 1,0 - maksimum, mimo ze B jest dwa razy dluzszy od A. To wlasnie znaczy "liczy sie kierunek".</p>' +
+          pl: '<p><strong>Embedding</strong> (osadzenie, wektor znaczeniowy) to zamiana tekstu na listę liczb o stałej długości - typowo 384, 768, 1024 lub 1536 <strong>wymiarów</strong> (czyli pozycji na tej liście). Model embeddingowy jest trenowany tak, by teksty o zbliżonym znaczeniu dostawały wektory wskazujące w podobnym kierunku.</p>' +
+            '<p>Podobieństwo mierzy się miarą <strong>cosine similarity</strong> (podobieństwo kosinusowe) - kosinusem kąta między wektorami. Wynik od -1 do 1, gdzie 1 to identyczny kierunek. Liczy się kierunek, nie długość, dzięki czemu długi dokument nie wygrywa automatycznie z krótkim.</p>' +
+            '<h4>Worked example: policzmy to na dwóch liczbach</h4>' +
+            '<p>Weźmy wektory dwuwymiarowe A = [3, 4] i B = [6, 8]. Iloczyn skalarny to 3 razy 6 plus 4 razy 8, czyli 50. Długość A to pierwiastek z 9 plus 16, czyli 5; długość B to pierwiastek z 36 plus 64, czyli 10. Podobieństwo wynosi 50 podzielone przez 5 razy 10, czyli 1,0 - maksimum, mimo że B jest dwa razy dłuższy od A. To właśnie znaczy "liczy się kierunek".</p>' +
             '<pre><code>function cosine(a, b) {\n  let dot = 0, na = 0, nb = 0;\n  for (let i = 0; i &lt; a.length; i++) {\n    dot += a[i] * b[i];\n    na  += a[i] * a[i];\n    nb  += b[i] * b[i];\n  }\n  return dot / (Math.sqrt(na) * Math.sqrt(nb));\n}</code></pre>' +
-            '<p>Kluczowa roznica wobec wyszukiwania pelnotekstowego: <code>LIKE</code> i indeks slow kluczowych szukaja <em>znakow</em>, embeddingi szukaja <em>znaczenia</em>. Zapytanie "auto sie nie odpala" znajdzie dokument o rozladowanym akumulatorze, mimo braku wspolnych slow.</p>' +
-            '<h4>Do czego sie tego uzywa</h4>' +
+            '<p>Kluczowa różnica wobec wyszukiwania pełnotekstowego: <code>LIKE</code> i indeks słów kluczowych szukają <em>znaków</em>, embeddingi szukają <em>znaczenia</em>. Zapytanie "auto się nie odpala" znajdzie dokument o rozładowanym akumulatorze, mimo braku wspólnych słów.</p>' +
+            '<h4>Do czego się tego używa</h4>' +
             '<ul>' +
             '<li><strong>Wyszukiwanie semantyczne</strong> - fundament RAG.</li>' +
-            '<li><strong>Deduplikacja</strong> - dwa zgloszenia o podobienstwie powyzej 0,95 to najczesciej duplikat.</li>' +
-            '<li><strong>Klasteryzacja</strong> - grupowanie tysiecy opinii w tematy bez recznego tagowania.</li>' +
-            '<li><strong>Klasyfikacja</strong> - porownanie z wektorami przykladowych kategorii, tanio i bez trenowania.</li>' +
+            '<li><strong>Deduplikacja</strong> - dwa zgłoszenia o podobieństwie powyżej 0,95 to najczęściej duplikat.</li>' +
+            '<li><strong>Klasteryzacja</strong> - grupowanie tysięcy opinii w tematy bez ręcznego tagowania.</li>' +
+            '<li><strong>Klasyfikacja</strong> - porównanie z wektorami przykładowych kategorii, tanio i bez trenowania.</li>' +
             '</ul>' +
-            '<h4>Co musisz zapamietac</h4>' +
-            '<p>Embedding to jednokierunkowy wektor znaczenia, liczony raz przy zapisie i uzywany jak indeks w bazie. Porownujesz kierunki, nie dlugosci, wiec dlugosc tekstu nie zaburza wyniku. I pamietaj, ze wysokie podobienstwo mowi tylko "o tym samym", a nie "poprawna odpowiedz".</p>',
+            '<h4>Co musisz zapamiętać</h4>' +
+            '<p>Embedding to jednokierunkowy wektor znaczenia, liczony raz przy zapisie i używany jak indeks w bazie. Porównujesz kierunki, nie długości, więc długość tekstu nie zaburza wyniku. I pamiętaj, że wysokie podobieństwo mówi tylko "o tym samym", a nie "poprawna odpowiedź".</p>',
           en: '<p>An <strong>embedding</strong> turns text into a fixed-length list of numbers - typically 384, 768, 1024 or 1536 <strong>dimensions</strong> (positions on that list). The embedding model is trained so that texts with related meaning receive vectors pointing in similar directions.</p>' +
             '<p>Similarity is measured with <strong>cosine similarity</strong> - the cosine of the angle between two vectors. The result runs from -1 to 1, where 1 means identical direction. Direction matters, magnitude does not, so a long document does not automatically beat a short one.</p>' +
             '<h4>Worked example: two numbers, done by hand</h4>' +
@@ -1843,26 +1843,26 @@ export default {
             '<p>An embedding is a one-way vector of meaning, computed once on write and used like a database index. You compare directions, not lengths, so text size does not skew the score. And remember that high similarity says "about the same thing", not "the correct answer".</p>'
         },
         pro: {
-          pl: '<p>Embedding to <strong>funkcja skrotu, ktora zachowuje bliskosc znaczen</strong>. Traktuj wektor jak indeks w bazie: liczysz go raz przy zapisie, trzymasz obok rekordu i uzywasz do wyszukiwania. Analogia webowa: to jest twoj indeks wyszukiwania, tylko kluczem jest sens, a nie prefiks stringa.</p>' +
+          pl: '<p>Embedding to <strong>funkcja skrótu, która zachowuje bliskość znaczeń</strong>. Traktuj wektor jak indeks w bazie: liczysz go raz przy zapisie, trzymasz obok rekordu i używasz do wyszukiwania. Analogia webowa: to jest twój indeks wyszukiwania, tylko kluczem jest sens, a nie prefiks stringa.</p>' +
             '<h4>Liczby produkcyjne</h4>' +
             '<ul>' +
-            '<li>Koszt: modele embeddingowe kosztuja rzedu 0,02-0,13 USD za milion tokenow, czyli zwykle 10-100 razy taniej niz generacja. Zaembedowanie 100 tysiecy chunkow (fragmentow dokumentu) po 500 tokenow to pojedyncze dolary.</li>' +
-            '<li>Wymiary: 1536 wymiarow razy 4 bajty to 6 KB na wektor. Milion wektorow to okolo 6 GB w <code>float32</code> (liczbie zmiennoprzecinkowej o 4 bajtach), ale <strong>kwantyzacja</strong> - zapis tych samych liczb z mniejsza precyzja, np. jako <code>int8</code> - tnie to okolo czterokrotnie przy stracie trafnosci rzedu 1-2 procent.</li>' +
-            '<li>Latencja: batch po 100 tekstow na wywolanie zamiast pojedynczych zadan zamienia godziny w minuty.</li>' +
-            '<li>Popularne modele: <code>text-embedding-3-small</code> i <code>-large</code> od OpenAI, Voyage (rekomendowany dla Claude), Cohere Embed, a lokalnie rodziny BGE i E5 przez biblioteke sentence-transformers.</li>' +
+            '<li>Koszt: modele embeddingowe kosztują rzędu 0,02-0,13 USD za milion tokenów, czyli zwykle 10-100 razy taniej niż generacja. Zaembedowanie 100 tysięcy chunków (fragmentów dokumentu) po 500 tokenów to pojedyncze dolary.</li>' +
+            '<li>Wymiary: 1536 wymiarów razy 4 bajty to 6 KB na wektor. Milion wektorów to około 6 GB w <code>float32</code> (liczbie zmiennoprzecinkowej o 4 bajtach), ale <strong>kwantyzacja</strong> - zapis tych samych liczb z mniejszą precyzją, np. jako <code>int8</code> - tnie to około czterokrotnie przy stracie trafności rzędu 1-2 procent.</li>' +
+            '<li>Latencja: batch po 100 tekstów na wywołanie zamiast pojedynczych zadań zamienia godziny w minuty.</li>' +
+            '<li>Popularne modele: <code>text-embedding-3-small</code> i <code>-large</code> od OpenAI, Voyage (rekomendowany dla Claude), Cohere Embed, a lokalnie rodziny BGE i E5 przez bibliotekę sentence-transformers.</li>' +
             '</ul>' +
-            '<h4>Pulapki, ktore bola</h4>' +
-            '<p><strong>1. Nie mieszaj modeli.</strong> Wektory z dwoch roznych modeli sa nieporownywalne, nawet przy tej samej liczbie wymiarow - kazdy model ma wlasna przestrzen. Zapisuj nazwe i wersje modelu w kolumnie obok wektora; zmiana modelu oznacza pelny reindeks calego korpusu.</p>' +
-            '<p><strong>2. Asymetria zapytanie-dokument.</strong> Krotkie pytanie i dlugi akapit zyja w nieco innych rejonach przestrzeni. Modele takie jak E5 wymagaja prefiksow <code>query:</code> i <code>passage:</code>; ich pominiecie potrafi obnizyc <strong>recall</strong> (odsetek trafnych dokumentow, ktore udalo sie znalezc) o kilkanascie punktow.</p>' +
-            '<p><strong>3. Podobienstwo to nie trafnosc.</strong> Cosine 0,86 nie znaczy "poprawna odpowiedz". Progi ustalasz empirycznie na <strong>zlotym zbiorze</strong> (recznie przygotowanej liscie zapytan z poprawnymi odpowiedziami), osobno per domena, bo rozklady wynikow sa inne dla kazdego modelu.</p>' +
-            '<p><strong>4. Negacja jest niewidoczna.</strong> "Dokument jest wazny" i "dokument jest niewazny" maja bardzo wysokie podobienstwo. Dlatego czyste wyszukiwanie wektorowe przegrywa z hybryda: <strong>BM25</strong> (klasyczny algorytm wyszukiwania po slowach kluczowych) lapie doslowne tokeny, a <strong>reranker</strong> (mniejszy model oceniajacy pare zapytanie-dokument razem) przestawia kolejnosc pierwszych kilkudziesieciu wynikow.</p>' +
+            '<h4>Pułapki, które bolą</h4>' +
+            '<p><strong>1. Nie mieszaj modeli.</strong> Wektory z dwóch różnych modeli są nieporównywalne, nawet przy tej samej liczbie wymiarów - każdy model ma własną przestrzeń. Zapisuj nazwę i wersję modelu w kolumnie obok wektora; zmiana modelu oznacza pełny reindeks całego korpusu.</p>' +
+            '<p><strong>2. Asymetria zapytanie-dokument.</strong> Krótkie pytanie i długi akapit żyją w nieco innych rejonach przestrzeni. Modele takie jak E5 wymagają prefiksów <code>query:</code> i <code>passage:</code>; ich pominięcie potrafi obniżyć <strong>recall</strong> (odsetek trafnych dokumentów, które udało się znaleźć) o kilkanaście punktów.</p>' +
+            '<p><strong>3. Podobieństwo to nie trafność.</strong> Cosine 0,86 nie znaczy "poprawna odpowiedź". Progi ustalasz empirycznie na <strong>złotym zbiorze</strong> (ręcznie przygotowanej liście zapytań z poprawnymi odpowiedziami), osobno per domena, bo rozkłady wyników są inne dla każdego modelu.</p>' +
+            '<p><strong>4. Negacja jest niewidoczna.</strong> "Dokument jest ważny" i "dokument jest nieważny" mają bardzo wysokie podobieństwo. Dlatego czyste wyszukiwanie wektorowe przegrywa z hybrydą: <strong>BM25</strong> (klasyczny algorytm wyszukiwania po słowach kluczowych) łapie dosłowne tokeny, a <strong>reranker</strong> (mniejszy model oceniający parę zapytanie-dokument razem) przestawia kolejność pierwszych kilkudziesięciu wyników.</p>' +
             '<pre><code>-- pgvector: kolumna, indeks HNSW, zapytanie\nALTER TABLE chunks ADD COLUMN embedding vector(1536);\nCREATE INDEX ON chunks USING hnsw (embedding vector_cosine_ops);\nSELECT id, content, 1 - (embedding &lt;=&gt; $1) AS score\nFROM chunks WHERE tenant_id = $2\nORDER BY embedding &lt;=&gt; $1 LIMIT 8;</code></pre>' +
-            '<p>Operator <code>&lt;=&gt;</code> to dystans kosinusowy, wiec sortujesz rosnaco, a wynik zamieniasz na podobienstwo przez <code>1 - dystans</code>. HNSW to typ indeksu przyblizonego: zwraca prawie najblizszych sasiadow w czasie logarytmicznym zamiast skanowac cala tabele. Filtr po <code>tenant_id</code> przed rankingiem to nie kosmetyka, tylko granica bezpieczenstwa - wyciek miedzy najemcami przez wspolny indeks wektorowy to klasyczny incydent.</p>' +
+            '<p>Operator <code>&lt;=&gt;</code> to dystans kosinusowy, więc sortujesz rosnąco, a wynik zamieniasz na podobieństwo przez <code>1 - dystans</code>. HNSW to typ indeksu przybliżonego: zwraca prawie najbliższych sąsiadów w czasie logarytmicznym zamiast skanować całą tabelę. Filtr po <code>tenant_id</code> przed rankingiem to nie kosmetyka, tylko granica bezpieczeństwa - wyciek między najemcami przez wspólny indeks wektorowy to klasyczny incydent.</p>' +
             '<h4>Co z tego wynika w praktyce</h4>' +
             '<ul>' +
-            '<li>Wektor jest artefaktem zapisu, nie odczytu - planuj migracje modelu jak migracje schematu bazy, z reindeksem i wersjonowaniem.</li>' +
-            '<li>Sam cosine nie wystarczy w produkcji: dolozenie BM25 i rerankera to standardowa poprawka na negacje, nazwy wlasne i skroty.</li>' +
-            '<li>Progi podobienstwa mierz na zlotym zbiorze, a filtry bezpieczenstwa zakladaj przed rankingiem, nie po nim.</li>' +
+            '<li>Wektor jest artefaktem zapisu, nie odczytu - planuj migrację modelu jak migrację schematu bazy, z reindeksem i wersjonowaniem.</li>' +
+            '<li>Sam cosine nie wystarczy w produkcji: dołożenie BM25 i rerankera to standardowa poprawka na negację, nazwy własne i skróty.</li>' +
+            '<li>Progi podobieństwa mierz na złotym zbiorze, a filtry bezpieczeństwa zakładaj przed rankingiem, nie po nim.</li>' +
             '</ul>',
           en: '<p>An embedding is a <strong>hash function that preserves closeness of meaning</strong>. Treat the vector like a database index: compute it once on write, store it next to the record, use it for lookup. Web analogy: this is your search index, except the key is meaning rather than a string prefix.</p>' +
             '<h4>Production numbers</h4>' +
@@ -1890,18 +1890,18 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Dlaczego zdania "jak zmienic haslo" i "zapomnialem loginu" trafiaja obok siebie na mapie znaczen?',
+            pl: 'Dlaczego zdania "jak zmienić hasło" i "zapomniałem loginu" trafiają obok siebie na mapie znaczeń?',
             en: 'Why do "how do I change my password" and "I forgot my login" land next to each other on the map of meaning?'
           },
           options: [
-            { pl: 'Bo maja podobna dlugosc w znakach', en: 'Because they have a similar character length' },
-            { pl: 'Bo dziela wiekszosc slow kluczowych', en: 'Because they share most of their keywords' },
-            { pl: 'Bo znacza mniej wiecej to samo, a adres jest liczony ze znaczenia, nie ze slow', en: 'Because they mean roughly the same thing, and the address is computed from meaning, not words' },
-            { pl: 'Bo obie zaczynaja sie od pytania', en: 'Because both are phrased as questions' }
+            { pl: 'Bo mają podobną długość w znakach', en: 'Because they have a similar character length' },
+            { pl: 'Bo dzielą większość słów kluczowych', en: 'Because they share most of their keywords' },
+            { pl: 'Bo znaczą mniej więcej to samo, a adres jest liczony ze znaczenia, nie ze słów', en: 'Because they mean roughly the same thing, and the address is computed from meaning, not words' },
+            { pl: 'Bo obie zaczynają się od pytania', en: 'Because both are phrased as questions' }
           ],
           correct: 2,
           explain: {
-            pl: 'To jest cala poanta embeddingow: sasiedztwo wynika ze znaczenia. Te dwa zdania nie maja ani jednego wspolnego slowa, a i tak sa sasiadami.',
+            pl: 'To jest cała poanta embeddingów: sąsiedztwo wynika ze znaczenia. Te dwa zdania nie mają ani jednego wspólnego słowa, a i tak są sąsiadami.',
             en: 'That is the whole point of embeddings: neighbourhood comes from meaning. Those two sentences share no words at all and are still neighbours.'
           }
         },
@@ -1911,48 +1911,48 @@ export default {
             en: 'What is an embedding?'
           },
           options: [
-            { pl: 'Skompresowana wersja tekstu, ktora da sie z powrotem rozpakowac', en: 'A compressed version of the text that can be decompressed' },
-            { pl: 'Wektor liczb o stalej dlugosci reprezentujacy znaczenie tekstu', en: 'A fixed-length vector of numbers representing the meaning of the text' },
-            { pl: 'Lista tokenow po tokenizacji', en: 'The list of tokens after tokenization' },
-            { pl: 'Suma kontrolna uzywana do cachowania promptu', en: 'A checksum used for prompt caching' }
+            { pl: 'Skompresowana wersja tekstu, która da się z powrotem rozpakować', en: 'A compressed version of the text that can be decompressed' },
+            { pl: 'Wektor liczb o stałej długości reprezentujący znaczenie tekstu', en: 'A fixed-length vector of numbers representing the meaning of the text' },
+            { pl: 'Lista tokenów po tokenizacji', en: 'The list of tokens after tokenization' },
+            { pl: 'Suma kontrolna używana do cachowania promptu', en: 'A checksum used for prompt caching' }
           ],
           correct: 1,
           explain: {
-            pl: 'Embedding jest jednokierunkowy - nie odtworzysz z niego oryginalnego tekstu, ale mozesz mierzyc podobienstwo znaczen. Dlugosc wektora nie zalezy od dlugosci tekstu.',
+            pl: 'Embedding jest jednokierunkowy - nie odtworzysz z niego oryginalnego tekstu, ale możesz mierzyć podobieństwo znaczeń. Długość wektora nie zależy od długości tekstu.',
             en: 'An embedding is one-way - you cannot reconstruct the original text from it, but you can measure semantic similarity. Its length does not depend on the text length.'
           }
         },
         {
           q: {
-            pl: 'Wektory A = [3, 4] i B = [6, 8]. Ile wynosi ich podobienstwo kosinusowe i dlaczego?',
+            pl: 'Wektory A = [3, 4] i B = [6, 8]. Ile wynosi ich podobieństwo kosinusowe i dlaczego?',
             en: 'Vectors A = [3, 4] and B = [6, 8]. What is their cosine similarity, and why?'
           },
           options: [
-            { pl: '0,5 - bo A jest dwa razy krotszy od B', en: '0.5 - because A is half the length of B' },
-            { pl: '1,0 - bo maja identyczny kierunek, a dlugosc nie ma znaczenia', en: '1.0 - because they point in the same direction and length does not matter' },
+            { pl: '0,5 - bo A jest dwa razy krótszy od B', en: '0.5 - because A is half the length of B' },
+            { pl: '1,0 - bo mają identyczny kierunek, a długość nie ma znaczenia', en: '1.0 - because they point in the same direction and length does not matter' },
             { pl: '50 - bo tyle wynosi iloczyn skalarny', en: '50 - because that is the dot product' },
-            { pl: '0 - bo nie maja wspolnych slow', en: '0 - because they share no words' }
+            { pl: '0 - bo nie mają wspólnych słów', en: '0 - because they share no words' }
           ],
           correct: 1,
           explain: {
-            pl: 'Iloczyn skalarny 50 dzielimy przez iloczyn dlugosci 5 i 10, czyli 1,0. Dzielenie przez dlugosci sprawia, ze dlugi dokument nie wygrywa tylko dlatego, ze jest dlugi.',
+            pl: 'Iloczyn skalarny 50 dzielimy przez iloczyn długości 5 i 10, czyli 1,0. Dzielenie przez długości sprawia, że długi dokument nie wygrywa tylko dlatego, że jest długi.',
             en: 'The dot product 50 divided by the lengths 5 and 10 gives 1.0. Dividing by the lengths is what stops a long document from winning just for being long.'
           }
         },
         {
           q: {
-            pl: 'Wyszukiwarka wektorowa nad regulaminami dostaje zapytanie "umowy, ktore NIE wymagaja zgody rodzica" i zwraca fragmenty o umowach, ktore te zgode wymagaja. Dlaczego tak sie dzieje i co pomoze najbardziej?',
+            pl: 'Wyszukiwarka wektorowa nad regulaminami dostaje zapytanie "umowy, które NIE wymagają zgody rodzica" i zwraca fragmenty o umowach, które tę zgodę wymagają. Dlaczego tak się dzieje i co pomoże najbardziej?',
             en: 'A vector search over policy documents gets the query "contracts that do NOT require parental consent" and returns passages about contracts that do require it. Why, and what helps most?'
           },
           options: [
-            { pl: 'Za maly wymiar wektora; przejsc na model 3072-wymiarowy', en: 'Vector dimension too small; move to a 3072-dim model' },
-            { pl: 'Zla temperatura wyszukiwania; ustawic ja na 0', en: 'Wrong search temperature; set it to 0' },
-            { pl: 'Oba zdania sa o tym samym temacie, a przeczenie prawie nie przesuwa wektora; pomoze hybryda z wyszukiwaniem po slowach kluczowych i reranker', en: 'Both sentences are about the same topic and the negation barely moves the vector; a keyword-search hybrid plus a reranker helps' },
-            { pl: 'Uszkodzony indeks; przejsc na pelne skanowanie tabeli', en: 'Corrupted index; switch to a full table scan' }
+            { pl: 'Za mały wymiar wektora; przejść na model 3072-wymiarowy', en: 'Vector dimension too small; move to a 3072-dim model' },
+            { pl: 'Zła temperatura wyszukiwania; ustawić ją na 0', en: 'Wrong search temperature; set it to 0' },
+            { pl: 'Oba zdania są o tym samym temacie, a przeczenie prawie nie przesuwa wektora; pomoże hybryda z wyszukiwaniem po słowach kluczowych i reranker', en: 'Both sentences are about the same topic and the negation barely moves the vector; a keyword-search hybrid plus a reranker helps' },
+            { pl: 'Uszkodzony indeks; przejść na pełne skanowanie tabeli', en: 'Corrupted index; switch to a full table scan' }
           ],
           correct: 2,
           explain: {
-            pl: 'Wysoki cosine mowi "o tym samym", a nie "odpowiada na pytanie". Wyszukiwanie po slowach kluczowych lapie doslowne NIE, a reranker ocenia pare zapytanie-dokument razem i przestawia kolejnosc.',
+            pl: 'Wysoki cosine mówi "o tym samym", a nie "odpowiada na pytanie". Wyszukiwanie po słowach kluczowych łapie dosłowne NIE, a reranker ocenia parę zapytanie-dokument razem i przestawia kolejność.',
             en: 'A high cosine says "about the same thing", not "answers the question". Keyword search catches the literal NOT, and a reranker scores the query-document pair jointly and reorders it.'
           }
         }
@@ -1970,35 +1970,35 @@ export default {
         {
           term: { pl: 'temperature', en: 'temperature' },
           def: {
-            pl: 'Skaluje logity przed <code>softmax</code>: nizsza wartosc wyostrza rozklad (bezpieczniej, nudniej), wyzsza splaszcza (kreatywniej, wiecej bledow). Do ekstrakcji i tool callingu 0, do burzy mozgow 0.8-1.',
+            pl: 'Skaluje logity przed <code>softmax</code>: niższa wartość wyostrza rozkład (bezpieczniej, nudniej), wyższa spłaszcza (kreatywniej, więcej błędów). Do ekstrakcji i tool callingu 0, do burzy mózgów 0.8-1.',
             en: 'Scales the logits before <code>softmax</code>: lower sharpens the distribution (safer, duller), higher flattens it (more creative, more errors). Use 0 for extraction and tool calling, 0.8-1.0 for brainstorming.'
           }
         },
         {
           term: { pl: 'top_p', en: 'top_p (nucleus sampling)' },
           def: {
-            pl: 'Obcina ogon rozkladu: bierze najmniejszy zbior tokenow o lacznym prawdopodobienstwie p i losuje tylko z niego. Zwykle stroi sie temperature <em>albo</em> top_p, nie oba naraz.',
+            pl: 'Obcina ogon rozkładu: bierze najmniejszy zbiór tokenów o łącznym prawdopodobieństwie p i losuje tylko z niego. Zwykle stroi się temperature <em>albo</em> top_p, nie oba naraz.',
             en: 'Truncates the tail: take the smallest set of tokens whose probability sums to p and sample only from it. Tune temperature <em>or</em> top_p, not both at once.'
           }
         },
         {
           term: { pl: 'top_k', en: 'top_k' },
           def: {
-            pl: 'Prostszy wariant obcinania: zostaw k najbardziej prawdopodobnych tokenow i z nich losuj. Stala liczba niezaleznie od tego, czy model jest pewny, czy waha sie miedzy dziesiatkami opcji.',
+            pl: 'Prostszy wariant obcinania: zostaw k najbardziej prawdopodobnych tokenów i z nich losuj. Stała liczba niezależnie od tego, czy model jest pewny, czy waha się między dziesiątkami opcji.',
             en: 'The simpler truncation: keep the k most probable tokens and sample from those. A fixed count regardless of whether the model is confident or torn between dozens of options.'
           }
         },
         {
           term: { pl: 'niedeterminizm przy temperature 0', en: 'nondeterminism at temperature 0' },
           def: {
-            pl: 'Nawet greedy decoding nie daje gwarancji identycznych odpowiedzi: batching, kolejnosc sumowania na GPU, MoE routing i zmiany wersji modelu psuja powtarzalnosc. Testy pisz na asercjach, nie na porownaniu stringow.',
+            pl: 'Nawet greedy decoding nie daje gwarancji identycznych odpowiedzi: batching, kolejność sumowania na GPU, MoE routing i zmiany wersji modelu psują powtarzalność. Testy pisz na asercjach, nie na porównaniu stringów.',
             en: 'Even greedy decoding does not guarantee identical answers: batching, GPU reduction order, MoE routing and silent model updates break reproducibility. Write assertions in tests, not string equality.'
           }
         },
         {
           term: { pl: 'seed', en: 'seed' },
           def: {
-            pl: 'Parametr ustalajacy losowanie, oferowany przez czesc API. Zwieksza powtarzalnosc w obrebie tej samej wersji modelu, ale nie jest kontraktem - traktuj go jako best effort.',
+            pl: 'Parametr ustalający losowanie, oferowany przez część API. Zwiększa powtarzalność w obrębie tej samej wersji modelu, ale nie jest kontraktem - traktuj go jako best effort.',
             en: 'A parameter that fixes the sampling randomness, offered by some APIs. It improves reproducibility within one model version but is not a contract - treat it as best effort.'
           }
         }
@@ -2039,7 +2039,7 @@ export default {
           '<text x="440" y="386" font-size="14" fill="var(--warn)">temp 0.9 - 1.2</text>' +
           '</svg>',
         caption: {
-          pl: 'Temperature splaszcza lub wyostrza rozklad, top_p obcina ogon malo prawdopodobnych tokenow. Dobierasz je do zadania, nie do gustu.',
+          pl: 'Temperature spłaszcza lub wyostrza rozkład, top_p obcina ogon mało prawdopodobnych tokenów. Dobierasz je do zadania, nie do gustu.',
           en: 'Temperature flattens or sharpens the distribution, top_p truncates the tail of unlikely tokens. You pick them per task, not by taste.'
         }
       },
@@ -2047,7 +2047,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Jedne logity, cztery ustawienia temperature: widac, jak to samo wyjscie modelu zmienia sie w cztery rozne zachowania.',
+            pl: 'Jedne logity, cztery ustawienia temperature: widać, jak to samo wyjście modelu zmienia się w cztery różne zachowania.',
             en: 'One set of logits, four temperature settings: watch the same model output turn into four different behaviours.'
           },
           frames: [
@@ -2064,7 +2064,7 @@ export default {
               ),
               label: { pl: '1. Surowe logity', en: '1. Raw logits' },
               note: {
-                pl: 'Model zawsze zwraca te same logity dla tego samego wejscia. Temperature to operacja na nich, juz po wyjsciu z sieci.',
+                pl: 'Model zawsze zwraca te same logity dla tego samego wejścia. Temperature to operacja na nich, już po wyjściu z sieci.',
                 en: 'The model always returns the same logits for the same input. Temperature is an operation on them, after the network is done.'
               }
             },
@@ -2081,7 +2081,7 @@ export default {
               ),
               label: { pl: '2. temperature 0', en: '2. temperature 0' },
               note: {
-                pl: 'Dzielenie logitow przez wartosc blisko zera wyostrza rozklad tak, ze wygrywa wylacznie faworyt. To ustawienie do danych, nie do prozy.',
+                pl: 'Dzielenie logitów przez wartość blisko zera wyostrza rozkład tak, że wygrywa wyłącznie faworyt. To ustawienie do danych, nie do prozy.',
                 en: 'Dividing the logits by a near-zero value sharpens the distribution so only the favourite can win. This is the setting for data, not prose.'
               }
             },
@@ -2098,7 +2098,7 @@ export default {
               ),
               label: { pl: '3. temperature 0.7', en: '3. temperature 0.7' },
               note: {
-                pl: 'Srodkowe ustawienie daje jezykowi naturalnosc, nie ruszajac zbytnio faktow. To sensowny domyslny wybor dla tekstu czytanego przez ludzi.',
+                pl: 'Środkowe ustawienie daje językowi naturalność, nie ruszając zbytnio faktów. To sensowny domyślny wybór dla tekstu czytanego przez ludzi.',
                 en: 'The middle setting makes language natural without moving facts much. It is the sensible default for text humans read.'
               }
             },
@@ -2115,7 +2115,7 @@ export default {
               ),
               label: { pl: '4. temperature 1.4', en: '4. temperature 1.4' },
               note: {
-                pl: 'Splaszczony rozklad daje szanse wszystkim kandydatom. Ten sam mechanizm produkuje ciekawe pomysly i nieistniejace nazwy metod.',
+                pl: 'Spłaszczony rozkład daje szansę wszystkim kandydatom. Ten sam mechanizm produkuje ciekawe pomysły i nieistniejące nazwy metod.',
                 en: 'A flattened distribution gives every candidate a chance. The same mechanism produces interesting ideas and non-existent method names.'
               }
             }
@@ -2124,7 +2124,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'top_p kontra top_k: dlaczego obciecie nucleus dopasowuje sie do pewnosci modelu, a sztywne k nie.',
+            pl: 'top_p kontra top_k: dlaczego obcięcie nucleus dopasowuje się do pewności modelu, a sztywne k nie.',
             en: 'top_p versus top_k: why a nucleus cut adapts to the model confidence and a fixed k does not.'
           },
           frames: [
@@ -2142,7 +2142,7 @@ export default {
               ),
               label: { pl: '1. Model pewny', en: '1. Confident model' },
               note: {
-                pl: 'Sumujesz prawdopodobienstwa od najwiekszego, az przekrocza p. Przy pewnym modelu wystarczy jeden token i ogon zostaje odciety.',
+                pl: 'Sumujesz prawdopodobieństwa od największego, aż przekroczą p. Przy pewnym modelu wystarczy jeden token i ogon zostaje odcięty.',
                 en: 'You sum probabilities from the largest until they pass p. With a confident model one token is enough and the tail is cut off.'
               }
             },
@@ -2160,7 +2160,7 @@ export default {
               ),
               label: { pl: '2. Model niepewny', en: '2. Uncertain model' },
               note: {
-                pl: 'Ten sam parametr przy plaskim rozkladzie przepuszcza kilkadziesiat tokenow. Obciecie jest adaptacyjne - zalezy od ksztaltu rozkladu, nie od stalej liczby.',
+                pl: 'Ten sam parametr przy płaskim rozkładzie przepuszcza kilkadziesiąt tokenów. Obcięcie jest adaptacyjne - zależy od kształtu rozkładu, nie od stałej liczby.',
                 en: 'The same parameter on a flat distribution lets dozens of tokens through. The cut is adaptive - it depends on the shape, not on a fixed count.'
               }
             },
@@ -2177,7 +2177,7 @@ export default {
               ),
               label: { pl: '3. Sztywne top_k', en: '3. Rigid top_k' },
               note: {
-                pl: 'Stale k jest zawsze zle w jedna albo w druga strone. Praktyczna zasada: strojisz temperature albo top_p, nigdy oba naraz.',
+                pl: 'Stałe k jest zawsze złe w jedną albo w drugą stronę. Praktyczna zasada: strojisz temperature albo top_p, nigdy oba naraz.',
                 en: 'A fixed k is always wrong in one direction or the other. Practical rule: tune temperature or top_p, never both at once.'
               }
             }
@@ -2186,7 +2186,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Dlaczego temperature 0 nie daje powtarzalnosci bit w bit i co z tego wynika dla testow.',
+            pl: 'Dlaczego temperature 0 nie daje powtarzalności bit w bit i co z tego wynika dla testów.',
             en: 'Why temperature 0 does not give bit-for-bit reproducibility, and what that means for tests.'
           },
           frames: [
@@ -2203,7 +2203,7 @@ export default {
               ),
               label: { pl: '1. Remis', en: '1. A near tie' },
               note: {
-                pl: 'Gdy dwa tokeny maja niemal identyczny wynik, o wyborze decyduje szum arytmetyki na GPU. Temperature 0 tego nie usuwa.',
+                pl: 'Gdy dwa tokeny mają niemal identyczny wynik, o wyborze decyduje szum arytmetyki na GPU. Temperature 0 tego nie usuwa.',
                 en: 'When two tokens score almost identically, GPU arithmetic noise decides. Temperature 0 does not remove that.'
               }
             },
@@ -2223,7 +2223,7 @@ export default {
               ),
               label: { pl: '2. Rozjazd', en: '2. Divergence' },
               note: {
-                pl: 'Jeden zamieniony token wchodzi do kontekstu kolejnych krokow, wiec dalsza czesc odpowiedzi moze pojsc inna sciezka. Sens zwykle zostaje, bajty nie.',
+                pl: 'Jeden zamieniony token wchodzi do kontekstu kolejnych kroków, więc dalsza część odpowiedzi może pójść inną ścieżką. Sens zwykle zostaje, bajty nie.',
                 en: 'One swapped token enters the context of every later step, so the rest of the answer can take a different path. Meaning usually survives, bytes do not.'
               }
             },
@@ -2239,9 +2239,9 @@ export default {
                 fText(28, 246, 'evals: does the score on 200 golden cases stay above target', 13, 'var(--muted)') +
                 fPanel('Treat model output like a network response', 'You never snapshot a third-party API body byte for byte either.', 'You validate its shape and the invariants you actually depend on.', 'var(--ok)')
               ),
-              label: { pl: '3. Jak testowac', en: '3. How to test' },
+              label: { pl: '3. Jak testować', en: '3. How to test' },
               note: {
-                pl: 'Zamiast snapshotu na string asertujesz schemat, wlasnosci wyniku i zbiorcze metryki z evalow. To jedyna strategia, ktora przezywa zmiane wersji modelu.',
+                pl: 'Zamiast snapshotu na string asertujesz schemat, własności wyniku i zbiorcze metryki z evalów. To jedyna strategia, która przeżywa zmianę wersji modelu.',
                 en: 'Instead of a string snapshot you assert the schema, output properties and aggregate eval metrics. That is the only strategy that survives a model version change.'
               }
             }
@@ -2250,28 +2250,28 @@ export default {
       ],
       levels: {
         eli5: {
-          pl: '<p>Po kazdym kroku model ma liste kandydatow na nastepny kawalek slowa, kazdy z jakas szansa. I teraz pytanie: czy zawsze bierzemy faworyta, czy czasem pozwalamy wygrac komus z drugiego rzedu?</p>' +
-            '<p>Od tego jest <strong>temperature</strong>, czyli pokretlo szalenstwa. Ustawione na zero sprawia, ze model zawsze wybiera faworyta. Jest przewidywalny i troche nudny, jak kucharz, ktory od dwudziestu lat gotuje ten sam rosol - zawsze dobry, nigdy zaskakujacy. Podkrecone wysoko pozwala wygrywac outsiderom. Robi sie ciekawiej, ale co jakis czas wychodzi rosol z czekolada.</p>' +
-            '<p>Jest jeszcze <strong>top_p</strong>, czyli bramkarz przy wejsciu do klubu. Mowi tak: do losowania wpuszczam tylko tych kandydatow, ktorzy razem zbieraja wiekszosc szans, a caly ogon dziwakow zostaje na ulicy. Fajne w tym bramkarzu jest to, ze sam sie dostosowuje - gdy jeden kandydat jest oczywistym faworytem, wpuszcza tylko jego, a gdy wszyscy sa podobni, wpuszcza cale towarzystwo.</p>' +
-            '<p>Prosta zasada na co dzien: gdy chcesz porzadne dane, krec w dol. Gdy chcesz pomyslow na nazwe firmy, krec w gore. I nie krec obydwoma pokretlami naraz, bo potem nie wiesz, ktore cos zepsulo.</p>',
+          pl: '<p>Po każdym kroku model ma listę kandydatów na następny kawałek słowa, każdy z jakąś szansą. I teraz pytanie: czy zawsze bierzemy faworyta, czy czasem pozwalamy wygrać komuś z drugiego rzędu?</p>' +
+            '<p>Od tego jest <strong>temperature</strong>, czyli pokrętło szaleństwa. Ustawione na zero sprawia, że model zawsze wybiera faworyta. Jest przewidywalny i trochę nudny, jak kucharz, który od dwudziestu lat gotuje ten sam rosół - zawsze dobry, nigdy zaskakujący. Podkręcone wysoko pozwala wygrywać outsiderom. Robi się ciekawiej, ale co jakiś czas wychodzi rosół z czekoladą.</p>' +
+            '<p>Jest jeszcze <strong>top_p</strong>, czyli bramkarz przy wejściu do klubu. Mówi tak: do losowania wpuszczam tylko tych kandydatów, którzy razem zbierają większość szans, a cały ogon dziwaków zostaje na ulicy. Fajne w tym bramkarzu jest to, że sam się dostosowuje - gdy jeden kandydat jest oczywistym faworytem, wpuszcza tylko jego, a gdy wszyscy są podobni, wpuszcza całe towarzystwo.</p>' +
+            '<p>Prosta zasada na co dzień: gdy chcesz porządne dane, kręć w dół. Gdy chcesz pomysłów na nazwę firmy, kręć w górę. I nie kręć obydwoma pokrętłami naraz, bo potem nie wiesz, które coś zepsuło.</p>',
           en: '<p>At every step the model holds a list of candidates for the next chunk of a word, each with some chance. And the question is: do we always take the favourite, or do we sometimes let a runner-up win?</p>' +
             '<p>That is what <strong>temperature</strong>, the chaos dial, is for. Set to zero it makes the model always pick the favourite. Predictable and slightly boring, like a cook who has made the same soup for twenty years - always good, never surprising. Turned up high, outsiders get to win. More interesting, but every so often you get soup with chocolate in it.</p>' +
             '<p>There is also <strong>top_p</strong>, the bouncer at the club door. It says: only candidates that together hold most of the probability get into the draw, the whole tail of weirdos stays out on the street. The nice thing about this bouncer is that it adjusts itself - when one candidate is the obvious favourite it lets only that one in, and when everyone looks similar it lets the whole crowd through.</p>' +
             '<p>The everyday rule: when you want solid data, turn it down. When you want ideas for a company name, turn it up. And do not turn both dials at once, or you will never know which one broke things.</p>'
         },
         school: {
-          pl: '<p>Model zwraca <strong>logity</strong>, czyli surowe wyniki liczbowe dla kazdego tokena w slowniku. Zanim padnie wybor, przechodza one przez warstwe samplingu - i to wlasnie ta warstwa jest sterowana parametrami.</p>' +
+          pl: '<p>Model zwraca <strong>logity</strong>, czyli surowe wyniki liczbowe dla każdego tokena w słowniku. Zanim padnie wybór, przechodzą one przez warstwę samplingu - i to właśnie ta warstwa jest sterowana parametrami.</p>' +
             '<h4>temperature</h4>' +
-            '<p>Logity sa dzielone przez temperature, a dopiero potem idzie <strong>softmax</strong> (funkcja zamieniajaca dowolne liczby na prawdopodobienstwa sumujace sie do jedynki). Dzielenie przez wartosc mniejsza od 1 wyostrza roznice - faworyt zjada niemal cale prawdopodobienstwo. Dzielenie przez wieksza od 1 splaszcza rozklad i daje szanse slabszym kandydatom. Zakres to zwykle 0 do 2, domyslnie okolo 1.</p>' +
+            '<p>Logity są dzielone przez temperature, a dopiero potem idzie <strong>softmax</strong> (funkcja zamieniającą dowolne liczby na prawdopodobieństwa sumujące się do jedynki). Dzielenie przez wartość mniejszą od 1 wyostrza różnicę - faworyt zjada niemal całe prawdopodobieństwo. Dzielenie przez większą od 1 spłaszcza rozkład i daje szansę słabszym kandydatom. Zakres to zwykle 0 do 2, domyślnie około 1.</p>' +
             '<pre><code>probs = softmax(logits / temperature)</code></pre>' +
             '<h4>Worked example: te same cztery liczby</h4>' +
-            '<p>Zalozmy logity: refund 4,2 / refunded 3,6 / reimburse 2,1 / repay 1,2. Przy temperature 0 wynik to praktycznie 1,00 dla refund i zera dla reszty. Przy 0,7 rozklad wyglada mniej wiecej 0,55 / 0,30 / 0,10 / 0,05 - drugi kandydat wygrywa mniej wiecej co trzecie losowanie. Przy 1,4 wszystko splaszcza sie do okolo 0,32 / 0,27 / 0,22 / 0,19, wiec nawet najslabszy token wchodzi co piaty raz. Model sie nie zmienil - zmienilo sie tylko przeliczenie jego wyjscia.</p>' +
+            '<p>Załóżmy logity: refund 4,2 / refunded 3,6 / reimburse 2,1 / repay 1,2. Przy temperature 0 wynik to praktycznie 1,00 dla refund i zera dla reszty. Przy 0,7 rozkład wygląda mniej więcej 0,55 / 0,30 / 0,10 / 0,05 - drugi kandydat wygrywa mniej więcej co trzecie losowanie. Przy 1,4 wszystko spłaszcza się do około 0,32 / 0,27 / 0,22 / 0,19, więc nawet najsłabszy token wchodzi co piąty raz. Model się nie zmienił - zmieniło się tylko przeliczenie jego wyjścia.</p>' +
             '<h4>top_p (nucleus sampling)</h4>' +
-            '<p>Sortujesz tokeny malejaco po prawdopodobienstwie i bierzesz tylko tyle, ile potrzeba, by ich suma osiagnela p (na przyklad 0,9). Reszta jest odrzucana i losujesz z tego okrojonego zbioru. To obciecie adaptacyjne: gdy model jest pewny, zostaje jeden token; gdy sie waha, zostaje ich kilkadziesiat. Jest tez <strong>top_k</strong>, ktore po prostu bierze k najlepszych tokenow - prostsze, ale sztywne.</p>' +
-            '<h4>Dlaczego temperature 0 to nie jest pelna powtarzalnosc</h4>' +
-            '<p>Formalnie temperatura 0 oznacza wybor najbardziej prawdopodobnego tokena, wiec powinno byc powtarzalne. W realnym API tak nie jest: obliczenia na kartach graficznych sa rownolegle, a dodawanie liczb zmiennoprzecinkowych w roznej kolejnosci daje minimalnie rozne wyniki. Gdy dwa tokeny maja niemal identyczny wynik, ten szum decyduje - a jeden zmieniony token rozjezdza cala dalsza generacje.</p>' +
-            '<h4>Co musisz zapamietac</h4>' +
-            '<p>Temperature skaluje logity przed softmaxem, a top_p obcina ogon rozkladu; oba zmieniaja losowanie, nie model. Ustawiaj je per zadanie: nisko do danych, wysoko do pomyslow. I nie strojisz obu naraz, bo nie da sie wtedy przypisac efektu.</p>',
+            '<p>Sortujesz tokeny malejąco po prawdopodobieństwie i bierzesz tylko tyle, ile potrzeba, by ich suma osiągnęła p (na przykład 0,9). Reszta jest odrzucana i losujesz z tego okrojonego zbioru. To obcięcie adaptacyjne: gdy model jest pewny, zostaje jeden token; gdy się waha, zostaje ich kilkadziesiąt. Jest też <strong>top_k</strong>, które po prostu bierze k najlepszych tokenów - prostsze, ale sztywne.</p>' +
+            '<h4>Dlaczego temperature 0 to nie jest pełna powtarzalność</h4>' +
+            '<p>Formalnie temperatura 0 oznacza wybór najbardziej prawdopodobnego tokena, więc powinno być powtarzalne. W realnym API tak nie jest: obliczenia na kartach graficznych są równoległe, a dodawanie liczb zmiennoprzecinkowych w różnej kolejności daje minimalnie różne wyniki. Gdy dwa tokeny mają niemal identyczny wynik, ten szum decyduje - a jeden zmieniony token rozjeżdża całą dalszą generację.</p>' +
+            '<h4>Co musisz zapamiętać</h4>' +
+            '<p>Temperature skaluje logity przed softmaxem, a top_p obcina ogon rozkładu; oba zmieniają losowanie, nie model. Ustawiaj je per zadanie: nisko do danych, wysoko do pomysłów. I nie strojisz obu naraz, bo nie da się wtedy przypisać efektu.</p>',
           en: '<p>The model returns <strong>logits</strong> - raw numeric scores for every token in the vocabulary. Before a choice is made they pass through the sampling layer, and that layer is what your parameters control.</p>' +
             '<h4>temperature</h4>' +
             '<p>Logits are divided by temperature and only then go through <strong>softmax</strong> (the function that turns arbitrary numbers into probabilities summing to one). Dividing by a value below 1 sharpens the differences - the favourite absorbs nearly all the probability. Dividing by a value above 1 flattens the distribution and gives weaker candidates a chance. The usual range is 0 to 2, with a default around 1.</p>' +
@@ -2286,27 +2286,27 @@ export default {
             '<p>Temperature scales the logits before softmax and top_p truncates the tail; both change the draw, not the model. Set them per task: low for data, high for ideas. And do not tune both at once, because then you cannot attribute the effect.</p>'
         },
         pro: {
-          pl: '<p>Sampling to jedyna warstwa, w ktorej wprost sterujesz kompromisem miedzy powtarzalnoscia a roznorodnoscia. Ustawiaj ja per zadanie, nie globalnie w kliencie - to ta sama logika, co poziomy logowania: inny dla ekstrakcji, inny dla copy.</p>' +
-            '<h4>Ustawienia, ktore broni sie w produkcji</h4>' +
+          pl: '<p>Sampling to jedyna warstwa, w której wprost sterujesz kompromisem między powtarzalnością a różnorodnością. Ustawiaj ją per zadanie, nie globalnie w kliencie - to ta sama logika, co poziomy logowania: inny dla ekstrakcji, inny dla copy.</p>' +
+            '<h4>Ustawienia, które broni się w produkcji</h4>' +
             '<ul>' +
-            '<li><strong>Ekstrakcja, klasyfikacja, tool calling</strong> (wywolywanie przez model twoich funkcji), <strong>generowanie JSON</strong>: temperature 0 do 0,2. Chcesz stabilnego kontraktu, nie stylu.</li>' +
-            '<li><strong>Streszczenia, wyjasnienia, chat wsparcia</strong>: 0,5 do 0,8. Naturalny jezyk bez dryfu faktow.</li>' +
-            '<li><strong>Burza mozgow, warianty nazw, copy marketingowe</strong>: 0,9 do 1,2.</li>' +
-            '<li><strong>Kod</strong>: nisko, 0 do 0,3. Wyzsza temperatura czesciej wymysla nieistniejace metody API - to nie anegdota, tylko bezposredni skutek splaszczenia ogona rozkladu.</li>' +
+            '<li><strong>Ekstrakcja, klasyfikacja, tool calling</strong> (wywoływanie przez model twoich funkcji), <strong>generowanie JSON</strong>: temperature 0 do 0,2. Chcesz stabilnego kontraktu, nie stylu.</li>' +
+            '<li><strong>Streszczenia, wyjaśnienia, chat wsparcia</strong>: 0,5 do 0,8. Naturalny język bez dryfu faktów.</li>' +
+            '<li><strong>Burza mózgów, warianty nazw, copy marketingowe</strong>: 0,9 do 1,2.</li>' +
+            '<li><strong>Kod</strong>: nisko, 0 do 0,3. Wyższa temperatura częściej wymyśla nieistniejące metody API - to nie anegdota, tylko bezpośredni skutek spłaszczenia ogona rozkładu.</li>' +
             '</ul>' +
-            '<p>Uwaga na modele rozumujace (reasoning models - takie, ktore przed odpowiedzia generuja wewnetrzny lancuch mysli). Czesc z nich ignoruje albo wprost odrzuca temperature, bo sciezka rozumowania ma wlasny rezim samplingu. Sprawdz dokumentacje, zanim wpiszesz parametr do wspolnego wrappera dla wszystkich modeli.</p>' +
+            '<p>Uwaga na modele rozumujące (reasoning models - takie, które przed odpowiedzią generują wewnętrzny łańcuch myśli). Część z nich ignoruje albo wprost odrzuca temperature, bo ścieżka rozumowania ma własny reżim samplingu. Sprawdź dokumentację, zanim wpiszesz parametr do wspólnego wrappera dla wszystkich modeli.</p>' +
             '<pre><code>const cfg = {\n  extract:   { temperature: 0 },\n  summarize: { temperature: 0.6 },\n  ideate:    { temperature: 1.0 }\n};\nconst res = await client.messages.create({\n  model: "claude-sonnet-4-5",\n  max_tokens: 800,\n  ...cfg[taskKind],\n  messages\n});</code></pre>' +
-            '<h4>Powtarzalnosc, ktorej naprawde mozesz oczekiwac</h4>' +
-            '<p>Nie ma gwarancji bit w bit. Nawet z temperature 0 zmienia sie wersja modelu, generacja sprzetu i kolejnosc redukcji zmiennoprzecinkowej; dochodzi do tego <strong>batching</strong> (laczenie requestow wielu uzytkownikow w jedna paczke na GPU), ktory zmienia te kolejnosc miedzy wywolaniami, oraz w modelach typu MoE (mixture of experts - siec z wieloma podsieciami i routerem wybierajacym kilka z nich) routing zalezny od skladu batcha. OpenAI oferuje parametr <code>seed</code> plus pole <code>system_fingerprint</code>, ktore zwieksza szanse na powtorzenie i pozwala wykryc zmiane backendu, ale to nadal best effort, nie kontrakt.</p>' +
-            '<p>Wniosek dla testow: asertujesz na schemacie (zod), na wlasnosciach wyniku - czy wyciagniete pole ma poprawny format, czy kwota zgadza sie z kwota w zrodle - oraz na metrykach zbiorczych z evalow (automatycznych testow jakosci na zbiorze przykladow). Snapshot na dokladny string bedzie flaky i po dwoch tygodniach zespol zacznie go slepo akceptowac.</p>' +
+            '<h4>Powtarzalność, której naprawdę możesz oczekiwać</h4>' +
+            '<p>Nie ma gwarancji bit w bit. Nawet z temperature 0 zmienia się wersja modelu, generacja sprzętu i kolejność redukcji zmiennoprzecinkowej; dochodzi do tego <strong>batching</strong> (łączenie requestów wielu użytkowników w jedną paczkę na GPU), który zmienia tę kolejność między wywołaniami, oraz w modelach typu MoE (mixture of experts - sieć z wieloma podsieciami i routerem wybierającym kilka z nich) routing zależny od składu batcha. OpenAI oferuje parametr <code>seed</code> plus pole <code>system_fingerprint</code>, które zwiększa szanse na powtórzenie i pozwala wykryć zmianę backendu, ale to nadal best effort, nie kontrakt.</p>' +
+            '<p>Wniosek dla testów: asertujesz na schemacie (zod), na własnościach wyniku - czy wyciągnięte pole ma poprawny format, czy kwota zgadza się z kwotą w źródle - oraz na metrykach zbiorczych z evalów (automatycznych testów jakości na zbiorze przykładów). Snapshot na dokładny string będzie flaky i po dwóch tygodniach zespół zacznie go ślepo akceptować.</p>' +
             '<h4>Anty-wzorce</h4>' +
-            '<p>Podnoszenie temperatury, zeby "naprawic" nudne odpowiedzi - to problem promptu, nie samplingu. Ustawianie temperature 0 dla wszystkiego - daje sztywne sformulowania i petle w dluzszych tekstach. Krecenie obu pokretel naraz - traci sie mozliwosc przypisania efektu. I klasyk: temperature 0,7 w wywolaniu, ktore ma zwrocic JSON zgodny ze schematem, czyli po prostu wyzszy odsetek retry.</p>' +
-            '<p>Warto tez pamietac, ze sampling nie jest jedyna dzwignia roznorodnosci. Gdy potrzebujesz pieciu roznych propozycji, czesto lepiej dziala jedno wywolanie proszace o piec wariantow z jawnym wymogiem, by sie od siebie roznily, niz piec wywolan z podkrecona temperatura - jest taniej, szybciej, a model sam pilnuje, zeby warianty nie byly powtorzeniami.</p>' +
+            '<p>Podnoszenie temperatury, żeby "naprawić" nudne odpowiedzi - to problem promptu, nie samplingu. Ustawianie temperature 0 dla wszystkiego - daje sztywne sformułowania i pętle w dłuższych tekstach. Kręcenie obu pokręteł naraz - traci się możliwość przypisania efektu. I klasyk: temperature 0,7 w wywołaniu, które ma zwrócić JSON zgodny ze schematem, czyli po prostu wyższy odsetek retry.</p>' +
+            '<p>Warto też pamiętać, że sampling nie jest jedyną dźwignią różnorodności. Gdy potrzebujesz pięciu różnych propozycji, często lepiej działa jedno wywołanie proszące o pięć wariantów z jawnym wymogiem, by się od siebie różniły, niż pięć wywołań z podkręconą temperaturą - jest taniej, szybciej, a model sam pilnuje, żeby warianty nie były powtórzeniami.</p>' +
             '<h4>Co z tego wynika w praktyce</h4>' +
             '<ul>' +
-            '<li>Trzymaj mape zadanie -> parametry w kodzie, tak jak konfiguracje logowania; jedno globalne ustawienie zawsze bedzie zle dla polowy wywolan.</li>' +
-            '<li>Powtarzalnosc traktuj jako statystyczna, nie binarna - buduj testy na kontrakcie i evalach, nie na rownosci stringow.</li>' +
-            '<li>Roznorodnosc czesto taniej kupisz jednym promptem o n wariantow niz podkrecaniem temperatury.</li>' +
+            '<li>Trzymaj mapę zadanie -> parametry w kodzie, tak jak konfigurację logowania; jedno globalne ustawienie zawsze będzie złe dla połowy wywołań.</li>' +
+            '<li>Powtarzalność traktuj jako statystyczną, nie binarną - buduj testy na kontrakcie i evalach, nie na równości stringów.</li>' +
+            '<li>Różnorodność często taniej kupisz jednym promptem o n wariantów niż podkręcaniem temperatury.</li>' +
             '</ul>',
           en: '<p>Sampling is the only layer where you steer the reproducibility-versus-diversity tradeoff directly. Set it per task, never globally in the client - the same logic as log levels: one setting for extraction, another for copywriting.</p>' +
             '<h4>Settings that hold up in production</h4>' +
@@ -2339,65 +2339,65 @@ export default {
             en: 'What is temperature, in practice?'
           },
           options: [
-            { pl: 'Limitem dlugosci odpowiedzi', en: 'A limit on answer length' },
-            { pl: 'Pokretlem decydujacym, czy model zawsze bierze faworyta, czy czasem wpuszcza slabszych kandydatow', en: 'A dial deciding whether the model always takes the favourite or sometimes lets weaker candidates in' },
-            { pl: 'Ustawieniem predkosci generowania tokenow', en: 'A setting for token generation speed' },
-            { pl: 'Miara pewnosci modelu co do odpowiedzi', en: 'A measure of how confident the model is' }
+            { pl: 'Limitem długości odpowiedzi', en: 'A limit on answer length' },
+            { pl: 'Pokrętłem decydującym, czy model zawsze bierze faworyta, czy czasem wpuszcza słabszych kandydatów', en: 'A dial deciding whether the model always takes the favourite or sometimes lets weaker candidates in' },
+            { pl: 'Ustawieniem prędkości generowania tokenów', en: 'A setting for token generation speed' },
+            { pl: 'Miara pewności modelu co do odpowiedzi', en: 'A measure of how confident the model is' }
           ],
           correct: 1,
           explain: {
-            pl: 'To pokretlo losowosci przy wyborze kolejnego kawalka slowa. Nisko - przewidywalnie i nudno, wysoko - ciekawiej, ale z wieksza szansa na wpadke.',
+            pl: 'To pokrętło losowości przy wyborze kolejnego kawałka słowa. Nisko - przewidywalnie i nudno, wysoko - ciekawiej, ale z większą szansą na wpadkę.',
             en: 'It is the randomness dial for picking the next chunk of a word. Low means predictable and dull, high means more interesting with a bigger chance of a blunder.'
           }
         },
         {
           q: {
-            pl: 'Co technicznie robi obnizenie temperature do 0?',
+            pl: 'Co technicznie robi obniżenie temperature do 0?',
             en: 'What does lowering temperature to 0 technically do?'
           },
           options: [
-            { pl: 'Skraca odpowiedz o polowe', en: 'Halves the length of the answer' },
-            { pl: 'Wylacza okno kontekstu', en: 'Disables the context window' },
-            { pl: 'Maksymalnie wyostrza rozklad, wiec wybierany jest token o najwyzszym prawdopodobienstwie', en: 'Sharpens the distribution to the maximum, so the highest-probability token is chosen' },
-            { pl: 'Zmniejsza koszt wywolania o polowe', en: 'Cuts the call cost in half' }
+            { pl: 'Skraca odpowiedź o połowę', en: 'Halves the length of the answer' },
+            { pl: 'Wyłącza okno kontekstu', en: 'Disables the context window' },
+            { pl: 'Maksymalnie wyostrza rozkład, więc wybierany jest token o najwyższym prawdopodobieństwie', en: 'Sharpens the distribution to the maximum, so the highest-probability token is chosen' },
+            { pl: 'Zmniejsza koszt wywołania o połowę', en: 'Cuts the call cost in half' }
           ],
           correct: 2,
           explain: {
-            pl: 'Temperature skaluje logity przed softmaxem. Przy wartosci bliskiej zera roznice sa maksymalnie powiekszone i faworyt zabiera cale prawdopodobienstwo.',
+            pl: 'Temperature skaluje logity przed softmaxem. Przy wartości bliskiej zera różnice są maksymalnie powiększone i faworyt zabiera całe prawdopodobieństwo.',
             en: 'Temperature scales the logits before softmax. Near zero the gaps are maximally magnified and the favourite takes all the probability.'
           }
         },
         {
           q: {
-            pl: 'Jak dziala top_p 0,9?',
+            pl: 'Jak działa top_p 0,9?',
             en: 'How does top_p 0.9 work?'
           },
           options: [
-            { pl: 'Bierze zawsze 9 najlepszych tokenow', en: 'It always keeps the 9 best tokens' },
-            { pl: 'Bierze najmniejszy zbior tokenow, ktorych prawdopodobienstwa sumuja sie do 0,9', en: 'It keeps the smallest set of tokens whose probabilities sum to 0.9' },
+            { pl: 'Bierze zawsze 9 najlepszych tokenów', en: 'It always keeps the 9 best tokens' },
+            { pl: 'Bierze najmniejszy zbiór tokenów, których prawdopodobieństwa sumują się do 0,9', en: 'It keeps the smallest set of tokens whose probabilities sum to 0.9' },
             { pl: 'Odrzuca 90 procent odpowiedzi i generuje je od nowa', en: 'It rejects 90 percent of responses and regenerates them' },
-            { pl: 'Ogranicza uzycie okna kontekstu do 90 procent', en: 'It caps context window usage at 90 percent' }
+            { pl: 'Ogranicza użycie okna kontekstu do 90 procent', en: 'It caps context window usage at 90 percent' }
           ],
           correct: 1,
           explain: {
-            pl: 'To obciecie adaptacyjne: przy pewnym modelu zostaje jeden token, przy niepewnym kilkadziesiat. Tym rozni sie od sztywnego top_k, ktore zawsze bierze te sama liczbe.',
+            pl: 'To obcięcie adaptacyjne: przy pewnym modelu zostaje jeden token, przy niepewnym kilkadziesiąt. Tym różni się od sztywnego top_k, które zawsze bierze tę samą liczbę.',
             en: 'It is an adaptive cutoff: one token survives when the model is confident, dozens when it is unsure. That is what separates it from a rigid top_k, which always keeps the same count.'
           }
         },
         {
           q: {
-            pl: 'Zespol proponuje testy porownujace odpowiedz modelu znak po znaku z zapisanym wzorcem, przy temperature 0 i stalym parametrze seed (ustalajacym losowanie). Co powiesz na code review?',
+            pl: 'Zespół proponuje testy porównujące odpowiedź modelu znak po znaku z zapisanym wzorcem, przy temperature 0 i stałym parametrze seed (ustalającym losowanie). Co powiesz na code review?',
             en: 'A team proposes tests comparing the model response character by character with a stored snapshot, using temperature 0 and a fixed seed (which pins the randomness). What do you say in review?'
           },
           options: [
-            { pl: 'To zadziala, seed gwarantuje identyczne wyjscie', en: 'It will work, the seed guarantees identical output' },
-            { pl: 'Zadziala po dodaniu top_p 1,0', en: 'It will work once top_p 1.0 is added' },
-            { pl: 'Powtarzalnosc bit w bit nie jest gwarantowana - arytmetyka GPU, batching i zmiany wersji modelu to psuja; asertuj na schemacie, wlasnosciach i metrykach evalow', en: 'Bit-for-bit reproducibility is not guaranteed - GPU arithmetic, batching and model version changes break it; assert on schema, properties and eval metrics' },
-            { pl: 'Wystarczy zwiekszyc max_tokens, zeby ustabilizowac wyjscie', en: 'Just raise max_tokens to stabilize the output' }
+            { pl: 'To zadziała, seed gwarantuje identyczne wyjście', en: 'It will work, the seed guarantees identical output' },
+            { pl: 'Zadziała po dodaniu top_p 1,0', en: 'It will work once top_p 1.0 is added' },
+            { pl: 'Powtarzalność bit w bit nie jest gwarantowana - arytmetyka GPU, batching i zmiany wersji modelu to psują; asertuj na schemacie, własnościach i metrykach evalów', en: 'Bit-for-bit reproducibility is not guaranteed - GPU arithmetic, batching and model version changes break it; assert on schema, properties and eval metrics' },
+            { pl: 'Wystarczy zwiększyć max_tokens, żeby ustabilizować wyjście', en: 'Just raise max_tokens to stabilize the output' }
           ],
           correct: 2,
           explain: {
-            pl: 'Seed i temperature 0 zwiekszaja szanse na powtorzenie, ale nie usuwaja niedeterminizmu zmiennoprzecinkowego ani cichych zmian wersji modelu. Takie snapshoty beda flaky i zespol przestanie im ufac.',
+            pl: 'Seed i temperature 0 zwiększają szanse na powtórzenie, ale nie usuwają niedeterminizmu zmiennoprzecinkowego ani cichych zmian wersji modelu. Takie snapshoty będą flaky i zespół przestanie im ufać.',
             en: 'Seed and temperature 0 improve the odds of a repeat but remove neither floating-point non-determinism nor silent model version changes. Such snapshots will be flaky and the team will stop trusting them.'
           }
         }
@@ -2415,35 +2415,35 @@ export default {
         {
           term: { pl: 'TTFT', en: 'TTFT (time to first token)' },
           def: {
-            pl: 'Czas od wyslania requestu do pierwszego tokena odpowiedzi. Zalezy glownie od dlugosci wejscia (prefill) i to on decyduje o odczuwalnej szybkosci interfejsu, nie calkowity czas generacji.',
+            pl: 'Czas od wysłania requestu do pierwszego tokena odpowiedzi. Zależy głównie od długości wejścia (prefill) i to on decyduje o odczuwalnej szybkości interfejsu, nie całkowity czas generacji.',
             en: 'The time from sending the request to the first token of the response. Driven mainly by input length (prefill) and it, not total generation time, is what users perceive as speed.'
           }
         },
         {
-          term: { pl: 'przepustowosc', en: 'throughput (tokens/s)' },
+          term: { pl: 'przepustowość', en: 'throughput (tokens/s)' },
           def: {
-            pl: 'Tempo generowania kolejnych tokenow po pierwszym. Razem z liczba tokenow wyjscia wyznacza calkowita latencje: <code>TTFT + tokeny_wyjscia / tokeny_na_sekunde</code>.',
+            pl: 'Tempo generowania kolejnych tokenów po pierwszym. Razem z liczbą tokenów wyjścia wyznacza całkowitą latencję: <code>TTFT + tokeny_wyjscia / tokeny_na_sekunde</code>.',
             en: 'The rate at which tokens are produced after the first one. Together with the output length it sets total latency: <code>TTFT + output_tokens / tokens_per_second</code>.'
           }
         },
         {
           term: { pl: 'prefill i decode', en: 'prefill and decode' },
           def: {
-            pl: 'Dwie fazy inferencji: prefill przetwarza cale wejscie rownolegle (drogie w obliczeniach, jednorazowe), decode generuje wyjscie token po tokenie (sekwencyjne). Dlatego tokeny wyjscia sa duzo drozsze niz wejscia.',
+            pl: 'Dwie fazy inferencji: prefill przetwarza całe wejście równolegle (drogie w obliczeniach, jednorazowe), decode generuje wyjście token po tokenie (sekwencyjne). Dlatego tokeny wyjścia są dużo droższe niż wejścia.',
             en: 'The two phases of inference: prefill processes the whole input in parallel (compute-heavy, once), decode emits the output token by token (sequential). This is why output tokens cost several times more than input.'
           }
         },
         {
           term: { pl: 'prompt caching', en: 'prompt caching' },
           def: {
-            pl: 'Serwer zapamietuje policzony stan (KV cache) dla stalego prefiksu promptu i przy kolejnym wywolaniu go nie liczy od nowa. Dziala tylko na dokladny prefiks - stale instrukcje na gorze, zmienne dane na dole.',
+            pl: 'Serwer zapamiętuje policzony stan (KV cache) dla stałego prefiksu promptu i przy kolejnym wywołaniu go nie liczy od nowa. Działa tylko na dokładny prefiks - stałe instrukcje na górze, zmienne dane na dole.',
             en: 'The server keeps the computed state (KV cache) for a stable prompt prefix and skips recomputing it on the next call. It matches on the exact prefix - static instructions at the top, variable data at the bottom.'
           }
         },
         {
           term: { pl: 'Batch API', en: 'Batch API' },
           def: {
-            pl: 'Tryb asynchroniczny: wysylasz paczke requestow i odbierasz wyniki w ciagu godzin, zwykle za okolo polowe ceny. Idealny do backfillow, ewaluacji i przetwarzania offline, bezuzyteczny w chacie.',
+            pl: 'Tryb asynchroniczny: wysyłasz paczkę requestów i odbierasz wyniki w ciągu godzin, zwykle za około połowę ceny. Idealny do backfillów, ewaluacji i przetwarzania offline, bezużyteczny w chacie.',
             en: 'An asynchronous mode: submit a batch of requests and collect results within hours, typically at about half price. Ideal for backfills, evals and offline processing, useless for chat.'
           }
         }
@@ -2476,7 +2476,7 @@ export default {
           '<text x="40" y="396" font-size="13" fill="var(--muted)">stream tokens so the user sees progress before the answer is done</text>' +
           '</svg>',
         caption: {
-          pl: 'Stabilny prefiks promptu na gorze daje trafienia cache, a latencje dzieli sie na prefill (TTFT) i decode zalezny od dlugosci odpowiedzi.',
+          pl: 'Stabilny prefiks promptu na górze daje trafienia cache, a latencję dzieli się na prefill (TTFT) i decode zależny od długości odpowiedzi.',
           en: 'A stable prompt prefix at the top earns cache hits, while latency splits into prefill (TTFT) and decode, which scales with answer length.'
         }
       },
@@ -2484,7 +2484,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Dwa zapytania z tym samym prefiksem: pierwsze placi pelna cene i zapisuje cache, drugie trafia w cache. Ostatnia klatka pokazuje, jak jeden znak potrafi to zepsuc.',
+            pl: 'Dwa zapytania z tym samym prefiksem: pierwsze płaci pełną cenę i zapisuje cache, drugie trafia w cache. Ostatnia klatka pokazuje, jak jeden znak potrafi to zepsuć.',
             en: 'Two requests with the same prefix: the first pays full price and writes the cache, the second hits it. The last frame shows how one character can ruin it.'
           },
           frames: [
@@ -2504,7 +2504,7 @@ export default {
               ),
               label: { pl: '1. Zimny start', en: '1. Cold start' },
               note: {
-                pl: 'Pierwsze zapytanie nie ma czego odzyskac. Caly prompt jest liczony od zera i to on tworzy TTFT (czas do pierwszego tokenu).',
+                pl: 'Pierwsze zapytanie nie ma czego odzyskać. Cały prompt jest liczony od zera i to on tworzy TTFT (czas do pierwszego tokenu).',
                 en: 'The first request has nothing to reuse. The entire prompt is computed from scratch and that is what your TTFT (time to first token) is made of.'
               }
             },
@@ -2524,7 +2524,7 @@ export default {
               ),
               label: { pl: '2. Cache zapisany', en: '2. Cache written' },
               note: {
-                pl: 'Stabilna czesc promptu - system, definicje narzedzi i dokumenty - laduje w cache. Zmienna koncowka rozmowy zostaje poza nim.',
+                pl: 'Stabilna część promptu - system, definicje narzędzi i dokumenty - ląduje w cache. Zmienna końcówka rozmowy zostaje poza nim.',
                 en: 'The stable part of the prompt - system, tool definitions and documents - lands in the cache. The volatile tail of the conversation stays outside it.'
               }
             },
@@ -2544,7 +2544,7 @@ export default {
               ),
               label: { pl: '3. Trafienie w cache', en: '3. Cache hit' },
               note: {
-                pl: 'Porownanie idzie od poczatku promptu, jak wspolny prefiks dwoch stringow. Wystarczy, ze koncowka jest inna - reszta i tak sie zgadza.',
+                pl: 'Porównanie idzie od początku promptu, jak wspólny prefiks dwóch stringów. Wystarczy, że końcówka jest inna - reszta i tak się zgadza.',
                 en: 'The comparison runs from the start of the prompt, like the common prefix of two strings. Only the tail differs, and the rest still matches.'
               }
             },
@@ -2564,7 +2564,7 @@ export default {
               ),
               label: { pl: '4. Rachunek i latencja', en: '4. Bill and latency' },
               note: {
-                pl: 'Cache nie zmienia odpowiedzi - zmienia cene i czas. Im dluzszy stabilny prefiks, tym wiekszy zysk przy kazdym kolejnym zapytaniu.',
+                pl: 'Cache nie zmienia odpowiedzi - zmienia cenę i czas. Im dłuższy stabilny prefiks, tym większy zysk przy każdym kolejnym zapytaniu.',
                 en: 'The cache does not change the answer - it changes price and time. The longer the stable prefix, the bigger the win on every following request.'
               }
             },
@@ -2583,9 +2583,9 @@ export default {
                   'var(--err)'
                 )
               ),
-              label: { pl: '5. Jak to zepsuc', en: '5. How to break it' },
+              label: { pl: '5. Jak to zepsuć', en: '5. How to break it' },
               note: {
-                pl: 'Najczestszy blad produkcyjny: data lub identyfikator sesji na samej gorze promptu. Cache liczy sie od tokenu zero, wiec placisz pelna stawke.',
+                pl: 'Najczęstszy błąd produkcyjny: data lub identyfikator sesji na samej górze promptu. Cache liczy się od tokenu zero, więc płacisz pełną stawkę.',
                 en: 'The classic production mistake: a date or a session id at the very top of the prompt. Caching starts at token zero, so you pay the full rate.'
               }
             }
@@ -2594,7 +2594,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Anatomia jednej sekundy: skad bierze sie latencja, ktora dzwignia na co dziala i dlaczego streaming zmienia odbior tych samych liczb.',
+            pl: 'Anatomia jednej sekundy: skąd bierze się latencja, która dźwignia na co działa i dlaczego streaming zmienia odbiór tych samych liczb.',
             en: 'The anatomy of one second: where latency comes from, which lever moves what, and why streaming changes how the same numbers feel.'
           },
           frames: [
@@ -2613,7 +2613,7 @@ export default {
               ),
               label: { pl: '1. Dwie fazy', en: '1. Two phases' },
               note: {
-                pl: 'Prefill zalezy od dlugosci wejscia, decode od dlugosci wyjscia. Mylenie tych dwoch rzeczy to najczestszy powod optymalizowania nie tej strony.',
+                pl: 'Prefill zależy od długości wejścia, decode od długości wyjścia. Mylenie tych dwóch rzeczy to najczęstszy powód optymalizowania nie tej strony.',
                 en: 'Prefill depends on input length, decode on output length. Confusing the two is the most common reason for optimising the wrong side.'
               }
             },
@@ -2628,9 +2628,9 @@ export default {
                 fText(28, 250, 'because decode holds the GPU one token at a time.', 14, 'var(--warn)') +
                 fPanel('Ask for less text before optimising anything else', 'Typical real-world saving from format discipline alone: 30-40 percent.', 'Bonus: shorter answers are usually easier to validate as well.', 'var(--ok)')
               ),
-              label: { pl: '2. Skroc wyjscie', en: '2. Cut the output' },
+              label: { pl: '2. Skróć wyjście', en: '2. Cut the output' },
               note: {
-                pl: 'Najdrozszy token to ten wygenerowany. Wymuszenie zwiezlego formatu i twardego max_tokens tnie jednoczesnie czas i rachunek.',
+                pl: 'Najdroższy token to ten wygenerowany. Wymuszenie zwięzłego formatu i twardego max_tokens tnie jednocześnie czas i rachunek.',
                 en: 'The most expensive token is a generated one. Forcing a terse format and a hard max_tokens cuts time and cost at once.'
               }
             },
@@ -2645,9 +2645,9 @@ export default {
                 fText(28, 250, 'a cache write costs about 125 percent, so it pays from hit two.', 14, 'var(--ok)') +
                 fPanel('Input work is where caching lives', 'Nothing can cache the output - every answer is generated fresh.', 'That asymmetry drives the whole prompt layout discipline.', 'var(--accent)')
               ),
-              label: { pl: '3. Przytnij wejscie', en: '3. Trim the input' },
+              label: { pl: '3. Przytnij wejście', en: '3. Trim the input' },
               note: {
-                pl: 'Krotsze wejscie i trafienia w cache skracaja prefill, czyli TTFT. Wyjscia nie da sie zacachowac - kazda odpowiedz powstaje od nowa.',
+                pl: 'Krótsze wejście i trafienia w cache skracają prefill, czyli TTFT. Wyjścia nie da się zacachować - każda odpowiedź powstaje od nowa.',
                 en: 'Shorter input and cache hits shorten prefill, that is TTFT. Output cannot be cached - every answer is generated from scratch.'
               }
             },
@@ -2665,7 +2665,7 @@ export default {
               ),
               label: { pl: '4. Latencja odczuwalna', en: '4. Perceived latency' },
               note: {
-                pl: 'Te same 12 sekund ze spinnerem wygladaja na awarie, a ze streamingiem na prace. Dlatego TTFT jest metryka produktowa, nie tylko techniczna.',
+                pl: 'Te same 12 sekund ze spinnerem wyglądają na awarię, a ze streamingiem na pracę. Dlatego TTFT jest metryką produktową, nie tylko techniczną.',
                 en: 'The same 12 seconds look like a failure behind a spinner and like work when streamed. That is why TTFT is a product metric, not just a technical one.'
               }
             }
@@ -2674,7 +2674,7 @@ export default {
         {
           kind: 'frames',
           caption: {
-            pl: 'Rachunek za realny endpoint i cztery dzwignie po kolei: co ile daje i w jakiej kolejnosci to robic.',
+            pl: 'Rachunek za realny endpoint i cztery dźwignie po kolei: co ile daje i w jakiej kolejności to robić.',
             en: 'The bill for a real endpoint and four levers in order: what each one saves and in which sequence to apply them.'
           },
           frames: [
@@ -2688,9 +2688,9 @@ export default {
                 fText(28, 228, 'Results are not needed in real time - they feed a dashboard.', 14, 'var(--muted)') +
                 fPanel('Instrument before you optimise', 'Log input_tokens, output_tokens, cache read/write, model and TTFT per task.', 'Without those four numbers every cost discussion is guesswork.', 'var(--accent)')
               ),
-              label: { pl: '1. Punkt wyjscia', en: '1. Starting point' },
+              label: { pl: '1. Punkt wyjścia', en: '1. Starting point' },
               note: {
-                pl: 'Zanim cokolwiek zmienisz, loguj tokeny wejscia i wyjscia per zadanie. Bez tych liczb nie da sie stwierdzic, ktora dzwignia w ogole dziala.',
+                pl: 'Zanim cokolwiek zmienisz, loguj tokeny wejścia i wyjścia per zadanie. Bez tych liczb nie da się stwierdzić, która dźwignia w ogóle działa.',
                 en: 'Before changing anything, log input and output tokens per task. Without those numbers you cannot tell which lever does anything at all.'
               }
             },
@@ -2704,9 +2704,9 @@ export default {
                 fText(28, 224, 'new monthly total: about 4320 USD', 15, 'var(--accent2)') +
                 fPanel('Always start here', 'Output is the priciest token class, and usually the most padded.', 'Verbose answers are a habit of the prompt, not a requirement.', 'var(--ok)')
               ),
-              label: { pl: '2. Krotsze wyjscie', en: '2. Shorter output' },
+              label: { pl: '2. Krótsze wyjście', en: '2. Shorter output' },
               note: {
-                pl: 'Klasyfikator potrzebowal jednego slowa, a dostawal akapit. Ograniczenie wyjscia to zwykle najszybsza i najbezpieczniejsza oszczednosc.',
+                pl: 'Klasyfikator potrzebował jednego słowa, a dostawał akapit. Ograniczenie wyjścia to zwykle najszybsza i najbezpieczniejsza oszczędność.',
                 en: 'The classifier needed one word and was getting a paragraph. Capping output is usually the fastest and safest saving available.'
               }
             },
@@ -2724,7 +2724,7 @@ export default {
               ),
               label: { pl: '3. Routing modeli', en: '3. Model routing' },
               note: {
-                pl: 'Klasyfikacja to zadanie dla malego modelu, z eskalacja trudnych przypadkow do duzego. Roznica cen miedzy klasami to zwykle rzad wielkosci.',
+                pl: 'Klasyfikacja to zadanie dla małego modelu, z eskalacją trudnych przypadków do dużego. Różnica cen między klasami to zwykle rząd wielkości.',
                 en: 'Classification is small-model work, with hard cases escalated to the large one. The price gap between tiers is usually an order of magnitude.'
               }
             },
@@ -2741,7 +2741,7 @@ export default {
               ),
               label: { pl: '4. Batch i podsumowanie', en: '4. Batch and the recap' },
               note: {
-                pl: 'Tryb wsadowy daje okolo 50 procent rabatu za cene opoznienia liczonego w godzinach. Caching by tu nie pomogl, bo kazda wiadomosc ma inna tresc.',
+                pl: 'Tryb wsadowy daje około 50 procent rabatu za cenę opóźnienia liczonego w godzinach. Caching by tu nie pomógł, bo każda wiadomość ma inną treść.',
                 en: 'Batch mode gives about 50 percent off at the price of hours of delay. Caching would not help here, because every message body differs.'
               }
             }
@@ -2750,30 +2750,30 @@ export default {
       ],
       levels: {
         eli5: {
-          pl: '<p>Za rozmowe z modelem placisz jak za taksowke, tylko licznik bije od slow. Kazde slowo, ktore wysylasz, kosztuje troche. Kazde slowo, ktore model odpisze, kosztuje duzo wiecej - zwykle kilka razy tyle.</p>' +
-            '<p>Dlatego najtansza sztuczka swiata brzmi: popros o krotsza odpowiedz. "W trzech punktach" zamiast "opisz szczegolowo" potrafi obciac rachunek o polowe, a odpowiedz czesto staje sie lepsza, bo nikt nie lubi czytac scian tekstu.</p>' +
-            '<p>Jest tez czekanie, i to dwa rodzaje czekania. Najpierw model musi przeczytac wszystko, co mu wyslales - to ta cisza przed pierwszym slowem. Potem pisze, slowo po slowie, i to trwa tym dluzej, im dluzsza ma byc odpowiedz. Jesli pokazujesz te slowa na biezaco, czlowiek czeka spokojnie, bo widzi, ze cos sie dzieje. Ta sama sekunda z kreciolkiem wydaje sie dwa razy dluzsza niz z tekstem, ktory sie pisze na oczach.</p>' +
-            '<p>I jeszcze jedno, wlasciwie najprzyjemniejsze: jesli poczatek twojej wiadomosci jest zawsze dokladnie taki sam, mozna go zapamietac. Nastepnym razem model nie musi go czytac od nowa - jest szybciej i znacznie taniej. Ale wystarczy wpisac na samej gorze aktualna godzine i cala sztuczka przestaje dzialac, bo poczatek juz nie jest taki sam.</p>',
+          pl: '<p>Za rozmowę z modelem płacisz jak za taksówkę, tylko licznik bije od słów. Każde słowo, które wysyłasz, kosztuje trochę. Każde słowo, które model odpisze, kosztuje dużo więcej - zwykle kilka razy tyle.</p>' +
+            '<p>Dlatego najtańsza sztuczka świata brzmi: poproś o krótszą odpowiedź. "W trzech punktach" zamiast "opisz szczegółowo" potrafi obciąć rachunek o połowę, a odpowiedź często staje się lepsza, bo nikt nie lubi czytać ścian tekstu.</p>' +
+            '<p>Jest też czekanie, i to dwa rodzaje czekania. Najpierw model musi przeczytać wszystko, co mu wysłałeś - to ta cisza przed pierwszym słowem. Potem pisze, słowo po słowie, i to trwa tym dłużej, im dłuższa ma być odpowiedź. Jeśli pokazujesz te słowa na bieżąco, człowiek czeka spokojnie, bo widzi, że coś się dzieje. Ta sama sekunda z kręciołkiem wydaje się dwa razy dłuższa niż z tekstem, który się pisze na oczach.</p>' +
+            '<p>I jeszcze jedno, właściwie najprzyjemniejsze: jeśli początek twojej wiadomości jest zawsze dokładnie taki sam, można go zapamiętać. Następnym razem model nie musi go czytać od nowa - jest szybciej i znacznie taniej. Ale wystarczy wpisać na samej górze aktualną godzinę i cała sztuczka przestaje działać, bo początek już nie jest taki sam.</p>',
           en: '<p>Talking to a model is billed like a taxi, except the meter runs on words. Every word you send costs a little. Every word the model writes back costs a lot more - usually several times as much.</p>' +
             '<p>Which is why the cheapest trick in the world is: ask for a shorter answer. "In three bullets" instead of "describe in detail" can halve the bill, and the answer often gets better too, because nobody enjoys reading walls of text.</p>' +
             '<p>Then there is waiting, and there are two kinds of it. First the model has to read everything you sent - that is the silence before the first word. Then it writes, word by word, and that takes longer the longer the answer is meant to be. If you show those words as they arrive, people wait calmly, because they can see something is happening. The same second feels twice as long next to a spinner as it does next to text being typed in front of you.</p>' +
             '<p>One more thing, arguably the nicest: if the beginning of your message is always exactly the same, it can be remembered. Next time the model does not have to read it again - faster and much cheaper. But put the current time at the very top and the trick stops working, because the beginning is no longer the same.</p>'
         },
         school: {
-          pl: '<p>Rozliczenie jest per token i <strong>asymetryczne</strong>: tokeny wyjsciowe kosztuja zwykle 3-5 razy wiecej niz wejsciowe. Powod jest techniczny. Wejscie przetwarza sie rownolegle w jednym przebiegu - to faza <strong>prefill</strong>. Wyjscie powstaje sekwencyjnie, token po tokenie - to faza <strong>decode</strong>, ktora zajmuje karte graficzna znacznie dluzej.</p>' +
+          pl: '<p>Rozliczenie jest per token i <strong>asymetryczne</strong>: tokeny wyjściowe kosztują zwykle 3-5 razy więcej niż wejściowe. Powód jest techniczny. Wejście przetwarza się równolegle w jednym przebiegu - to faza <strong>prefill</strong>. Wyjście powstaje sekwencyjnie, token po tokenie - to faza <strong>decode</strong>, która zajmuje kartę graficzną znacznie dłużej.</p>' +
             '<h4>Worked example: policz jeden endpoint</h4>' +
-            '<p>Przyjmij cennik klasy sredniej: 3 USD za milion tokenow wejscia i 15 USD za milion wyjscia. Twoje wywolanie ma 4000 tokenow promptu i 500 tokenow odpowiedzi. Wejscie: 4000 razy 0,000003 to 0,012 USD. Wyjscie: 500 razy 0,000015 to 0,0075 USD. Razem okolo 2 centow za wywolanie. Przy 100 tysiacach wywolan miesiecznie to okolo 1950 USD - i nagle kazdy zbedny akapit w system prompcie ma swoja cene. Zauwaz proporcje: wyjscie jest osmiokrotnie krotsze, a odpowiada za 38 procent rachunku.</p>' +
-            '<h4>Dwie rozne latencje</h4>' +
+            '<p>Przyjmij cennik klasy średniej: 3 USD za milion tokenów wejścia i 15 USD za milion wyjścia. Twoje wywołanie ma 4000 tokenów promptu i 500 tokenów odpowiedzi. Wejście: 4000 razy 0,000003 to 0,012 USD. Wyjście: 500 razy 0,000015 to 0,0075 USD. Razem około 2 centów za wywołanie. Przy 100 tysiącach wywołań miesięcznie to około 1950 USD - i nagle każdy zbędny akapit w system prompcie ma swoją cenę. Zauważ proporcję: wyjście jest ośmiokrotnie krótsze, a odpowiada za 38 procent rachunku.</p>' +
+            '<h4>Dwie różne latencje</h4>' +
             '<ul>' +
-            '<li><strong>TTFT</strong> (time to first token - czas do pierwszego tokena) - ile czekasz, zanim cokolwiek sie pojawi. Zalezy glownie od dlugosci wejscia i kolejki u dostawcy.</li>' +
-            '<li><strong>Przepustowosc</strong> - ile tokenow na sekunde leci potem, typowo kilkadziesiat. Calkowity czas to w przyblizeniu TTFT plus liczba tokenow wyjscia podzielona przez ta predkosc.</li>' +
+            '<li><strong>TTFT</strong> (time to first token - czas do pierwszego tokena) - ile czekasz, zanim cokolwiek się pojawi. Zależy głównie od długości wejścia i kolejki u dostawcy.</li>' +
+            '<li><strong>Przepustowość</strong> - ile tokenów na sekundę leci potem, typowo kilkadziesiąt. Całkowity czas to w przybliżeniu TTFT plus liczba tokenów wyjścia podzielona przez tę prędkość.</li>' +
             '</ul>' +
-            '<p>Wniosek: dlugie wejscie psuje TTFT, a dluga odpowiedz psuje czas calkowity. To sa dwa osobne problemy z dwoma osobnymi lekarstwami.</p>' +
+            '<p>Wniosek: długie wejście psuje TTFT, a długa odpowiedź psuje czas całkowity. To są dwa osobne problemy z dwoma osobnymi lekarstwami.</p>' +
             '<h4>Prompt caching</h4>' +
-            '<p>Dostawcy pozwalaja zapamietac przeliczony <strong>prefiks</strong> promptu, czyli jego poczatek. Jesli poczatek kolejnego zapytania jest bajt w bajt identyczny, ta czesc nie jest liczona od nowa: placisz za nia ulamek zwyklej ceny i oszczedzasz czas prefill. Warunek jest twardy - dopasowanie idzie od pierwszego tokena, wiec wystarczy wstawic na gorze aktualna date albo identyfikator sesji i cache przestaje trafiac.</p>' +
-            '<p>Stad zasada porzadkowania promptu: najpierw to, co stale (rola, instrukcje, definicje narzedzi), potem to, co zmienne (pytanie uzytkownika). Dokladnie jak z warstwami obrazu Dockera albo hashem w nazwie pliku dla CDN.</p>' +
-            '<h4>Co musisz zapamietac</h4>' +
-            '<p>Tokeny wyjscia sa kilka razy drozsze od wejsciowych, wiec skracanie odpowiedzi jest pierwsza dzwignia. TTFT zalezy od wejscia, a czas calkowity od dlugosci odpowiedzi. Cache dziala tylko na identyczny prefiks, wiec zmienne dane zawsze ida na dol promptu.</p>',
+            '<p>Dostawcy pozwalają zapamiętać przeliczony <strong>prefiks</strong> promptu, czyli jego początek. Jeśli początek kolejnego zapytania jest bajt w bajt identyczny, ta część nie jest liczona od nowa: płacisz za nią ułamek zwykłej ceny i oszczędzasz czas prefill. Warunek jest twardy - dopasowanie idzie od pierwszego tokena, więc wystarczy wstawić na górze aktualną datę albo identyfikator sesji i cache przestaje trafiać.</p>' +
+            '<p>Stąd zasada porządkowania promptu: najpierw to, co stałe (rola, instrukcje, definicje narzędzi), potem to, co zmienne (pytanie użytkownika). Dokładnie jak z warstwami obrazu Dockera albo hashem w nazwie pliku dla CDN.</p>' +
+            '<h4>Co musisz zapamiętać</h4>' +
+            '<p>Tokeny wyjścia są kilka razy droższe od wejściowych, więc skracanie odpowiedzi jest pierwszą dźwignią. TTFT zależy od wejścia, a czas całkowity od długości odpowiedzi. Cache działa tylko na identyczny prefiks, więc zmienne dane zawsze idą na dół promptu.</p>',
           en: '<p>Billing is per token and <strong>asymmetric</strong>: output tokens usually cost 3-5x more than input tokens. The reason is technical. Input is processed in parallel in one pass - the <strong>prefill</strong> phase. Output is produced sequentially, token by token - the <strong>decode</strong> phase, which occupies the graphics card far longer.</p>' +
             '<h4>Worked example: cost one endpoint</h4>' +
             '<p>Take a mid-tier price list: 3 USD per million input tokens and 15 USD per million output. Your call has a 4000-token prompt and a 500-token answer. Input: 4000 times 0.000003 is 0.012 USD. Output: 500 times 0.000015 is 0.0075 USD. Roughly 2 cents per call. At 100,000 calls a month that is about 1950 USD - and suddenly every redundant paragraph in the system prompt has a price tag. Note the proportion: output is eight times shorter and still accounts for 38 percent of the bill.</p>' +
@@ -2790,27 +2790,27 @@ export default {
             '<p>Output tokens cost several times more than input ones, so shortening answers is the first lever. TTFT depends on the input, total time on the answer length. Caching only works on an identical prefix, so volatile data always goes at the bottom of the prompt.</p>'
         },
         pro: {
-          pl: '<p>Koszt i latencja to dwie osobne funkcje tych samych zmiennych, wiec optymalizuj je osobno i mierz osobno. Instrumentacja jest warunkiem wstepnym: loguj per zadanie <code>input_tokens</code>, <code>output_tokens</code>, tokeny zapisu i odczytu cache, nazwe modelu, TTFT i czas calkowity. Bez tego kazda dyskusja o kosztach jest zgadywanka.</p>' +
-            '<h4>Kolejnosc dzwigni, od najskuteczniejszej</h4>' +
+          pl: '<p>Koszt i latencja to dwie osobne funkcje tych samych zmiennych, więc optymalizuj je osobno i mierz osobno. Instrumentacja jest warunkiem wstępnym: loguj per zadanie <code>input_tokens</code>, <code>output_tokens</code>, tokeny zapisu i odczytu cache, nazwę modelu, TTFT i czas całkowity. Bez tego każda dyskusja o kosztach jest zgadywanką.</p>' +
+            '<h4>Kolejność dźwigni, od najskuteczniejszej</h4>' +
             '<ol>' +
-            '<li><strong>Skroc wyjscie.</strong> Najdrozszy token to ten wygenerowany. Wymus zwiezly format (JSON zamiast prozy, limity dlugosci, twarde <code>max_tokens</code>). Czesto 30-40 procent oszczednosci w jeden dzien.</li>' +
-            '<li><strong>Wlacz prompt caching.</strong> Odczyt z cache to zwykle okolo 10 procent ceny wejscia u Anthropic (zapis okolo 125 procent), a u OpenAI automatyczny rabat rzedu 50 procent dla powtarzanych prefiksow. Przy agencie z 20 tysiacami tokenow narzedzi i instrukcji to roznica miedzy rentownoscia a jej brakiem.</li>' +
-            '<li><strong>Routing modeli.</strong> Klasyfikacja i ekstrakcja ida na maly model (Haiku, GPT-4o-mini, Gemini Flash), a tylko trudne przypadki eskaluja do duzego. Roznica cen miedzy klasami to zwykle rzad wielkosci.</li>' +
-            '<li><strong>Przytnij wejscie.</strong> Mniej chunkow z RAG, kompakcja historii, usuniecie nieuzywanych definicji narzedzi.</li>' +
-            '<li><strong>Batch API</strong> dla zadan offline - okolo 50 procent taniej, kosztem opoznienia liczonego w godzinach.</li>' +
+            '<li><strong>Skróć wyjście.</strong> Najdroższy token to ten wygenerowany. Wymuś zwięzły format (JSON zamiast prozy, limity długości, twarde <code>max_tokens</code>). Często 30-40 procent oszczędności w jeden dzień.</li>' +
+            '<li><strong>Włącz prompt caching.</strong> Odczyt z cache to zwykle około 10 procent ceny wejścia u Anthropic (zapis około 125 procent), a u OpenAI automatyczny rabat rzędu 50 procent dla powtarzanych prefiksów. Przy agencie z 20 tysiącami tokenów narzędzi i instrukcji to różnica między rentownością a jej brakiem.</li>' +
+            '<li><strong>Routing modeli.</strong> Klasyfikacja i ekstrakcja idą na mały model (Haiku, GPT-4o-mini, Gemini Flash), a tylko trudne przypadki eskalują do dużego. Różnica cen między klasami to zwykle rząd wielkości.</li>' +
+            '<li><strong>Przytnij wejście.</strong> Mniej chunków z RAG, kompakcja historii, usunięcie nieużywanych definicji narzędzi.</li>' +
+            '<li><strong>Batch API</strong> dla zadań offline - około 50 procent taniej, kosztem opóźnienia liczonego w godzinach.</li>' +
             '</ol>' +
             '<pre><code>const res = await client.messages.create({\n  model: "claude-sonnet-4-5",\n  max_tokens: 600,\n  system: [\n    { type: "text", text: STABLE_INSTRUCTIONS,\n      cache_control: { type: "ephemeral" } }\n  ],\n  messages: [{ role: "user", content: userTurn }]\n});\nlog({\n  in: res.usage.input_tokens,\n  out: res.usage.output_tokens,\n  cacheRead: res.usage.cache_read_input_tokens\n});</code></pre>' +
             '<h4>Projektowanie promptu pod cache</h4>' +
-            '<p>Dopasowanie jest prefiksowe, wiec traktuj prompt jak warstwy w Dockerfile: rzeczy zmienne na dol. Konkretne zakazy: brak znacznika czasu na gorze, brak identyfikatora uzytkownika w system prompcie, brak losowej kolejnosci dokumentow z retrievalu, brak <code>JSON.stringify</code> po obiekcie, ktorego kolejnosc kluczy moze sie zmienic miedzy wywolaniami. Minimalna dlugosc cachowanego bloku to zwykle okolo 1024 tokeny, wiec cachowanie krotkiego promptu nic nie daje. TTL (czas zycia wpisu) bywa krotki, rzedu 5 minut z odswiezeniem przy kazdym uzyciu - dla ruchu ciaglego dziala swietnie, dla rzadkiego prawie wcale.</p>' +
+            '<p>Dopasowanie jest prefiksowe, więc traktuj prompt jak warstwy w Dockerfile: rzeczy zmienne na dół. Konkretne zakazy: brak znacznika czasu na górze, brak identyfikatora użytkownika w system prompcie, brak losowej kolejności dokumentów z retrievalu, brak <code>JSON.stringify</code> po obiekcie, którego kolejność kluczy może się zmienić między wywołaniami. Minimalna długość cachowanego bloku to zwykle około 1024 tokeny, więc cachowanie krótkiego promptu nic nie daje. TTL (czas życia wpisu) bywa krótki, rzędu 5 minut z odświeżeniem przy każdym użyciu - dla ruchu ciągłego działa świetnie, dla rzadkiego prawie wcale.</p>' +
             '<h4>Latencja odczuwalna</h4>' +
-            '<p>Uzytkownik ocenia TTFT, nie czas calkowity. Streaming (przesylanie odpowiedzi token po tokenie zamiast czekania na calosc) zmienia odczuwalne 8 sekund w akceptowalne, bo tekst rusza po 400 ms. Dla wywolan z narzedziami pokazuj etap - "szukam w dokumentacji", "pisze odpowiedz" - bo to jest twoj odpowiednik skeletona w React. Jesli generujesz strukture, streamuj czesciowy JSON i renderuj pola, ktore juz sa kompletne; to temat modulu o streamingu.</p>' +
+            '<p>Użytkownik ocenia TTFT, nie czas całkowity. Streaming (przesyłanie odpowiedzi token po tokenie zamiast czekania na całość) zmienia odczuwalne 8 sekund w akceptowalne, bo tekst rusza po 400 ms. Dla wywołań z narzędziami pokazuj etap - "szukam w dokumentacji", "piszę odpowiedź" - bo to jest twój odpowiednik skeletona w React. Jeśli generujesz strukturę, streamuj częściowy JSON i renderuj pola, które już są kompletne; to temat modułu o streamingu.</p>' +
             '<h4>Na rozmowie kwalifikacyjnej</h4>' +
-            '<p>Pytanie, ktore pada czesto: dlaczego wersja z cachem moze byc drozsza przy pierwszym wywolaniu. Odpowiedz: zapis do cache kosztuje wiecej niz zwykle wejscie (okolo 1,25x), wiec oplaca sie dopiero od drugiego trafienia w oknie TTL - przy jednorazowych, unikalnych promptach caching tylko doklada kosztu. Drugie czeste pytanie: dlaczego skrocenie promptu o polowe nie skrocilo odpowiedzi o polowe. Bo skrocilo prefill, czyli TTFT, a nie decode - a to decode dominuje czas calkowity przy dlugich odpowiedziach.</p>' +
+            '<p>Pytanie, które pada często: dlaczego wersja z cachem może być droższa przy pierwszym wywołaniu. Odpowiedź: zapis do cache kosztuje więcej niż zwykłe wejście (około 1,25x), więc opłaca się dopiero od drugiego trafienia w oknie TTL - przy jednorazowych, unikalnych promptach caching tylko dokłada kosztu. Drugie częste pytanie: dlaczego skrócenie promptu o połowę nie skróciło odpowiedzi o połowę. Bo skróciło prefill, czyli TTFT, a nie decode - a to decode dominuje czas całkowity przy długich odpowiedziach.</p>' +
             '<h4>Co z tego wynika w praktyce</h4>' +
             '<ul>' +
-            '<li>Bez logowania tokenow per zadanie nie masz jak stwierdzic, ktora zmiana pomogla - zacznij od instrumentacji, nie od optymalizacji.</li>' +
-            '<li>Kolejnosc dzwigni jest stala: najpierw krotsze wyjscie, potem cache, potem mniejszy model, na koncu krotsze wejscie i tryb wsadowy.</li>' +
-            '<li>Uklad promptu to decyzja architektoniczna - stabilny prefiks na gorze jest jednoczesnie tanszy, szybszy i latwiejszy do debugowania.</li>' +
+            '<li>Bez logowania tokenów per zadanie nie masz jak stwierdzić, która zmiana pomogła - zacznij od instrumentacji, nie od optymalizacji.</li>' +
+            '<li>Kolejność dźwigni jest stała: najpierw krótsze wyjście, potem cache, potem mniejszy model, na końcu krótsze wejście i tryb wsadowy.</li>' +
+            '<li>Układ promptu to decyzja architektoniczna - stabilny prefiks na górze jest jednocześnie tańszy, szybszy i łatwiejszy do debugowania.</li>' +
             '</ul>',
           en: '<p>Cost and latency are two separate functions of the same variables, so optimize and measure them separately. Instrumentation is the precondition: log per task <code>input_tokens</code>, <code>output_tokens</code>, cache write and read tokens, model name, TTFT and total time. Without that, every cost discussion is guesswork.</p>' +
             '<h4>Levers in order of impact</h4>' +
@@ -2839,69 +2839,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Ktora zmiana najszybciej obnizy rachunek za wywolania modelu?',
+            pl: 'Która zmiana najszybciej obniży rachunek za wywołania modelu?',
             en: 'Which change lowers your model bill the fastest?'
           },
           options: [
-            { pl: 'Poprosic o krotsza odpowiedz', en: 'Ask for a shorter answer' },
-            { pl: 'Wyslac prompt wielkimi literami', en: 'Send the prompt in capital letters' },
-            { pl: 'Zadawac pytania wieczorem, poza godzinami szczytu', en: 'Ask questions in the evening, outside peak hours' },
-            { pl: 'Podniesc temperature', en: 'Raise the temperature' }
+            { pl: 'Poprosić o krótszą odpowiedź', en: 'Ask for a shorter answer' },
+            { pl: 'Wysłać prompt wielkimi literami', en: 'Send the prompt in capital letters' },
+            { pl: 'Zadawać pytania wieczorem, poza godzinami szczytu', en: 'Ask questions in the evening, outside peak hours' },
+            { pl: 'Podnieść temperature', en: 'Raise the temperature' }
           ],
           correct: 0,
           explain: {
-            pl: 'Slowa, ktore model pisze, kosztuja kilka razy wiecej niz te, ktore wysylasz. Skrocenie odpowiedzi to najtansza i najszybsza oszczednosc.',
+            pl: 'Słowa, które model pisze, kosztują kilka razy więcej niż te, które wysyłasz. Skrócenie odpowiedzi to najtańsza i najszybsza oszczędność.',
             en: 'The words the model writes cost several times more than the words you send. Shortening the answer is the cheapest and fastest saving.'
           }
         },
         {
           q: {
-            pl: 'Ktore tokeny sa zazwyczaj drozsze i dlaczego?',
+            pl: 'Które tokeny są zazwyczaj droższe i dlaczego?',
             en: 'Which tokens are usually more expensive, and why?'
           },
           options: [
-            { pl: 'Wejsciowe, bo jest ich wiecej', en: 'Input tokens, because there are more of them' },
-            { pl: 'Wyjsciowe, zwykle 3-5 razy drozsze, bo powstaja sekwencyjnie i dluzej zajmuja GPU', en: 'Output tokens, typically 3-5x, because they are produced sequentially and hold the GPU longer' },
-            { pl: 'Kosztuja tyle samo', en: 'They cost the same' },
-            { pl: 'Zalezy wylacznie od jezyka promptu', en: 'It depends only on the prompt language' }
+            { pl: 'Wejściowe, bo jest ich więcej', en: 'Input tokens, because there are more of them' },
+            { pl: 'Wyjściowe, zwykle 3-5 razy droższe, bo powstają sekwencyjnie i dłużej zajmują GPU', en: 'Output tokens, typically 3-5x, because they are produced sequentially and hold the GPU longer' },
+            { pl: 'Kosztują tyle samo', en: 'They cost the same' },
+            { pl: 'Zależy wyłącznie od języka promptu', en: 'It depends only on the prompt language' }
           ],
           correct: 1,
           explain: {
-            pl: 'Wejscie liczy sie rownolegle w jednym przebiegu (prefill), wyjscie token po tokenie (decode). Stad asymetria cen i stad kolejnosc optymalizacji.',
+            pl: 'Wejście liczy się równolegle w jednym przebiegu (prefill), wyjście token po tokenie (decode). Stąd asymetria cen i stąd kolejność optymalizacji.',
             en: 'Input is processed in parallel in one pass (prefill), output token by token (decode). Hence the price asymmetry and hence the optimization order.'
           }
         },
         {
           q: {
-            pl: 'Co oznacza TTFT i od czego glownie zalezy?',
+            pl: 'Co oznacza TTFT i od czego głównie zależy?',
             en: 'What does TTFT mean and what mainly drives it?'
           },
           options: [
-            { pl: 'Calkowity czas odpowiedzi; zalezy od liczby tokenow wyjscia', en: 'Total response time; driven by the number of output tokens' },
-            { pl: 'Limit tokenow na zadanie; zalezy od planu cenowego', en: 'The token limit per request; driven by your pricing plan' },
-            { pl: 'Czas do pierwszego tokena; zalezy glownie od dlugosci wejscia', en: 'Time to first token; driven mainly by input length' },
-            { pl: 'Czas zycia wpisu w cache; zalezy od dostawcy', en: 'The lifetime of a cache entry; driven by the provider' }
+            { pl: 'Całkowity czas odpowiedzi; zależy od liczby tokenów wyjścia', en: 'Total response time; driven by the number of output tokens' },
+            { pl: 'Limit tokenów na zadanie; zależy od planu cenowego', en: 'The token limit per request; driven by your pricing plan' },
+            { pl: 'Czas do pierwszego tokena; zależy głównie od długości wejścia', en: 'Time to first token; driven mainly by input length' },
+            { pl: 'Czas życia wpisu w cache; zależy od dostawcy', en: 'The lifetime of a cache entry; driven by the provider' }
           ],
           correct: 2,
           explain: {
-            pl: 'TTFT to efekt fazy prefill, czyli przeliczenia calego wejscia. To metryka UX numer jeden przy streamingu - uzytkownik ocenia moment startu tekstu.',
+            pl: 'TTFT to efekt fazy prefill, czyli przeliczenia całego wejścia. To metryka UX numer jeden przy streamingu - użytkownik ocenia moment startu tekstu.',
             en: 'TTFT is the result of prefill, computing the whole input. It is the number one UX metric with streaming - users judge when text starts.'
           }
         },
         {
           q: {
-            pl: 'Agent ma staly system prompt i definicje narzedzi o dlugosci 18 tysiecy tokenow, a na koniec doklejasz krotkie pytanie uzytkownika. Wlaczasz prompt caching (zapamietywanie przeliczonego poczatku promptu) i na samej gorze dopisujesz aktualna date z godzina. Co sie stanie?',
+            pl: 'Agent ma stały system prompt i definicje narzędzi o długości 18 tysięcy tokenów, a na koniec doklejasz krótkie pytanie użytkownika. Włączasz prompt caching (zapamiętywanie przeliczonego początku promptu) i na samej górze dopisujesz aktualną datę z godziną. Co się stanie?',
             en: 'An agent has a fixed 18k-token system prompt and tool definitions, with a short user question appended at the end. You enable prompt caching (storing the precomputed beginning of the prompt) and add the current date and time at the very top. What happens?'
           },
           options: [
-            { pl: 'Cache dziala normalnie, bo data zajmuje malo tokenow', en: 'The cache works fine, because the date is only a few tokens' },
-            { pl: 'Cache dziala szybciej dzieki swiezemu kluczowi', en: 'The cache gets faster thanks to a fresh key' },
-            { pl: 'Cache obejmie tylko tokeny wyjsciowe', en: 'The cache will cover output tokens only' },
-            { pl: 'Kazde wywolanie chybi cache i zaplacisz pelna stawke, bo prefiks rozni sie juz na poczatku', en: 'Every call misses the cache and you pay full price, because the prefix differs right at the start' }
+            { pl: 'Cache działa normalnie, bo data zajmuje mało tokenów', en: 'The cache works fine, because the date is only a few tokens' },
+            { pl: 'Cache działa szybciej dzięki świeżemu kluczowi', en: 'The cache gets faster thanks to a fresh key' },
+            { pl: 'Cache obejmie tylko tokeny wyjściowe', en: 'The cache will cover output tokens only' },
+            { pl: 'Każde wywołanie chybi cache i zapłacisz pełną stawkę, bo prefiks różni się już na początku', en: 'Every call misses the cache and you pay full price, because the prefix differs right at the start' }
           ],
           correct: 3,
           explain: {
-            pl: 'Dopasowanie jest prefiksowe i bajt w bajt, liczone od pierwszego tokena - roznica na trzecim tokenie uniewaznia cale 18 tysiecy. Zmienne dane przenies na dol promptu, jak zmienne warstwy w Dockerfile.',
+            pl: 'Dopasowanie jest prefiksowe i bajt w bajt, liczone od pierwszego tokena - różnica na trzecim tokenie unieważnia całe 18 tysięcy. Zmienne dane przenieś na dół promptu, jak zmienne warstwy w Dockerfile.',
             en: 'Matching is prefix-based and byte-exact from the first token - a difference at token three invalidates all 18k. Move volatile data to the bottom of the prompt, like volatile Dockerfile layers.'
           }
         }

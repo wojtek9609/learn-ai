@@ -160,7 +160,7 @@ export default {
 - Rendering via template strings + `innerHTML` is fine (content is our own).
   No XSS concerns beyond not breaking HTML.
 
-## Modules and lessons (8 modules, 44 lessons)
+## Modules and lessons (8 modules, 47 lessons)
 
 1. **module-01-llm-fundamentals.js** - id `llm-fundamentals`, order 1, icon 🧠,
    title en "LLM Fundamentals". 6 lessons:
@@ -192,12 +192,13 @@ export default {
    - `reliability`: idempotency, retries, checkpoints, resumability, timeouts.
    - `guardrails-hitl`: permissions, approval flows (human-in-the-loop), sandboxing, blast radius.
 5. **module-05-evals.js** - id `evals-observability`, order 5, icon 📊,
-   title en "Evals & Observability". 5 lessons:
+   title en "Evals & Observability". 6 lessons:
    - `why-evals`: vibes don't scale, evals as unit tests for prompts, the differentiator on the job market.
    - `eval-types`: golden sets, assertions/code checks, pairwise comparison, human review, A/B.
    - `llm-as-judge`: rubrics, judge biases (position, length, self-preference), calibrating against humans.
-   - `tooling`: Langfuse, Braintrust, tracing (spans for LLM calls, tools, retrieval), OpenTelemetry.
+   - `tooling`: Promptfoo as the starter, Langfuse, Braintrust, tracing (spans for LLM calls, tools, retrieval), OpenTelemetry.
    - `ci-regression`: eval suites in CI, gating deploys, drift monitoring in prod, cost tracking.
+   - `request-economics`: Batch API for offline work, response caching (exact and semantic), cost per request, p95, fallbacks and circuit breakers.
 6. **module-06-streaming-ux.js** - id `streaming-ai-ux`, order 6, icon ⚡,
    title en "Streaming & AI Product UX". 6 lessons:
    - `sse-vs-websockets`: SSE mechanics, fetch streams, when WebSockets, reconnects.
@@ -214,12 +215,14 @@ export default {
    - `data-leakage-pii`: system prompt leaks, PII in logs/traces, retention, redaction.
    - `sandboxing-least-privilege`: tool permissions, egress control, human gates for irreversible actions.
 8. **module-08-python.js** - id `python-for-ai`, order 8, icon 🐍,
-   title en "Python for AI Engineers". 5 lessons:
+   title en "Python for AI Engineers". 7 lessons:
    - `reading-python`: syntax mapped 1:1 to TypeScript (dicts, list comprehensions, decorators, dunder).
    - `env-tooling`: uv, venv, pip, pyproject.toml - mapped to npm/package.json mental model.
    - `async-http`: requests vs httpx, asyncio vs the JS event loop, common gotchas.
    - `typing-pydantic`: type hints, pydantic ≈ zod, dataclasses, mypy in passing mode.
    - `scripts-notebooks`: Jupyter, quick scripts, uv run, when notebooks beat scripts.
+   - `fastapi-endpoints`: FastAPI as Python's Express - pydantic-validated endpoints, lifespan-scoped clients, SSE streaming responses.
+   - `pytest-testing`: pytest fixtures and parametrize, mocking LLM calls (respx, monkeypatch), TestClient, where unit tests end and evals begin.
 
 ## Deployment
 
@@ -764,6 +767,71 @@ to the new bar. If accepted, modules 2-8 follow.
   "Glossary" link in the home footer area next to Statystyki, plus i18n.
 - No content changes, no sw.js changes (no new files). i18n pl+en for all new
   strings.
+
+## v8 - Curriculum gap fill (AI Engineer)
+
+Three lessons close the gaps against the target AI-engineer curriculum, written
+to the v1 lesson schema (terms included, `interactive` not required):
+
+- module-05 `request-economics` (lesson 6): Batch API for offline work,
+  response/semantic caching, cost per request, p95, fallbacks and circuit
+  breakers. Plus a Promptfoo mention added to the `tooling` lesson's pro level.
+- module-08 `fastapi-endpoints` (lesson 6): FastAPI endpoints with pydantic
+  validation, lifespan-scoped Anthropic client, SSE via StreamingResponse.
+- module-08 `pytest-testing` (lesson 7): pytest fixtures/parametrize, mocking
+  LLM calls at the HTTP level (respx), TestClient, the pytest-vs-evals boundary.
+
+Counts: ai-engineer 44 -> 47 lessons, total 142 -> 145. README updated.
+No new content files, so sw.js precache is untouched.
+
+## v9 - Cloud & Infrastructure module (AI Engineer)
+
+Closes the biggest curriculum gap against AI-developer job ads (cloud services,
+serverless, containers, microservices, event-driven, CI/CD). New file
+`content/tracks/ai-engineer/module-09-cloud-infrastructure.js` - id
+`cloud-infrastructure`, order 9, icon ☁️, title en "Cloud & Infrastructure".
+Written to the v7 content bar (parenthetical definitions of every term at first
+use, worked examples with real numbers, self-contained q4) even though v7 is
+formally a module-1 pilot - the learner has ZERO cloud background. 8 lessons:
+
+- `what-is-cloud`: data centers, regions/AZs, IaaS/PaaS/SaaS, big three,
+  shared responsibility, egress, IAM. Player: the responsibility ladder
+  (on-prem -> IaaS -> PaaS -> SaaS).
+- `compute-scaling-networking`: VMs, hypervisor, vertical vs horizontal
+  scaling, load balancer + health checks, autoscaling metrics, stateless
+  rule, VPC, security groups. Player: a day of autoscaling (spike, scale
+  out, one VM dies, scale in).
+- `containers-docker`: image vs container, Dockerfile, layers + cache
+  ordering, registry, tags, multi-stage builds, volumes, kernel sharing.
+  Player: layer-by-layer build and the cached rebuild.
+- `kubernetes`: orchestration, cluster/pod/Deployment/Service, desired
+  state + reconciliation (React analogy), probes, HPA, requests/limits,
+  managed K8s, when it is overkill. Player: self-healing + rolling update
+  as one reconciliation loop.
+- `serverless`: FaaS, cold starts, scale to zero, GB-second billing with a
+  worked cost example, API Gateway timeouts vs LLM streaming, serverless
+  containers, cost crossover. Player: zero -> cold start -> burst -> zero
+  with a cost meter.
+- `microservices`: monolith vs microservices trade-offs, modular monolith
+  default, API contracts, eventual consistency, distributed monolith,
+  tracing, Conway's law. Player: the same one-line fix deployed in both
+  worlds.
+- `event-driven`: work queues vs pub/sub, events, at-least-once +
+  idempotency, DLQ, backpressure, Kafka vs SQS, webhooks, AI pipeline
+  patterns (batch embeddings through a queue). Player: a 500-job burst,
+  draining, poison message -> DLQ.
+- `cicd-deployment`: CI vs delivery vs deployment, pipelines, GitHub
+  Actions (ties to this repo's deploy-pages.yml), build-once artifacts,
+  rolling/blue-green/canary, rollback, feature flags, Terraform/IaC, DORA,
+  eval gates for AI apps. Player: a red eval gate stops a bad prompt, the
+  fix rides through a canary.
+
+Every lesson: 9-11 `terms` (the glossary layer doubles as the "everything
+that could be unclear" pass), static diagram, one 4-6 frame interactive
+player, 4-question quiz (q4 production-flavored, correct indexes shuffled).
+Wiring: import in ai-engineer index.js (description now mentions cloud),
+sw.js precache + module-09 entry, README counts 26/145 -> 27/153
+(ai-engineer 8/47 -> 9/55).
 
 ## Definition of done
 

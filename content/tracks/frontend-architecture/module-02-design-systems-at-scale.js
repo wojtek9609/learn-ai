@@ -10,7 +10,7 @@ export default {
     en: 'Design Systems at Scale'
   },
   description: {
-    pl: 'Design system jako produkt wewnetrzny: tokeny i theming, projektowanie API komponentow, wersjonowanie i breaking changes, dokumentacja, testy wizualne oraz model governance i kontrybucji.',
+    pl: 'Design system jako produkt wewnętrzny: tokeny i theming, projektowanie API komponentów, wersjonowanie i breaking changes, dokumentacja, testy wizualne oraz model governance i kontrybucji.',
     en: 'The design system as an internal product: tokens and theming, component API design, versioning and breaking changes, documentation, visual regression testing, and the governance and contribution model.'
   },
   lessons: [
@@ -92,14 +92,14 @@ export default {
           '<text x="500" y="270" fill="var(--muted)" font-size="13" text-anchor="middle">same values</text>' +
           '</svg>',
         caption: {
-          pl: 'Jedno zrodlo prawdy dla tokenow, wiele wyjsc budowanych automatycznie - web, natywne platformy i typowane stale.',
+          pl: 'Jedno źródło prawdy dla tokenów, wiele wyjść budowanych automatycznie - web, natywne platformy i typowane stałe.',
           en: 'One source of truth for tokens, many automatically built outputs - web, native platforms and typed constants.'
         }
       },
       interactive: {
         kind: 'frames',
         caption: {
-          pl: 'Trzy warstwy tokenow i to, co realnie sie zmienia przy podmianie marki i trybu ciemnego.',
+          pl: 'Trzy warstwy tokenów i to, co realnie się zmienia przy podmianie marki i trybu ciemnego.',
           en: 'The three token layers and what actually changes when you swap brand and dark mode.'
         },
         frames: [
@@ -129,7 +129,7 @@ export default {
               '</svg>',
             label: { pl: 'Trzy warstwy', en: 'Three layers' },
             note: {
-              pl: 'Warstwa 1 to surowa paleta bez znaczenia. Aplikacje jej nie dotykaja - czytaja tylko warstwe semantyczna i komponentowa.',
+              pl: 'Warstwa 1 to surowa paleta bez znaczenia. Aplikacje jej nie dotykają - czytają tylko warstwę semantyczną i komponentową.',
               en: 'Layer 1 is a raw palette with no meaning. Apps never touch it - they only read the semantic and component layers.'
             }
           },
@@ -163,7 +163,7 @@ export default {
               '</svg>',
             label: { pl: 'Referencje', en: 'References' },
             note: {
-              pl: 'Kazdy token wyzszej warstwy wskazuje na nizsza. Zaden komponent nie ma zaszytego hexa - to jest cala sztuczka.',
+              pl: 'Każdy token wyższej warstwy wskazuje na niższą. Żaden komponent nie ma zaszytego hexa - to jest cała sztuczka.',
               en: 'Every higher-layer token points at a lower one. No component hardcodes a hex value - that is the whole trick.'
             }
           },
@@ -196,7 +196,7 @@ export default {
               '</svg>',
             label: { pl: 'Podmiana marki', en: 'Brand swap' },
             note: {
-              pl: 'Druga marka to podmiana jednego pliku palety. Warstwy 2 i 3 sie nie ruszaja, wiec zero zmian w aplikacjach.',
+              pl: 'Druga marka to podmiana jednego pliku palety. Warstwy 2 i 3 się nie ruszają, więc zero zmian w aplikacjach.',
               en: 'A second brand is one palette file swapped. Layers 2 and 3 do not move, so consuming apps change nothing.'
             }
           },
@@ -228,7 +228,7 @@ export default {
               '</svg>',
             label: { pl: 'Tryb ciemny', en: 'Dark mode' },
             note: {
-              pl: 'Ciemny motyw to inne mapowanie warstwy semantycznej na te sama palete. Tekst i tlo zamieniaja sie miejscami.',
+              pl: 'Ciemny motyw to inne mapowanie warstwy semantycznej na tę samą paletę. Tekst i tło zamieniają się miejscami.',
               en: 'Dark mode is a different mapping of the semantic layer onto the same palette. Text and surface trade places.'
             }
           },
@@ -256,7 +256,7 @@ export default {
               '</svg>',
             label: { pl: 'Antywzorzec', en: 'Anti-pattern' },
             note: {
-              pl: 'Aplikacja siegajaca po prymityw omija cala abstrakcje. Przy nastepnym rebrandingu tylko ona zostanie w starych kolorach.',
+              pl: 'Aplikacja sięgająca po prymityw omija całą abstrakcję. Przy następnym rebrandingu tylko ona zostanie w starych kolorach.',
               en: 'An app reaching for a primitive bypasses the whole abstraction. At the next rebrand it is the one screen left in the old colours.'
             }
           }
@@ -264,28 +264,28 @@ export default {
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie, ze masz wielkie pudlo kredek i rysujesz plakaty dla calej szkoly. Gdyby kazdy nauczyciel sam wybieral kredki, plakaty wygladalyby jak z pieciu roznych szkol.</p>' +
-            '<p>Wiec robisz cos sprytnego. Na kredkach naklejasz karteczki z rolami: <strong>kolor przyciskow</strong>, <strong>kolor tekstu</strong>, <strong>kolor ostrzezen</strong>. Od teraz nikt nie mowi "wez ten fioletowy", tylko "wez kredke od przyciskow".</p>' +
-            '<p>Magia zaczyna sie, gdy dyrektor mowi: od jutra szkola jest zielona. Nie musisz przerabiac stu plakatow. Przeklejasz karteczke "kolor przyciskow" na zielona kredke i wszystkie plakaty robia sie zielone same z siebie.</p>' +
-            '<p>Karteczki to wlasnie <strong>tokeny</strong> (male nazwane etykiety na wartosciach). A gdy ktos podglada pod karteczke i pisze "fioletowy" na sztywno, jego plakat po zmianie zostanie jedyny fioletowy - i wszyscy zobacza, ze oszukiwal.</p>',
+          pl: '<p>Wyobraź sobie, że masz wielkie pudło kredek i rysujesz plakaty dla całej szkoły. Gdyby każdy nauczyciel sam wybierał kredki, plakaty wyglądałyby jak z pięciu różnych szkół.</p>' +
+            '<p>Więc robisz coś sprytnego. Na kredkach naklejasz karteczki z rolami: <strong>kolor przycisków</strong>, <strong>kolor tekstu</strong>, <strong>kolor ostrzeżeń</strong>. Od teraz nikt nie mówi "weź ten fioletowy", tylko "weź kredkę od przycisków".</p>' +
+            '<p>Magia zaczyna się, gdy dyrektor mówi: od jutra szkoła jest zielona. Nie musisz przerabiać stu plakatów. Przeklejasz karteczkę "kolor przycisków" na zieloną kredkę i wszystkie plakaty robią się zielone same z siebie.</p>' +
+            '<p>Karteczki to właśnie <strong>tokeny</strong> (małe nazwane etykiety na wartościach). A gdy ktoś podgląda pod karteczkę i pisze "fioletowy" na sztywno, jego plakat po zmianie zostanie jedyny fioletowy - i wszyscy zobaczą, że oszukiwał.</p>',
           en: '<p>Imagine you have a giant box of crayons and you draw posters for the whole school. If every teacher picked their own crayon, the posters would look like they came from five different schools.</p>' +
             '<p>So you do something clever. You stick little labels on the crayons with roles on them: <strong>button colour</strong>, <strong>text colour</strong>, <strong>warning colour</strong>. From now on nobody says "grab the purple one", they say "grab the button crayon".</p>' +
             '<p>The magic shows up when the head teacher announces: from tomorrow the school is green. You do not redraw a hundred posters. You move the "button colour" label onto a green crayon and every poster turns green by itself.</p>' +
             '<p>Those labels are <strong>tokens</strong> (small named tags stuck on values). And when somebody peeks under the label and writes "purple" by hand, their poster stays purple after the change - and everyone can see who cheated.</p>'
         },
         school: {
-          pl: '<p>Design token to nazwana wartosc projektowa: kolor, odstep, promien, cien, rozmiar czcionki. Zamiast <code>#0b5fff</code> w kodzie masz <code>--chi-color-action</code>. Dla frontendowca to dokladnie to samo, co wyciagniecie magic numbers do stalych - tylko ze stale sa wspoldzielone przez cala firme.</p>' +
-            '<p>W dojrzalym systemie tokeny sa <strong>trzywarstwowe</strong>:</p>' +
+          pl: '<p>Design token to nazwana wartość projektowa: kolor, odstęp, promień, cień, rozmiar czcionki. Zamiast <code>#0b5fff</code> w kodzie masz <code>--chi-color-action</code>. Dla frontendowca to dokładnie to samo, co wyciągnięcie magic numbers do stałych - tylko że stałe są współdzielone przez całą firmę.</p>' +
+            '<p>W dojrzałym systemie tokeny są <strong>trzywarstwowe</strong>:</p>' +
             '<ul>' +
             '<li><strong>Prymitywy</strong> - surowa paleta: <code>blue-500</code>, <code>space-4</code>. Bez znaczenia biznesowego.</li>' +
             '<li><strong>Semantyczne</strong> - rola: <code>color-action</code>, <code>color-text-inverse</code>, <code>space-md</code>. To jest publiczne API dla aplikacji.</li>' +
-            '<li><strong>Komponentowe</strong> - <code>button-bg</code>, <code>card-padding</code>. Punkt zaczepienia dla wyjatkow.</li>' +
+            '<li><strong>Komponentowe</strong> - <code>button-bg</code>, <code>card-padding</code>. Punkt zaczepienia dla wyjątków.</li>' +
             '</ul>' +
-            '<p>Warstwy pozwalaja robic theming przez podmiane, a nie przez przepisywanie. Nowa marka? Zmieniasz prymitywy. Dark mode? Przemapowujesz warstwe semantyczna na te sama palete. Aplikacje nie zmieniaja ani linijki, bo caly czas czytaja te same nazwy semantyczne.</p>' +
-            '<p>Na webie tokeny lezą najczesciej w CSS custom properties, bo dziedzicza sie w dol drzewa i pozwalaja przelaczyc motyw w runtime jednym atrybutem:</p>' +
+            '<p>Warstwy pozwalają robić theming przez podmianę, a nie przez przepisywanie. Nowa marka? Zmieniasz prymitywy. Dark mode? Przemapowujesz warstwę semantyczną na tę samą paletę. Aplikacje nie zmieniają ani linijki, bo cały czas czytają te same nazwy semantyczne.</p>' +
+            '<p>Na webie tokeny leżą najczęściej w CSS custom properties, bo dziedziczą się w dół drzewa i pozwalają przełączyć motyw w runtime jednym atrybutem:</p>' +
             '<pre><code>:root { --color-action: var(--blue-500); }\n[data-theme="dark"] { --color-surface: var(--grey-900); }\n.btn { background: var(--color-action); }</code></pre>' +
-            '<p>Zrodlem prawdy jest zwykle plik JSON w formacie W3C DTCG, eksportowany z Figmy (Tokens Studio) i przepuszczany przez Style Dictionary, ktore generuje CSS, Sass, TypeScript i pliki dla iOS oraz Androida z tych samych danych. Dzieki temu projektant i inzynier nie dyskutuja juz o tym, czy odstep ma szesnascie czy osiemnascie pikseli - dyskutuja o tym, ktory token jest tu wlasciwy, a to zupelnie inna rozmowa.</p>' +
-            '<p>Ostatnia rzecz, ktora warto sobie od razu ustalic: tokeny to nie tylko kolory. Odstepy, promienie, cienie, wysokosci linii, czasy animacji i punkty zalamania siatki tez sa tokenami. Kolory sa najbardziej widoczne, ale to spójna skala odstepow decyduje o tym, czy dwa ekrany zrobione przez rozne zespoly wygladaja jak jeden produkt.</p>',
+            '<p>Źródłem prawdy jest zwykle plik JSON w formacie W3C DTCG, eksportowany z Figmy (Tokens Studio) i przepuszczany przez Style Dictionary, które generuje CSS, Sass, TypeScript i pliki dla iOS oraz Androida z tych samych danych. Dzięki temu projektant i inżynier nie dyskutują już o tym, czy odstęp ma szesnaście czy osiemnaście pikseli - dyskutują o tym, który token jest tu właściwy, a to zupełnie inna rozmowa.</p>' +
+            '<p>Ostatnia rzecz, którą warto sobie od razu ustalić: tokeny to nie tylko kolory. Odstępy, promienie, cienie, wysokości linii, czasy animacji i punkty załamania siatki też są tokenami. Kolory są najbardziej widoczne, ale to spójna skala odstępów decyduje o tym, czy dwa ekrany zrobione przez różne zespoły wyglądają jak jeden produkt.</p>',
           en: '<p>A design token is a named design value: a colour, spacing step, radius, shadow, font size. Instead of <code>#0b5fff</code> in code you have <code>--chi-color-action</code>. For a frontend engineer this is exactly the same move as extracting magic numbers into constants - except the constants are shared by the whole company.</p>' +
             '<p>In a mature system tokens come in <strong>three layers</strong>:</p>' +
             '<ul>' +
@@ -299,20 +299,20 @@ export default {
             '<p>The source of truth is typically a JSON file in the W3C DTCG format, exported from Figma (Tokens Studio) and run through Style Dictionary, which generates CSS, Sass, TypeScript and iOS plus Android files from the same data.</p>'
         },
         pro: {
-          pl: '<p>W skali telco tokeny przestaja byc kwestia estetyki, a staja sie <strong>kontraktem API</strong>. Typowy system ma 300-600 prymitywow, 150-300 tokenow semantycznych i kilkaset komponentowych. Kazda nazwa semantyczna, ktora wyeksportujesz, jest publiczna na lata - usuniecie jej to breaking change dla 40-80 aplikacji.</p>' +
+          pl: '<p>W skali telco tokeny przestają być kwestią estetyki, a stają się <strong>kontraktem API</strong>. Typowy system ma 300-600 prymitywów, 150-300 tokenów semantycznych i kilkaset komponentowych. Każda nazwa semantyczna, którą wyeksportujesz, jest publiczna na lata - usunięcie jej to breaking change dla 40-80 aplikacji.</p>' +
             '<h4>Pipeline</h4>' +
-            '<p>Figma variables lub Tokens Studio eksportuja JSON w formacie DTCG do repozytorium tokenow. PR z tym plikiem jest recenzowany tak jak kod. Style Dictionary (albo Terrazzo) robi transformacje i wypluwa artefakty: <code>tokens.css</code>, <code>tokens.scss</code>, <code>tokens.ts</code>, pliki dla natywnych. Publikacja idzie przez changesets do npm, wersjonowana semver.</p>' +
+            '<p>Figma variables lub Tokens Studio eksportują JSON w formacie DTCG do repozytorium tokenów. PR z tym plikiem jest recenzowany tak jak kod. Style Dictionary (albo Terrazzo) robi transformacje i wypluwa artefakty: <code>tokens.css</code>, <code>tokens.scss</code>, <code>tokens.ts</code>, pliki dla natywnych. Publikacja idzie przez changesets do npm, wersjonowana semver.</p>' +
             '<pre><code>// style-dictionary.config.js\nexport default {\n  source: ["tokens/**/*.json"],\n  platforms: {\n    css: {\n      transformGroup: "css",\n      files: [{\n        destination: "tokens.css",\n        format: "css/variables",\n        options: { outputReferences: true }\n      }]\n    }\n  }\n};</code></pre>' +
-            '<p><code>outputReferences: true</code> jest kluczowe: zachowuje <code>var(--blue-500)</code> zamiast splaszczac do hexa, dzieki czemu runtime theming w ogole dziala.</p>' +
-            '<h4>Decyzje, ktore realnie bola</h4>' +
+            '<p><code>outputReferences: true</code> jest kluczowe: zachowuje <code>var(--blue-500)</code> zamiast spłaszczać do hexa, dzięki czemu runtime theming w ogóle działa.</p>' +
+            '<h4>Decyzje, które realnie bolą</h4>' +
             '<ul>' +
-            '<li><strong>Runtime vs build-time.</strong> CSS custom properties daja przelaczanie motywu bez rebuildu i dzialaja przez Shadow DOM (przenikaja granice, w przeciwienstwie do zwyklych stylow). Koszt: brak type-safety i minimalny narzut na recalc styli przy bardzo duzych drzewach. Build-time (Sass, vanilla-extract) daje mniejszy CSS, ale kazda marka to osobny bundle - przy 6 markach to 6 razy wiecej artefaktow.</li>' +
-            '<li><strong>Nazewnictwo.</strong> Wzorzec <code>[prefix]-[kategoria]-[rola]-[wariant]-[stan]</code>. Nazwy semantyczne nie moga zawierac koloru (<code>color-action</code>, nigdy <code>color-blue-button</code>), bo przy rebrandingu nazwa klamie.</li>' +
-            '<li><strong>Kontrast jako test.</strong> Kazda para tekst/tlo w warstwie semantycznej powinna miec test WCAG AA w CI. Przy szesciu markach recznie tego nie upilnujesz.</li>' +
+            '<li><strong>Runtime vs build-time.</strong> CSS custom properties dają przełączanie motywu bez rebuildu i działają przez Shadow DOM (przenikają granice, w przeciwieństwie do zwykłych stylów). Koszt: brak type-safety i minimalny narzut na recalc styli przy bardzo dużych drzewach. Build-time (Sass, vanilla-extract) daje mniejszy CSS, ale każda marka to osobny bundle - przy 6 markach to 6 razy więcej artefaktów.</li>' +
+            '<li><strong>Nazewnictwo.</strong> Wzorzec <code>[prefix]-[kategoria]-[rola]-[wariant]-[stan]</code>. Nazwy semantyczne nie mogą zawierać koloru (<code>color-action</code>, nigdy <code>color-blue-button</code>), bo przy rebrandingu nazwa kłamie.</li>' +
+            '<li><strong>Kontrast jako test.</strong> Każda para tekst/tło w warstwie semantycznej powinna mieć test WCAG AA w CI. Przy sześciu markach ręcznie tego nie upilnujesz.</li>' +
             '</ul>' +
             '<h4>Egzekwowanie</h4>' +
-            '<p>Warto tez zaplanowac migracje z dnia zero. Wprowadzenie warstwy semantycznej do systemu, ktory jej nie mial, to setki podmian w kilkudziesieciu repozytoriach - realnie robi sie to codemodem na CSS plus mapa starych nazw na nowe, utrzymywana jako alias przez jeden pelny cykl wydawniczy. Aliasy trzeba potem usunac, inaczej po dwoch latach masz dwa rownolegle slowniki i nikt nie wie, ktory jest obowiazujacy.</p>' +
-            '<p>Sam token nikogo nie powstrzyma przed wpisaniem hexa. Potrzebujesz <code>stylelint-declaration-strict-value</code> albo wlasnej reguly ESLint w pipeline aplikacji, plus okresowego skanu repozytoriow (prosty grep po <code>#[0-9a-f]{6}</code> w PR-ach). Metryka dojrzalosci, ktora warto raportowac zarzadowi: procent deklaracji kolorow uzywajacych tokenow. Realistyczny cel to 90-95 procent, nie 100 - zawsze zostaje ilustracja i wykres.</p>',
+            '<p>Warto też zaplanować migrację z dnia zero. Wprowadzenie warstwy semantycznej do systemu, który jej nie miał, to setki podmian w kilkudziesięciu repozytoriach - realnie robi się to codemodem na CSS plus mapa starych nazw na nowe, utrzymywana jako alias przez jeden pełny cykl wydawniczy. Aliasy trzeba potem usunąć, inaczej po dwóch latach masz dwa równoległe słowniki i nikt nie wie, który jest obowiązujący.</p>' +
+            '<p>Sam token nikogo nie powstrzyma przed wpisaniem hexa. Potrzebujesz <code>stylelint-declaration-strict-value</code> albo własnej reguły ESLint w pipeline aplikacji, plus okresowego skanu repozytoriów (prosty grep po <code>#[0-9a-f]{6}</code> w PR-ach). Metryka dojrzałości, którą warto raportować zarządowi: procent deklaracji kolorów używających tokenów. Realistyczny cel to 90-95 procent, nie 100 - zawsze zostaje ilustracja i wykres.</p>',
           en: '<p>At telco scale tokens stop being an aesthetics question and become an <strong>API contract</strong>. A typical system carries 300-600 primitives, 150-300 semantic tokens and a few hundred component ones. Every semantic name you export is public for years - removing one is a breaking change for 40-80 applications.</p>' +
             '<h4>The pipeline</h4>' +
             '<p>Figma variables or Tokens Studio export DTCG JSON into a tokens repository. The PR carrying that file is reviewed like code. Style Dictionary (or Terrazzo) applies transforms and emits artefacts: <code>tokens.css</code>, <code>tokens.scss</code>, <code>tokens.ts</code>, native files. Publishing runs through changesets to npm, versioned with semver.</p>' +
@@ -331,24 +331,24 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Po co w ogole warstwa tokenow semantycznych, skoro sa juz prymitywy?',
+            pl: 'Po co w ogóle warstwa tokenów semantycznych, skoro są już prymitywy?',
             en: 'Why have a semantic token layer at all when primitives already exist?'
           },
           options: [
-            { pl: 'Zeby zmniejszyc rozmiar pliku CSS', en: 'To reduce the size of the CSS file' },
-            { pl: 'Zeby aplikacje zalezaly od roli, a nie od konkretnej wartosci koloru', en: 'So apps depend on a role rather than a concrete colour value' },
-            { pl: 'Zeby dizajnerzy mieli wiecej nazw do wyboru', en: 'To give designers more names to choose from' },
+            { pl: 'Żeby zmniejszyć rozmiar pliku CSS', en: 'To reduce the size of the CSS file' },
+            { pl: 'Żeby aplikacje zależały od roli, a nie od konkretnej wartości koloru', en: 'So apps depend on a role rather than a concrete colour value' },
+            { pl: 'Żeby dizajnerzy mieli więcej nazw do wyboru', en: 'To give designers more names to choose from' },
             { pl: 'Bo wymaga tego format W3C DTCG', en: 'Because the W3C DTCG format requires it' }
           ],
           correct: 1,
           explain: {
-            pl: 'Semantyka to poziom posredni, ktory pozwala podmienic palete bez ruszania kodu aplikacji. Rozmiar CSS wrecz lekko rosnie.',
+            pl: 'Semantyka to poziom pośredni, który pozwala podmienić paletę bez ruszania kodu aplikacji. Rozmiar CSS wręcz lekko rośnie.',
             en: 'The semantic layer is the indirection that lets you swap the palette without touching app code. CSS size actually grows slightly.'
           }
         },
         {
           q: {
-            pl: 'Ktora nazwa tokena jest bledna w warstwie semantycznej?',
+            pl: 'Która nazwa tokena jest błędna w warstwie semantycznej?',
             en: 'Which token name is wrong for the semantic layer?'
           },
           options: [
@@ -359,41 +359,41 @@ export default {
           ],
           correct: 2,
           explain: {
-            pl: 'Nazwa semantyczna nie moze zawierac konkretnego koloru - po rebrandingu na fiolet token o nazwie blue bedzie klamal kazdemu, kto go czyta.',
+            pl: 'Nazwa semantyczna nie może zawierać konkretnego koloru - po rebrandingu na fiolet token o nazwie blue będzie kłamał każdemu, kto go czyta.',
             en: 'A semantic name must not carry a concrete colour - after a rebrand to purple, a token called blue lies to everyone reading it.'
           }
         },
         {
           q: {
-            pl: 'Wlaczasz nowa marke. Uzywacie Style Dictionary, ale po zmianie prymitywow motyw nie przelacza sie w runtime - wszystko zostaje w starych kolorach. Co najpewniej jest przyczyna?',
+            pl: 'Włączasz nową markę. Używacie Style Dictionary, ale po zmianie prymitywów motyw nie przełącza się w runtime - wszystko zostaje w starych kolorach. Co najpewniej jest przyczyna?',
             en: 'You are onboarding a new brand. You use Style Dictionary, but after changing the primitives the theme does not switch at runtime - everything stays in the old colours. What is the likely cause?'
           },
           options: [
-            { pl: 'Brakuje outputReferences, wiec wartosci zostaly splaszczone do hexow w czasie budowania', en: 'outputReferences is missing, so values were flattened to hex codes at build time' },
-            { pl: 'CSS custom properties nie dziedzicza sie w dol drzewa DOM', en: 'CSS custom properties do not inherit down the DOM tree' },
-            { pl: 'Tokeny semantyczne musza byc definiowane w JavaScripcie', en: 'Semantic tokens have to be defined in JavaScript' },
-            { pl: 'Format DTCG nie obsluguje wielu marek', en: 'The DTCG format does not support multiple brands' }
+            { pl: 'Brakuje outputReferences, więc wartości zostały spłaszczone do hexów w czasie budowania', en: 'outputReferences is missing, so values were flattened to hex codes at build time' },
+            { pl: 'CSS custom properties nie dziedziczą się w dół drzewa DOM', en: 'CSS custom properties do not inherit down the DOM tree' },
+            { pl: 'Tokeny semantyczne muszą być definiowane w JavaScripcie', en: 'Semantic tokens have to be defined in JavaScript' },
+            { pl: 'Format DTCG nie obsługuje wielu marek', en: 'The DTCG format does not support multiple brands' }
           ],
           correct: 0,
           explain: {
-            pl: 'Bez outputReferences Style Dictionary rozwija referencje do surowych wartosci, wiec kaskada CSS nie ma juz czego nadpisac.',
+            pl: 'Bez outputReferences Style Dictionary rozwija referencje do surowych wartości, więc kaskada CSS nie ma już czego nadpisać.',
             en: 'Without outputReferences, Style Dictionary resolves references down to raw values, so the CSS cascade has nothing left to override.'
           }
         },
         {
           q: {
-            pl: 'Zespol produktowy prosi o dodanie tokena color-action-checkout-green, bo ich A/B test pokazal wyzsza konwersje. Najlepsza reakcja architekta?',
+            pl: 'Zespół produktowy prosi o dodanie tokena color-action-checkout-green, bo ich A/B test pokazał wyższą konwersję. Najlepsza reakcja architekta?',
             en: 'A product team asks for a color-action-checkout-green token because their A/B test showed higher conversion. Best architect response?'
           },
           options: [
-            { pl: 'Dodac token, skoro dane z testu to uzasadniaja', en: 'Add the token, the test data justifies it' },
-            { pl: 'Odmowic i kazac uzyc istniejacego color-action', en: 'Refuse and tell them to use the existing color-action' },
-            { pl: 'Pozwolic im nadpisac token komponentowy lokalnie i zebrac dowody, zanim cokolwiek trafi do warstwy semantycznej', en: 'Let them override the component token locally and gather evidence before anything enters the semantic layer' },
-            { pl: 'Dodac token do warstwy prymitywow, bo tam jest najtaniej', en: 'Add it to the primitive layer, it is cheapest there' }
+            { pl: 'Dodać token, skoro dane z testu to uzasadniają', en: 'Add the token, the test data justifies it' },
+            { pl: 'Odmówić i kazać użyć istniejącego color-action', en: 'Refuse and tell them to use the existing color-action' },
+            { pl: 'Pozwolić im nadpisać token komponentowy lokalnie i zebrać dowody, zanim cokolwiek trafi do warstwy semantycznej', en: 'Let them override the component token locally and gather evidence before anything enters the semantic layer' },
+            { pl: 'Dodać token do warstwy prymitywów, bo tam jest najtaniej', en: 'Add it to the primitive layer, it is cheapest there' }
           ],
           correct: 2,
           explain: {
-            pl: 'Warstwa komponentowa istnieje wlasnie po to, by absorbowac wyjatki bez zanieczyszczania publicznego API. Token semantyczny raz wypuszczony zyje latami.',
+            pl: 'Warstwa komponentowa istnieje właśnie po to, by absorbować wyjątki bez zanieczyszczania publicznego API. Token semantyczny raz wypuszczony żyje latami.',
             en: 'The component layer exists precisely to absorb exceptions without polluting the public API. A semantic token, once shipped, lives for years.'
           }
         }
@@ -403,7 +403,7 @@ export default {
     {
       id: 'component-api-design',
       title: {
-        pl: 'Projektowanie API komponentow',
+        pl: 'Projektowanie API komponentów',
         en: 'Component API design'
       },
       minutes: 11,
@@ -473,30 +473,30 @@ export default {
           '<text x="320" y="396" fill="var(--muted)" font-size="13" text-anchor="middle">every prop you remove is a major</text>' +
           '</svg>',
         caption: {
-          pl: 'Warianty jako enumy zamiast booleanow, plus jasny podzial: propsy konfiguruja, sloty wnoszą tresc, parts sa furtka awaryjna.',
+          pl: 'Warianty jako enumy zamiast booleanów, plus jasny podział: propsy konfigurują, sloty wnoszą treść, parts są furtką awaryjną.',
           en: 'Variants as enums instead of booleans, plus a clear split: props configure, slots carry content, parts are the escape hatch.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Kazdy komponent to jak automat z kawa w biurze. To, co widzisz z zewnatrz - przyciski, otwory, ekranik - to jego API.</p>' +
-            '<p>Zly automat ma osiemdziesiat malych przelacznikow. Mocna? Slaba? Duza? Z mlekiem? Z podwojnym mlekiem? Ludzie ustawiaja kombinacje, ktore nie maja sensu, automat mruga i wylewa wode na podloge.</p>' +
-            '<p>Dobry automat ma trzy pokretla i kazda pozycja robi cos sensownego. Jest jeszcze male drzwiczki z tylu, na wypadek gdyby ktos naprawde musial zajrzec do srodka - ale wszyscy wiedza, ze to wyjatek, nie normalny sposob uzywania.</p>' +
-            '<p>Kiedy dodajesz nowy przelacznik, dodajesz go na zawsze. Ludzie zaczynaja go uzywac, przywiazuja sie i pozniej nie mozesz go zdjac bez awantury. Dlatego kazdy nowy przelacznik trzeba dokladnie przemyslec - latwiej dolozyc pozniej niz zabrac.</p>',
+          pl: '<p>Każdy komponent to jak automat z kawą w biurze. To, co widzisz z zewnątrz - przyciski, otwory, ekranik - to jego API.</p>' +
+            '<p>Zły automat ma osiemdziesiąt małych przełączników. Mocna? Słaba? Duża? Z mlekiem? Z podwójnym mlekiem? Ludzie ustawiają kombinacje, które nie mają sensu, automat mruga i wylewa wodę na podłogę.</p>' +
+            '<p>Dobry automat ma trzy pokrętła i każda pozycja robi coś sensownego. Jest jeszcze małe drzwiczki z tyłu, na wypadek gdyby ktoś naprawdę musiał zajrzeć do środka - ale wszyscy wiedzą, że to wyjątek, nie normalny sposób używania.</p>' +
+            '<p>Kiedy dodajesz nowy przełącznik, dodajesz go na zawsze. Ludzie zaczynają go używać, przywiązują się i później nie możesz go zdjąć bez awantury. Dlatego każdy nowy przełącznik trzeba dokładnie przemyśleć - łatwiej dołożyć później niż zabrać.</p>',
           en: '<p>Every component is like the coffee machine in the office. What you see from the outside - buttons, slots, the little screen - is its API.</p>' +
             '<p>A bad machine has eighty tiny switches. Strong? Weak? Large? With milk? With double milk? People set combinations that make no sense, the machine blinks and pours water on the floor.</p>' +
             '<p>A good machine has three dials and every position does something sensible. There is also a small door at the back, in case somebody genuinely has to reach inside - but everyone knows that is the exception, not the normal way to use it.</p>' +
             '<p>When you add a new switch, you add it forever. People start using it, they get attached, and later you cannot take it away without a fight. So every new switch deserves real thought - adding later is easier than taking away.</p>'
         },
         school: {
-          pl: '<p>API komponentu to trzy rzeczy: <strong>propsy</strong> (konfiguracja), <strong>sloty albo children</strong> (tresc) i <strong>zdarzenia</strong> (co komponent zglasza na zewnatrz). Do tego dochodzi czwarta, czesto zapomniana: <strong>furtki</strong>, czyli kontrolowane sposoby na zlamanie zasad.</p>' +
-            '<p>Pierwsza zasada: warianty jako enumy, nie boolean. Osiem booleanow to 256 kombinacji, z ktorych sensownych jest osiem:</p>' +
-            '<pre><code>// zle\n&lt;Button primary danger small ghost /&gt;\n// dobrze\n&lt;Button variant="danger" size="sm" /&gt;</code></pre>' +
-            '<p>Druga zasada: to, co jest trescia, powinno byc slotem, nie propsem. <code>&lt;Modal title="Uwaga" /&gt;</code> wyglada niewinnie, dopoki ktos nie zapyta o ikone w tytule albo o link. Slot rozwiazuje to raz na zawsze i nie wymaga twojej zgody na kazda wariacje.</p>' +
-            '<p>Trzecia zasada: kontrolowany i niekontrolowany. Komponent moze trzymac swoj stan sam (<code>defaultOpen</code>) albo oddac go rodzicowi (<code>open</code> plus <code>onOpenChange</code>). Dobre komponenty wspieraja oba tryby, bo aplikacje maja rozne potrzeby.</p>' +
-            '<p>Czwarta zasada: dostepnosc jest czescia API. Jesli komponent generuje ID dla <code>aria-describedby</code>, to nie jest szczegol implementacyjny - konsument musi wiedziec, jak podpiac wlasny komunikat bledu.</p>' +
-            '<p>Piata zasada: nazwy musza byc spojne miedzy komponentami. Jesli w jednym miejscu masz <code>size="sm"</code>, a w drugim <code>size="small"</code>, kazdy konsument bedzie zgadywal przy kazdym uzyciu. To brzmi jak drobiazg, a jest najczestsza skarga w ankietach wsrod zespolow produktowych.</p>' +
-            '<p>Kazdy dodany prop to zobowiazanie na lata. Latwiej dodac prop w wersji minor niz usunac go bez wersji major, wiec domyslna odpowiedz na "dodajcie prop" brzmi: pokaz mi trzy zespoly, ktore tego potrzebuja.</p>',
+          pl: '<p>API komponentu to trzy rzeczy: <strong>propsy</strong> (konfiguracja), <strong>sloty albo children</strong> (treść) i <strong>zdarzenia</strong> (co komponent zgłasza na zewnątrz). Do tego dochodzi czwarta, często zapomniana: <strong>furtki</strong>, czyli kontrolowane sposoby na złamanie zasad.</p>' +
+            '<p>Pierwsza zasada: warianty jako enumy, nie boolean. Osiem booleanów to 256 kombinacji, z których sensownych jest osiem:</p>' +
+            '<pre><code>// źle\n&lt;Button primary danger small ghost /&gt;\n// dobrze\n&lt;Button variant="danger" size="sm" /&gt;</code></pre>' +
+            '<p>Druga zasada: to, co jest treścią, powinno być slotem, nie propsem. <code>&lt;Modal title="Uwaga" /&gt;</code> wygląda niewinnie, dopóki ktoś nie zapyta o ikonę w tytule albo o link. Slot rozwiązuje to raz na zawsze i nie wymaga twojej zgody na każdą wariację.</p>' +
+            '<p>Trzecia zasada: kontrolowany i niekontrolowany. Komponent może trzymać swój stan sam (<code>defaultOpen</code>) albo oddać go rodzicowi (<code>open</code> plus <code>onOpenChange</code>). Dobre komponenty wspierają oba tryby, bo aplikacje mają różne potrzeby.</p>' +
+            '<p>Czwarta zasada: dostępność jest częścią API. Jeśli komponent generuje ID dla <code>aria-describedby</code>, to nie jest szczegół implementacyjny - konsument musi wiedzieć, jak podpiąć własny komunikat błędu.</p>' +
+            '<p>Piąta zasada: nazwy muszą być spójne między komponentami. Jeśli w jednym miejscu masz <code>size="sm"</code>, a w drugim <code>size="small"</code>, każdy konsument będzie zgadywał przy każdym użyciu. To brzmi jak drobiazg, a jest najczęstsza skarga w ankietach wśród zespołów produktowych.</p>' +
+            '<p>Każdy dodany prop to zobowiązanie na lata. Łatwiej dodać prop w wersji minor niż usunąć go bez wersji major, więc domyślna odpowiedź na "dodajcie prop" brzmi: pokaż mi trzy zespoły, które tego potrzebują.</p>',
           en: '<p>A component API is three things: <strong>props</strong> (configuration), <strong>slots or children</strong> (content) and <strong>events</strong> (what the component reports outward). Plus a fourth, frequently forgotten one: <strong>escape hatches</strong>, the controlled ways to break the rules.</p>' +
             '<p>Rule one: variants as enums, not booleans. Eight booleans is 256 combinations, of which eight make sense:</p>' +
             '<pre><code>// bad\n&lt;Button primary danger small ghost /&gt;\n// good\n&lt;Button variant="danger" size="sm" /&gt;</code></pre>' +
@@ -506,25 +506,25 @@ export default {
             '<p>Every prop you add is a multi-year commitment. Adding a prop in a minor is easy; removing one without a major is not, so the default answer to "please add a prop" is: show me three teams that need it.</p>'
         },
         pro: {
-          pl: '<p>Powierzchnia API jest dlugiem. Przy 60 komponentach i 12 propsach srednio masz 720 publicznych punktow, ktore musisz utrzymac, udokumentowac i przetestowac. Kazdy z nich blokuje refaktor wewnetrzny.</p>' +
-            '<h4>Podzial odpowiedzialnosci</h4>' +
+          pl: '<p>Powierzchnia API jest długiem. Przy 60 komponentach i 12 propsach średnio masz 720 publicznych punktów, które musisz utrzymać, udokumentować i przetestować. Każdy z nich blokuje refaktor wewnętrzny.</p>' +
+            '<h4>Podział odpowiedzialności</h4>' +
             '<ul>' +
-            '<li><strong>Propsy</strong> - skonczone, walidowalne opcje. Enumy zamiast booleanow. Zadnych propsow typu <code>style</code> ani <code>customCss</code>.</li>' +
-            '<li><strong>Sloty</strong> - dowolna tresc. W web componentach nazwane sloty, w Vue scoped slots, w React <code>children</code> plus wzorzec compound.</li>' +
-            '<li><strong>Zdarzenia</strong> - nazwane w czasie przeszlym albo jako intencja (<code>chiChange</code>, <code>onOpenChange</code>), z <code>detail</code> zawierajacym dane, nigdy element DOM.</li>' +
-            '<li><strong>Furtki</strong> - <code>::part()</code> i <code>::slotted()</code> dla web componentow, klasy warstwowe dla zwyklego CSS. Furtka jest publiczna: jesli wystawisz <code>part="label"</code>, nie mozesz jej pozniej zmienic bez majora.</li>' +
+            '<li><strong>Propsy</strong> - skończone, walidowalne opcje. Enumy zamiast booleanów. Żadnych propsów typu <code>style</code> ani <code>customCss</code>.</li>' +
+            '<li><strong>Sloty</strong> - dowolna treść. W web componentach nazwane sloty, w Vue scoped slots, w React <code>children</code> plus wzorzec compound.</li>' +
+            '<li><strong>Zdarzenia</strong> - nazwane w czasie przeszłym albo jako intencja (<code>chiChange</code>, <code>onOpenChange</code>), z <code>detail</code> zawierającym dane, nigdy element DOM.</li>' +
+            '<li><strong>Furtki</strong> - <code>::part()</code> i <code>::slotted()</code> dla web componentów, klasy warstwowe dla zwykłego CSS. Furtka jest publiczna: jeśli wystawisz <code>part="label"</code>, nie możesz jej później zmienić bez majora.</li>' +
             '</ul>' +
-            '<h4>Compound zamiast propsow konfiguracyjnych</h4>' +
-            '<pre><code>// wersja z propsami: kazdy nowy przypadek to nowy prop\n&lt;DataTable columns={cols} sortable filterable pagination="bottom" /&gt;\n\n// wersja compound: kompozycja zamiast konfiguracji\n&lt;DataTable&gt;\n  &lt;DataTable.Toolbar&gt;&lt;Filter /&gt;&lt;/DataTable.Toolbar&gt;\n  &lt;DataTable.Body /&gt;\n  &lt;DataTable.Pagination /&gt;\n&lt;/DataTable&gt;</code></pre>' +
-            '<p>Compound przenosi zlozonosc do konsumenta, co jest wlasciwe dla komponentow zlozonych (tabela, kombobox) i bledne dla prostych (przycisk, badge). Reguła kciuka: jesli lista propsow przekracza 12 albo pojawia sie prop typu <code>renderX</code>, czas na kompozycje.</p>' +
-            '<h4>Praktyki, ktore sie zwracaja</h4>' +
+            '<h4>Compound zamiast propsów konfiguracyjnych</h4>' +
+            '<pre><code>// wersja z propsami: każdy nowy przypadek to nowy prop\n&lt;DataTable columns={cols} sortable filterable pagination="bottom" /&gt;\n\n// wersja compound: kompozycja zamiast konfiguracji\n&lt;DataTable&gt;\n  &lt;DataTable.Toolbar&gt;&lt;Filter /&gt;&lt;/DataTable.Toolbar&gt;\n  &lt;DataTable.Body /&gt;\n  &lt;DataTable.Pagination /&gt;\n&lt;/DataTable&gt;</code></pre>' +
+            '<p>Compound przenosi złożoność do konsumenta, co jest właściwe dla komponentów złożonych (tabela, kombobox) i błędne dla prostych (przycisk, badge). Reguła kciuka: jeśli lista propsów przekracza 12 albo pojawia się prop typu <code>renderX</code>, czas na kompozycję.</p>' +
+            '<h4>Praktyki, które się zwracają</h4>' +
             '<ul>' +
-            '<li><strong>Znormalizowane nazwy miedzy komponentami.</strong> Jesli <code>size</code> to <code>sm|md|lg</code> w jednym miejscu, nie moze byc <code>small|medium|large</code> w innym. To najczestsza skarga w ankietach adopcji.</li>' +
-            '<li><strong>Test API w CI.</strong> Wygeneruj snapshot publicznego API (na przyklad przez <code>custom-elements.json</code> z Custom Elements Manifest Analyzer albo <code>api-extractor</code> dla TypeScriptu) i traktuj diff jako sygnal do przegladu semver.</li>' +
-            '<li><strong>Deprecacja z data.</strong> Prop oznaczony jako deprecated dostaje ostrzezenie w konsoli tylko w buildzie dev, wpis w dokumentacji i konkretna wersje usuniecia. Bez daty deprecacja zyje wiecznie.</li>' +
-            '<li><strong>Domyslne wartosci to takze API.</strong> Zmiana domyslnego <code>size</code> z <code>md</code> na <code>lg</code> jest breaking change wizualnym, nawet jesli TypeScript sie nie skarzy.</li>' +
+            '<li><strong>Znormalizowane nazwy między komponentami.</strong> Jeśli <code>size</code> to <code>sm|md|lg</code> w jednym miejscu, nie może być <code>small|medium|large</code> w innym. To najczęstsza skarga w ankietach adopcji.</li>' +
+            '<li><strong>Test API w CI.</strong> Wygeneruj snapshot publicznego API (na przykład przez <code>custom-elements.json</code> z Custom Elements Manifest Analyzer albo <code>api-extractor</code> dla TypeScriptu) i traktuj diff jako sygnał do przeglądu semver.</li>' +
+            '<li><strong>Deprecacja z datą.</strong> Prop oznaczony jako deprecated dostaje ostrzeżenie w konsoli tylko w buildzie dev, wpis w dokumentacji i konkretną wersję usunięcia. Bez daty deprecacja żyje wiecznie.</li>' +
+            '<li><strong>Domyślne wartości to także API.</strong> Zmiana domyślnego <code>size</code> z <code>md</code> na <code>lg</code> jest breaking change wizualnym, nawet jeśli TypeScript się nie skarży.</li>' +
             '</ul>' +
-            '<p>Na rozmowie na principala warto umiec powiedziec, czego <strong>nie</strong> wpuszczasz do API i dlaczego - to rozroznia architekta od bardzo szybkiego kontrybutora.</p>',
+            '<p>Na rozmowie na principala warto umieć powiedzieć, czego <strong>nie</strong> wpuszczasz do API i dlaczego - to rozróżnia architekta od bardzo szybkiego kontrybutora.</p>',
           en: '<p>API surface is debt. With 60 components and 12 props on average you carry 720 public touchpoints to maintain, document and test. Every one of them blocks an internal refactor.</p>' +
             '<h4>Division of responsibility</h4>' +
             '<ul>' +
@@ -549,69 +549,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Dlaczego warianty lepiej modelowac jako enum niz jako zestaw booleanow?',
+            pl: 'Dlaczego warianty lepiej modelować jako enum niż jako zestaw booleanów?',
             en: 'Why model variants as an enum rather than a set of booleans?'
           },
           options: [
-            { pl: 'Bo enumy renderuja sie szybciej', en: 'Because enums render faster' },
-            { pl: 'Bo booleany pozwalaja wyrazic kombinacje, ktore nie maja sensu', en: 'Because booleans allow combinations that make no sense' },
-            { pl: 'Bo TypeScript nie obsluguje wielu booleanow naraz', en: 'Because TypeScript cannot handle several booleans at once' },
-            { pl: 'Bo enumy sa wymagane przez standard web components', en: 'Because the web components standard requires enums' }
+            { pl: 'Bo enumy renderują się szybciej', en: 'Because enums render faster' },
+            { pl: 'Bo booleany pozwalają wyrazić kombinacje, które nie mają sensu', en: 'Because booleans allow combinations that make no sense' },
+            { pl: 'Bo TypeScript nie obsługuje wielu booleanów naraz', en: 'Because TypeScript cannot handle several booleans at once' },
+            { pl: 'Bo enumy są wymagane przez standard web components', en: 'Because the web components standard requires enums' }
           ],
           correct: 1,
           explain: {
-            pl: 'Enum zamyka przestrzen stanow do tych poprawnych. Osiem booleanow daje 256 kombinacji, ktore trzeba testowac albo cicho ignorowac.',
+            pl: 'Enum zamyka przestrzeń stanów do tych poprawnych. Osiem booleanów daje 256 kombinacji, które trzeba testować albo cicho ignorować.',
             en: 'An enum closes the state space to the valid ones. Eight booleans give 256 combinations you must either test or silently ignore.'
           }
         },
         {
           q: {
-            pl: 'Zespol prosi o prop title w komponencie Modal, bo tak jest szybciej. Co jest glowna wada tego podejscia?',
+            pl: 'Zespół prosi o prop title w komponencie Modal, bo tak jest szybciej. Co jest główną wadą tego podejścia?',
             en: 'A team asks for a title prop on the Modal component because it is quicker. What is the main drawback?'
           },
           options: [
-            { pl: 'Prop zawsze kosztuje wiecej pamieci niz slot', en: 'A prop always costs more memory than a slot' },
-            { pl: 'Kazda przyszla wariacja tytulu (ikona, link, badge) bedzie wymagala kolejnego propa', en: 'Every future title variation (icon, link, badge) will need yet another prop' },
-            { pl: 'Propsy tekstowe lamia dostepnosc', en: 'Text props break accessibility' },
+            { pl: 'Prop zawsze kosztuje więcej pamięci niż slot', en: 'A prop always costs more memory than a slot' },
+            { pl: 'Każda przyszła wariacja tytułu (ikona, link, badge) będzie wymagała kolejnego propa', en: 'Every future title variation (icon, link, badge) will need yet another prop' },
+            { pl: 'Propsy tekstowe łamią dostępność', en: 'Text props break accessibility' },
             { pl: 'Slot jest jedynym sposobem na przekazanie tekstu', en: 'A slot is the only way to pass text' }
           ],
           correct: 1,
           explain: {
-            pl: 'Tresc nalezy do slotow. Prop tekstowy zamyka drzwi i sprawia, ze kazde rozszerzenie musi przejsc przez zespol design systemu.',
+            pl: 'Treść należy do slotów. Prop tekstowy zamyka drzwi i sprawia, że każde rozszerzenie musi przejść przez zespół design systemu.',
             en: 'Content belongs in slots. A text prop closes the door and forces every extension to go through the design system team.'
           }
         },
         {
           q: {
-            pl: 'Ktora zmiana NIE wymaga wersji major, mimo ze wyglada groznie?',
+            pl: 'Która zmiana NIE wymaga wersji major, mimo że wygląda groźnie?',
             en: 'Which change does NOT require a major version, despite looking scary?'
           },
           options: [
-            { pl: 'Zmiana domyslnej wartosci propa size z md na lg', en: 'Changing the default value of the size prop from md to lg' },
-            { pl: 'Przepisanie wewnetrznej implementacji z div-ow na CSS grid bez zmiany wyjscia wizualnego i nazw part', en: 'Rewriting the internals from divs to CSS grid with no change to visual output or part names' },
+            { pl: 'Zmiana domyślnej wartości propa size z md na lg', en: 'Changing the default value of the size prop from md to lg' },
+            { pl: 'Przepisanie wewnętrznej implementacji z div-ów na CSS grid bez zmiany wyjścia wizualnego i nazw part', en: 'Rewriting the internals from divs to CSS grid with no change to visual output or part names' },
             { pl: 'Zmiana nazwy part z label na text', en: 'Renaming a part from label to text' },
-            { pl: 'Usuniecie deprecated propa outlined', en: 'Removing the deprecated outlined prop' }
+            { pl: 'Usunięcie deprecated propa outlined', en: 'Removing the deprecated outlined prop' }
           ],
           correct: 1,
           explain: {
-            pl: 'Publiczne jest to, co obiecales: propsy, zdarzenia, nazwy part i wyglad. Wnetrze mozesz przepisac w patchu, jesli kontrakt zostal nietkniety.',
+            pl: 'Publiczne jest to, co obiecałeś: propsy, zdarzenia, nazwy part i wygląd. Wnętrze możesz przepisać w patchu, jeśli kontrakt został nietknięty.',
             en: 'Public means what you promised: props, events, part names and appearance. Internals can be rewritten in a patch as long as the contract is untouched.'
           }
         },
         {
           q: {
-            pl: 'Twoj komponent DataTable ma 19 propsow i wlasnie wplynela prosba o dwudziesty (renderEmptyState). Najbardziej architektoniczna odpowiedz?',
+            pl: 'Twój komponent DataTable ma 19 propsów i właśnie wpłynęła prośba o dwudziesty (renderEmptyState). Najbardziej architektoniczna odpowiedź?',
             en: 'Your DataTable has 19 props and a request for the twentieth just landed (renderEmptyState). The most architectural response?'
           },
           options: [
-            { pl: 'Dodac prop, bo to tylko jeden wiecej', en: 'Add the prop, it is only one more' },
-            { pl: 'Odmowic i zasugerowac forka komponentu', en: 'Refuse and suggest forking the component' },
-            { pl: 'Przejsc na model compound i wystawic DataTable.Empty jako slot kompozycyjny', en: 'Move to a compound model and expose DataTable.Empty as a compositional slot' },
-            { pl: 'Wystawic prop style, zeby zespoly radzily sobie same', en: 'Expose a style prop so teams can sort it out themselves' }
+            { pl: 'Dodać prop, bo to tylko jeden więcej', en: 'Add the prop, it is only one more' },
+            { pl: 'Odmówić i zasugerować forka komponentu', en: 'Refuse and suggest forking the component' },
+            { pl: 'Przejść na model compound i wystawić DataTable.Empty jako slot kompozycyjny', en: 'Move to a compound model and expose DataTable.Empty as a compositional slot' },
+            { pl: 'Wystawić prop style, żeby zespoły radziły sobie same', en: 'Expose a style prop so teams can sort it out themselves' }
           ],
           correct: 2,
           explain: {
-            pl: 'Prop typu renderX to sygnal, ze konfiguracja przestala wystarczac. Kompozycja przenosi elastycznosc do konsumenta bez rozrostu API.',
+            pl: 'Prop typu renderX to sygnał, że konfiguracja przestała wystarczać. Kompozycja przenosi elastyczność do konsumenta bez rozrostu API.',
             en: 'A renderX prop is the signal that configuration has run out. Composition moves flexibility to the consumer without growing the API.'
           }
         }
@@ -696,14 +696,14 @@ export default {
           '<text x="320" y="356" fill="var(--muted)" font-size="13" text-anchor="middle">one major per year is a policy, not an accident</text>' +
           '</svg>',
         caption: {
-          pl: 'Semver w design systemie obejmuje takze DOM, klasy CSS i wyglad - a kazdy major potrzebuje budzetu migracyjnego, nie tylko changeloga.',
+          pl: 'Semver w design systemie obejmuje także DOM, klasy CSS i wygląd - a każdy major potrzebuje budżetu migracyjnego, nie tylko changeloga.',
           en: 'Semver in a design system also covers DOM, CSS classes and appearance - and every major needs a migration budget, not just a changelog.'
         }
       },
       interactive: {
         kind: 'frames',
         caption: {
-          pl: 'Zycie jednego breaking change: od dodania nowego API, przez codemod, po wygaszenie starej wersji.',
+          pl: 'Życie jednego breaking change: od dodania nowego API, przez codemod, po wygaszenie starej wersji.',
           en: 'The life of one breaking change: from adding the new API, through the codemod, to sunsetting the old version.'
         },
         frames: [
@@ -729,7 +729,7 @@ export default {
               '</svg>',
             label: { pl: 'Nowe obok starego', en: 'New beside old' },
             note: {
-              pl: 'Breaking change zaczyna sie od wydania nieinwazyjnego: nowe API wchodzi obok starego i nic sie nie psuje.',
+              pl: 'Breaking change zaczyna się od wydania nieinwazyjnego: nowe API wchodzi obok starego i nic się nie psuje.',
               en: 'A breaking change starts with a non-breaking release: the new API lands beside the old one and nothing breaks.'
             }
           },
@@ -755,7 +755,7 @@ export default {
               '</svg>',
             label: { pl: 'Okno deprecacji', en: 'Deprecation window' },
             note: {
-              pl: 'Ostrzezenie tylko w buildzie dev, z konkretna wersja usuniecia i data. Deprecacja bez daty nigdy sie nie konczy.',
+              pl: 'Ostrzeżenie tylko w buildzie dev, z konkretną wersją usunięcia i datą. Deprecacja bez daty nigdy się nie kończy.',
               en: 'Warning in dev builds only, with a concrete removal version and date. Deprecation without a date never ends.'
             }
           },
@@ -781,7 +781,7 @@ export default {
               '</svg>',
             label: { pl: 'Codemod', en: 'Codemod' },
             note: {
-              pl: 'Codemod plus automatyczne PR-y na repozytoria konsumentow przenosza koszt migracji z 40 zespolow na jeden.',
+              pl: 'Codemod plus automatyczne PR-y na repozytoria konsumentów przenoszą koszt migracji z 40 zespołów na jeden.',
               en: 'A codemod plus bot-raised PRs on consumer repos move the migration cost from 40 teams onto one.'
             }
           },
@@ -804,9 +804,9 @@ export default {
               '<rect x="42" y="294" width="500" height="22" rx="7" fill="var(--accent2)"/>' +
               '<text x="320" y="348" fill="var(--muted)" font-size="13" text-anchor="middle">89 percent - 4 apps still pinned to v2</text>' +
               '</svg>',
-            label: { pl: 'Usuniecie w majorze', en: 'Removal in the major' },
+            label: { pl: 'Usunięcie w majorze', en: 'Removal in the major' },
             note: {
-              pl: 'Major usuwa stare API, ale galaz v2 zyje jeszcze pol roku w trybie utrzymaniowym. To rozniaca sie rzecz od porzucenia.',
+              pl: 'Major usuwa stare API, ale gałąź v2 żyje jeszcze pół roku w trybie utrzymaniowym. To różniąca się rzecz od porzucenia.',
               en: 'The major removes the old API, but the v2 branch lives another six months in maintenance mode. That is different from abandonment.'
             }
           },
@@ -831,7 +831,7 @@ export default {
               '</svg>',
             label: { pl: 'Koniec wsparcia', en: 'End of life' },
             note: {
-              pl: 'Ostatnie kilka procent nigdy nie migruje samo. Na tym etapie to juz decyzja biznesowa o ryzyku, a nie zadanie techniczne.',
+              pl: 'Ostatnie kilka procent nigdy nie migruje samo. Na tym etapie to już decyzja biznesowa o ryzyku, a nie zadanie techniczne.',
               en: 'The last few percent never migrate on their own. At this point it is a business risk decision, not an engineering task.'
             }
           }
@@ -839,29 +839,29 @@ export default {
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie, ze wypozyczasz kolegom swoje klocki i wszyscy zbudowali z nich domki. Pewnego dnia stwierdzasz, ze czerwone klocki beda mialy inne zaczepy - lepsze, madrzejsze, twoim zdaniem.</p>' +
-            '<p>Jesli po prostu je podmienisz, wszystkie domki sie rozsypia w tej samej sekundzie i pietnascioro dzieci bedzie plakac jednoczesnie.</p>' +
-            '<p>Wiec robisz to inaczej. Najpierw dokladasz nowe klocki obok starych, zeby kazdy mogl sprobowac. Potem naklejasz na stare karteczke: "te znikna po wakacjach". Potem chodzisz po pokoju i sam pomagasz przelozyc klocki w domkach. Dopiero na koncu stare klocki znikaja.</p>' +
-            '<p>Numer wersji to komunikat dla kolegow. <strong>Trzecia cyfra</strong> - naprawilem drobiazg. <strong>Druga</strong> - dolozylem cos nowego, nic nie znika. <strong>Pierwsza</strong> - uwaga, cos zniknelo, trzeba przelozyc klocki.</p>',
+          pl: '<p>Wyobraź sobie, że wypożyczasz kolegom swoje klocki i wszyscy zbudowali z nich domki. Pewnego dnia stwierdzasz, że czerwone klocki będą miały inne zaczepy - lepsze, mądrzejsze, twoim zdaniem.</p>' +
+            '<p>Jeśli po prostu je podmienisz, wszystkie domki się rozsypią w tej samej sekundzie i piętnaścioro dzieci będzie płakać jednocześnie.</p>' +
+            '<p>Więc robisz to inaczej. Najpierw dokładasz nowe klocki obok starych, żeby każdy mógł spróbować. Potem naklejasz na stare karteczkę: "te znikną po wakacjach". Potem chodzisz po pokoju i sam pomagasz przełożyć klocki w domkach. Dopiero na końcu stare klocki znikają.</p>' +
+            '<p>Numer wersji to komunikat dla kolegów. <strong>Trzecia cyfra</strong> - naprawiłem drobiazg. <strong>Druga</strong> - dołożyłem coś nowego, nic nie znika. <strong>Pierwsza</strong> - uwaga, coś zniknęło, trzeba przełożyć klocki.</p>',
           en: '<p>Imagine you lend your bricks to friends and everyone builds a little house. One day you decide the red bricks should have different studs - better, cleverer, in your opinion.</p>' +
             '<p>If you simply swap them, every house collapses in the same second and fifteen children cry simultaneously.</p>' +
             '<p>So you do it differently. First you add the new bricks next to the old ones so everyone can try them. Then you stick a note on the old ones: "these disappear after the holidays". Then you walk around the room and help rebuild the houses yourself. Only at the very end do the old bricks go away.</p>' +
             '<p>The version number is a message to your friends. <strong>Third digit</strong> - I fixed something tiny. <strong>Second</strong> - I added something new, nothing disappeared. <strong>First</strong> - careful, something is gone, bricks need moving.</p>'
         },
         school: {
-          pl: '<p>Semver mowi: <code>major.minor.patch</code>. Major to zmiana lamiaca, minor to nowa funkcja wstecznie zgodna, patch to poprawka. Problem w tym, ze w design systemie <strong>publiczny kontrakt jest szerszy niz sygnatury TypeScriptu</strong>.</p>' +
-            '<p>Lamiace jest takze:</p>' +
+          pl: '<p>Semver mówi: <code>major.minor.patch</code>. Major to zmiana łamiąca, minor to nowa funkcja wstecznie zgodna, patch to poprawka. Problem w tym, że w design systemie <strong>publiczny kontrakt jest szerszy niż sygnatury TypeScriptu</strong>.</p>' +
+            '<p>Łamiące jest także:</p>' +
             '<ul>' +
-            '<li>zmiana struktury DOM, jesli ktos pisze selektory na twoich elementach,</li>' +
+            '<li>zmiana struktury DOM, jeśli ktoś pisze selektory na twoich elementach,</li>' +
             '<li>zmiana nazwy klasy CSS albo <code>::part()</code>,</li>' +
-            '<li>zmiana domyslnej wartosci propa,</li>' +
-            '<li>zmiana wygladu, ktora psuje layout w aplikacji (wyzszy przycisk lamie siatke).</li>' +
+            '<li>zmiana domyślnej wartości propa,</li>' +
+            '<li>zmiana wyglądu, która psuje layout w aplikacji (wyższy przycisk łamie siatkę).</li>' +
             '</ul>' +
-            '<p>Dlatego dojrzale zespoly opisuja w dokumentacji wprost, co jest publiczne, a co nie. Wszystko, czego nie obiecales, mozesz zmieniac w patchu.</p>' +
-            '<p>Drugi filar to <strong>proces</strong>. Breaking change nigdy nie jest jednym commitem. Sciezka wyglada tak: dodaj nowe API obok starego (minor), oznacz stare jako deprecated z data usuniecia (minor), opublikuj codemod, usun stare w majorze, utrzymuj poprzednia galaz przez ustalony czas.</p>' +
+            '<p>Dlatego dojrzałe zespoły opisują w dokumentacji wprost, co jest publiczne, a co nie. Wszystko, czego nie obiecałeś, możesz zmieniać w patchu.</p>' +
+            '<p>Drugi filar to <strong>proces</strong>. Breaking change nigdy nie jest jednym commitem. Ścieżka wygląda tak: dodaj nowe API obok starego (minor), oznacz stare jako deprecated z datą usunięcia (minor), opublikuj codemod, usuń stare w majorze, utrzymuj poprzednią gałąź przez ustalony czas.</p>' +
             '<pre><code># typowy codemod na bazie jscodeshift\nnpx @chi/codemod v3-button-variant src/</code></pre>' +
-            '<p>Codemod to zwykle skrypt oparty o jscodeshift albo ts-morph, ktory przepisuje wywolania w repozytorium konsumenta. Nie musi pokrywac stu procent przypadkow - wystarczy, ze zdejmie nudne dziewiecdziesiat, a reszte zostawi z komentarzem TODO do recznego przejrzenia. Bez codemodu kazdy z czterdziestu zespolow robi te sama prace osobno.</p>' +
-            '<p>Trzeci filar to tempo. Jeden major rocznie, ogloszony z wyprzedzeniem, jest znosny. Trzy majory rocznie sprawiaja, ze zespoly przypinaja stara wersje i przestaja aktualizowac cokolwiek - a wtedy design system przestaje byc wspolnym jezykiem i staje sie archeologia.</p>',
+            '<p>Codemod to zwykle skrypt oparty o jscodeshift albo ts-morph, który przepisuje wywołania w repozytorium konsumenta. Nie musi pokrywać stu procent przypadków - wystarczy, że zdejmie nudne dziewięćdziesiąt, a resztę zostawi z komentarzem TODO do ręcznego przejrzenia. Bez codemodu każdy z czterdziestu zespołów robi tę samą pracę osobno.</p>' +
+            '<p>Trzeci filar to tempo. Jeden major rocznie, ogłoszony z wyprzedzeniem, jest znośny. Trzy majory rocznie sprawiają, że zespoły przypinają starą wersję i przestają aktualizować cokolwiek - a wtedy design system przestaje być wspólnym językiem i staje się archeologią.</p>',
           en: '<p>Semver says <code>major.minor.patch</code>. Major is a breaking change, minor is a backwards-compatible feature, patch is a fix. The catch is that in a design system <strong>the public contract is wider than the TypeScript signatures</strong>.</p>' +
             '<p>Breaking also includes:</p>' +
             '<ul>' +
@@ -876,20 +876,20 @@ export default {
             '<p>The third pillar is cadence. One major a year, announced ahead of time, is tolerable. Three majors a year make teams pin an old version and stop upgrading anything - and then the design system stops being a shared language and becomes archaeology.</p>'
         },
         pro: {
-          pl: '<p>W telco z 40-80 aplikacjami frontendowymi kazdy major kosztuje realne osobodni po stronie konsumentow. Liczba, ktora warto miec w glowie: prosta migracja to okolo 0.5-2 dni na aplikacje, zlozona (redesign, zmiana struktury DOM) to 5-15 dni. Major bez codemodu przy 50 aplikacjach to spokojnie 100 osobodni spalonych w organizacji.</p>' +
-            '<h4>Polityka wydawnicza, ktora dziala</h4>' +
+          pl: '<p>W telco z 40-80 aplikacjami frontendowymi każdy major kosztuje realne osobodni po stronie konsumentów. Liczba, którą warto mieć w głowie: prosta migracja to około 0.5-2 dni na aplikację, złożona (redesign, zmiana struktury DOM) to 5-15 dni. Major bez codemodu przy 50 aplikacjach to spokojnie 100 osobodni spalonych w organizacji.</p>' +
+            '<h4>Polityka wydawnicza, która działa</h4>' +
             '<ul>' +
-            '<li><strong>Jeden wspierany major plus poprzedni w trybie utrzymaniowym.</strong> Poprzedni dostaje wylacznie poprawki bezpieczenstwa i krytyczne, przez ustalone 6-12 miesiecy. Trzy zywe majory to trzy razy wiecej pracy przy kazdym CVE.</li>' +
-            '<li><strong>Changesets</strong> w monorepo: kazdy PR dolacza plik z opisem zmiany i poziomem semver. Release jest generowany, changelog pisany przez autorow zmian, a nie przez maintainera w piatek wieczorem.</li>' +
-            '<li><strong>Kanaly dystrybucji.</strong> <code>next</code> po kazdym merge, <code>latest</code> co dwa tygodnie. Kilka zespolow pilotazowych siedzi na <code>next</code> i lapie regresje, zanim zobaczy je reszta.</li>' +
+            '<li><strong>Jeden wspierany major plus poprzedni w trybie utrzymaniowym.</strong> Poprzedni dostaje wyłącznie poprawki bezpieczeństwa i krytyczne, przez ustalone 6-12 miesięcy. Trzy żywe majory to trzy razy więcej pracy przy każdym CVE.</li>' +
+            '<li><strong>Changesets</strong> w monorepo: każdy PR dołącza plik z opisem zmiany i poziomem semver. Release jest generowany, changelog pisany przez autorów zmian, a nie przez maintainera w piątek wieczorem.</li>' +
+            '<li><strong>Kanały dystrybucji.</strong> <code>next</code> po każdym merge, <code>latest</code> co dwa tygodnie. Kilka zespołów pilotażowych siedzi na <code>next</code> i łapie regresje, zanim zobaczy je reszta.</li>' +
             '</ul>' +
             '<h4>Automatyzacja migracji</h4>' +
             '<pre><code>// codemod: jscodeshift, prop type -&gt; variant\nexport default function transform(file, api) {\n  const j = api.jscodeshift;\n  return j(file.source)\n    .findJSXElements("Button")\n    .find(j.JSXAttribute, { name: { name: "type" } })\n    .forEach(p =&gt; { p.node.name.name = "variant"; })\n    .toSource();\n}</code></pre>' +
-            '<p>Codemod pokrywa zwykle 85-95 procent przypadkow. Reszta to dynamiczne propsy i spready - i to wlasnie tam idzie recenzja czlowieka. Krok, ktory najbardziej zmienia adopcje, to <strong>bot podnoszacy PR</strong> w repozytoriach konsumentow z juz uruchomionym codemodem i zielonym CI. Zespol klika merge zamiast planowac zadanie na nastepny sprint.</p>' +
-            '<h4>Widocznosc i dane</h4>' +
-            '<p>Bez telemetrii nie wiesz, kiedy mozesz usunac API. Minimum to skan zaleznosci we wszystkich repozytoriach (Dependabot, wlasny skrypt po API GitHuba albo Backstage jako katalog) i raport: ile aplikacji na ktorej wersji, ile uzyc deprecated propa. Ten wykres jest tez twoim najlepszym argumentem w rozmowie o budzecie - pokazuje, ze migracja jest kosztem organizacji, a nie kaprysem zespolu design systemu.</p>' +
-            '<h4>Pulapki</h4>' +
-            '<p>Peer dependency na framework potrafi wymusic majora bez zadnej zmiany w twoim kodzie. Dwie wersje web componentow na jednej stronie to konflikt w rejestrze <code>customElements</code> - albo wersjonujesz nazwe tagu, albo akceptujesz, ze mikrofrontendy musza uzgodnic wersje. Wybor tego kompromisu podejmuje sie raz i zyje sie z nim lata.</p>',
+            '<p>Codemod pokrywa zwykle 85-95 procent przypadków. Reszta to dynamiczne propsy i spready - i to właśnie tam idzie recenzja człowieka. Krok, który najbardziej zmienia adopcję, to <strong>bot podnoszący PR</strong> w repozytoriach konsumentów z już uruchomionym codemodem i zielonym CI. Zespół klika merge zamiast planować zadanie na następny sprint.</p>' +
+            '<h4>Widoczność i dane</h4>' +
+            '<p>Bez telemetrii nie wiesz, kiedy możesz usunąć API. Minimum to skan zależności we wszystkich repozytoriach (Dependabot, własny skrypt po API GitHuba albo Backstage jako katalog) i raport: ile aplikacji na której wersji, ile użyć deprecated propa. Ten wykres jest też twoim najlepszym argumentem w rozmowie o budżecie - pokazuje, że migracja jest kosztem organizacji, a nie kaprysem zespołu design systemu.</p>' +
+            '<h4>Pułapki</h4>' +
+            '<p>Peer dependency na framework potrafi wymusić majora bez żadnej zmiany w twoim kodzie. Dwie wersje web componentów na jednej stronie to konflikt w rejestrze <code>customElements</code> - albo wersjonujesz nazwę tagu, albo akceptujesz, że mikrofrontendy muszą uzgodnić wersję. Wybór tego kompromisu podejmuje się raz i żyje się z nim lata.</p>',
           en: '<p>In a telco with 40-80 frontend applications, every major costs real person-days on the consumer side. The number worth carrying in your head: a simple migration is roughly 0.5-2 days per app, a complex one (redesign, DOM structure change) is 5-15 days. A major with no codemod across 50 apps easily burns 100 person-days of organisational capacity.</p>' +
             '<h4>A release policy that works</h4>' +
             '<ul>' +
@@ -909,69 +909,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Ktora z tych zmian jest breaking change w design systemie, mimo ze typy TypeScript sie nie zmieniaja?',
+            pl: 'Która z tych zmian jest breaking change w design systemie, mimo że typy TypeScript się nie zmieniają?',
             en: 'Which of these is a breaking change in a design system even though the TypeScript types do not change?'
           },
           options: [
             { pl: 'Dodanie nowego opcjonalnego propa', en: 'Adding a new optional prop' },
             { pl: 'Zmiana nazwy klasy CSS wystawionej w dokumentacji', en: 'Renaming a CSS class that is documented as public' },
-            { pl: 'Poprawka wydajnosci w wewnetrznej funkcji', en: 'A performance fix in an internal function' },
+            { pl: 'Poprawka wydajności w wewnętrznej funkcji', en: 'A performance fix in an internal function' },
             { pl: 'Dodanie nowego komponentu', en: 'Adding a new component' }
           ],
           correct: 1,
           explain: {
-            pl: 'Publiczny kontrakt design systemu obejmuje DOM, klasy CSS i wyglad, nie tylko sygnatury. Jesli ktos moze na tym oprzec selektor, jest to API.',
+            pl: 'Publiczny kontrakt design systemu obejmuje DOM, klasy CSS i wygląd, nie tylko sygnatury. Jeśli ktoś może na tym oprzeć selektor, jest to API.',
             en: 'The public contract of a design system covers DOM, CSS classes and appearance, not just signatures. If someone can write a selector against it, it is API.'
           }
         },
         {
           q: {
-            pl: 'Jaka jest wlasciwa kolejnosc krokow przy usuwaniu starego propa?',
+            pl: 'Jaka jest właściwa kolejność kroków przy usuwaniu starego propa?',
             en: 'What is the correct order of steps when removing an old prop?'
           },
           options: [
-            { pl: 'Usun w majorze, potem opublikuj codemod dla tych, ktorzy sie zepsuli', en: 'Remove in a major, then publish a codemod for whoever broke' },
-            { pl: 'Dodaj nowe API obok starego, oznacz stare jako deprecated z data, opublikuj codemod, usun w majorze', en: 'Add the new API beside the old one, deprecate with a date, publish a codemod, remove in a major' },
-            { pl: 'Ogloś na kanale Slack i usun w nastepnym minorze', en: 'Announce on Slack and remove in the next minor' },
-            { pl: 'Utrzymuj oba API bezterminowo, zeby nikogo nie zepsuc', en: 'Keep both APIs indefinitely so nobody breaks' }
+            { pl: 'Usuń w majorze, potem opublikuj codemod dla tych, którzy się zepsuli', en: 'Remove in a major, then publish a codemod for whoever broke' },
+            { pl: 'Dodaj nowe API obok starego, oznacz stare jako deprecated z datą, opublikuj codemod, usuń w majorze', en: 'Add the new API beside the old one, deprecate with a date, publish a codemod, remove in a major' },
+            { pl: 'Ogłoś na kanale Slack i usuń w następnym minorze', en: 'Announce on Slack and remove in the next minor' },
+            { pl: 'Utrzymuj oba API bezterminowo, żeby nikogo nie zepsuć', en: 'Keep both APIs indefinitely so nobody breaks' }
           ],
           correct: 1,
           explain: {
-            pl: 'Kazdy krok obniza koszt nastepnego. Utrzymywanie obu API bezterminowo tez jest bledem - podwaja powierzchnie testow i dokumentacji.',
+            pl: 'Każdy krok obniża koszt następnego. Utrzymywanie obu API bezterminowo też jest błędem - podwaja powierzchnię testów i dokumentacji.',
             en: 'Each step lowers the cost of the next. Keeping both APIs forever is also wrong - it doubles the test and documentation surface.'
           }
         },
         {
           q: {
-            pl: 'Dlaczego bot podnoszacy PR w repozytoriach konsumentow zmienia adopcje bardziej niz sam codemod?',
+            pl: 'Dlaczego bot podnoszący PR w repozytoriach konsumentów zmienia adopcję bardziej niż sam codemod?',
             en: 'Why does a bot raising PRs in consumer repos change adoption more than the codemod alone?'
           },
           options: [
-            { pl: 'Bo bot potrafi obsluzyc przypadki, ktorych codemod nie pokrywa', en: 'Because the bot handles cases the codemod cannot' },
-            { pl: 'Bo przenosi migracje z planowania sprintu do jednego klikniecia merge', en: 'Because it moves the migration from sprint planning to one merge click' },
-            { pl: 'Bo boty maja uprawnienia do pomijania code review', en: 'Because bots are allowed to bypass code review' },
-            { pl: 'Bo codemod dziala tylko na monorepo', en: 'Because codemods only work in a monorepo' }
+            { pl: 'Bo bot potrafi obsłużyć przypadki, których codemod nie pokrywa', en: 'Because the bot handles cases the codemod cannot' },
+            { pl: 'Bo przenosi migrację z planowania sprintu do jednego kliknięcia merge', en: 'Because it moves the migration from sprint planning to one merge click' },
+            { pl: 'Bo boty mają uprawnienia do pomijania code review', en: 'Because bots are allowed to bypass code review' },
+            { pl: 'Bo codemod działa tylko na monorepo', en: 'Because codemods only work in a monorepo' }
           ],
           correct: 1,
           explain: {
-            pl: 'Najwiekszym kosztem migracji nie jest edycja kodu, tylko wejscie zadania do backlogu 40 zespolow. Gotowy PR z zielonym CI omija ten koszt.',
+            pl: 'Największym kosztem migracji nie jest edycja kodu, tylko wejście zadania do backlogu 40 zespołów. Gotowy PR z zielonym CI omija ten koszt.',
             en: 'The biggest migration cost is not editing code, it is getting a ticket into 40 teams backlogs. A ready PR with green CI skips that cost.'
           }
         },
         {
           q: {
-            pl: 'Dwa mikrofrontendy na jednej stronie ladują rozne majory twoich web componentow. Co sie stanie i co z tym robisz?',
+            pl: 'Dwa mikrofrontendy na jednej stronie ładują różne majory twoich web componentów. Co się stanie i co z tym robisz?',
             en: 'Two micro-frontends on one page load different majors of your web components. What happens and what do you do?'
           },
           options: [
-            { pl: 'Nic, przegladarka izoluje wersje przez Shadow DOM', en: 'Nothing, the browser isolates versions through Shadow DOM' },
-            { pl: 'Druga rejestracja tego samego tagu rzuca blad; trzeba wersjonowac nazwe tagu albo wymusic wspolna wersje', en: 'The second registration of the same tag throws; you must version the tag name or force a shared version' },
+            { pl: 'Nic, przeglądarka izoluje wersje przez Shadow DOM', en: 'Nothing, the browser isolates versions through Shadow DOM' },
+            { pl: 'Druga rejestracja tego samego tagu rzuca błąd; trzeba wersjonować nazwę tagu albo wymusić wspólną wersję', en: 'The second registration of the same tag throws; you must version the tag name or force a shared version' },
             { pl: 'Wygrywa nowsza wersja, starsza jest cicho ignorowana', en: 'The newer version wins and the older is silently ignored' },
-            { pl: 'Wystarczy ustawic peer dependency na obie wersje', en: 'Setting a peer dependency on both versions is enough' }
+            { pl: 'Wystarczy ustawić peer dependency na obie wersje', en: 'Setting a peer dependency on both versions is enough' }
           ],
           correct: 1,
           explain: {
-            pl: 'Rejestr customElements jest globalny dla dokumentu, wiec drugie define tej samej nazwy rzuca wyjatek. Shadow DOM izoluje style, nie rejestr.',
+            pl: 'Rejestr customElements jest globalny dla dokumentu, więc drugie define tej samej nazwy rzuca wyjątek. Shadow DOM izoluje style, nie rejestr.',
             en: 'The customElements registry is global per document, so a second define of the same name throws. Shadow DOM isolates styles, not the registry.'
           }
         }
@@ -1046,33 +1046,33 @@ export default {
           '<text x="480" y="366" fill="var(--muted)" font-size="13" text-anchor="middle">when NOT to use it</text>' +
           '</svg>',
         caption: {
-          pl: 'Dokumentacja generowana z kodu, ktory faktycznie sie wydaje - plus dwie rzeczy, ktorych generator nie zrobi: piaskownica i wskazowki kiedy nie uzywac.',
+          pl: 'Dokumentacja generowana z kodu, który faktycznie się wydaje - plus dwie rzeczy, których generator nie zrobi: piaskownica i wskazówki kiedy nie używać.',
           en: 'Docs generated from the code that actually ships - plus the two things a generator cannot produce: a playground and guidance on when not to use it.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie skrzynke z narzedziami, ktora pozyczasz calemu osiedlu. Sama skrzynka nie wystarczy. Ludzie musza wiedziec, ktory klucz do czego i czego nie robic mlotkiem.</p>' +
-            '<p>Najgorsza instrukcja to kartka napisana rok temu, ktora mowi o narzedziach, ktorych juz nie ma. Ludzie raz sprobuja, raz sie sparza i wiecej nie zajrzą.</p>' +
-            '<p>Najlepsza instrukcja to taka, ktora sama sie przepisuje. Wisi obok skrzynki, patrzy do srodka i mowi dokladnie to, co tam jest dzisiaj. A obok stoi maly stolik, gdzie mozna od razu wziac narzedzie do reki i sprobowac, nie budujac przy tym calego domu.</p>' +
-            '<p>I jeszcze jedno zdanie, ktorego nikt nie pisze, a jest najwazniejsze: <strong>kiedy tego nie uzywac</strong>. Wiertarka jest swietna, ale nie do mieszania zupy.</p>',
+          pl: '<p>Wyobraź sobie skrzynkę z narzędziami, którą pożyczasz całemu osiedlu. Sama skrzynka nie wystarczy. Ludzie muszą wiedzieć, który klucz do czego i czego nie robić młotkiem.</p>' +
+            '<p>Najgorsza instrukcja to kartka napisana rok temu, która mówi o narzędziach, których już nie ma. Ludzie raz spróbują, raz się sparzą i więcej nie zajrzą.</p>' +
+            '<p>Najlepsza instrukcja to taka, która sama się przepisuje. Wisi obok skrzynki, patrzy do środka i mówi dokładnie to, co tam jest dzisiaj. A obok stoi mały stolik, gdzie można od razu wziąć narzędzie do ręki i spróbować, nie budując przy tym całego domu.</p>' +
+            '<p>I jeszcze jedno zdanie, którego nikt nie pisze, a jest najważniejsze: <strong>kiedy tego nie używać</strong>. Wiertarka jest świetna, ale nie do mieszania zupy.</p>',
           en: '<p>Imagine a toolbox you lend to the whole neighbourhood. The box alone is not enough. People need to know which spanner is for what and what not to do with a hammer.</p>' +
             '<p>The worst manual is a note written a year ago describing tools that no longer exist. People try it once, get burned once, and never look again.</p>' +
             '<p>The best manual is one that rewrites itself. It hangs next to the box, looks inside, and says exactly what is in there today. And beside it stands a little table where you can pick a tool up and try it without building a whole house first.</p>' +
             '<p>Plus one sentence nobody writes and everybody needs: <strong>when not to use this</strong>. A drill is excellent, but not for stirring soup.</p>'
         },
         school: {
-          pl: '<p>Dokumentacja design systemu to nie zalacznik do kodu - to glowny interfejs uzytkownika twojego produktu. Wiekszosc konsumentow nigdy nie otworzy zrodel komponentu; zobacza tylko strone dokumentacji i skopiuja pierwszy przyklad.</p>' +
-            '<p>Dziela sie na trzy warstwy:</p>' +
+          pl: '<p>Dokumentacja design systemu to nie załącznik do kodu - to główny interfejs użytkownika twojego produktu. Większość konsumentów nigdy nie otworzy źródeł komponentu; zobaczą tylko stronę dokumentacji i skopiują pierwszy przykład.</p>' +
+            '<p>Dzielą się na trzy warstwy:</p>' +
             '<ul>' +
-            '<li><strong>Referencja</strong> - tabela propsow, zdarzen, slotow. Musi byc <em>generowana</em>, nigdy pisana recznie. Storybook z autodocs czyta typy i JSDoc, dla web componentow zrodlem jest <code>custom-elements.json</code>.</li>' +
-            '<li><strong>Przyklady</strong> - stories w formacie CSF3. Kazda story to jednoczesnie przyklad w dokumentacji, przypadek testowy dla testow wizualnych i piaskownica.</li>' +
-            '<li><strong>Wskazowki</strong> - kiedy uzywac, kiedy nie, jak sie ma do podobnego komponentu, jakie sa zasady dostepnosci. Tego zaden generator nie napisze i to jest wlasnie wartosc dodana zespolu.</li>' +
+            '<li><strong>Referencja</strong> - tabela propsów, zdarzeń, slotów. Musi być <em>generowana</em>, nigdy pisana ręcznie. Storybook z autodocs czyta typy i JSDoc, dla web componentów źródłem jest <code>custom-elements.json</code>.</li>' +
+            '<li><strong>Przykłady</strong> - stories w formacie CSF3. Każda story to jednocześnie przykład w dokumentacji, przypadek testowy dla testów wizualnych i piaskownica.</li>' +
+            '<li><strong>Wskazówki</strong> - kiedy używać, kiedy nie, jak się ma do podobnego komponentu, jakie są zasady dostępności. Tego żaden generator nie napisze i to jest właśnie wartość dodana zespołu.</li>' +
             '</ul>' +
             '<pre><code>// Button.stories.ts - CSF3\nexport default { component: Button, tags: ["autodocs"] };\nexport const Danger = {\n  args: { variant: "danger", children: "Delete line" }\n};</code></pre>' +
-            '<p>Jedna story pracuje wiec na trzech etatach naraz: dokumentacja, test i demo. To najlepszy zwrot z inwestycji w calym design systemie.</p>' +
-            '<p>Warto tez pamietac, ze dokumentacja to nie tylko strony komponentow. Rownie czesto odwiedzane sa: przewodnik startowy (jak zainstalowac i skonfigurowac), strona tokenow z podgladem wartosci, changelog i przewodniki migracji. To one decyduja, czy nowy zespol wejdzie do systemu w jeden dzien, czy w dwa tygodnie.</p>' +
-            '<p>Dwie rzeczy decyduja o tym, czy ludzie z dokumentacji korzystaja: <strong>wyszukiwarka</strong> i <strong>gotowy do skopiowania kod</strong>. Jesli developer musi przetlumaczyc przyklad z Reacta na Vue albo zgadnac import, wroci na Slacka i zapyta ciebie - a to jest twoj czas.</p>',
+            '<p>Jedna story pracuje więc na trzech etatach naraz: dokumentacja, test i demo. To najlepszy zwrot z inwestycji w całym design systemie.</p>' +
+            '<p>Warto też pamiętać, że dokumentacja to nie tylko strony komponentów. Równie często odwiedzane są: przewodnik startowy (jak zainstalować i skonfigurować), strona tokenów z podglądem wartości, changelog i przewodniki migracji. To one decydują, czy nowy zespół wejdzie do systemu w jeden dzień, czy w dwa tygodnie.</p>' +
+            '<p>Dwie rzeczy decydują o tym, czy ludzie z dokumentacji korzystają: <strong>wyszukiwarka</strong> i <strong>gotowy do skopiowania kod</strong>. Jeśli developer musi przetłumaczyć przykład z Reacta na Vue albo zgadnąć import, wróci na Slacka i zapyta ciebie - a to jest twój czas.</p>',
           en: '<p>Design system documentation is not an appendix to the code - it is the primary user interface of your product. Most consumers will never open a component source; they will see the docs page and copy the first example.</p>' +
             '<p>It has three layers:</p>' +
             '<ul>' +
@@ -1085,22 +1085,22 @@ export default {
             '<p>Two things decide whether people actually use the docs: <strong>search</strong> and <strong>copy-paste-ready code</strong>. If a developer has to translate an example from React to Vue, or guess the import, they will go back to Slack and ask you - and that is your time.</p>'
         },
         pro: {
-          pl: '<p>Traktuj dokumentacje jak produkt z wlasnymi metrykami. Realne liczby, ktore warto zbierac: unikalni uzytkownicy tygodniowo, zapytania w wyszukiwarce bez wynikow (najlepsza lista braków, jaka dostaniesz za darmo), sciezki wejscia i najczesciej kopiowane snippety.</p>' +
+          pl: '<p>Traktuj dokumentację jak produkt z własnymi metrykami. Realne liczby, które warto zbierać: unikalni użytkownicy tygodniowo, zapytania w wyszukiwarce bez wyników (najlepsza lista braków, jaka dostaniesz za darmo), ścieżki wejścia i najczęściej kopiowane snippety.</p>' +
             '<h4>Architektura</h4>' +
-            '<p>Sprawdzony podzial to Storybook jako warstwa komponentowa (piaskownica, controls, testy interakcji) plus osobna strona jako warstwa narracyjna (zasady, tokeny, dostepnosc, wzorce, changelog). Storybook 8 i 9 pozwalaja osadzic stories w MDX, wiec obie warstwy moga zyc w jednym deployu, ale sa zespoly, ktore swiadomie trzymaja Docusaurus albo VitePress obok - bo edycja tresci przez nietechnicznych autorow w Storybooku jest bolesna.</p>' +
-            '<p>Klucz jest jeden: <strong>zero recznie utrzymywanych tabel propsow</strong>. Kazda tabela pisana recznie rozjezdza sie w ciagu jednego kwartalu i podwaza zaufanie do calej reszty dokumentacji.</p>' +
-            '<h4>Wieloframeworkowosc</h4>' +
-            '<p>W telco z Angularem, Vue i Reactem w tej samej organizacji dokumentacja musi pokazywac snippet w kazdym z nich. Jesli baza to web components, generujesz je z jednego zrodla przez wrappery. Jesli nie - musisz utrzymywac rownolegle stories dla kazdego frameworka i to jest realny koszt, ktory trzeba nazwac przy wyborze technologii, a nie odkryc rok pozniej.</p>' +
-            '<h4>Rzeczy, ktore realnie podnosza adopcje</h4>' +
+            '<p>Sprawdzony podział to Storybook jako warstwa komponentowa (piaskownica, controls, testy interakcji) plus osobna strona jako warstwa narracyjna (zasady, tokeny, dostępność, wzorce, changelog). Storybook 8 i 9 pozwalają osadzić stories w MDX, więc obie warstwy mogą żyć w jednym deployu, ale są zespoły, które świadomie trzymają Docusaurus albo VitePress obok - bo edycja treści przez nietechnicznych autorów w Storybooku jest bolesna.</p>' +
+            '<p>Klucz jest jeden: <strong>zero ręcznie utrzymywanych tabel propsów</strong>. Każda tabela pisana ręcznie rozjeżdża się w ciągu jednego kwartału i podważa zaufanie do całej reszty dokumentacji.</p>' +
+            '<h4>Wieloframeworkowość</h4>' +
+            '<p>W telco z Angularem, Vue i Reactem w tej samej organizacji dokumentacja musi pokazywać snippet w każdym z nich. Jeśli baza to web components, generujesz je z jednego źródła przez wrappery. Jeśli nie - musisz utrzymywać równolegle stories dla każdego frameworka i to jest realny koszt, który trzeba nazwać przy wyborze technologii, a nie odkryć rok później.</p>' +
+            '<h4>Rzeczy, które realnie podnoszą adopcję</h4>' +
             '<ul>' +
-            '<li><strong>Deploy podgladu na kazdy PR.</strong> Recenzent designu klika link, zamiast klonowac branch. Chromatic, Netlify Deploy Preview albo GitHub Pages per branch.</li>' +
-            '<li><strong>Zakladka Do and Do not</strong> z realnymi zrzutami z produktu, nie abstrakcyjnymi prostokatami.</li>' +
-            '<li><strong>Sekcja migracji</strong> przy kazdym komponencie, ktory zastapil poprzednika, z linkiem do codemodu.</li>' +
-            '<li><strong>Wyszukiwarka po synonimach.</strong> Ludzie szukaja frazy dropdown, a komponent nazywa sie Select. Aliasy w indeksie wyszukiwania rozwiazuja polowe pytan na Slacku.</li>' +
-            '<li><strong>Notatki o dostepnosci przy komponencie</strong>, nie w osobnym rozdziale, ktorego nikt nie odwiedza.</li>' +
+            '<li><strong>Deploy podglądu na każdy PR.</strong> Recenzent designu klika link, zamiast klonować branch. Chromatic, Netlify Deploy Preview albo GitHub Pages per branch.</li>' +
+            '<li><strong>Zakładka Do and Do not</strong> z realnymi zrzutami z produktu, nie abstrakcyjnymi prostokątami.</li>' +
+            '<li><strong>Sekcja migracji</strong> przy każdym komponencie, który zastąpił poprzednika, z linkiem do codemodu.</li>' +
+            '<li><strong>Wyszukiwarka po synonimach.</strong> Ludzie szukają frazy dropdown, a komponent nazywa się Select. Aliasy w indeksie wyszukiwania rozwiązują połowę pytań na Slacku.</li>' +
+            '<li><strong>Notatki o dostępności przy komponencie</strong>, nie w osobnym rozdziale, którego nikt nie odwiedza.</li>' +
             '</ul>' +
-            '<p>Osobna kwestia jest wlasnosc tresci. Referencja generuje sie sama, ale wskazowki, zasady i przyklady antywzorcow ktos musi napisac i potem odswiezac. Bez jawnego wlasciciela na komponent ta czesc dokumentacji starzeje sie najszybciej i to wlasnie ona najbardziej podwaza zaufanie do calej strony.</p>' +
-            '<p>Test dojrzalosci, ktory mozna zrobic w 15 minut: posadz nowego developera przed dokumentacja i popros o zbudowanie formularza z walidacja. Wszystko, o co zapyta na glos, jest brakiem w dokumentacji. To tansze niż jakakolwiek ankieta.</p>',
+            '<p>Osobna kwestia jest własność treści. Referencja generuje się sama, ale wskazówki, zasady i przykłady antywzorców ktoś musi napisać i potem odświeżać. Bez jawnego właściciela na komponent ta część dokumentacji starzeje się najszybciej i to właśnie ona najbardziej podważa zaufanie do całej strony.</p>' +
+            '<p>Test dojrzałości, który można zrobić w 15 minut: posadź nowego developera przed dokumentacją i poproś o zbudowanie formularza z walidacją. Wszystko, o co zapyta na głos, jest brakiem w dokumentacji. To tańsze niż jakakolwiek ankieta.</p>',
           en: '<p>Treat documentation as a product with its own metrics. Numbers worth collecting: weekly unique users, zero-result search queries (the best free gap list you will ever get), entry paths, and the most-copied snippets.</p>' +
             '<h4>Architecture</h4>' +
             '<p>A proven split is Storybook as the component layer (playground, controls, interaction tests) plus a separate site as the narrative layer (principles, tokens, accessibility, patterns, changelog). Storybook 8 and 9 let you embed stories in MDX, so both layers can live in one deploy, but some teams deliberately keep Docusaurus or VitePress alongside - because content editing by non-technical authors inside Storybook is painful.</p>' +
@@ -1121,69 +1121,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Dlaczego tabela propsow powinna byc generowana, a nie pisana recznie?',
+            pl: 'Dlaczego tabela propsów powinna być generowana, a nie pisana ręcznie?',
             en: 'Why should the props table be generated rather than hand-written?'
           },
           options: [
-            { pl: 'Bo generowana tabela ladniej wyglada', en: 'Because a generated table looks nicer' },
-            { pl: 'Bo reczna rozjedzie sie z kodem i podwazy zaufanie do calej dokumentacji', en: 'Because a hand-written one drifts from the code and undermines trust in the whole site' },
-            { pl: 'Bo Storybook nie pozwala pisac tabel recznie', en: 'Because Storybook does not allow hand-written tables' },
-            { pl: 'Bo tabele generowane sa lepiej indeksowane przez wyszukiwarki', en: 'Because generated tables index better in search engines' }
+            { pl: 'Bo generowana tabela ładniej wygląda', en: 'Because a generated table looks nicer' },
+            { pl: 'Bo ręczna rozjedzie się z kodem i podważy zaufanie do całej dokumentacji', en: 'Because a hand-written one drifts from the code and undermines trust in the whole site' },
+            { pl: 'Bo Storybook nie pozwala pisać tabel ręcznie', en: 'Because Storybook does not allow hand-written tables' },
+            { pl: 'Bo tabele generowane są lepiej indeksowane przez wyszukiwarki', en: 'Because generated tables index better in search engines' }
           ],
           correct: 1,
           explain: {
-            pl: 'Dokumentacja, ktora raz sklamala, traci uzytkownikow na dobre. Generowanie z typow i JSDoc gwarantuje, ze referencja opisuje realnie wydany kod.',
+            pl: 'Dokumentacja, która raz skłamała, traci użytkowników na dobre. Generowanie z typów i JSDoc gwarantuje, że referencja opisuje realnie wydany kod.',
             en: 'Documentation that lies once loses its users for good. Generating from types and JSDoc guarantees the reference describes the code that shipped.'
           }
         },
         {
           q: {
-            pl: 'Jedna story w formacie CSF3 pelni ile rol jednoczesnie w dojrzalym setupie?',
+            pl: 'Jedna story w formacie CSF3 pełni ile ról jednocześnie w dojrzałym setupie?',
             en: 'How many roles does a single CSF3 story play at once in a mature setup?'
           },
           options: [
             { pl: 'Tylko dokumentacyjna', en: 'Documentation only' },
             { pl: 'Dokumentacja, test wizualny i piaskownica', en: 'Documentation, visual test and playground' },
             { pl: 'Test jednostkowy i test end-to-end', en: 'Unit test and end-to-end test' },
-            { pl: 'Wylacznie zrodlo dla testow wizualnych', en: 'Only a source for visual tests' }
+            { pl: 'Wyłącznie źródło dla testów wizualnych', en: 'Only a source for visual tests' }
           ],
           correct: 1,
           explain: {
-            pl: 'Ta potrojna rola sprawia, ze stories sa najtansza inwestycja w design systemie - jeden plik obsluguje trzy potrzeby naraz.',
+            pl: 'Ta potrójna rola sprawia, że stories są najtańszą inwestycją w design systemie - jeden plik obsługuje trzy potrzeby naraz.',
             en: 'That triple duty makes stories the cheapest investment in a design system - one file serves three needs at once.'
           }
         },
         {
           q: {
-            pl: 'Ktora metryka najszybciej pokaze ci konkretne braki w dokumentacji?',
+            pl: 'Która metryka najszybciej pokaże ci konkretne braki w dokumentacji?',
             en: 'Which metric surfaces concrete documentation gaps fastest?'
           },
           options: [
-            { pl: 'Liczba odslon strony glownej', en: 'Homepage page views' },
-            { pl: 'Sredni czas na stronie', en: 'Average time on page' },
-            { pl: 'Liczba komponentow w systemie', en: 'Number of components in the system' },
-            { pl: 'Zapytania w wyszukiwarce bez wynikow', en: 'Zero-result search queries' }
+            { pl: 'Liczba odsłon strony głównej', en: 'Homepage page views' },
+            { pl: 'Średni czas na stronie', en: 'Average time on page' },
+            { pl: 'Liczba komponentów w systemie', en: 'Number of components in the system' },
+            { pl: 'Zapytania w wyszukiwarce bez wyników', en: 'Zero-result search queries' }
           ],
           correct: 3,
           explain: {
-            pl: 'Puste wyniki wyszukiwania to lista rzeczy, ktorych ludzie szukali i nie znalezli - gotowy backlog dokumentacyjny, za darmo.',
+            pl: 'Puste wyniki wyszukiwania to lista rzeczy, których ludzie szukali i nie znaleźli - gotowy backlog dokumentacyjny, za darmo.',
             en: 'Zero-result searches are a list of things people looked for and did not find - a ready-made docs backlog, for free.'
           }
         },
         {
           q: {
-            pl: 'Organizacja uzywa Angulara, Vue i Reacta. Ktore podejscie do dokumentacji jest najbardziej zrownowazone dlugoterminowo?',
+            pl: 'Organizacja używa Angulara, Vue i Reacta. Które podejście do dokumentacji jest najbardziej zrównoważone długoterminowo?',
             en: 'The organisation runs Angular, Vue and React. Which documentation approach is most sustainable long term?'
           },
           options: [
-            { pl: 'Baza w web componentach i generowane wrappery, wiec snippety dla trzech frameworkow pochodza z jednego zrodla', en: 'A web components base with generated wrappers, so snippets for three frameworks come from one source' },
-            { pl: 'Trzy oddzielne Storybooki utrzymywane rownolegle przez zespol design systemu', en: 'Three separate Storybooks maintained in parallel by the design system team' },
-            { pl: 'Dokumentacja tylko dla najpopularniejszego frameworka, reszta niech tlumaczy sama', en: 'Docs for the most popular framework only; the rest can translate themselves' },
-            { pl: 'Zrzuty ekranu kodu w Confluence, zeby nie utrzymywac buildu', en: 'Screenshots of code in Confluence, to avoid maintaining a build' }
+            { pl: 'Baza w web componentach i generowane wrappery, więc snippety dla trzech frameworków pochodzą z jednego źródła', en: 'A web components base with generated wrappers, so snippets for three frameworks come from one source' },
+            { pl: 'Trzy oddzielne Storybooki utrzymywane równolegle przez zespół design systemu', en: 'Three separate Storybooks maintained in parallel by the design system team' },
+            { pl: 'Dokumentacja tylko dla najpopularniejszego frameworka, reszta niech tłumaczy sama', en: 'Docs for the most popular framework only; the rest can translate themselves' },
+            { pl: 'Zrzuty ekranu kodu w Confluence, żeby nie utrzymywać buildu', en: 'Screenshots of code in Confluence, to avoid maintaining a build' }
           ],
           correct: 0,
           explain: {
-            pl: 'Rownolegle Storybooki to potrojony koszt utrzymania, a dokumentacja dla jednego frameworka wypycha pozostale zespoly poza system. Jedno zrodlo z wrapperami skaluje sie najlepiej.',
+            pl: 'Równoległe Storybooki to potrojony koszt utrzymania, a dokumentacja dla jednego frameworka wypycha pozostałe zespoły poza system. Jedno źródło z wrapperami skaluje się najlepiej.',
             en: 'Parallel Storybooks triple the maintenance cost, and single-framework docs push the other teams out of the system. One source with wrappers scales best.'
           }
         }
@@ -1251,17 +1251,17 @@ export default {
           '<text x="320" y="400" fill="var(--muted)" font-size="13" text-anchor="middle">cheap and fast at the bottom, slow and brittle at the top</text>' +
           '</svg>',
         caption: {
-          pl: 'Piramida testow dla design systemu: dol tani i szybki, gora wolna i krucha - a testy wizualne siedza wyzej, niz sie ludziom wydaje.',
+          pl: 'Piramida testów dla design systemu: dół tani i szybki, góra wolna i krucha - a testy wizualne siedzą wyżej, niż się ludziom wydaje.',
           en: 'The test pyramid for a design system: cheap and fast at the bottom, slow and brittle at the top - and visual tests sit higher than people assume.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie, ze piszesz przepis na ciasto, z ktorego korzysta cala rodzina. Zanim wyslesz nowa wersje przepisu, chcesz sprawdzic trzy rzeczy.</p>' +
-            '<p>Po pierwsze, czy skladniki sie zgadzaja - to szybkie, mozesz to zrobic w glowie sto razy dziennie.</p>' +
-            '<p>Po drugie, czy da sie tym ciastem realnie poslugiwac: pokroic, podac, ugryzc. To troche wolniejsze, bo trzeba wziac widelec do reki.</p>' +
-            '<p>Po trzecie - i to jest ta czesc, ktora wszyscy pomijaja - czy ciasto <strong>wyglada</strong> tak samo jak wczoraj. Robisz zdjecie przed i po. Jesli polewa nagle przesunela sie o dwa centymetry, chcesz to zobaczyc, zanim zobaczy to babcia.</p>' +
-            '<p>Haczyk jest taki, ze zdjecia lubia klamac. Inne swiatlo, inny stol, i juz masz alarm bez powodu. Dlatego robi sie je zawsze w tym samym miejscu, o tej samej porze, tym samym aparatem.</p>',
+          pl: '<p>Wyobraź sobie, że piszesz przepis na ciasto, z którego korzysta cała rodzina. Zanim wyślesz nową wersję przepisu, chcesz sprawdzić trzy rzeczy.</p>' +
+            '<p>Po pierwsze, czy składniki się zgadzają - to szybkie, możesz to zrobić w głowie sto razy dziennie.</p>' +
+            '<p>Po drugie, czy da się tym ciastem realnie posługiwać: pokroić, podać, ugryźć. To trochę wolniejsze, bo trzeba wziąć widelec do ręki.</p>' +
+            '<p>Po trzecie - i to jest ta część, którą wszyscy pomijają - czy ciasto <strong>wygląda</strong> tak samo jak wczoraj. Robisz zdjęcie przed i po. Jeśli polewa nagle przesunęła się o dwa centymetry, chcesz to zobaczyć, zanim zobaczy to babcia.</p>' +
+            '<p>Haczyk jest taki, że zdjęcia lubią kłamać. Inne światło, inny stół, i już masz alarm bez powodu. Dlatego robi się je zawsze w tym samym miejscu, o tej samej porze, tym samym aparatem.</p>',
           en: '<p>Imagine you write a cake recipe that the whole family uses. Before you send out a new version you want to check three things.</p>' +
             '<p>First, do the ingredients add up - that is fast, you can do it in your head a hundred times a day.</p>' +
             '<p>Second, can the cake actually be used: sliced, served, bitten. Slightly slower, because you have to pick up a fork.</p>' +
@@ -1269,17 +1269,17 @@ export default {
             '<p>The catch is that photos love to lie. Different light, different table, and you have an alarm for no reason. So you always take them in the same place, at the same time, with the same camera.</p>'
         },
         school: {
-          pl: '<p>Design system testuje sie inaczej niz aplikacje, bo produktem jest <strong>kontrakt</strong>, nie funkcjonalnosc. Cztery warstwy, od najtanszej:</p>' +
+          pl: '<p>Design system testuje się inaczej niż aplikacje, bo produktem jest <strong>kontrakt</strong>, nie funkcjonalność. Cztery warstwy, od najtańszej:</p>' +
             '<ul>' +
-            '<li><strong>Jednostkowe</strong> (Vitest): logika, walidacja propsow, emitowane zdarzenia. Setki testow, sekundy.</li>' +
-            '<li><strong>Interakcyjne</strong> (Testing Library albo play functions w Storybooku): fokus, klawiatura, otwieranie i zamykanie. Testuj zachowanie widoczne dla uzytkownika, nie stan wewnetrzny.</li>' +
-            '<li><strong>Dostepnosciowe</strong> (axe-core, <code>@storybook/addon-a11y</code>): uruchamiane automatycznie na kazdej story. Lapia moze 30-40 procent problemow, ale za darmo i przy kazdym PR.</li>' +
-            '<li><strong>Wizualne</strong> (Chromatic, Percy, Playwright screenshots): jedyna warstwa, ktora wylapie, ze padding urosl o 4 piksele.</li>' +
+            '<li><strong>Jednostkowe</strong> (Vitest): logika, walidacja propsów, emitowane zdarzenia. Setki testów, sekundy.</li>' +
+            '<li><strong>Interakcyjne</strong> (Testing Library albo play functions w Storybooku): fokus, klawiatura, otwieranie i zamykanie. Testuj zachowanie widoczne dla użytkownika, nie stan wewnętrzny.</li>' +
+            '<li><strong>Dostępnościowe</strong> (axe-core, <code>@storybook/addon-a11y</code>): uruchamiane automatycznie na każdej story. Łapią może 30-40 procent problemów, ale za darmo i przy każdym PR.</li>' +
+            '<li><strong>Wizualne</strong> (Chromatic, Percy, Playwright screenshots): jedyna warstwa, która wyłapie, że padding urósł o 4 piksele.</li>' +
             '</ul>' +
-            '<pre><code>// interakcja zamiast wnetrza\nawait userEvent.tab();\nexpect(screen.getByRole("button", { name: "Save" })).toHaveFocus();</code></pre>' +
-            '<p>Testy wizualne to najwiekszy zysk i najwieksza pulapka jednoczesnie. Zysk: przy zmianie jednego tokena widzisz od razu, ze 40 komponentow wyglada inaczej. Pulapka: <strong>flaki</strong>. Animacje, fonty ladowane asynchronicznie, kursor, daty w tresci - kazde z nich potrafi generowac falszywe roznice.</p>' +
-            '<p>Lekarstwa sa nudne i skuteczne: wylacz animacje w trybie testowym, laduj fonty lokalnie, zamroz czas, uzywaj deterministycznych danych i uruchamiaj wszystko w tym samym kontenerze co CI - a nie na Macu jednego developera.</p>' +
-            '<p>Jest tez warstwa, o ktorej latwo zapomniec: <strong>test kontraktu API</strong>. Wystarczy trzymac w repozytorium wygenerowany opis publicznego API komponentow i porownywac go przy kazdym PR. Wtedy usuniecie propa albo zmiana nazwy zdarzenia pojawia sie w diffie jako czerwona linia, zamiast wyplynac dopiero u konsumenta po wydaniu.</p>',
+            '<pre><code>// interakcja zamiast wnętrza\nawait userEvent.tab();\nexpect(screen.getByRole("button", { name: "Save" })).toHaveFocus();</code></pre>' +
+            '<p>Testy wizualne to największy zysk i największa pułapka jednocześnie. Zysk: przy zmianie jednego tokena widzisz od razu, że 40 komponentów wygląda inaczej. Pułapka: <strong>flaki</strong>. Animacje, fonty ładowane asynchronicznie, kursor, daty w treści - każde z nich potrafi generować fałszywe różnice.</p>' +
+            '<p>Lekarstwa są nudne i skuteczne: wyłącz animacje w trybie testowym, ładuj fonty lokalnie, zamroź czas, używaj deterministycznych danych i uruchamiaj wszystko w tym samym kontenerze co CI - a nie na Macu jednego developera.</p>' +
+            '<p>Jest też warstwa, o której łatwo zapomnieć: <strong>test kontraktu API</strong>. Wystarczy trzymać w repozytorium wygenerowany opis publicznego API komponentów i porównywać go przy każdym PR. Wtedy usunięcie propa albo zmiana nazwy zdarzenia pojawia się w diffie jako czerwona linia, zamiast wypłynąć dopiero u konsumenta po wydaniu.</p>',
           en: '<p>You test a design system differently from an application, because the product is a <strong>contract</strong>, not a feature. Four layers, cheapest first:</p>' +
             '<ul>' +
             '<li><strong>Unit</strong> (Vitest): logic, prop validation, emitted events. Hundreds of tests, seconds.</li>' +
@@ -1293,24 +1293,24 @@ export default {
             '<p>There is one more layer that is easy to forget: the <strong>API contract test</strong>. Keep a generated description of the public component API in the repository and diff it on every PR. A removed prop or a renamed event then shows up as a red line in review, instead of surfacing at a consumer after release.</p>'
         },
         pro: {
-          pl: '<p>Ekonomia testow wizualnych decyduje o tym, czy je utrzymacie. Przy 60 komponentach i srednio 8 stories to 480 snapshotow. Pomnoz przez 2 motywy, 2 szerokosci i 2 kierunki tekstu, a masz 3840 zdjec na commit. Chromatic liczy sobie za snapshot, wiec ten sam pipeline moze kosztowac 200 dolarow miesiecznie albo 3000 - roznica lezy wylacznie w tym, co odfiltrujesz.</p>' +
-            '<h4>Jak sciac koszt bez utraty pokrycia</h4>' +
+          pl: '<p>Ekonomia testów wizualnych decyduje o tym, czy je utrzymacie. Przy 60 komponentach i średnio 8 stories to 480 snapshotów. Pomnóż przez 2 motywy, 2 szerokości i 2 kierunki tekstu, a masz 3840 zdjęć na commit. Chromatic liczy sobie za snapshot, więc ten sam pipeline może kosztować 200 dolarów miesięcznie albo 3000 - różnica leży wyłącznie w tym, co odfiltrujesz.</p>' +
+            '<h4>Jak ściąć koszt bez utraty pokrycia</h4>' +
             '<ul>' +
-            '<li><strong>TurboSnap albo wlasna detekcja zmian:</strong> snapshotuj tylko stories dotkniete przez diff w grafie zaleznosci. Typowo redukuje przebieg o 80-90 procent.</li>' +
-            '<li><strong>Pelna matryca tylko na nocnym buildzie</strong> i przed releasem. Na PR jedna szerokosc, jeden motyw.</li>' +
-            '<li><strong>Jedna story kompozytowa</strong> zamiast osmiu wariantow pojedynczego przycisku - kratka wszystkich wariantow na jednym zdjeciu lapie te same regresje za jedna oplate.</li>' +
+            '<li><strong>TurboSnap albo własna detekcja zmian:</strong> snapshotuj tylko stories dotknięte przez diff w grafie zależności. Typowo redukuje przebieg o 80-90 procent.</li>' +
+            '<li><strong>Pełna matryca tylko na nocnym buildzie</strong> i przed releasem. Na PR jedna szerokość, jeden motyw.</li>' +
+            '<li><strong>Jedna story kompozytowa</strong> zamiast ośmiu wariantów pojedynczego przycisku - kratka wszystkich wariantów na jednym zdjęciu łapie te same regresje za jedną opłatę.</li>' +
             '</ul>' +
-            '<h4>Determinizm jako wymog architektoniczny</h4>' +
+            '<h4>Determinizm jako wymóg architektoniczny</h4>' +
             '<pre><code>// .storybook/preview.ts\nexport const parameters = {\n  chromatic: { pauseAnimationAtEnd: true },\n};\nexport const decorators = [(Story) =&gt; {\n  document.documentElement.classList.add("test-mode");\n  return Story();\n}];\n// CSS: .test-mode * { animation: none !important; transition: none !important; }</code></pre>' +
-            '<p>Prog tolerancji na roznice to pulapka, o ktorej warto myslec swiadomie. Ustawiony na 0 daje szum przy kazdej roznicy renderowania czcionek. Ustawiony na 0.2 przepusci realna zmiane koloru. Lepszym rozwiazaniem od podnoszenia progu jest usuniecie zrodla niedeterminizmu.</p>' +
-            '<h4>Warstwy, o ktorych sie zapomina</h4>' +
+            '<p>Próg tolerancji na różnice to pułapka, o której warto myśleć świadomie. Ustawiony na 0 daje szum przy każdej różnicy renderowania czcionek. Ustawiony na 0.2 przepuści realną zmianę koloru. Lepszym rozwiązaniem od podnoszenia progu jest usunięcie źródła niedeterminizmu.</p>' +
+            '<h4>Warstwy, o których się zapomina</h4>' +
             '<ul>' +
-            '<li><strong>Test kontraktu API</strong>: snapshot <code>custom-elements.json</code> albo raportu z <code>api-extractor</code> w repo. Kazda zmiana publicznego API pojawia sie w diffie PR i wymusza swiadomy wybor poziomu semver.</li>' +
-            '<li><strong>Budzet rozmiaru</strong>: <code>size-limit</code> w CI. Jeden nieuwazny import lodash w komponencie potrafi dodac 70 kB do bundla kazdej aplikacji w firmie.</li>' +
-            '<li><strong>Testy w realnych przegladarkach</strong>: Playwright z projektami dla Chromium, WebKit i Firefoksa dla komponentow opartych o popover, dialog albo anchor positioning, gdzie roznice silnikow sa realne.</li>' +
-            '<li><strong>Weryfikacja recznym testem czytnika ekranu</strong> przy komponentach zlozonych. axe nie powie ci, ze kolejnosc odczytu jest bez sensu.</li>' +
+            '<li><strong>Test kontraktu API</strong>: snapshot <code>custom-elements.json</code> albo raportu z <code>api-extractor</code> w repo. Każda zmiana publicznego API pojawia się w diffie PR i wymusza świadomy wybór poziomu semver.</li>' +
+            '<li><strong>Budżet rozmiaru</strong>: <code>size-limit</code> w CI. Jeden nieuważny import lodash w komponencie potrafi dodać 70 kB do bundla każdej aplikacji w firmie.</li>' +
+            '<li><strong>Testy w realnych przeglądarkach</strong>: Playwright z projektami dla Chromium, WebKit i Firefoksa dla komponentów opartych o popover, dialog albo anchor positioning, gdzie różnice silników są realne.</li>' +
+            '<li><strong>Weryfikacja ręcznym testem czytnika ekranu</strong> przy komponentach złożonych. axe nie powie ci, że kolejność odczytu jest bez sensu.</li>' +
             '</ul>' +
-            '<p>Zasada organizacyjna wazniejsza niz narzedzie: <strong>diff wizualny musi akceptowac designer, nie tylko developer</strong>. Jesli akceptuje go autor zmiany, testy wizualne po pol roku staja sie kosztownym klikaniem Approve.</p>',
+            '<p>Zasada organizacyjna ważniejsza niż narzędzie: <strong>diff wizualny musi akceptować designer, nie tylko developer</strong>. Jeśli akceptuje go autor zmiany, testy wizualne po pół roku stają się kosztownym klikaniem Approve.</p>',
           en: '<p>The economics of visual testing decide whether you keep it. With 60 components and 8 stories on average that is 480 snapshots. Multiply by 2 themes, 2 widths and 2 text directions and you have 3840 images per commit. Chromatic bills per snapshot, so the same pipeline can cost 200 dollars a month or 3000 - the difference is entirely in what you filter out.</p>' +
             '<h4>Cutting cost without losing coverage</h4>' +
             '<ul>' +
@@ -1334,69 +1334,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Ktorego rodzaju bledu NIE wylapia testy jednostkowe ani interakcyjne?',
+            pl: 'Którego rodzaju błędu NIE wyłapią testy jednostkowe ani interakcyjne?',
             en: 'Which kind of defect will neither unit nor interaction tests catch?'
           },
           options: [
             { pl: 'Zmiana paddingu o 4 piksele po edycji tokena', en: 'Padding growing by 4 pixels after a token edit' },
             { pl: 'Brak emitowanego zdarzenia change', en: 'A missing change event' },
-            { pl: 'Fokus nieprzechodzacy na przycisk po tabulacji', en: 'Focus not reaching the button on tab' },
-            { pl: 'Bledna walidacja wartosci propa', en: 'Wrong prop value validation' }
+            { pl: 'Fokus nieprzechodzący na przycisk po tabulacji', en: 'Focus not reaching the button on tab' },
+            { pl: 'Błędna walidacja wartości propa', en: 'Wrong prop value validation' }
           ],
           correct: 0,
           explain: {
-            pl: 'Regresje czysto wizualne widzi tylko porownanie zrzutow. Dlatego warstwa wizualna jest w design systemie obowiazkowa, a nie opcjonalna.',
+            pl: 'Regresje czysto wizualne widzi tylko porównanie zrzutów. Dlatego warstwa wizualna jest w design systemie obowiązkowa, a nie opcjonalna.',
             en: 'Purely visual regressions are only visible to image comparison. That is why the visual layer is mandatory in a design system, not optional.'
           }
         },
         {
           q: {
-            pl: 'Twoje testy wizualne generuja falszywe roznice na co drugim PR. Ktore dzialanie jest najlepsze?',
+            pl: 'Twoje testy wizualne generują fałszywe różnice na co drugim PR. Które działanie jest najlepsze?',
             en: 'Your visual tests produce false diffs on every other PR. Which action is best?'
           },
           options: [
-            { pl: 'Podniesc prog tolerancji do 0.2', en: 'Raise the diff threshold to 0.2' },
-            { pl: 'Usunac zrodla niedeterminizmu: animacje, fonty, czas, dane losowe', en: 'Remove the sources of non-determinism: animations, fonts, time, random data' },
-            { pl: 'Uruchamiac testy tylko przed releasem', en: 'Only run the tests before a release' },
-            { pl: 'Pozwolic autorom zmian akceptowac wlasne diffy', en: 'Let change authors approve their own diffs' }
+            { pl: 'Podnieść próg tolerancji do 0.2', en: 'Raise the diff threshold to 0.2' },
+            { pl: 'Usunąć źródła niedeterminizmu: animacje, fonty, czas, dane losowe', en: 'Remove the sources of non-determinism: animations, fonts, time, random data' },
+            { pl: 'Uruchamiać testy tylko przed releasem', en: 'Only run the tests before a release' },
+            { pl: 'Pozwolić autorom zmian akceptować własne diffy', en: 'Let change authors approve their own diffs' }
           ],
           correct: 1,
           explain: {
-            pl: 'Podniesienie progu ukrywa takze realne regresje. Determinizm jest wymogiem architektonicznym testow wizualnych, nie detalem konfiguracji.',
+            pl: 'Podniesienie progu ukrywa także realne regresje. Determinizm jest wymogiem architektonicznym testów wizualnych, nie detalem konfiguracji.',
             en: 'Raising the threshold hides real regressions too. Determinism is an architectural requirement of visual testing, not a config detail.'
           }
         },
         {
           q: {
-            pl: 'Masz 60 komponentow, 8 stories na komponent, 2 motywy i 2 szerokosci. Rachunek za snapshoty rosnie. Ktora zmiana najbardziej sciaga koszt bez utraty pokrycia?',
+            pl: 'Masz 60 komponentów, 8 stories na komponent, 2 motywy i 2 szerokości. Rachunek za snapshoty rośnie. Która zmiana najbardziej ściąga koszt bez utraty pokrycia?',
             en: 'You have 60 components, 8 stories each, 2 themes and 2 widths. The snapshot bill is climbing. Which change cuts cost most without losing coverage?'
           },
           options: [
-            { pl: 'Zredukowac liczbe motywow do jednego na stale', en: 'Permanently drop to a single theme' },
-            { pl: 'Usunac testy wizualne dla komponentow rzadko uzywanych', en: 'Delete visual tests for rarely used components' },
-            { pl: 'Snapshotowac na PR tylko stories dotkniete przez diff, a pelna matryce uruchamiac nocnie', en: 'On PRs snapshot only stories touched by the diff, and run the full matrix nightly' },
-            { pl: 'Zmniejszyc rozdzielczosc zrzutow o polowe', en: 'Halve the screenshot resolution' }
+            { pl: 'Zredukować liczbę motywów do jednego na stałe', en: 'Permanently drop to a single theme' },
+            { pl: 'Usunąć testy wizualne dla komponentów rzadko używanych', en: 'Delete visual tests for rarely used components' },
+            { pl: 'Snapshotować na PR tylko stories dotknięte przez diff, a pełną matrycę uruchamiać nocnie', en: 'On PRs snapshot only stories touched by the diff, and run the full matrix nightly' },
+            { pl: 'Zmniejszyć rozdzielczość zrzutów o połowę', en: 'Halve the screenshot resolution' }
           ],
           correct: 2,
           explain: {
-            pl: 'Detekcja zmian po grafie zaleznosci tnie typowy przebieg o 80-90 procent, a nocna pelna matryca nadal chroni przed regresja globalna.',
+            pl: 'Detekcja zmian po grafie zależności tnie typowy przebieg o 80-90 procent, a nocna pełna matryca nadal chroni przed regresją globalną.',
             en: 'Dependency-graph change detection cuts a typical run by 80-90 percent, while the nightly full matrix still guards against global regressions.'
           }
         },
         {
           q: {
-            pl: 'Dlaczego akceptacja diffow wizualnych przez designera, a nie autora zmiany, jest decyzja architektoniczna?',
+            pl: 'Dlaczego akceptacja diffów wizualnych przez designera, a nie autora zmiany, jest decyzją architektoniczną?',
             en: 'Why is having a designer, rather than the change author, approve visual diffs an architectural decision?'
           },
           options: [
-            { pl: 'Bo designerzy szybciej klikaja Approve', en: 'Because designers click Approve faster' },
-            { pl: 'Bo autor zmiany ma silna motywacje, by uznac wlasny diff za zamierzony, co z czasem wydraza wartosc testow', en: 'Because the author is strongly motivated to call their own diff intentional, which hollows out the tests over time' },
-            { pl: 'Bo narzedzia takie jak Chromatic wymagaja roli designera', en: 'Because tools like Chromatic require a designer role' },
-            { pl: 'Bo designerzy maja dostep do plikow Figmy', en: 'Because designers have access to the Figma files' }
+            { pl: 'Bo designerzy szybciej klikają Approve', en: 'Because designers click Approve faster' },
+            { pl: 'Bo autor zmiany ma silną motywację, by uznać własny diff za zamierzony, co z czasem wydrąża wartość testów', en: 'Because the author is strongly motivated to call their own diff intentional, which hollows out the tests over time' },
+            { pl: 'Bo narzędzia takie jak Chromatic wymagają roli designera', en: 'Because tools like Chromatic require a designer role' },
+            { pl: 'Bo designerzy mają dostęp do plików Figmy', en: 'Because designers have access to the Figma files' }
           ],
           correct: 1,
           explain: {
-            pl: 'To ten sam mechanizm co zakaz zatwierdzania wlasnego PR: rozdzielenie decyzji od interesu utrzymuje test przy zyciu przez lata.',
+            pl: 'To ten sam mechanizm co zakaz zatwierdzania własnego PR: rozdzielenie decyzji od interesu utrzymuje test przy życiu przez lata.',
             en: 'It is the same mechanism as not approving your own PR: separating the decision from the interest keeps the test alive for years.'
           }
         }
@@ -1487,17 +1487,17 @@ export default {
           '<text x="320" y="382" fill="var(--muted)" font-size="13" text-anchor="middle">saying no is the cheapest architectural act you have</text>' +
           '</svg>',
         caption: {
-          pl: 'Modele governance i lejek przyjmowania zgloszen - z jasno opisanym wyjsciem awaryjnym na kazdym etapie.',
+          pl: 'Modele governance i lejek przyjmowania zgłoszeń - z jasno opisanym wyjściem awaryjnym na każdym etapie.',
           en: 'Governance models and the intake funnel - with a clearly described exit at every stage.'
         }
       },
       levels: {
         eli5: {
-          pl: '<p>Wyobraz sobie ogrodek warzywny, z ktorego korzysta caly blok. Sa trzy sposoby, zeby nim zarzadzac.</p>' +
-            '<p>Pierwszy: jedna osoba sadzi wszystko sama. Grzadki wygladaja pieknie i rownie, ale jak dziesiec rodzin chce pomidorow, to stoja w kolejce do jesieni.</p>' +
-            '<p>Drugi: kazdy sadzi co chce. Warzyw jest duzo i szybko, tylko po roku nikt nie wie, gdzie konczy sie marchewka, a zaczyna chwast.</p>' +
-            '<p>Trzeci, ten dzialajacy: kazdy moze sadzic, ale jest ogrodnik, ktory mowi gdzie i pilnuje, zeby dynia nie zajela calej grzadki. Ogrodnik nie sadzi wszystkiego sam - uczy innych i sprawdza.</p>' +
-            '<p>Najwazniejsza umiejetnosc ogrodnika to <strong>umiec powiedziec nie</strong>, ale nigdy samo nie. Zawsze: nie tutaj, za to sprobuj tam, i pokaze ci jak.</p>',
+          pl: '<p>Wyobraź sobie ogródek warzywny, z którego korzysta cały blok. Są trzy sposoby, żeby nim zarządzać.</p>' +
+            '<p>Pierwszy: jedna osoba sadzi wszystko sama. Grządki wyglądają pięknie i równie, ale jak dziesięć rodzin chce pomidorów, to stoją w kolejce do jesieni.</p>' +
+            '<p>Drugi: każdy sadzi co chce. Warzyw jest dużo i szybko, tylko po roku nikt nie wie, gdzie kończy się marchewka, a zaczyna chwast.</p>' +
+            '<p>Trzeci, ten działający: każdy może sadzić, ale jest ogrodnik, który mówi gdzie i pilnuje, żeby dynia nie zajęła całej grządki. Ogrodnik nie sadzi wszystkiego sam - uczy innych i sprawdza.</p>' +
+            '<p>Najważniejsza umiejętność ogrodnika to <strong>umieć powiedzieć nie</strong>, ale nigdy samo nie. Zawsze: nie tutaj, za to spróbuj tam, i pokażę ci jak.</p>',
           en: '<p>Imagine a vegetable garden shared by a whole apartment block. There are three ways to run it.</p>' +
             '<p>First: one person plants everything themselves. The beds look beautiful and even, but when ten families want tomatoes they queue until autumn.</p>' +
             '<p>Second: everyone plants whatever they like. There are lots of vegetables fast, but a year later nobody can tell where the carrots end and the weeds begin.</p>' +
@@ -1505,16 +1505,16 @@ export default {
             '<p>The gardener most important skill is <strong>being able to say no</strong>, but never a bare no. Always: not here, try that instead, and let me show you how.</p>'
         },
         school: {
-          pl: '<p>Design system nie umiera z powodow technicznych. Umiera, gdy zespoly przestaja go uzywac, bo szybciej im napisac wlasny komponent. Governance to zestaw zasad, ktore utrzymuja rownowage miedzy spojnoscia a szybkoscia.</p>' +
+          pl: '<p>Design system nie umiera z powodów technicznych. Umiera, gdy zespoły przestają go używać, bo szybciej im napisać własny komponent. Governance to zestaw zasad, które utrzymują równowagę między spójnością a szybkością.</p>' +
             '<p>Trzy modele:</p>' +
             '<ul>' +
-            '<li><strong>Scentralizowany</strong> - wszystko robi zespol design systemu. Spojne, ale przy 30 aplikacjach zespol staje sie waskim gardlem i ludzie zaczynaja obchodzic system.</li>' +
-            '<li><strong>Federacyjny</strong> - kazdy moze dodac komponent. Szybkie, ale bez silnej recenzji po roku macie trzy dropdowny.</li>' +
-            '<li><strong>Hybrydowy</strong> - zespol rdzenia jest wlascicielem API, standardow i recenzji; zespoly produktowe kontrybuuja kod. To domyslny wybor w duzych organizacjach.</li>' +
+            '<li><strong>Scentralizowany</strong> - wszystko robi zespół design systemu. Spójne, ale przy 30 aplikacjach zespół staje się wąskim gardłem i ludzie zaczynają obchodzić system.</li>' +
+            '<li><strong>Federacyjny</strong> - każdy może dodać komponent. Szybkie, ale bez silnej recenzji po roku macie trzy dropdowny.</li>' +
+            '<li><strong>Hybrydowy</strong> - zespół rdzenia jest właścicielem API, standardów i recenzji; zespoły produktowe kontrybuują kod. To domyślny wybór w dużych organizacjach.</li>' +
             '</ul>' +
-            '<p>Model hybrydowy dziala tylko wtedy, gdy kontrybucja jest realnie tania. To znaczy: szablon PR, przewodnik kontrybutora, dzialajace srodowisko dev w jednej komendzie, i - najwazniejsze - <strong>ktos z rdzenia, kto siada z autorem</strong>. Kontrybucja, ktora czeka dwa tygodnie na review, nie powtorzy sie po raz drugi.</p>' +
-            '<p>Druga polowa governance to <strong>lejek przyjmowania zgloszen</strong>. Prosta zasada, ktora oszczedza mnostwo dyskusji: komponent trafia do systemu, gdy potrzebuja go co najmniej trzy zespoly. Jeden zespol dostaje odpowiedz: zbuduj lokalnie, wrocimy do tematu, gdy pojawi sie drugi i trzeci.</p>' +
-            '<p>I zasada, ktora warto zapamietac dosłownie: nigdy nie mow samego nie. Mow "nie w tej formie, oto alternatywa". Nie z alternatywa buduje zaufanie, samo nie buduje forka.</p>',
+            '<p>Model hybrydowy działa tylko wtedy, gdy kontrybucja jest realnie tania. To znaczy: szablon PR, przewodnik kontrybutora, działające środowisko dev w jednej komendzie, i - najważniejsze - <strong>ktoś z rdzenia, kto siada z autorem</strong>. Kontrybucja, która czeka dwa tygodnie na review, nie powtórzy się po raz drugi.</p>' +
+            '<p>Druga połowa governance to <strong>lejek przyjmowania zgłoszeń</strong>. Prosta zasada, która oszczędza mnóstwo dyskusji: komponent trafia do systemu, gdy potrzebują go co najmniej trzy zespoły. Jeden zespół dostaje odpowiedź: zbuduj lokalnie, wrócimy do tematu, gdy pojawi się drugi i trzeci.</p>' +
+            '<p>I zasada, którą warto zapamiętać dosłownie: nigdy nie mów samego nie. Mów "nie w tej formie, oto alternatywa". Nie z alternatywą buduje zaufanie, samo nie buduje forka.</p>',
           en: '<p>Design systems do not die of technical causes. They die when teams stop using them because writing their own component is faster. Governance is the set of rules that keeps consistency and speed in balance.</p>' +
             '<p>Three models:</p>' +
             '<ul>' +
@@ -1527,26 +1527,26 @@ export default {
             '<p>And a rule worth memorising literally: never say a bare no. Say "not in this shape, here is the alternative". A no with an alternative builds trust; a bare no builds a fork.</p>'
         },
         pro: {
-          pl: '<p>Na poziomie principala governance przestaje byc procesem, a staje sie <strong>strategia produktowa produktu wewnetrznego</strong>. Twoi uzytkownicy to inzynierowie, ktorzy zawsze maja alternatywe: napisac wlasne. Kazda decyzja governance jest wiec w istocie decyzja o tym, czy zostana.</p>' +
-            '<h4>Metryki, ktore przekonuja zarzad</h4>' +
+          pl: '<p>Na poziomie principala governance przestaje być procesem, a staje się <strong>strategią produktową produktu wewnętrznego</strong>. Twoi użytkownicy to inżynierowie, którzy zawsze mają alternatywę: napisać własne. Każda decyzja governance jest więc w istocie decyzją o tym, czy zostaną.</p>' +
+            '<h4>Metryki, które przekonują zarząd</h4>' +
             '<ul>' +
-            '<li><strong>Pokrycie adopcji</strong> - procent komponentow UI na produkcji pochodzacych z systemu. Mierzalne skanem AST repozytoriow albo telemetria w runtime. Realistyczny stan dojrzaly: 60-80 procent.</li>' +
-            '<li><strong>Czas do pierwszego ekranu</strong> - ile dni zajmuje nowemu zespolowi postawienie zgodnego z marka ekranu. Spadek z 10 dni do 2 to argument finansowy, nie estetyczny.</li>' +
-            '<li><strong>Zaoszczedzony czas</strong> - liczba uzyc komponentu razy szacowany koszt implementacji lokalnej. Ten wskaznik jest z natury przyblizony, ale to jedyny jezyk, w ktorym rozmawia sie o budzecie.</li>' +
-            '<li><strong>Dlug: liczba forkow i lokalnych duplikatow.</strong> Rosnaca liczba forkow jest wczesnym sygnalem, ze proces przyjmowania zgloszen jest zbyt wolny.</li>' +
+            '<li><strong>Pokrycie adopcji</strong> - procent komponentów UI na produkcji pochodzących z systemu. Mierzalne skanem AST repozytoriów albo telemetrią w runtime. Realistyczny stan dojrzały: 60-80 procent.</li>' +
+            '<li><strong>Czas do pierwszego ekranu</strong> - ile dni zajmuje nowemu zespołowi postawienie zgodnego z marką ekranu. Spadek z 10 dni do 2 to argument finansowy, nie estetyczny.</li>' +
+            '<li><strong>Zaoszczędzony czas</strong> - liczba użyć komponentu razy szacowany koszt implementacji lokalnej. Ten wskaźnik jest z natury przybliżony, ale to jedyny język, w którym rozmawia się o budżecie.</li>' +
+            '<li><strong>Dług: liczba forków i lokalnych duplikatów.</strong> Rosnąca liczba forków jest wczesnym sygnałem, że proces przyjmowania zgłoszeń jest zbyt wolny.</li>' +
             '</ul>' +
             '<h4>Dynamika organizacyjna</h4>' +
-            '<p>Prawo Conwaya dziala tu bezlitosnie. Jesli zespol design systemu podlega pod jeden pion produktowy, komponenty tego pionu beda lepsze, a pozostale zespoly to zauwaza w ciagu kwartalu i zaczna sie dystansowac. Design system powinien raportowac do platformy albo do CTO, a nie do najglosniejszego konsumenta.</p>' +
-            '<p>Finansowanie ma trzy modele: centralny budzet platformowy (najzdrowszy), chargeback per zespol (generuje polityke) i model bez budzetu, gdzie utrzymanie robi sie po godzinach (konczy sie zawsze tak samo). Jesli walczysz o pierwszy, uzbrój sie w metryki z poprzedniego akapitu.</p>' +
-            '<h4>Rytualy, ktore realnie dzialaja</h4>' +
+            '<p>Prawo Conwaya działa tu bezlitośnie. Jeśli zespół design systemu podlega pod jeden pion produktowy, komponenty tego pionu będą lepsze, a pozostałe zespoły to zauważą w ciągu kwartału i zaczną się dystansować. Design system powinien raportować do platformy albo do CTO, a nie do najgłośniejszego konsumenta.</p>' +
+            '<p>Finansowanie ma trzy modele: centralny budżet platformowy (najzdrowszy), chargeback per zespół (generuje politykę) i model bez budżetu, gdzie utrzymanie robi się po godzinach (kończy się zawsze tak samo). Jeśli walczysz o pierwszy, uzbrój się w metryki z poprzedniego akapitu.</p>' +
+            '<h4>Rytuały, które realnie działają</h4>' +
             '<ul>' +
-            '<li><strong>Office hours</strong> dwa razy w tygodniu po 45 minut. Zamienia asynchroniczne pytania na Slacku w rozmowe i buduje relacje, ktore pozniej ratuja migracje.</li>' +
-            '<li><strong>Design system guild</strong> - po jednym przedstawicielu na zespol, spotkanie co dwa tygodnie. To jest twoja siec dystrybucji informacji o breaking changes.</li>' +
-            '<li><strong>RFC przed kodem</strong> dla wszystkiego, co dotyka publicznego API. Krotkie, dwie strony, z jawnie wymienionymi odrzuconymi opcjami.</li>' +
-            '<li><strong>Publiczna roadmapa i kwartalny przeglad.</strong> Widocznosc kolejki znacznie obniza liczbe pytan kiedy to bedzie.</li>' +
+            '<li><strong>Office hours</strong> dwa razy w tygodniu po 45 minut. Zamienia asynchroniczne pytania na Slacku w rozmowę i buduje relacje, które później ratują migracje.</li>' +
+            '<li><strong>Design system guild</strong> - po jednym przedstawicielu na zespół, spotkanie co dwa tygodnie. To jest twoja sieć dystrybucji informacji o breaking changes.</li>' +
+            '<li><strong>RFC przed kodem</strong> dla wszystkiego, co dotyka publicznego API. Krótkie, dwie strony, z jawnie wymienionymi odrzuconymi opcjami.</li>' +
+            '<li><strong>Publiczna roadmapa i kwartalny przegląd.</strong> Widoczność kolejki znacznie obniża liczbę pytań kiedy to będzie.</li>' +
             '</ul>' +
             '<h4>Antywzorce</h4>' +
-            '<p>Zespol design systemu jako grupa recenzentow bez wlasnego kodu traci kompetencje i szacunek w ciagu roku. Rada architektoniczna spotykajaca sie raz w miesiacu, ktora blokuje merge, jest gwarancja forkow. I najczestszy blad: mierzenie sukcesu liczba komponentow. Liczba komponentow to koszt, a nie wynik - wynikiem jest adopcja i predkosc zespolow produktowych.</p>',
+            '<p>Zespół design systemu jako grupa recenzentów bez własnego kodu traci kompetencje i szacunek w ciągu roku. Rada architektoniczna spotykająca się raz w miesiącu, która blokuje merge, jest gwarancją forków. I najczęstszy błąd: mierzenie sukcesu liczbą komponentów. Liczba komponentów to koszt, a nie wynik - wynikiem jest adopcja i prędkość zespołów produktowych.</p>',
           en: '<p>At principal level, governance stops being a process and becomes the <strong>product strategy of an internal product</strong>. Your users are engineers who always have an alternative: write their own. Every governance decision is therefore a decision about whether they stay.</p>' +
             '<h4>Metrics that convince leadership</h4>' +
             '<ul>' +
@@ -1572,69 +1572,69 @@ export default {
       quiz: [
         {
           q: {
-            pl: 'Jaka jest glowna wada w pelni scentralizowanego modelu governance w duzej organizacji?',
+            pl: 'Jaka jest główna wada w pełni scentralizowanego modelu governance w dużej organizacji?',
             en: 'What is the main drawback of a fully centralised governance model in a large organisation?'
           },
           options: [
-            { pl: 'Komponenty sa mniej spojne wizualnie', en: 'Components end up less visually consistent' },
-            { pl: 'Zespol rdzenia staje sie waskim gardlem, wiec zespoly zaczynaja obchodzic system', en: 'The core team becomes a bottleneck, so teams start routing around the system' },
-            { pl: 'Nie da sie w nim prowadzic testow wizualnych', en: 'Visual testing is impossible in it' },
+            { pl: 'Komponenty są mniej spójne wizualnie', en: 'Components end up less visually consistent' },
+            { pl: 'Zespół rdzenia staje się wąskim gardłem, więc zespoły zaczynają obchodzić system', en: 'The core team becomes a bottleneck, so teams start routing around the system' },
+            { pl: 'Nie da się w nim prowadzić testów wizualnych', en: 'Visual testing is impossible in it' },
             { pl: 'Wymaga monorepo', en: 'It requires a monorepo' }
           ],
           correct: 1,
           explain: {
-            pl: 'Centralizacja daje najlepsza spojnosc, ale przy skali kolejka rosnie szybciej niz przepustowosc zespolu - i wtedy powstaja lokalne kopie.',
+            pl: 'Centralizacja daje najlepszą spójność, ale przy skali kolejka rośnie szybciej niż przepustowość zespołu - i wtedy powstają lokalne kopie.',
             en: 'Centralisation gives the best consistency, but at scale the queue grows faster than team throughput - and local copies appear.'
           }
         },
         {
           q: {
-            pl: 'Zespol prosi o nowy komponent, ktorego potrzebuje tylko on. Najlepsza odpowiedz w modelu hybrydowym?',
+            pl: 'Zespół prosi o nowy komponent, którego potrzebuje tylko on. Najlepsza odpowiedź w modelu hybrydowym?',
             en: 'A team requests a new component only they need. Best response in a hybrid model?'
           },
           options: [
-            { pl: 'Dodac go do systemu, bo kontrybucja jest zawsze dobra', en: 'Add it to the system, because contribution is always good' },
-            { pl: 'Odmowic bez uzasadnienia, zeby chronic spojnosc', en: 'Refuse without explanation to protect consistency' },
-            { pl: 'Poprosic o zbudowanie lokalnie i wrocic do tematu, gdy zglosza sie kolejne zespoly', en: 'Ask them to build it locally and revisit once more teams ask for it' },
-            { pl: 'Przekazac sprawe radzie architektonicznej na nastepny miesiac', en: 'Escalate to the architecture board for next month' }
+            { pl: 'Dodać go do systemu, bo kontrybucja jest zawsze dobra', en: 'Add it to the system, because contribution is always good' },
+            { pl: 'Odmówić bez uzasadnienia, żeby chronić spójność', en: 'Refuse without explanation to protect consistency' },
+            { pl: 'Poprosić o zbudowanie lokalnie i wrócić do tematu, gdy zgłoszą się kolejne zespoły', en: 'Ask them to build it locally and revisit once more teams ask for it' },
+            { pl: 'Przekazać sprawę radzie architektonicznej na następny miesiąc', en: 'Escalate to the architecture board for next month' }
           ],
           correct: 2,
           explain: {
-            pl: 'Zasada trzech zespolow chroni system przed rozrostem, a lokalna implementacja daje dowod, ze wzorzec jest realnie potrzebny.',
+            pl: 'Zasada trzech zespołów chroni system przed rozrostem, a lokalna implementacja daje dowód, że wzorzec jest realnie potrzebny.',
             en: 'The three-teams rule protects the system from bloat, and the local implementation provides evidence that the pattern is genuinely needed.'
           }
         },
         {
           q: {
-            pl: 'Ktora metryka jest najgorszym miernikiem sukcesu design systemu?',
+            pl: 'Która metryka jest najgorszym miernikiem sukcesu design systemu?',
             en: 'Which metric is the worst measure of design system success?'
           },
           options: [
-            { pl: 'Liczba komponentow w bibliotece', en: 'Number of components in the library' },
-            { pl: 'Procent UI na produkcji pochodzacy z systemu', en: 'Share of production UI coming from the system' },
-            { pl: 'Czas potrzebny nowemu zespolowi na pierwszy zgodny ekran', en: 'Time for a new team to build their first compliant screen' },
-            { pl: 'Liczba lokalnych forkow komponentow', en: 'Number of local component forks' }
+            { pl: 'Liczba komponentów w bibliotece', en: 'Number of components in the library' },
+            { pl: 'Procent UI na produkcji pochodzący z systemu', en: 'Share of production UI coming from the system' },
+            { pl: 'Czas potrzebny nowemu zespołowi na pierwszy zgodny ekran', en: 'Time for a new team to build their first compliant screen' },
+            { pl: 'Liczba lokalnych forków komponentów', en: 'Number of local component forks' }
           ],
           correct: 0,
           explain: {
-            pl: 'Kazdy komponent to koszt utrzymania, dokumentacji i testow. Sukcesem jest adopcja i predkosc zespolow, a nie rozmiar katalogu.',
+            pl: 'Każdy komponent to koszt utrzymania, dokumentacji i testów. Sukcesem jest adopcja i prędkość zespołów, a nie rozmiar katalogu.',
             en: 'Every component is maintenance, documentation and test cost. Success is adoption and team velocity, not catalogue size.'
           }
         },
         {
           q: {
-            pl: 'Zespol design systemu raportuje do jednego pionu produktowego. Jaki jest najbardziej prawdopodobny skutek w ciagu roku?',
+            pl: 'Zespół design systemu raportuje do jednego pionu produktowego. Jaki jest najbardziej prawdopodobny skutek w ciągu roku?',
             en: 'The design system team reports into a single product division. What is the most likely outcome within a year?'
           },
           options: [
-            { pl: 'Lepsza jakosc kodu, bo zespol ma jasnego wlasciciela', en: 'Better code quality, because the team has a clear owner' },
-            { pl: 'Priorytety przechylaja sie ku temu pionowi, a pozostale zespoly zaczynaja budowac wlasne komponenty', en: 'Priorities tilt toward that division and the other teams start building their own components' },
-            { pl: 'Zadnej roznicy, struktura raportowania nie wplywa na architekture', en: 'No difference, reporting structure does not affect architecture' },
-            { pl: 'Wzrost adopcji, bo pion bedzie promowal system', en: 'Higher adoption, because the division will promote the system' }
+            { pl: 'Lepsza jakość kodu, bo zespół ma jasnego właściciela', en: 'Better code quality, because the team has a clear owner' },
+            { pl: 'Priorytety przechylają się ku temu pionowi, a pozostałe zespoły zaczynają budować własne komponenty', en: 'Priorities tilt toward that division and the other teams start building their own components' },
+            { pl: 'Żadnej różnicy, struktura raportowania nie wpływa na architekturę', en: 'No difference, reporting structure does not affect architecture' },
+            { pl: 'Wzrost adopcji, bo pion będzie promował system', en: 'Higher adoption, because the division will promote the system' }
           ],
           correct: 1,
           explain: {
-            pl: 'To klasyczne prawo Conwaya: struktura finansowania i raportowania przeklada sie na to, czyje potrzeby ladują w roadmapie - i kto zostanie z systemem.',
+            pl: 'To klasyczne prawo Conwaya: struktura finansowania i raportowania przekłada się na to, czyje potrzeby lądują w roadmapie - i kto zostanie z systemem.',
             en: 'Classic Conway law: funding and reporting structure decides whose needs land on the roadmap - and who stays with the system.'
           }
         }

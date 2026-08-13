@@ -220,14 +220,14 @@ export default {
             'function inc() {\n' +
             '  count.value++\n' +
             '}\n' +
-            '// setup nigdy nie wykona sie drugi raz</code></pre>' +
+            '// setup nigdy nie wykona się drugi raz</code></pre>' +
             '<p>W Reactie stan mieszka w komponencie, ale to, co masz w ręce, to tylko odczytana wartość - migawka (snapshot) z tego jednego renderu.</p>' +
             '<pre><code>// React\n' +
             'const [count, setCount] = useState(0)\n' +
             'function inc() {\n' +
             '  setCount(count + 1)\n' +
             '}\n' +
-            '// cale cialo komponentu wykona sie ponownie</code></pre>' +
+            '// całe ciało komponentu wykona się ponownie</code></pre>' +
             '<p>W Vue robiłeś <code>count.value++</code>, bo mutowałeś jedno stałe pudełko. W Reactie robisz <code>setCount(...)</code>, bo <code>count</code> to <code>const</code> przypisany w tym renderze - nie da się go zmienić, można tylko poprosić o kolejny render z nową wartością.</p>' +
             '<p>Konsekwencja, która gryzie na starcie: dwa <code>setCount(count + 1)</code> pod rząd w jednym handlerze dadzą wynik 1, a nie 2. Oba czytają tę samą migawkę. W Vue <code>count.value++</code> dwa razy da 2, bo za każdym razem czytasz aktualny stan pudełka.</p>' +
             '<p>Ratunek jest prosty i warto go wyrobić od pierwszego dnia: gdy nowa wartość zależy od starej, przekaż funkcję.</p>' +
@@ -259,7 +259,7 @@ export default {
           pl: '<p>Model mentalny, który warto mieć na rozmowie: <strong>Vue śledzi zależności, React śledzi renderowanie</strong>. <code>ref</code> to obiekt z getterem i setterem na <code>.value</code>, który przy odczycie zapisuje aktualny efekt jako subskrybenta, a przy zapisie budzi wszystkich subskrybentów. <code>useState</code> nie śledzi niczego - to indeksowany slot w liście hooków fibera, a setter jedynie planuje aktualizację.</p>' +
             '<p>Stąd trzy rzeczy, które w produkcji faktycznie robią różnicę.</p>' +
             '<p><strong>1. Bail-out przez Object.is.</strong> Jeśli przekażesz tę samą wartość co obecna, React (od 18 z automatycznym batchingiem) potrafi pominąć render. Dlatego <code>setItems(items)</code> po mutacji tablicy w miejscu nie zrobi nic - to najczęstszy bug migrantów z Vue.</p>' +
-            '<pre><code>// zle: Vue-owy odruch\n' +
+            '<pre><code>// źle: Vue-owy odruch\n' +
             'items.push(next)\n' +
             'setItems(items)        // ta sama referencja =&gt; brak renderu\n' +
             '// dobrze\n' +
@@ -763,7 +763,7 @@ export default {
             '  () =&gt; heavySort(data, sortKey),\n' +
             '  [data, sortKey]\n' +
             ')\n' +
-            '// bez memo kazdy render sortowalby od nowa i tworzyl nowa tablice</code></pre>' +
+            '// bez memo każdy render sortowałby od nowa i tworzył nową tablicę</code></pre>' +
             '<p><strong>Kompilator zmienia rachunek.</strong> React Compiler (stabilny od React 19, opcjonalny plugin do bundlera) automatycznie wstawia memoizację na poziomie wartości - w praktyce dostajesz to, co Vue miało od zawsze, tylko na etapie kompilacji, a nie w runtime. W nowych projektach z włączonym kompilatorem ręczne <code>useMemo</code> staje się wyjątkiem, mniej więcej tak jak <code>v-memo</code> w Vue.</p>' +
             '<p><strong>Pułapki produkcyjne.</strong> Memoizacja po obiekcie, który i tak jest tworzony od nowa co render, to czysty koszt bez zysku - łatwo o to przy propsach z rozpakowaniem. Selektory ze store bez memoizacji (na przykład <code>useStore(s =&gt; ({ a: s.a, b: s.b }))</code> w Zustandzie) tworzą nowy obiekt przy każdym wywołaniu i wymuszają render; w Pinii tego problemu nie miałeś, bo <code>storeToRefs</code> zwraca stabilne refy.</p>' +
             '<p><strong>Wzorzec zamiast memo.</strong> Bardzo często lepszym rozwiązaniem niż memoizacja jest zmiana kształtu drzewa: wyciągnij drogi fragment do osobnego komponentu i przekaż go przez <code>children</code>. Rodzic renderuje się, dziecko nie - bez ani jednego <code>useMemo</code>. To dokładnie ta sama intuicja, którą w Vue realizowałeś slotami.</p>' +
@@ -953,7 +953,7 @@ export default {
         },
         school: {
           pl: '<p>W Vue metoda albo funkcja zdefiniowana w <code>setup</code> powstaje raz i żyje tak długo jak komponent. Jej tożsamość jest stała, więc nikt nigdy nie zastanawia się nad "referencją funkcji".</p>' +
-            '<pre><code>// Vue - setup wykonuje sie raz\n' +
+            '<pre><code>// Vue - setup wykonuje się raz\n' +
             'function save(payload) {\n' +
             '  api.save(payload)\n' +
             '}\n' +
@@ -1395,10 +1395,10 @@ export default {
             '// &lt;input ref={inputEl} /&gt;</code></pre>' +
             '<p>Wygląda niemal identycznie. Vue używa pola <code>.value</code>, React pola <code>.current</code>, w obu przypadkach jest to <code>null</code> do momentu zamontowania.</p>' +
             '<p>Zastosowanie drugie - zmienna instancyjna, która ma przeżyć render, ale nie ma go wywoływać:</p>' +
-            '<pre><code>// Vue - zwykla zmienna wystarczy, setup jest jednorazowy\n' +
+            '<pre><code>// Vue - zwykła zmienna wystarczy, setup jest jednorazowy\n' +
             'let timerId = null\n' +
             '\n' +
-            '// React - zwykla zmienna wyzerowalaby sie co render\n' +
+            '// React - zwykła zmienna wyzerowałaby się co render\n' +
             'const timerId = useRef(null)</code></pre>' +
             '<p>To jest sedno różnicy. W Vue pisałeś po prostu <code>let</code>, bo <code>setup</code> wykonywał się raz. W Reactie potrzebujesz <code>useRef</code>, bo ciało komponentu wykonuje się od nowa przy każdym renderze i zwykła zmienna nie ma szans niczego zapamiętać.</p>' +
             '<p>Ostatnia zasada, twarda: <strong>nie czytaj ani nie zapisuj <code>.current</code> podczas renderu</strong>. Render musi być czystą funkcją propsów i stanu. Ref dotykasz w event handlerach i w efektach.</p>' +
